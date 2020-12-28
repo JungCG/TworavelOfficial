@@ -29,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.tworavel.common.Gmail;
 import com.kh.tworavel.common.SHA256;
+import com.kh.tworavel.common.VillageWeatherParsing;
 import com.kh.tworavel.model.domain.Member;
 import com.kh.tworavel.model.service.MemberService;
 import com.kh.tworavel.model.service.OutService;
@@ -40,11 +41,17 @@ public class MemberController {
 
 	@Autowired
 	private OutService oService;
+	
+	@Autowired
+	private VillageWeatherParsing weatherparsing;
 
 	// 게시글 작성 페이지
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String MainPage(HttpServletRequest request, HttpServletResponse response, Model model, ModelAndView mv) {
-		return "MainPage";
+	public ModelAndView MainPage(HttpServletRequest request, HttpServletResponse response, Model model, ModelAndView mv) {
+		//날씨
+		mv.addObject("weatherArr", weatherparsing.WeatherParsing("60","127"));	//기본은 서울
+		mv.setViewName("MainPage");
+		return mv;
 	}
 
 	@RequestMapping(value = "/LoginCtl.do", method = RequestMethod.POST)
