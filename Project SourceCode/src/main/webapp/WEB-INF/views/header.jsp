@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+    	String ctx = request.getContextPath();
+    	String userID = null;
+		if(session.getAttribute("userID") != null){
+			userID = (String) session.getAttribute("userID");
+		}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +17,47 @@
 <body>
 	<script type="text/javascript">
 		$(function() {
+			<% if(userID == null){
+			%>
+			var before = document.getElementsByClassName("jck_before_login");
+    		for(var i = 0 ; i<before.length;i++){
+    			before[i].style.display = "block";
+    		}
+    		var after = document.getElementsByClassName("jck_after_login");
+    		for(var i = 0 ; i<after.length;i++){
+    			after[i].style.display = "none";
+    		}
+			<%
+			}else{
+			%>
+			var before = document.getElementsByClassName("jck_before_login");
+			for(var i = 0 ; i<before.length;i++){
+				before[i].style.display = "none";
+			}
+			var after = document.getElementsByClassName("jck_after_login");
+			for(var i = 0 ; i<after.length;i++){
+				after[i].style.display = "block";
+			}
+			<%
+				if(userID.equals("potatotravel")){
+			%>
+					var managerPage = document.getElementById("manager_my_page");
+					var userPage = document.getElementById("user_my_page");
+					userPage.style.display="none";
+			<%
+				}else{
+			%>
+					var managerPage = document.getElementById("manager_my_page");
+					var userPage = document.getElementById("user_my_page");
+					managerPage.style.display = "none";
+			<%
+				}
+			%>
+			
+			<%
+			}
+			%>
+			
 			$('.jck_up').on('click', function(e) {
 				e.preventDefault();
 				$('html,body').animate({
@@ -31,13 +79,13 @@
 	<div id="header_container"
 		style="width: 100vw; border-bottom: 1px solid black;">
 		<header
-			style="position: relative; width: 1280px; padding: 0 10px; height: 70px; display: flex; justify-content: space-between; align-items: center;">
+			style="position: relative; width: 1280px; padding: 0 10px; height: 70px; display: flex; justify-content: space-between; align-items: center; z-index:1;">
 			<div id="header_inside" style="position: fixed; width: 1280px;">
 				<div id="header_inside_section">
 					<div id="header_inside_section_left"
 						style="display: flex; justify-content: space-between; align-items: center; background-color: white; height: 70px;">
 						<div id="header_inside_section_left_img">
-							<a href="#"> <img
+							<a href="./"> <img
 								src="${pageContext.request.contextPath }/resources/images/logo_icon.png"
 								style="width: 167.741935484px; height: auto;">
 							</a>
@@ -84,10 +132,16 @@
 						<div>
 							<ul
 								style="list-style: none; display: flex; justify-content: space-between; align-items: center;">
-								<li style="display: inline-block;"><a href="#"
+								<li style="display: inline-block;" class="jck_before_login"><a href="./loginPre.do"
 									style="padding: 0 15px;">My Page</a></li>
-								<li style="display: inline-block;"><a href="#"
+								<li style="display: inline-block;" class="jck_after_login" id="user_my_page"><a href="./MyPage.do"
+									style="padding: 0 15px;">My Page</a></li>
+									<li style="display: inline-block;" class="jck_after_login" id="manager_my_page"><a href="./AdminPage.do"
+									style="padding: 0 15px;">Admin</a></li>
+								<li style="display: inline-block;" class="jck_before_login"><a href="./loginPre.do"
 									style="padding: 0 15px;">Login</a></li>
+								<li style="display: inline-block;" class="jck_after_login"><a href="./logout.do"
+									style="padding: 0 15px;">Logout</a></li>
 							</ul>
 						</div>
 					</div>

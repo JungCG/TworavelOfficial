@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Member">
+	<resultMap type="Member" id="resultMember">
+		<id property="m_id" column="m_id" />
+		<result property="m_pw" column="m_pw" />
+		<result property="m_name" column="m_name" />
+		<result property="m_nick" column="m_nick" />
+		<result property="m_birth" column="m_birth" />
+		<result property="m_gender" column="m_gender" />
+		<result property="m_address" column="m_address" />
+		<result property="m_address_detail" column="m_address_detail" />
+		<result property="m_like" column="m_like" />
+		<result property="m_joindate" column="m_joindate" />
+		<result property="m_intro" column="m_intro" />
+		<result property="m_visit" column="m_visit" />
+		<result property="m_image" column="m_image" />
+		<result property="m_status" column="m_status" />
+		<result property="m_logindate" column="m_logindate" />
+		<result property="m_reportcount" column="m_reportcount" />
+		<result property="m_phone" column="m_phone" />
+		<result property="m_email" column="m_email" />
+		<result property="m_emailhash" column="m_emailhash" />
+		<result property="m_authorization" column="m_authorization" />
+		<result property="m_joinway" column="m_joinway" />
+		<result property="m_point" column="m_point" />
+		<result property="cnt" column="cnt" />
+	</resultMap>
+
+	<!-- 회원 한명 조회 -->
+	<select id="selectOne" parameterType="string"
+		resultType="Member">
+		SELECT * FROM MEMBER WHERE M_ID = #{m_id}
+	</select>
+
+	<select id="duplecateID" parameterType="string" resultType="int">
+		SELECT COUNT(M_ID) AS CNT FROM MEMBER WHERE M_ID = #{m_id}
+	</select>
+
+	<select id="duplecateNickname" parameterType="string"
+		resultType="int">
+		SELECT COUNT(M_NICK) AS CNT FROM MEMBER WHERE M_NICK =
+		#{m_nick}
+	</select>
+
+	<select id="duplecateEMAIL" parameterType="string"
+		resultType="int">
+		SELECT COUNT(M_EMAIL) AS CNT FROM MEMBER WHERE M_EMAIL =
+		#{m_email}
+	</select>
+	
+	<select id ="getUserEmailCode" parameterType="string" resultType="string">
+		SELECT M_EMAILHASH FROM MEMBER WHERE M_ID = #{m_id}
+	</select>
+
+	<insert id="insertMember" parameterType="Member"
+		flushCache="true" statementType="PREPARED">
+		INSERT INTO MEMBER(M_ID, M_PW, M_NAME,
+		M_NICK, M_BIRTH, M_GENDER, M_ADDRESS, M_ADDRESS_DETAIL, M_JOINDATE,
+		M_INTRO, M_IMAGE, M_REPORTCOUNT, M_PHONE, M_EMAIL, M_EMAILHASH)
+		VALUES(#{m_id}, #{m_pw}, #{m_name}, #{m_nick}, #{m_birth},
+		#{m_gender}, #{m_address}, #{m_address_detail}, SYSDATE, #{m_intro},
+		#{m_image},
+		0, #{m_phone}, #{m_email}, #{m_emailhash})
+	</insert>
+	
+	<update id="setUserEmailChecked" parameterType="string" flushCache="true" statementType="PREPARED">
+		UPDATE MEMBER SET M_STATUS = 'O' WHERE M_ID = #{m_id}
+	</update>
+</mapper>
