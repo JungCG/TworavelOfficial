@@ -21,7 +21,7 @@
 	<!-- DBCP 연결 -->
 	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<beans:property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-		<beans:property name="url" value="jdbc:oracle:thin:@potato-travel.cvnpe7xokgbe.ap-northeast-2.rds.amazonaws.com:1521:orcl"/>
+		<beans:property name="url" value="jdbc:oracle:thin:@potato-travel.c0qsmdnmd0gr.ap-northeast-2.rds.amazonaws.com:1521:orcl"/>
 		<beans:property name="username" value="potatotravel"/>
 		<beans:property name="password" value="potatotravel"/>	
 	</beans:bean>
