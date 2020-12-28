@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Map">
+
+	<resultMap type="Mapp" id="resultmap">
+	<id property="title" column="map_title"/>
+	<result property="mapx" column="map_x"/>
+	<result property="mapy" column="map_y"/>
+	<result property="address" column="map_address"/>
+	<result property="tel" column="map_tel"/>
+			</resultMap>
+	
+	<select id="selectMap" resultType="arraylist" resultMap="resultmap">
+	select * from map
+	</select>
+</mapper>

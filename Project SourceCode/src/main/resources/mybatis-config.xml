@@ -7,11 +7,19 @@
 	<typeAliases>
 		<typeAlias type="com.kh.tworavel.model.domain.Member"
 			alias="Member" />
-			<typeAlias type="com.kh.tworavel.model.domain.Out"
+		<typeAlias type="com.kh.tworavel.model.domain.Out"
 			alias="Out" />
+		<typeAlias alias="Board"
+			type="com.kh.tworavel.model.domain.Board" />
+
+		<typeAlias alias="Mapp"
+			type="com.kh.tworavel.model.domain.Map" />
 	</typeAliases>
-	
+
 	<mappers>
+		<mapper resource="mappers/board-mapper.xml" />
+
+		<mapper resource="mappers/map-mapper.xml" />
 		<mapper resource="mappers/member-mapper.xml" />
 		<mapper resource="mappers/out-mapper.xml" />
 	</mappers>

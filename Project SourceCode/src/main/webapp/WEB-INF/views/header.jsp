@@ -106,14 +106,14 @@
 								<li id="jck_dropdown" style="display: inline-block;"><a
 									href="#" style="padding: 0 15px;">통합 게시판</a>
 									<div id="jck_dropdown_content">
-										<a href="#">공지 사항</a> <a href="#">여행 정보</a> <a href="#">여행
+										<a href="board_list.do?type=N">공지 사항</a> <a href="board_list.do?type=G">여행 정보</a> <a href="board_list.do?type=R">여행
 											리뷰</a>
 									</div></li>
 								<li style="display: inline-block;"><a href="#"
 									style="padding: 0 15px;">갤러리</a></li>
 								<li style="display: inline-block;"><a href="#"
 									style="padding: 0 15px;">포테이토박스</a></li>
-								<li style="display: inline-block;"><a href="#"
+								<li style="display: inline-block;"><a href="tworavelmap.do"
 									style="padding: 0 15px;">여행 지도</a></li>
 							</ul>
 						</div>

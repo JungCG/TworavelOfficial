@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="Board">
+	<!-- property에 vo의 필드명 column에는 db테이블의 컬럼명 -->
+
+	<resultMap type="Board" id="resultBoard">
+		<id property="b_id" column="B_ID" />
+		<result property="m_id" column="M_ID" />
+		<result property="b_type" column="B_TYPE" />
+		<result property="b_title" column="B_TITLE" />
+		<result property="b_timestamp" column="B_TIMESTAMP" />
+		<result property="b_content" column="B_CONTENT" />
+		<result property="b_secret" column="B_SECRET" />
+		<result property="b_secretnumber" column="B_SECRETNUMBER" />
+		<result property="b_view" column="B_VIEW" />
+		<result property="b_like" column="B_LIKE" />
+		<result property="b_ref" column="B_REF" />
+		<result property="b_re_step" column="B_RE_STEP" />
+		<result property="b_re_level" column="B_RE_LEVEL" />
+	</resultMap>
+	<!-- Final -->
+	<select id="listCount" resultType="int" parameterType="string">
+		select
+		count(*) from board where b_re_step=0 and b_type=#{b_type}
+	</select>
+	<select id="selectList" parameterType="string"
+		resultType="arraylist" resultMap="resultBoard">
+		select* from board where
+		b_type=#{board_type} and b_re_step=0 order by b_id desc
+	</select>
+
+
+	<insert id="insertBoard" parameterType="Board"
+		flushCache="true" statementType="PREPARED">
+		INSERT INTO BOARD
+		VALUES(BOARD_SEQ.NEXTVAL,#{m_id},#{b_type},#{b_title},SYSDATE,0,0,#{b_content},#{b_secret},#{b_secretnumber},BOARD_SEQ.NEXTVAL,0,0)
+	</insert>
+
+
+	<select id="selectBoard" parameterType="int" resultType="Board">
+		select* from board where b_id=#{b_id}
+	</select>
+
+	<select id="selectComment" parameterType="int" resultType="arraylist" resultMap="resultBoard">
+		select* from board where b_ref=#{b_ref} and b_re_step >0 order by b_re_step,b_re_level asc
+	</select>
+	
+	
+	<insert id="commentInsert" parameterType="Board"
+		flushCache="true" statementType="PREPARED">
+		INSERT INTO BOARD
+		VALUES(BOARD_SEQ.NEXTVAL,'Tworavel1','N',#{b_title},SYSDATE,0,0,#{b_content},'N',0,#{b_ref},#{b_re_step},#{b_re_level})
+	</insert>
+	
+	
+		
+	<insert id="recommentInsert" parameterType="Board"
+		flushCache="true" statementType="PREPARED">
+		INSERT INTO BOARD
+		VALUES(BOARD_SEQ.NEXTVAL,'Tworavel1','N',#{b_title},SYSDATE,0,0,#{b_content},'N',0,#{b_ref},#{b_re_step},#{b_re_level})
+	</insert>
+	
+	
+	<select id="selectCommentLevel" parameterType="hashmap" resultType="int">
+	select MAX(b_re_level)+1 from board where b_ref =#{b_ref} and b_re_step =#{b_re_step}
+	</select>
+	
+<select id="selectCommentStep" parameterType="int" resultType="int">
+		select max(b_re_step)+1 from board where b_ref=#{b_ref}
+	</select>
+	
+	
+	
+	
+	
+	
+</mapper>
