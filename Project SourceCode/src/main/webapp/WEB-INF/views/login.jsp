@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>로그인</title>
 <style>
 * {
 	padding: 0;
@@ -189,7 +189,7 @@ input {
 										<td><a href="#"><input type="button" value="회원가입"
 												class="right_input font_change" id="jck_join_btn"></a></td>
 										<td><a href="#"><input type="button" value="아이디 찾기"
-												class="right_input font_change" id="search_id"></a></td>
+												class="right_input font_change" id="search_page"></a></td>
 									</tr>
 								</table>
 							</form>
@@ -218,6 +218,10 @@ input {
     		$("#jck_join_btn").click(function() {
 				location.href = "./joinPre.do";
 			});
+    		
+    		$("#search_page").click(function(){
+    			location.href = "./searchPage.do";
+    		});
     	});
    	</script>
 </body>

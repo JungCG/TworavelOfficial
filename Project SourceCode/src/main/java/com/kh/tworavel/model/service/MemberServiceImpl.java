@@ -1,5 +1,7 @@
 package com.kh.tworavel.model.service;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +52,16 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int setUserEmailChecked(String m_id) {
 		return mDao.setUserEmailChecked(m_id);
+	}
+
+	@Override
+	public Member searchUsingEmail(String m_email) {
+		return mDao.searchUsingEmail(m_email);
+	}
+
+	@Override
+	public int updatePwd(HashMap<String, String> paramMap) {
+		return mDao.updatePwd(paramMap);
 	}
 
 	

@@ -71,9 +71,4 @@
 		select max(b_re_step)+1 from board where b_ref=#{b_ref}
 	</select>
 	
-	
-	
-	
-	
-	
 </mapper>

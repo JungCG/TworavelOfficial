@@ -32,7 +32,11 @@
 		resultType="Member">
 		SELECT * FROM MEMBER WHERE M_ID = #{m_id}
 	</select>
-
+	
+	<select id="searchUsingEmail" parameterType="string" resultType="Member">
+		SELECT * FROM MEMBER WHERE M_EMAIL = #{m_email}
+	</select>
+	
 	<select id="duplecateID" parameterType="string" resultType="int">
 		SELECT COUNT(M_ID) AS CNT FROM MEMBER WHERE M_ID = #{m_id}
 	</select>
@@ -66,5 +70,9 @@
 	
 	<update id="setUserEmailChecked" parameterType="string" flushCache="true" statementType="PREPARED">
 		UPDATE MEMBER SET M_STATUS = 'O' WHERE M_ID = #{m_id}
+	</update>
+	
+	<update id="updatePwd" parameterType="hashmap" flushCache="true" statementType="PREPARED">
+		UPDATE MEMBER SET M_PW = #{m_pw} WHERE M_ID = #{m_id}
 	</update>
 </mapper>

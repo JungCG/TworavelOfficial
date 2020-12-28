@@ -1,5 +1,7 @@
 package com.kh.tworavel.model.service;
 
+import java.util.HashMap;
+
 import com.kh.tworavel.model.domain.Member;
 
 public interface MemberService {
@@ -18,4 +20,8 @@ public interface MemberService {
 	String getUserEmailCode(String m_id);
 	
 	int setUserEmailChecked(String m_id);
+	
+	Member searchUsingEmail(String m_email);
+	
+	int updatePwd(HashMap<String, String> paramMap);
 }

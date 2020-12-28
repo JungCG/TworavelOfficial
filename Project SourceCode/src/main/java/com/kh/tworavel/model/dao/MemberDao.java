@@ -1,5 +1,7 @@
 package com.kh.tworavel.model.dao;
 
+import java.util.HashMap;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -63,5 +65,13 @@ public class MemberDao {
 	
 	public int setUserEmailChecked(String m_id) {
 		return sqlSession.update("Member.setUserEmailChecked", m_id);
+	}
+	
+	public Member searchUsingEmail(String m_email) {
+		return sqlSession.selectOne("Member.searchUsingEmail", m_email);
+	}
+	
+	public int updatePwd(HashMap<String, String> paramMap) {
+		return sqlSession.update("Member.updatePwd", paramMap);
 	}
 }
