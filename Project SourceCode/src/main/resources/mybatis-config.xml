@@ -11,14 +11,24 @@
 			alias="Out" />
 		<typeAlias alias="Board"
 			type="com.kh.tworavel.model.domain.Board" />
-
 		<typeAlias alias="Mapp"
 			type="com.kh.tworavel.model.domain.Map" />
+		<typeAlias alias="Companion"
+			type="com.kh.tworavel.model.domain.Companion" />
+		<typeAlias alias="CompanionAdd"
+			type="com.kh.tworavel.model.domain.CompanionAdd" />
+		<typeAlias alias="CompanionInfo"
+			type="com.kh.tworavel.model.domain.CompanionInfo" />
+		<typeAlias alias="CompanionLike"
+			type="com.kh.tworavel.model.domain.CompanionLike" />
+		<typeAlias alias="CompanionMap"
+			type="com.kh.tworavel.model.domain.CompanionMap" />
+		<typeAlias alias="CompanionTag"
+			type="com.kh.tworavel.model.domain.CompanionTag" />
 	</typeAliases>
-	
 	<mappers>
 		<mapper resource="mappers/board-mapper.xml" />
-
+		<mapper resource="mappers/companion-mapper.xml" />
 		<mapper resource="mappers/map-mapper.xml" />
 		<mapper resource="mappers/member-mapper.xml" />
 		<mapper resource="mappers/out-mapper.xml" />
