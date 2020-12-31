@@ -12,6 +12,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+	header * {
+		font-size : 15px;
+	}
+</style>
 </head>
 <body>
 	<script type="text/javascript">
@@ -78,11 +83,11 @@
 	<div id="header_container"
 		style="width: 100vw; border-bottom: 1px solid black;">
 		<header
-			style="position: relative; width: 1280px; padding: 0 10px; height: 70px; display: flex; justify-content: space-between; align-items: center; z-index:1;">
-			<div id="header_inside" style="position: fixed; width: 1280px;">
-				<div id="header_inside_section">
+			style="position: relative; width: 1280px; padding: 0 10px; height: 70px; display: flex; justify-content: space-between; align-items: center; z-index:999; border-radius : 0 0 10px 10px;">
+			<div id="header_inside" style="position: fixed; width: 1280px;  border-radius : 0 0 10px 10px;">
+				<div id="header_inside_section" style="border-radius : 0 0 10px 10px;">
 					<div id="header_inside_section_left"
-						style="display: flex; justify-content: space-between; align-items: center; background-color: white; height: 70px;">
+						style="display: flex; justify-content: space-between; align-items: center; background-color: white; height: 70px;border-radius : 0 0 10px 10px;">
 						<div id="header_inside_section_left_img">
 							<a href="./"> <img
 								src="${pageContext.request.contextPath }/resources/images/logo_icon.png"
@@ -148,9 +153,9 @@
 			</div>
 		</header>
 	</div>
-	<div class="jck_up" style="position: fixed; width: 100px; height: 100px; right: 50px; bottom: 50px; border-radius: 100%; cursor : pointer; outline:none; z-index:1;">
+	<div class="jck_up" style="position: fixed; width: 100px; height: 100px; right: 50px; bottom: 50px; border-radius: 100%; cursor : pointer; outline:none; z-index:999;">
 		<button
-			style="position: relative; width: 100%; height: 100%; background-color: #0AC5A8; border-radius: 100%; cursor : pointer; outline:none;">TOP</button>
+			style="font-weight:bolder;position: relative; width: 100%; height: 100%; background-color: #0AC5A8; border-radius: 100%; cursor : pointer; outline:none;">TOP</button>
 	</div>
 	
 	<script>
@@ -194,6 +199,7 @@
 		ChannelIO('boot', {
 			"pluginKey" : "f1f8e46a-2c26-4d02-ac37-3e5c504751ac"
 		});
+		
 	</script>
 </body>
 </html>

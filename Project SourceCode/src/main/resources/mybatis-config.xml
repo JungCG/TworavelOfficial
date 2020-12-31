@@ -11,6 +11,7 @@
 			alias="Out" />
 		<typeAlias alias="Board"
 			type="com.kh.tworavel.model.domain.Board" />
+
 		<typeAlias alias="Mapp"
 			type="com.kh.tworavel.model.domain.Map" />
 		<typeAlias alias="Companion"
@@ -25,6 +26,8 @@
 			type="com.kh.tworavel.model.domain.CompanionMap" />
 		<typeAlias alias="CompanionTag"
 			type="com.kh.tworavel.model.domain.CompanionTag" />
+			<typeAlias alias="CoronaMap"
+			type="com.kh.tworavel.model.domain.CoronaMap" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/board-mapper.xml" />
@@ -32,5 +35,6 @@
 		<mapper resource="mappers/map-mapper.xml" />
 		<mapper resource="mappers/member-mapper.xml" />
 		<mapper resource="mappers/out-mapper.xml" />
+		<mapper resource="mappers/coronamap-mapper.xml" />
 	</mappers>
 </configuration>

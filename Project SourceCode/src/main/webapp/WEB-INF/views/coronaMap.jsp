@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>제목 수정해주세요.</title>
+<title>coronaMap</title>
 <style>
 * {
 	outline:none;
@@ -38,8 +38,8 @@ body{
 <body>
 	<div class="jck_wrap">
 		<jsp:include page="header.jsp"/>
-		<div id = "common" style="width : 1000px; padding : 80px 0px;">
-		
+		<div id = "common" style="width : 1000px; padding-top : 20px; padding-bottom:80px;">
+			<jsp:include page="coronaMap2.jsp"/>
 		</div>
 		<jsp:include page="footer.jsp"/>
 	</div>

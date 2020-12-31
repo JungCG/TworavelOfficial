@@ -1,4 +1,7 @@
 @charset "UTF-8";
+* {
+	outline:none;
+}
 header {
 	margin: 0 auto;
 }

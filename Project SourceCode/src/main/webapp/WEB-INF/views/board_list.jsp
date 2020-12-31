@@ -13,10 +13,11 @@
 	src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.js"></script>
 <style>
 * {
+	outline:none;
 	padding: 0;
 	margin: 0;
 	border: 0;
-	border-collapse: collapsed;
+	border-collapse: collapse;
 	box-sizing: border-box;
 	text-decoration: none;
 }

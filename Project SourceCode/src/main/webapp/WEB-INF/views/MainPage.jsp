@@ -10,10 +10,11 @@
 <title>TwoRAVEL</title>
 <style>
 * {
+	outline:none;
 	padding: 0;
 	margin: 0;
 	border: 0;
-	border-collapse:collapsed;
+	border-collapse:collapse;
 	box-sizing:border-box;
 	text-decoration:none;
 }
@@ -56,7 +57,7 @@ body{
 			</h4>
 			<img id="weather_Img1" width="100" height="100"
 				src="${pageContext.request.contextPath}/resources/images/sun.png">
-			<img id="weather_Img2" width="100" height="71000"
+			<img id="weather_Img2" width="100" height="100"
 				src="${pageContext.request.contextPath}/resources/images/cloudy.png">
 			<img id="weather_Img3" width="100" height="100"
 				src="${pageContext.request.contextPath}/resources/images/cloudy2.png">
@@ -95,10 +96,14 @@ body{
 		  </ul>
 		</div>
 	</div>
-
-
-
-
+	<div id="coronaMap" style="position: fixed; width: 100px; height: 170px; right: 50px; bottom: 180px; outline:none; z-index:1;">
+		<div style="color : red; font-weight:bolder;position: relative; width: 100%; height: 120px; background-color: rgba(255,255,255,0);outline:none;">
+			<img width="100%" height="120px;"
+				src="${pageContext.request.contextPath}/resources/images/coronaIcon2.png">
+		</div>
+		<button
+			id = "coronaMapBtn" style="color : white; font-weight:bolder;position: relative; width: 100%; height: 50px; background-color: red; cursor : pointer; outline:none;">코로나 현황<br>보러가기</button>
+	</div>
 <!-- 날씨 스크립트 -->
 <script>
 	$(function(){
@@ -184,6 +189,10 @@ body{
 			$('#weather_Img2').css('display','none');
 			$('#weather_Img3').css('display','inline-block');
 		}
+		
+		$("#coronaMapBtn").click(function(){
+			location.href="./coronaMap.do";
+		});
 	})
 </script>
 

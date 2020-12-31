@@ -4,7 +4,7 @@
 	float: left;
 	padding: 10;
 }
-ICR_weatherBox2 p {
+#ICR_weatherBox2 p {
 	margin: 8px;
 	font-size: small;
 }
@@ -16,7 +16,7 @@ ICR_weatherBox2 p {
 	border-radius: 3px;
 	position: fixed;
 	top: 15%;
-	right: 50px;
+	left: 50px;
 	z-index:2;
 	text-align: center;
 	

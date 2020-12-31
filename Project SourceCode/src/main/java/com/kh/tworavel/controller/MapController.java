@@ -1,9 +1,12 @@
 package com.kh.tworavel.controller;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ibatis.annotations.Param;
@@ -11,13 +14,17 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.tworavel.common.CoronaParsing;
+import com.kh.tworavel.model.domain.CoronaMap;
 import com.kh.tworavel.model.domain.Map;
+import com.kh.tworavel.model.service.CoronaMapService;
 import com.kh.tworavel.model.service.MapService;
 
 @Controller
@@ -25,6 +32,9 @@ public class MapController {
 	// tag값의 정보를 가져오는 메소드
 	@Autowired
 	private MapService mapService;
+
+	@Autowired
+	private CoronaMapService cmService;
 
 	@RequestMapping(value = "selectMap.do", method = RequestMethod.GET)
 	public ModelAndView selectMap(ModelAndView mv) {
@@ -37,7 +47,7 @@ public class MapController {
 		return mv;
 	}
 
-	@RequestMapping(value ="tworavelmap.do", method = RequestMethod.GET)
+	@RequestMapping(value = "tworavelmap.do", method = RequestMethod.GET)
 	public ModelAndView testMap(ModelAndView mv) {
 		mv.clear();
 		List<Map> list = new ArrayList<Map>();
@@ -138,4 +148,61 @@ public class MapController {
 
 	}
 
+	@RequestMapping(value = "/coronaMapUpdate.do", method = RequestMethod.GET)
+	public String coronaMapUpdate(HttpServletRequest request, HttpServletResponse response, Model model,
+			ModelAndView mv) throws IOException {
+
+		CoronaParsing cp = new CoronaParsing();
+		List<HashMap<String, String>> parsedList = cp.coronaList();
+		try {
+			int cnt = 0;
+			for (int i = 0; i < parsedList.size(); i++) {
+				HashMap<String, String> cmap = parsedList.get(i);
+				String gubun = cmap.get("gubun");
+				int c_defCnt = Integer.parseInt(cmap.get("c_defCnt"));
+				int c_isolIngCnt = Integer.parseInt(cmap.get("c_isolIngCnt"));
+				int c_isolClearCnt = Integer.parseInt(cmap.get("c_isolClearCnt"));
+				int c_incDec = Integer.parseInt(cmap.get("c_incDec"));
+				int c_deathCnt = Integer.parseInt(cmap.get("c_deathCnt"));
+				double c_qurRate;
+				if (cmap.get("c_qurRate").equals("-"))
+					c_qurRate = 0;
+				else
+					c_qurRate = Double.parseDouble(cmap.get("c_qurRate"));
+				String c_createDt = cmap.get("c_createDt");
+				CoronaMap cm = new CoronaMap(gubun, c_defCnt, c_isolIngCnt, c_isolClearCnt, c_incDec, c_deathCnt,
+						c_qurRate, c_createDt);
+
+				int temp = cmService.updateUsingName(cm);
+				cnt += temp;
+			}
+			
+			if (cnt > 0) {
+				model.addAttribute("msg", "코로나맵을 업데이트하였습니다.");
+				model.addAttribute("url", "/coronaMap.do");
+			} else {
+				model.addAttribute("msg", "업데이트 할 내용이 없습니다.");
+				model.addAttribute("url", "/coronaMap.do");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("msg", "업데이트 도중 에러가 발생했습니다.");
+			model.addAttribute("url", "/coronaMap.do");
+		}
+		return "alertMsg";
+	}
+
+	@RequestMapping(value = "coronaMap.do", method = RequestMethod.GET)
+	public ModelAndView coronaMap(HttpServletRequest request, HttpServletResponse response, Model model, ModelAndView mv) {
+		List<CoronaMap> coronaList = null;
+		try {
+			coronaList = cmService.selectList();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		mv.addObject("coronaList", coronaList);
+		mv.setViewName("coronaMap");
+		return mv;
+	}
 }

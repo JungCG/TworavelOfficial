@@ -134,7 +134,24 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
-
+		
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-test</artifactId>
+		    <version>${org.springframework-version}</version>
+		    <scope>test</scope>
+		</dependency>
+		
+		<!-- Mock MVC를 위한 mockito-all 프레임워크 -->
+		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-all -->
+		<dependency>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>mockito-all</artifactId>
+		    <version>1.9.5</version>
+		    <scope>test</scope>
+		</dependency>
+		
 		<!-- ojdbc 라이브러리 -->
 		<!-- https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc6 -->
 		<dependency>
