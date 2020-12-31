@@ -28,6 +28,12 @@
 			type="com.kh.tworavel.model.domain.CompanionTag" />
 			<typeAlias alias="CoronaMap"
 			type="com.kh.tworavel.model.domain.CoronaMap" />
+		<typeAlias alias="Gallery"
+			type="com.kh.tworavel.model.domain.Gallery" />
+			<typeAlias alias="Gallery"
+			type="com.kh.tworavel.model.domain.Gallery" />
+			
+			
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/board-mapper.xml" />
@@ -36,5 +42,6 @@
 		<mapper resource="mappers/member-mapper.xml" />
 		<mapper resource="mappers/out-mapper.xml" />
 		<mapper resource="mappers/coronamap-mapper.xml" />
+		<mapper resource="mappers/gallery-mapper.xml" />
 	</mappers>
 </configuration>
