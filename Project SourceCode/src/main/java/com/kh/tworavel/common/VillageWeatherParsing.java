@@ -124,6 +124,13 @@ public class VillageWeatherParsing {
 		String month2  = String.valueOf(month);
 		String day2  = String.valueOf(day);
 		String hour2  = String.valueOf(hour);
+		
+		if(month<10) {
+			month2 = "0" + month2;
+		}
+		if(day<10) {
+			day2 = "0" + day2;
+		}
 
 		//시간
 		if (2 < hour) { // 3~23시
@@ -133,6 +140,7 @@ public class VillageWeatherParsing {
 				}
 			}
 			hour2  = String.valueOf(hour);
+			
 			calArr[0] =  String.valueOf(year) + month2 + day2;
 		}else if(hour<3) {
 			if(hour/3==0) {
@@ -147,9 +155,7 @@ public class VillageWeatherParsing {
 		if(hour<10) {	//0~9
 			hour2 = "0" + hour2;
 		}
-		if(month<10) {
-			month2 = "0" + month2;
-		}
+		
 		
 		
 			
