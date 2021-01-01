@@ -194,7 +194,31 @@ body{
 			location.href="./coronaMap.do";
 		});
 	})
-</script>
-
+	//검색 기능
+$(function(){
+	$("#searchform").submit(function(){
+		var option =$("#filter option:selected").val(); 
+		var keyword =$("#keyword").val();
+		if(keyword==""){
+			alert("검색어를 입력해주세요");
+			$("#keyword").focus();
+			return false;
+		}
+		else{
+			if(option==1){
+				alert("대영이 형님이 추가하실겁니다");
+				return false;
+			}
+			else if(option==2){
+			$("#searchform").attr("action","tworavelmap.do");
+		}
+		else if(option==3){
+			$("#searchform").attr("action","board_list.do");
+		}
+			
+		}
+	})
+})
+ </script>
 </body>
 </html>

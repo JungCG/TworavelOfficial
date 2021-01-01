@@ -75,8 +75,9 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "board_write.do")
-	public ModelAndView fBoardwriteService(ModelAndView mv,@RequestParam(name="b_type",required = false,defaultValue="G")String b_type ) {
-		mv.addObject("b_type",b_type);
+	public ModelAndView fBoardwriteService(ModelAndView mv,
+			@RequestParam(name = "b_type", required = false, defaultValue = "G") String b_type) {
+		mv.addObject("b_type", b_type);
 		mv.setViewName("board_write");
 		return mv;
 	}
@@ -113,7 +114,7 @@ public class BoardController {
 			@RequestParam(name = "b_secretnumber", defaultValue = "0") int b_secretnumber, ModelAndView mv,
 			HttpServletRequest request) {
 		Board b = new Board();
-		b_content.replace("\"","'");
+		b_content.replace("\"", "'");
 		System.out.println(b_content);
 		b.setB_content(b_content);
 		b.setM_id(m_id);
@@ -161,87 +162,93 @@ public class BoardController {
 		return mv;
 	}
 
-	
-	  @RequestMapping(value="commentupdate.do",method=RequestMethod.POST) public
-	  ModelAndView commentUpdateService(ModelAndView mv,@RequestParam(name="b_id")int b_id,@RequestParam(name="b_content")String b_content,@RequestParam(name="b_ref")int b_ref,HttpServletRequest
-	  request) {
-		  Board vo = new Board();
-		  vo.setB_content(b_content);
-		  vo.setB_id(b_id);
-		  bService.updateComment(vo);
-		  mv.setViewName("redirect:/board_detail.do?b_id="+b_ref);				  
-				  return mv; }
-	 @RequestMapping(value="board_updateform.do")
-	 public ModelAndView boardupdate(ModelAndView mv,@RequestParam(name="b_id")int b_id) {
-		 
-			mv.addObject("blist", bService.selectBoard(b_id));
-			mv.setViewName("board_update");
-			return mv;
-	 }
-	  @RequestMapping(value="updateboard.do" ,method = RequestMethod.POST)
-	  public ModelAndView boardupdateService(ModelAndView mv,@RequestParam(name="b_content")String b_content,@RequestParam(name="b_title")String b_title,@RequestParam(name="b_secret")String b_secret,
-		  @RequestParam(name="b_secretnumber")int b_secretnumber,@RequestParam(name="b_id")int b_id,@RequestParam(name="b_type")String b_type) {
-		  Board vo = new Board();
-		  vo.setB_content(b_content);
-		  vo.setB_id(b_id);
-		  vo.setB_secret(b_secret);
-		  vo.setB_secretnumber(b_secretnumber);
-		  vo.setB_type(b_type);
-		  vo.setB_title(b_title);
-		  bService.updateBoard(vo);
-		  mv.setViewName("redirect:/board_detail.do?b_id="+b_id);
-		  return mv;
-	  }
-	  @RequestMapping(value="board_like.do")
-		 public void boardlike(ModelAndView mv,@RequestParam(name="b_id")int b_id,@RequestParam(name="m_id")String m_id,@RequestParam(name="chc")int chc,HttpServletRequest request, HttpServletResponse response) {
-		 PrintWriter out;
+	@RequestMapping(value = "commentupdate.do", method = RequestMethod.POST)
+	public ModelAndView commentUpdateService(ModelAndView mv, @RequestParam(name = "b_id") int b_id,
+			@RequestParam(name = "b_content") String b_content, @RequestParam(name = "b_ref") int b_ref,
+			HttpServletRequest request) {
+		Board vo = new Board();
+		vo.setB_content(b_content);
+		vo.setB_id(b_id);
+		bService.updateComment(vo);
+		mv.setViewName("redirect:/board_detail.do?b_id=" + b_ref);
+		return mv;
+	}
+
+	@RequestMapping(value = "board_updateform.do")
+	public ModelAndView boardupdate(ModelAndView mv, @RequestParam(name = "b_id") int b_id) {
+
+		mv.addObject("blist", bService.selectBoard(b_id));
+		mv.setViewName("board_update");
+		return mv;
+	}
+
+	@RequestMapping(value = "updateboard.do", method = RequestMethod.POST)
+	public ModelAndView boardupdateService(ModelAndView mv, @RequestParam(name = "b_content") String b_content,
+			@RequestParam(name = "b_title") String b_title, @RequestParam(name = "b_secret") String b_secret,
+			@RequestParam(name = "b_secretnumber") int b_secretnumber, @RequestParam(name = "b_id") int b_id,
+			@RequestParam(name = "b_type") String b_type) {
+		Board vo = new Board();
+		vo.setB_content(b_content);
+		vo.setB_id(b_id);
+		vo.setB_secret(b_secret);
+		vo.setB_secretnumber(b_secretnumber);
+		vo.setB_type(b_type);
+		vo.setB_title(b_title);
+		bService.updateBoard(vo);
+		mv.setViewName("redirect:/board_detail.do?b_id=" + b_id);
+		return mv;
+	}
+
+	@RequestMapping(value = "board_like.do")
+	public void boardlike(ModelAndView mv, @RequestParam(name = "b_id") int b_id,
+			@RequestParam(name = "m_id") String m_id, @RequestParam(name = "chc") int chc, HttpServletRequest request,
+			HttpServletResponse response) {
+		PrintWriter out;
 		try {
 			out = response.getWriter();
 			Board vo = new Board();
 			vo.setB_id(b_id);
 			vo.setM_id(m_id);
 			System.out.println(chc);
-			if(chc==1) {
+			if (chc == 1) {
 				System.out.println("실행");
 				bService.deleteLike(vo);
 				bService.updateLikeMinus(b_id);
-			}else {
+			} else {
 				bService.updateLikePlus(b_id);
 				bService.insertLike(vo);
 			}
-			int LikeCount =0;
-			LikeCount =bService.selectLikeCount(b_id);
+			int LikeCount = 0;
+			LikeCount = bService.selectLikeCount(b_id);
 			out.print(LikeCount);
 			out.flush();
-			out.close();				
+			out.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 }
-	  @RequestMapping(value="board_likecheck.do")
-		 public void boardlikecheck(ModelAndView mv,@RequestParam(name="b_id")int b_id,@RequestParam(name="m_id")String m_id,HttpServletRequest request, HttpServletResponse response) {
-			PrintWriter out;
-			try {
-				out = response.getWriter();
-				int checkid = 0;
-				Board vo = new Board();
-				vo.setM_id(m_id);
-				vo.setB_id(b_id);
-				checkid =bService.selectLikeMid(vo);
-				out.print(checkid);
-				out.flush();
-				out.close();			
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		 }
-	  
-	  
-	  
-	
-	  
+	}
+
+	@RequestMapping(value = "board_likecheck.do")
+	public void boardlikecheck(ModelAndView mv, @RequestParam(name = "b_id") int b_id,
+			@RequestParam(name = "m_id") String m_id, HttpServletRequest request, HttpServletResponse response) {
+		PrintWriter out;
+		try {
+			out = response.getWriter();
+			int checkid = 0;
+			Board vo = new Board();
+			vo.setM_id(m_id);
+			vo.setB_id(b_id);
+			checkid = bService.selectLikeMid(vo);
+			out.print(checkid);
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	// 파일 업로드
 	@RequestMapping("/fileupload.do")
 	public void multiplePhotoUpload(HttpServletRequest request, HttpServletResponse response) {

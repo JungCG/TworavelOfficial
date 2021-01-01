@@ -11,14 +11,14 @@
 			</div>
 			<div style="position:absolute; top:500px; left : 376.1px;">
 				<div>
-					<form>
+					<form id="searchform">
 						<select name="filter" id="filter" style="font-size: 17px; font-weight:bolder; text-align:center; width : 100px; height : 100px; border-radius:10px; background-color:rgba(255,255,255,0.8);">
 							<option value="1">동행</option>
 							<option value="2">지도</option>
 							<option value="3">게시판</option>
 						</select>
 						<input style="font-size: 17px; font-weight:bolder; width : 600px; height : 100px; text-align:center; border-radius:10px; background-color:rgba(255,255,255,0.8);" type="text" id="keyword" name="keyword" placeholder="검색어를 입력해주세요."/>
-						<input style="color : #2C3C5B; font-size: 20px; font-weight:bolder; width : 100px; height : 100px; border-radius:10px; background-color:rgba(10,197,168,0.8);" type="submit" value="Search">
+						<input style="color : #2C3C5B; font-size: 20px; font-weight:bolder; width : 100px; height : 100px; border-radius:10px; background-color:rgba(10,197,168,0.8);" type="submit" value="Search" id="searchbtn">
 					</form>
 				</div>
 			</div>

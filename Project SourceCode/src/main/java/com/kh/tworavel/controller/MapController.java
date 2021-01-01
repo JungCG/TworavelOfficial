@@ -47,7 +47,7 @@ public class MapController {
 	}
 
 	@RequestMapping(value ="tworavelmap.do", method = RequestMethod.GET)
-	public ModelAndView testMap(ModelAndView mv,@RequestParam(name="searchtext",required = false)String searchtext) {
+	public ModelAndView testMap(ModelAndView mv,@RequestParam(name="keyword",required = false)String searchtext) {
 		List<Map> list = new ArrayList<Map>();
 		list = mapService.selectMap();
 		mv.addObject("mList", list);

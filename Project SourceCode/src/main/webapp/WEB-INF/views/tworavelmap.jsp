@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jck_main.css">
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,12 +9,45 @@
     <meta charset="utf-8">
     <title>카테고리별 장소 검색하기</title>
     
-    <style>#placesList li {list-style: none;}
+    <style>
+    
+    #placesList li {list-style: none;}
+* {
+	outline:none;
+	padding: 0;
+	margin: 0;
+	border: 0;
+	border-collapse:collapse;
+	box-sizing:border-box;
+	text-decoration:none;
+}
+#menu_wrap{
+margin-left: 20px;
+}
+html{
+	height : 100%;
+}
+
+body{
+	height : 100%;
+}
+
+.jck_wrap{
+	min-height:100%;
+	position : relative;
+	padding-bottom : 200px;
+}
+header{
+z-index: 97;
+}
+.map_wrap{
+z-index: 988;
+}
     .bg_white {background:#fff;}
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
 .map_wrap {position:relative;width:100%;height:1000px;}
-#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
+#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 20px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
 #menu_wrap .option{text-align: center;}
@@ -47,17 +82,17 @@
 #pagination .on {font-weight: bold; cursor: default;color:#777;}#category {position:absolute;top:10px;left:10px;border-radius: 5px; border:1px solid #909090;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);background: #fff;overflow: hidden;z-index: 2;}
 #category{left:270px;}
 #category li {float:left;list-style: none;width:50px;px;border-right:1px solid #acacac;padding:6px 0;text-align: center; cursor: pointer;}
-#category li.on {background: #eee;}
+#category li.own {background: #eee;}
 #category li:hover {background: #ffe6e6;border-left:1px solid #acacac;margin-left: -1px;}
 #category li:last-child{margin-right:0;border-right:0;}
 #category li span {display: block;margin:0 auto 3px;width:27px;height: 28px;}
 #category li .category_bg {background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png) no-repeat;}
-#category li .bank {background-position: -10px 0;}
-#category li .mart {background-position: -10px -36px;}
-#category li .pharmacy {background-position: -10px -72px;}
-#category li .oil {background-position: -10px -108px;}
-#category li .cafe {background-position: -10px -144px;}
-#category li .store {background-position: -10px -180px;}
+#category li .bank {background-position: -10px 0;background:url(${pageContext.request.contextPath}/resources/images/metro.png) no-repeat;}
+#category li .mart {background-position: -10px -36px;background:url(${pageContext.request.contextPath}/resources/images/gb.png) no-repeat;}
+#category li .pharmacy {background-position: -10px -72px;background:url(${pageContext.request.contextPath}/resources/images/motel.png) no-repeat;}
+#category li .oil {background-position: -10px -108px;background:url(${pageContext.request.contextPath}/resources/images/food.png) no-repeat;}
+#category li .cafe {background-position: -10px -144px;background:url(${pageContext.request.contextPath}/resources/images/cafe.png) no-repeat;}
+#category li .store {background-position: -10px -180px;background:url(${pageContext.request.contextPath}/resources/images/party.png) no-repeat;}
 #category li.on .category_bg {background-position-x:-46px;}
 .placeinfo_wrap {position:absolute;bottom:28px;left:-150px;width:300px;}
 .placeinfo {position:relative;width:100%;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;padding-bottom: 10px;background: #fff;}
@@ -72,6 +107,8 @@
 </style>
 </head>
 <body>
+<div class="jck_wrap">
+		<jsp:include page="header.jsp"/>
 <div class="map_wrap">
     <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
 
@@ -79,7 +116,7 @@
         <div class="option">
             <div>
                 <form onsubmit="searchPlaces(); return false;">
-                    키워드 : <input type="text" value="이태원 맛집" id="keyword" size="15"> 
+                    키워드 : <input type="text" value="" id="keyword" size="15"> 
                     <button type="submit">검색하기</button> 
                 </form>
             </div>
@@ -90,7 +127,7 @@
     </div>
          <ul id="category">
         <li id="SW8" data-order="0" class="ctbt"> 
-            <span class="category_bg subway"></span>
+            <span class="category_bg bank"></span>
             지하철역
         </li>       
         <li id="AT4" data-order="1"  class="ctbt"> 
@@ -110,18 +147,23 @@
            카페
         </li>  
         <li id="CT1ff" data-order="51123"> 
-            <span class="ca2323tegory_bg 2323store"></span>
+            <span class="ca2323tegory_bg store"></span>
             행사
         </li>      
     </ul>
 </div>
+		<jsp:include page="footer.jsp"/>
 
+	</div>
+</body>
+</html>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bb74b1c432c6717d09c3677341bf1ead&libraries=services"></script>
 <script>
 // 마커를 클릭했을 때 해당 장소의 상세정보를 보여줄 커스텀오버레이입니다
 var markers = [];
 var markers3 = [];
 var marker3 =[];
+var searchtext = "${searchtext}";
 /* var content1 =[];
 var title =[];
 var position = []; */
@@ -447,7 +489,7 @@ if (!currCategory) {
 
 				placeOverlay.setMap(null);
 
-				if (className === 'on') {
+				if (className === 'ond') {
 				    currCategory = '';
 				    changeCategoryClass();
 				    removemarker1();
@@ -466,7 +508,7 @@ if (!currCategory) {
 				}
 
 				if (el) {
-				    el.className = 'on';
+				    el.className = 'own';
 				} 
 				}
 // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
@@ -478,15 +520,24 @@ searchPlaces();
 // 키워드 검색을 요청하는 함수입니다
 function searchPlaces() {
 
-    var keyword = document.getElementById('keyword').value;
-
+ 
+  var keyword = document.getElementById('keyword').value;
+ 	
+ 	if(searchtext!=""){
+    	ps.keywordSearch(searchtext, placesSearchCB);
+    	searchtext =""
+ 	}
+ 	else{
+    ps.keywordSearch( keyword, placesSearchCB); 
+ 	
     if (!keyword.replace(/^\s+|\s+$/g, '')) {
         alert('키워드를 입력해주세요!');
         return false;
     }
+ 	}	
+
 
     // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
-    ps.keywordSearch( keyword, placesSearchCB); 
 }
 
 // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
@@ -512,7 +563,6 @@ function placesSearchCB(data, status, pagination) {
 
     }
 }
-
 // 검색 결과 목록과 마커를 표출하는 함수입니다
 function displayPlaces(places) {
 
@@ -662,7 +712,6 @@ function displayInfowindow(marker, title) {
     infowindow.setContent(content);
     infowindow.open(map, marker);
 }
-
  // 검색결과 목록의 자식 Element를 제거하는 함수입니다
 function removeAllChildNods(el) {   
     while (el.hasChildNodes()) {
