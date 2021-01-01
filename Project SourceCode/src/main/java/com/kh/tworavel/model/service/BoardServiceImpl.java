@@ -36,6 +36,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 	@Override
 	public Board selectBoard(int b_id) {
+		bDao.addReadCount(b_id);
 		return bDao.selectBoard(b_id);
 	}
 	@Override
@@ -57,5 +58,68 @@ public class BoardServiceImpl implements BoardService {
 		System.out.println("몇번이냐"+vo.getB_re_level());
 		bDao.recommentInsert(vo);
 	}
+	@Override
+	public void deleteBoard(int b_id) {
+		bDao.deleteBoard(b_id);
+		
+	}
+	@Override
+	public void deleteComment(int b_id) {
+		bDao.deleteComment(b_id);
+	}
+	@Override
+	public void deleteRecomment(int b_id) {
 
+		bDao.deleteComment(b_id);
+		
+	}
+	public int selectCommentCount(HashMap<String, Integer> commentinfo) {
+		
+		return bDao.selectCommentCount(commentinfo);
+	}
+	@Override
+	public void deleteCommentB(int b_id) {
+
+bDao.deleteCommentB(b_id);
+		
+	}
+	@Override
+	public void updateComment(Board vo) {
+		bDao.updateComment(vo);
+		
+	}
+	@Override
+	public void updateBoard(Board vo) {
+		
+		bDao.updateBoard(vo);
+	}
+
+	@Override
+	public int selectLikeMid(Board vo) {
+		return bDao.selectLikeMid(vo);
+	}
+	@Override
+	public void insertLike(Board vo) {
+		bDao.insertLike(vo);
+	}
+	@Override
+	public void updateLikePlus(int b_id) {
+		bDao.updateLikePlus(b_id);
+	}
+	@Override
+	public void updateLikeMinus(int b_id) {
+		bDao.updateLikeMinus(b_id);
+	}
+	@Override
+	public void deleteLike(Board vo) {
+			bDao.deleteLike(vo);
+	}
+	@Override
+	public int selectLikeCount(int b_id) {
+		return bDao.selectLikeCount(b_id);
+	}
+	@Override
+	public List<Board> selectHotViewList() {
+		return bDao.selectHotViewList();
+	}
 }

@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jck_main.css">
 <!DOCTYPE html>
 <html>
@@ -8,18 +11,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-@import url(//fonts.googleapis.com/earlyaccess/hanna.css);
-@font-face {
-    font-family: 'NEXON Lv2 Gothic';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv2 Gothic.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
 * {
 	padding: 0;
 	margin: 0;
 	border: 0;
-	border-collapse:collapse;
+	border-collapse:collapsed;
 	box-sizing:border-box;
 	text-decoration:none;
 }
@@ -43,15 +39,13 @@ GJW {
 	justify-content: center;
 	margin-top: 70px;	
 	margin-bottom: 100px;
-	
 }
 
 section {
 	width: 1000px;
 	display: flex;
 	justify-content: center;
-	border: 1px solid #0000004a;
-padding-top: 40px;
+	flex-direction: column;
 }
 #smart_editor2{
 width: 100%;
@@ -107,7 +101,7 @@ outline:none;
     display:none;}
     #submitModifyBoardBtn{
     
-    color: #black;
+    color: #0AC5A8;
     border:3px solid rgb(78 102 255 / 39%);
     font-size:16px;
     background-color: white;
@@ -115,17 +109,10 @@ outline:none;
     padding: 5px;
     }
     #gjw-serach-list{
-        color: #black;
+        color: #0AC5A8;
   border:3px solid rgb(78 102 255 / 39%);
   border-radius: 5px;
     padding: 5px;
-    }
-    td{
-padding-top: 20px;
-    padding-bottom: 5px;    }
-    .gjw-table-tr{
-        border-bottom: 1px solid #0000002e;
-    
     }
 </style>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/se/js/HuskyEZCreator.js"></script>
@@ -140,58 +127,47 @@ padding-top: 20px;
 		<jsp:include page="header.jsp"/>
 <GJW>
 <section>
-<div style="
-    width: 90%;
-">
-<div style=" font-family: 'Hanna', fantasy;font-size:30px;margin-bottom: 30px;">
-게시판 글쓰기
-</div>
 	<form name ="frm" enctype="multipart/form-data">
+	<input type="hidden" value="${blist.b_id }" name="b_id">
 		<table align="center" style="width: 100%;">
-			<tr class="gjw-table-tr">
-				 <td style="color:#black;    font-family: 'NEXON Lv2 Gothic';
-				 ">제목</td>
+			<tr style="height:80px">
+				 <td style="color:#0AC5A8;">제목</td>
 				 <td style="width:85%;">
-				<input type="text" name="b_title" id="gjw-title-input" placeholder="글 제목을 입력해주세요" required="required"></td>
-			<tr class="gjw-table-tr">
-				<td style="color:#black; font-family: 'NEXON Lv2 Gothic';">작성자</td>
+				<input type="text" name="b_title" id="gjw-title-input" required="required" value="${blist.b_title }"></td>
+			<tr style="height:30px">
+				<td style="color:#0AC5A8;">작성자</td>
 				<td><input type="text" name="m_id" value="${userID }" readonly="readonly"></td>
 			</tr>
-			
-			<tr class="gjw-table-tr">
-			<td style="color:#black;    font-family: 'NEXON Lv2 Gothic';
-			">게시판 선택</td>
-			<td style="width:90%;"><select name="b_type" id="gjw-type-select">
+			<tr style="height:30px">
+			<td style="color:#0AC5A8;">글분류</td>
+			<td style="width:90%;padding-top: 30px;padding-bottom: 30px;"><select name="b_type" id="gjw-type-select">
                               <option value="N">공지사항</option>
                               <option value="G">여행정보</option>
                               <option value="R">리뷰</option>
                         </select></td>
 			</tr>
 			
-			 <tr class="gjw-table-tr">
-                        <td style="color:#black;    font-family: 'NEXON Lv2 Gothic';
-                        ">비밀글</td>
+			 <tr style="height:30px">
+                        <td style="color:#0AC5A8;">비밀글</td>
                         <td>&nbsp;&nbsp;<label for="yes" style="color:rgb(78 102 255 / 90%);">Yes&nbsp;&nbsp;</label><input type="radio"
                            name="b_secret" id="yes" value="Y" />&nbsp;&nbsp;<label for="No" style="color:rgb(78 102 255 / 90%);">No</label>
                            <input type="radio" name="b_secret" id="No"
-                           checked="checked" value="N" /></td>
+                       value="N" /></td>
                      </tr>
-			<tr id="gjw-secret-tr" class="gjw-table-tr">
-				<td style="color:#black;    font-family: 'NEXON Lv2 Gothic';
-				">비밀번호</td>
-				<td><input type="password" name="b_secretnumber" id="gjw-password-input"></td>
+			<tr style="height:70px" id="gjw-secret-tr">
+				<td style="color:#0AC5A8;">비밀번호</td>
+				<td><input type="password" name="b_secretnumber" id="gjw-password-input" value="${blist.b_secretnumber }"></td>
 			</tr>
-			<tr class="gjw-table-tr">
+			<tr>
 				<td colspan="2" style="padding-top: 30px;"><textarea id="b_content" name="b_content"></textarea></td>
 			</tr>
 			<tr style="height:50px">
-				<td colspan="2" align="end"style="padding-top: 40px;padding-bottom: 40px"><input type="button" id ="submitModifyBoardBtn"
+				<td colspan="2" align="end"><input type="button" id ="submitModifyBoardBtn"
 					value="등록하기"> 
 		 <a href="board_list.do" id="gjw-serach-list">목록으로</a></td>
 			</tr>	
 		</table>
 	</form>
-	</div>
 	</section>
 	</GJW>
 		<jsp:include page="footer.jsp"/>
@@ -203,16 +179,13 @@ nhn.husky.EZCreator.createInIFrame({
     elPlaceHolder:"b_content",  //textarea ID
     sSkinURI: "${pageContext.request.contextPath}/resources/se/SmartEditor2Skin.html",  //skin경로
     fCreator: "createSEditor2",
-    /*
-    글 수정용 코드입니다
+    
+   
     fOnAppLoad:function(){
-	oEditors.getById["b_content"].exec("PASTE_HTML", ["asdsadsadsadsad"]);
-}, */
+	oEditors.getById["b_content"].exec("PASTE_HTML", ["${fn:replace(blist.b_content, "\"", "'") }"]);
+}, 
 	
 });
-
-
-
 
 $('#submitModifyBoardBtn').click(function() {
 	if($("#gjw-title-input").val()==""){
@@ -228,7 +201,7 @@ $('#submitModifyBoardBtn').click(function() {
 		  }
 	    }
 oEditors.getById["b_content"].exec("UPDATE_CONTENTS_FIELD", []);
-document.frm.action ="boardinsert.do";
+document.frm.action ="updateboard.do";
 document.frm.method ="POST";
 document.frm.submit();
  });
@@ -243,17 +216,31 @@ $(function(){
     $("#No").click(function() {
        $("#gjw-secret-tr").css("display", "none");
     })
-  if("${b_type}"=="N"){
+    
+    if("${blist.b_secret}"=="Y"){
+    	$("#yes").attr("checked", true);
+    	$("input:radio[name='b_secret']:radio[value='Y']").attr("checked", true)
+        $("#gjw-secret-tr").css("display", "table-row");
+    }
+    if("${blist.b_secret}"=="N"){
+    	$("#no").attr("checked", true);
+    	$("input:radio[name='b_secret']:radio[value='N']").attr("checked", true)
+    }
+    
+    if("${blist.b_type}"=="N"){
     	
     	$("#gjw-type-select").val("N").prop("selected",true);
     }
-    if("${b_type}"=="G"){
+    
+    if("${blist.b_type}"=="G"){
     	
     	$("#gjw-type-select").val("G").prop("selected",true);
     }
-    if("${b_type}"=="R"){
+    
+    if("${blist.b_type}"=="R"){
     	$("#gjw-type-select").val("R").prop("selected",true);
     }
+    
 })
 
  </script>

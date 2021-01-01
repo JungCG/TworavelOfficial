@@ -30,45 +30,122 @@
 		select* from board where
 		b_type=#{board_type} and b_re_step=0 order by b_id desc
 	</select>
+	<select id="selectSearch" parameterType="string"
+		resultType="arraylist" resultMap="resultBoard">
+		select* from board where
+		b_title LIKE '%'|| #{keyword} ||'%'
+		OR b_content LIKE '%'|| #{keyword} ||'%' and b_re_step=0 order by b_id
+		desc
+	</select>
+
+<select id="selectHotViewList" resultType="arraylist" resultMap="resultBoard">
+	select* from(select* from board where b_re_step =0 order by b_view desc) where 5>= rownum
+	</select>
 
 
-	<insert id="insertBoard" parameterType="Board"
-		flushCache="true" statementType="PREPARED">
+	<insert id="insertBoard" parameterType="Board" flushCache="true"
+		statementType="PREPARED">
 		INSERT INTO BOARD
-		VALUES(BOARD_SEQ.NEXTVAL,#{m_id},#{b_type},#{b_title},SYSDATE,0,0,#{b_content},#{b_secret},#{b_secretnumber},BOARD_SEQ.NEXTVAL,0,0)
+		VALUES(BOARD_SEQ.NEXTVAL,#{m_id},#{b_type},#{b_title},current_timestamp,0,0,#{b_content},#{b_secret},#{b_secretnumber},BOARD_SEQ.NEXTVAL,0,0)
 	</insert>
 
 
 	<select id="selectBoard" parameterType="int" resultType="Board">
-		select* from board where b_id=#{b_id}
+		select*
+		from board where b_id=#{b_id}
 	</select>
 
-	<select id="selectComment" parameterType="int" resultType="arraylist" resultMap="resultBoard">
-		select* from board where b_ref=#{b_ref} and b_re_step >0 order by b_re_step,b_re_level asc
+	<select id="selectComment" parameterType="int"
+		resultType="arraylist" resultMap="resultBoard">
+		select* from board where
+		b_ref=#{b_ref} and b_re_step >0 order by b_re_step,b_re_level asc
 	</select>
-	
-	
+
+
 	<insert id="commentInsert" parameterType="Board"
 		flushCache="true" statementType="PREPARED">
 		INSERT INTO BOARD
-		VALUES(BOARD_SEQ.NEXTVAL,'Tworavel1','N',#{b_title},SYSDATE,0,0,#{b_content},'N',0,#{b_ref},#{b_re_step},#{b_re_level})
+		VALUES(BOARD_SEQ.NEXTVAL,#{m_id},'N',#{b_title},current_timestamp,0,0,#{b_content},'N',0,#{b_ref},#{b_re_step},#{b_re_level})
 	</insert>
-	
-	
-		
+
+
+
 	<insert id="recommentInsert" parameterType="Board"
 		flushCache="true" statementType="PREPARED">
 		INSERT INTO BOARD
-		VALUES(BOARD_SEQ.NEXTVAL,'Tworavel1','N',#{b_title},SYSDATE,0,0,#{b_content},'N',0,#{b_ref},#{b_re_step},#{b_re_level})
+		VALUES(BOARD_SEQ.NEXTVAL,#{m_id},'N',#{b_title},current_timestamp,0,0,#{b_content},'N',0,#{b_ref},#{b_re_step},#{b_re_level})
 	</insert>
-	
-	
-	<select id="selectCommentLevel" parameterType="hashmap" resultType="int">
-	select MAX(b_re_level)+1 from board where b_ref =#{b_ref} and b_re_step =#{b_re_step}
+	<select id="selectLikeMid" parameterType="Board"
+		resultType="int">
+		select count(*) from blike where m_id = #{m_id} and b_id
+		=#{b_id}
 	</select>
-	
-<select id="selectCommentStep" parameterType="int" resultType="int">
+	<insert id="insertLike" parameterType="Board" flushCache="true"
+		statementType="PREPARED">
+		insert into blike values(#{b_id},#{m_id})
+	</insert>
+	<update id="updateLikePlus" parameterType="int"
+		flushCache="true" statementType="PREPARED">
+		update board set b_like = b_like+1
+		where b_id =#{b_id}
+	</update>
+	<delete id="deleteLike" parameterType="Board" flushCache="true"
+		statementType="PREPARED">
+		delete blike where m_id =#{m_id} and b_id =#{b_id}
+	</delete>
+
+	<update id="updateLikeMinus" parameterType="int"
+		flushCache="true" statementType="PREPARED">
+		update board set b_like = b_like-1
+		where b_id =#{b_id}
+	</update>
+	<select id="selectCommentLevel" parameterType="hashmap"
+		resultType="int">
+		select MAX(b_re_level)+1 from board where b_ref =#{b_ref}
+		and b_re_step
+		=#{b_re_step}
+	</select>
+
+	<select id="selectCommentStep" parameterType="int"
+		resultType="int">
 		select max(b_re_step)+1 from board where b_ref=#{b_ref}
 	</select>
-	
+
+	<delete id="deleteBoard" parameterType="int" flushCache="true"
+		statementType="PREPARED">
+		delete board where b_ref = #{b_id}
+	</delete>
+	<delete id="deleteComment" parameterType="int" flushCache="true"
+		statementType="PREPARED">
+		delete board where b_id = #{b_id}
+	</delete>
+
+	<select id="selectCommentCount" parameterType="hashmap"
+		resultType="int">
+		select count(*) from board where b_ref=#{b_ref} and
+		b_re_step =#{b_re_step}
+	</select>
+	<update id="deleteCommentB">
+		update board set b_content ='삭제된 댓글입니다' where b_id
+		=#{b_id}
+	</update>
+	<update id="updateComment">
+		update board set b_content =#{b_content} where b_id =
+		#{b_id}
+	</update>
+	<update id="updateBoard" parameterType="Board"
+		statementType="PREPARED" flushCache="true">
+		update board set b_content
+		=#{b_content},b_title =#{b_title},B_SECRET
+		=#{b_secret},B_SECRETNUMBER
+		=#{b_secretnumber} where b_id =#{b_id}
+	</update>
+	<update id="addReadCount" parameterType="int" statementType="PREPARED" flushCache="true">
+	update board set b_view =b_view+1 where b_id =#{b_id}
+	</update>
+	<select id="selectLikeCount" parameterType="int"
+		resultType="int">
+
+		select b_like from board where b_id=#{b_id}
+	</select>
 </mapper>

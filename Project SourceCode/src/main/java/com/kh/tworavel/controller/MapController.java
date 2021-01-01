@@ -40,24 +40,27 @@ public class MapController {
 	public ModelAndView selectMap(ModelAndView mv) {
 		mv.clear();
 		List<Map> list = new ArrayList<Map>();
-
 		list = mapService.selectMap();
 		mv.addObject("mList", list);
 		mv.setViewName("PotatoMap");
 		return mv;
 	}
 
-	@RequestMapping(value = "tworavelmap.do", method = RequestMethod.GET)
-	public ModelAndView testMap(ModelAndView mv) {
-		mv.clear();
+	@RequestMapping(value ="tworavelmap.do", method = RequestMethod.GET)
+	public ModelAndView testMap(ModelAndView mv,@RequestParam(name="searchtext",required = false)String searchtext) {
 		List<Map> list = new ArrayList<Map>();
 		list = mapService.selectMap();
 		mv.addObject("mList", list);
+		mv.addObject("searchtext",searchtext);
 		mv.setViewName("tworavelmap");
 		return mv;
 
 	}
-
+@RequestMapping(value = "testmapsearch.do", method = RequestMethod.GET)
+	public ModelAndView testmapsearch(ModelAndView mv) {
+		mv.setViewName("testmapsearch");
+		return mv;
+	}
 	@RequestMapping(value = "mapmap.do", method = RequestMethod.GET)
 	public ModelAndView testMap1(ModelAndView mv) {
 		/*
