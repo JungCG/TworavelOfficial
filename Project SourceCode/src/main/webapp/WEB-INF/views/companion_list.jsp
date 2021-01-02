@@ -194,7 +194,7 @@ a {
 								<td class="kdy-list-td"
 									style="display: flex; justify-content: center;">
 									<p class="kdy-companion-title"
-										style="display: inline; padding: 7px; padding-right: 0px;">${hvo.c_title}</p>
+										style="display: inline; padding: 7px; padding-right: 0px;">${hvo.c_name}</p>
 									<div>
 										<img
 											src="${pageContext.request.contextPath}/resources/images/hotview.png">
@@ -202,7 +202,7 @@ a {
 								</td>
 								<td class="kdy-list-td">${hvo.m_id}</td>
 								<td class="kdy-list-td"><fmt:formatDate var="date"
-										value="${hvo.c_timestamp}" pattern="yyyy-MM-dd HH:mm" />
+										value="${hvo.c_adddate}" pattern="yyyy-MM-dd HH:mm" />
 
 									${date}</td>
 								<td class="kdy-list-td">${hvo.c_like}</td>
@@ -221,29 +221,14 @@ a {
 						<c:forEach var="vo" items="${list}" varStatus="status">
 							<tr class="kdy-list-tr">
 								<td class="kdy-list-td">${vo.c_id}</td>
-								<c:choose>
-									<%-- <c:when test="${vo.c_secret eq 'Y'}">
-										<td class="kdy-list-td"
-											style="display: flex; justify-content: center;">
-											<p class="kdy-companion-title"
-												style="display: inline; padding: 7px; padding-right: 0px;">${vo.c_name}</p>
-											<div>
-												<img
-													src="${pageContext.request.contextPath}/resources/images/lock1.png">
-											</div>
-									</c:when> --%>
-									<c:otherwise>
-										<td class="kdy-list-td">
-											<p class="kdy-companion-title" style="display: inline;">${vo.c_name}</p>
-									</c:otherwise>
-								</c:choose>
+								<td class="kdy-list-td">
+									<p class="kdy-companion-title" style="display: inline;">${vo.c_name}</p>
+									<input type=hidden value="${vo.c_id}" name="c_id" class="c_id">
 								</td>
 
 								<td class="kdy-list-td">${vo.m_id}</td>
 								<td class="kdy-list-td"><fmt:formatDate var="date"
-										value="${vo.c_timestamp}" pattern="yyyy-MM-dd HH:mm" />
-
-									${date}</td>
+										value="${vo.c_adddate}" pattern="yyyy-MM-dd HH:mm" /> ${date}</td>
 								<td class="kdy-list-td">${vo.c_like}</td>
 								<td class="kdy-list-td">${vo.c_view}</td>
 							</tr>
@@ -306,5 +291,15 @@ a {
 		</div>
 		<jsp:include page="footer.jsp" />
 	</div>
+	<script>
+		$(function() {
+			$(".kdy-companion-title").click(
+					function() {
+						var c_id = $(this).next(".c_id").val();
+						location.href = "companion_detail.do?c_id=" + c_id
+								+ "&page=${currentPage}"
+					})
+		})
+	</script>
 </body>
 </html>

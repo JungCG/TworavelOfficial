@@ -1,5 +1,7 @@
 package com.kh.tworavel.model.domain;
 
+import java.util.Date;
+
 import org.springframework.stereotype.Component;
 
 @Component
@@ -11,7 +13,7 @@ public class Companion implements java.io.Serializable{
 	private int c_many;
 	private int c_view;
 	private int c_like;
-	private String c_adddate;
+	private Date c_adddate;
 	private String c_startd;
 	private String c_endd;
 	private String m_id;
@@ -25,7 +27,7 @@ public class Companion implements java.io.Serializable{
 		super();
 	}
 
-	public Companion(int c_id, int c_value, int c_many, int c_view, int c_like, String c_adddate, String c_startd,
+	public Companion(int c_id, int c_value, int c_many, int c_view, int c_like, Date c_adddate, String c_startd,
 			String c_endd, String m_id, String c_dealstatus, String c_name, String c_description, String c_meet,
 			String c_address) {
 		super();
@@ -101,11 +103,11 @@ public class Companion implements java.io.Serializable{
 		this.c_dealstatus = c_dealstatus;
 	}
 
-	public String getC_adddate() {
+	public Date getC_adddate() {
 		return c_adddate;
 	}
 
-	public void setC_adddate(String c_adddate) {
+	public void setC_adddate(Date c_adddate) {
 		this.c_adddate = c_adddate;
 	}
 

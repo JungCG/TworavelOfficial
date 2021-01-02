@@ -206,8 +206,7 @@ $(function(){
 		}
 		else{
 			if(option==1){
-				alert("대영이 형님이 추가하실겁니다");
-				return false;
+				$("#searchform").attr("action","companion_list.do");
 			}
 			else if(option==2){
 			$("#searchform").attr("action","tworavelmap.do");

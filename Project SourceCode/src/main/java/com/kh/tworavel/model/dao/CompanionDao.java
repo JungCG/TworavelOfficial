@@ -48,20 +48,21 @@ public class CompanionDao {
 //		return sqlSession.insert("Companion.insertCInfo", ci);
 //	}
 
-	public int updateC(Companion c, CompanionAdd ca, CompanionInfo ci, CompanionMap cm, CompanionTag ct) {
-		sqlSession.update("Companion.insertC", c);
-		sqlSession.update("Companion.insertCAdd", ca);
-		sqlSession.update("Companion.insertCInfo", ci);
-		sqlSession.update("Companion.insertCMap", cm);
-		sqlSession.update("Companion.insertCTag", ct);
-		return sqlSession.update("Companion.updateC", c);
-	}
+//	public int updateC(Companion c, CompanionAdd ca, CompanionInfo ci, CompanionMap cm, CompanionTag ct) {
+//		sqlSession.update("Companion.insertC", c);
+//		sqlSession.update("Companion.insertCAdd", ca);
+//		sqlSession.update("Companion.insertCInfo", ci);
+//		sqlSession.update("Companion.insertCMap", cm);
+//		sqlSession.update("Companion.insertCTag", ct);
+//		return sqlSession.update("Companion.updateC", c);
+//	}
+
 
 	public int listCountC() { // 전체 글 수 조회
 		return sqlSession.selectOne("Companion.listCountC");
 	}
 
-	public List<Companion> selectListC() {
+	public List<Companion> selectListC() {	// 전체 글 조회
 		return sqlSession.selectList("Companion.selectListC");
 	}
 	
@@ -71,15 +72,32 @@ public class CompanionDao {
 		return sqlSession.selectList("Companion.selectListCp", row);
 	}
 	
-
-	public Board selectCompanion(int c_id) {
-		return sqlSession.selectOne("Companion.selectCompanion", c_id);
+	public List<Companion> selectSearchC(String keyword) { // 게시글 검색 조회
+		return sqlSession.selectList("Companion.selectSearchC", keyword);
 	}
 
-	public Companion selectOneC(int c_id) {
+	// 동행글 상세 1,2,3
+	public Companion selectOneC(int c_id) {	// 동행글 상세 1
 		return sqlSession.selectOne("Companion.selectOneC", c_id);
 	}
-
+	public List<Companion> selectTwoC(int c_id) {	// 동행글 상세 2
+		return sqlSession.selectList("CompanionMap.selectTwoC", c_id);
+	}	
+	public List<Companion> selectThrC(int c_id) {	// 동행글 상세 3
+		return sqlSession.selectList("CompanionTag.selectThrC", c_id);
+	}
+	
+	// 동행글 수정 1,2,3
+	public int updateOneC(Companion c) {
+		return sqlSession.update("Companion.updateOneC", c);
+	}
+	public int updateTwoC(CompanionMap cm) {
+		return sqlSession.update("CompanionMap.updateTwoC", cm);
+	}
+	public int updateThrC(CompanionTag ct) {
+		return sqlSession.update("CompanionTag.updateThrC", ct);
+	}
+	
 	public int addReadCount(int c_id) {
 		return sqlSession.update("Companion.addReadCount", c_id);
 	}

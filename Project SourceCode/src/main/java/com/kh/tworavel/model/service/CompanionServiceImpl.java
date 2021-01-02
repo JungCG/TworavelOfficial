@@ -48,27 +48,55 @@ public class CompanionServiceImpl implements CompanionService {
 		return cDao.selectListCp(startPage, limit);
 	}
 
-
+	@Override
+	public List<Companion> selectSearchC(String keyword) {
+		return cDao.selectSearchC(keyword);
+	}
 
 	@Override
 	public Companion selectOneC(int c_id) {
-		// TODO Auto-generated method stub
-		return null;
+		return cDao.selectOneC(c_id);
+	}
+	@Override
+	public List<Companion> selectTwoC(int c_id) {
+		return cDao.selectTwoC(c_id);
+	}	
+	@Override
+	public List<Companion> selectThrC(int c_id) {
+		return cDao.selectThrC(c_id);
+	}	
+	
+	@Override
+	public void updateOneC(Companion c) {
+		cDao.updateOneC(c);
 	}
 
 	@Override
-	public Companion updateC(Companion c) {
-		// TODO Auto-generated method stub
-		return null;
+	public void updateTwoC(CompanionMap cm) {
+		cDao.updateTwoC(cm);
 	}
 
+	@Override
+	public void updateThrC(CompanionTag ct) {
+		cDao.updateThrC(ct);
+	}
+	
 	@Override
 	public void deleteC(String c_id) {
 		
 	}
 
-	
-	
+//	@Override
+//	public void updateC(Companion c, CompanionMap cm, CompanionTag ct) {
+//		int result = 0;
+//		result = cDao.companion(c);
+//		System.out.println("sdsds"+result);
+//		cm.setC_id(result);
+//		cDao.companion(cm);
+//		ct.setC_id(result);
+//		cDao.companion(ct);
+//	}
+
 	
 //	@Override
 //	public int listCountC() {

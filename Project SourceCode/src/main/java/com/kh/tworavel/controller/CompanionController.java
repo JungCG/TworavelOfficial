@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.tworavel.model.domain.Board;
 import com.kh.tworavel.model.domain.Companion;
 import com.kh.tworavel.model.domain.Companion;
 import com.kh.tworavel.model.domain.CompanionAdd;
@@ -35,14 +37,15 @@ public class CompanionController {
 	private CompanionService cService;
 
 	public static final int LIMIT = 5;
-
+	
+	// 동행글 등록 페이지
 	@RequestMapping(value = "companion_write.do", method = RequestMethod.GET)
 	public ModelAndView companion_write(ModelAndView mv) {
 		mv.setViewName("companion_write");
 		return mv;
 	}
 
-	// 게시글 등록
+	// 동행글 등록
 	@RequestMapping(value = "companioninsert.do", method = RequestMethod.POST)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	public ModelAndView CompanionInsertService(Companion c, CompanionMap cm, CompanionTag ct, ModelAndView mv,
@@ -55,7 +58,7 @@ public class CompanionController {
 		mv.setViewName("redirect:/companion_list.do");
 		return mv;
 	}
-
+	// 동행글 리스트  페이지
 	@RequestMapping(value = "companion_list.do", method = RequestMethod.GET)
 	public ModelAndView boardListService(@RequestParam(name = "page", defaultValue = "1") int page,
 			@RequestParam(name = "keyword", required = false) String keyword, ModelAndView mv) {
@@ -64,16 +67,15 @@ public class CompanionController {
 			// 한 페이지당 출력할 목록 갯수
 			int listcountC = cService.listCountC();
 			int maxPage = (int) ((double) listcountC / LIMIT + 0.9);
-			if (keyword != null && !keyword.equals(""))
-//	            mv.addObject("list", cService.selectSearch(keyword));
-				System.out.println("검색대신");
-			else
-				System.out.println();
-			mv.addObject("list", cService.selectListCp(currentPage, LIMIT));
-			mv.addObject("currentPage", currentPage);
-			mv.addObject("maxPage", maxPage);
-			mv.addObject("listCount", listcountC);
-			mv.setViewName("companion_list");
+			if (keyword != null && !keyword.equals("")) {
+				mv.addObject("list", cService.selectSearchC(keyword));
+			} else {
+				mv.addObject("list", cService.selectListCp(currentPage, LIMIT));
+				mv.addObject("currentPage", currentPage);
+				mv.addObject("maxPage", maxPage);
+				mv.addObject("listCount", listcountC);
+				mv.setViewName("companion_list");
+			}
 		} catch (Exception e) {
 			mv.addObject("msg", e.getMessage());
 			mv.setViewName("errorPage");
@@ -81,6 +83,44 @@ public class CompanionController {
 		}
 		return mv;
 	}
+	// 동행글 상세페이지
+	@RequestMapping(value="companion_detail.do")
+	public ModelAndView boardDetailService(ModelAndView mv,@RequestParam(name="c_id")int c_id) {
+		try {
+			mv.addObject("clist",cService.selectOneC(c_id));
+			mv.addObject("clist",cService.selectTwoC(c_id));
+			mv.addObject("clist",cService.selectThrC(c_id));
+			mv.setViewName("companion_detail");
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return mv;
+	}
+	
+	@RequestMapping(value = "companion_update.do")
+	public ModelAndView companionupdate(ModelAndView mv, @RequestParam(name = "c_id") int c_id) {
+		try {
+			mv.addObject("clist",cService.selectOneC(c_id));
+			mv.addObject("clist",cService.selectTwoC(c_id));
+			mv.addObject("clist",cService.selectThrC(c_id));
+			mv.setViewName("companion_update");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mv;
+	}
+
+	@RequestMapping(value = "updatecompanion.do", method = RequestMethod.POST)
+	public ModelAndView companionupdateService(Companion c,
+			CompanionMap cm, CompanionTag ct, ModelAndView mv,
+			HttpServletRequest request) {
+		cService.updateOneC(c);
+//		cService.updateTwoC(cm);
+//		cService.updateThrC(ct);
+		mv.setViewName("redirect:/companion_list.do");
+		return mv;
+	}
+	
 	// 게시판 리스트
 //	@RequestMapping(value="companion_list.do")
 //	public ModelAndView fBoardListService(ModelAndView mv,@RequestParam(name = "page", defaultValue = "1") int page,

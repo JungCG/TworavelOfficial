@@ -411,7 +411,6 @@ section {
 <body>
 	<div class="jck_wrap">
 		<jsp:include page="header.jsp" />
-
 		<div id="kdy-wrap">
 			<section>
 				<div style="width: 100vh; padding-left: 10vh;">
@@ -419,193 +418,61 @@ section {
 						<div id="kdy-companion-title">${clist.c_name }</div>
 						<div id="kdy-companion-writer">${clist.m_id }</div>
 						<div id="kdy-companion-date">
-							<fmt:formatDate var="date" value="${clist.c_timestamp}"
+							<fmt:formatDate var="date" value="${clist.c_adddate}"
 								pattern="yyyy-MM-dd HH:mm" />
-
 							${date}
 						</div>
-						<div id="kdy-companion-content">${clist.c_description }
-							<div id="kdy-like-div"
-								style="display: flex; justify-content: center; margin-top: 100px;">
-								<div
-									style="background-color: #3d91ff0f; width: 130px; height: 130px; border-radius: 50%;">
-									<div id="kdy-like-count"
-										style="margin-top: 20px; padding-bottom: 5px;
-	/* padding-left: 13px; */ color: rgb(52, 73, 94); font-size: 25px; display: flex; justify-content: center;">${blist.c_like }</div>
-									<div style="display: flex; justify-content: center;">
-										<img
-											src="${pageContext.request.contextPath }/resources/images/c_like.png"
-											style="height: 40px;" id="kdy-c_like-btn">
-									</div>
-								</div>
-							</div>
+						<div id="kdy-companion-value">${clist.c_value}</div>
+						<div id="kdy-companion-many">${clist.c_many}</div>
+						<div id="kdy-companion-staartd">
+							<fmt:parseDate var="Sdate" value="${clist.c_startd}"
+								pattern="yyyy-MM-dd HH:mm:ss" />
+							<fmt:formatDate value="${Sdate}" pattern="yyyy-MM-dd" />
 						</div>
-					</div>
-
-					<div>
-						<c:if test="${empty clist}">
-							<div id="kdy-nonecomment-wrap">
-								<div>
-									<div style="display: flex; justify-content: center;">
-										<img
-											src="${pageContext.request.contextPath }/resources/images/chat.png"
-											style="width: 100px; height: 100px; display: flex;">
-									</div>
-									<div style="font-family: BMHANNAAir;">
-										등록된 댓글이 없습니다. <br> 댓글을 남겨보세요.
-									</div>
+						<div id="kdy-companion-endd">
+							<fmt:parseDate var="Edate" value="${clist.c_endd}"
+								pattern="yyyy-MM-dd HH:mm:ss" />
+							<fmt:formatDate value="${Edate}" pattern="yyyy-MM-dd" />
+						</div>
+						<div id="map" style="width: 1000px; height: 500px; z-index: 0;"></div>
+						<div id="kdy-companion-description">${clist.c_description}</div>
+						<div id="kdy-like-div"
+							style="display: flex; justify-content: center; margin-top: 100px;">
+							<div
+								style="background-color: #3d91ff0f; width: 130px; height: 130px; border-radius: 50%;">
+								<div id="kdy-like-count"
+									style="margin-top: 20px; padding-bottom: 5px; color: rgb(52, 73, 94); font-size: 25px; display: flex; justify-content: center;">${clist.c_like }</div>
+								<div style="display: flex; justify-content: center;">
+									<img
+										src="${pageContext.request.contextPath }/resources/images/b_like.png"
+										style="height: 40px;" id="kdy-c_like-btn">
 								</div>
-
 							</div>
-						</c:if>
-						<c:if test="${not empty clist}">
-							<c:forEach var="cvo" items="${clist }">
-								<c:choose>
-									<c:when test="${cvo.c_re_level eq '0'}">
-										<div id="kdy-commentlist-wrap">
-											<div class="kdy-comment-cl" id="kdy-comment-writer">
-												${cvo.m_id }</div>
-											<div class="kdy-comment-cl" id="kdy-comment-content">
-												<textarea rows="1" id="Ad" resize="none"
-													class="kdy-comment-textarea" readonly="readonly">${cvo.c_description }</textarea>
-											</div>
-											<div>
-												<div class="kdy-comment-cl" id="kdy-comment-date">
-													<fmt:formatDate var="date" value="${cvo.c_timestamp}"
-														pattern="yyyy-MM-dd HH:mm" />
-
-													${date}&nbsp;&nbsp;&nbsp; <input type="button" value="답글달기"
-														class="kdy-recomment-btn"> <input type="button"
-														value="수정하기" class="kdy-comment-update">
-													<form action="commentupdate.do" method="post"
-														style="display: none;" id="kdy-commentupdate-form"
-														name="commentupdateform">
-														<input type="hidden" value="${userID}" name="c_id">
-
-														<input type="hidden" value="${cvo.c_id }" name="c_id">
-														<input type="hidden" value="${blist.c_id }" name="c_ref">
-														<input type="hidden" value="${cvo.c_re_step }"
-															name="c_re_step"> <input type="hidden"
-															value="${cvo.c_description }"
-															class="before-c_description"> <input
-															type="hidden" value="${cvo.c_re_level }"
-															name="c_re_level"> <input type="hidden"
-															class="after-c_description" name="c_description" value="">
-														<input type="button" class="kdy-commentupdate-submit"
-															value="등록"> <input type="button"
-															class="kdy-commentupdate-close" value="취소">
-													</form>
-													<a
-														href="deleteComment.do?c_id=${cvo.c_id }&rc_id=${blist.c_id}&c_re_step=${cvo.c_re_step}"
-														class="">X</a>
-												</div>
-											</div>
-											<div style="display: none; justify-content: center;">
-												<!-- 대댓글  form -->
-												<div id="kdy-recommentwrite-div">
-													<form action="recommentInsert.do" method="post">
-														<div id="kdy-recomwriter-wrap">
-															<!-- 밑에부분 UserID에 세션에있는 현재 ID를 넣어줘야함 -->
-															<input type="text" value="${userID }" name="m_id">
-															<input type="hidden" value="${clist.c_id }" name="c_id">
-															<input type="hidden" name="c_re_step"
-																value="${cvo.c_re_step }"> <input type="hidden"
-																name="c_ref" value="${clist.c_id }">
-														</div>
-														<div id="kdy-recontent-wrap">
-															<textarea id="kdy-recomment-write" rows="1"
-																placeholder="대댓글을 남겨보세요" class="kdy-recomment-textarea"
-																name="c_description"></textarea>
-														</div>
-														<div id="kdy-recommentsubmit-wrap">
-															<input type="submit" value="등록" id="kdy-recomment-submit">&nbsp;&nbsp;
-															<input type="button" value="취소"
-																class="kdy-recomment-close">
-														</div>
-													</form>
-												</div>
-											</div>
-										</div>
-									</c:when>
-									<c:otherwise>
-										<div id="kdy-recommentlist-wrap">
-											<div id="kdy-recomment-writer">${cvo.m_id }</div>
-											<div id="kdy-recomment-content">
-												<textarea rows="1" resize="none"
-													class="kdy-comment-textarea" readonly="readonly">${cvo.c_description }</textarea>
-											</div>
-											<div style="display: flex;">
-												<div id="kdy-recomment-date">
-													<fmt:formatDate var="date" value="${cvo.c_timestamp}"
-														pattern="yyyy-MM-dd HH:mm" />
-
-													${date}
-												</div>
-												<input type="button" value="수정하기"
-													class="kdy-recomment-update">
-												<form action="commentupdate.do" method="post"
-													style="display: none;" class="kdy-recommentupdate-form">
-													<input type="hidden" value="${cvo.c_id }" name="c_id">
-													<input type="hidden" value="${clist.c_id }" name="c_ref">
-													<input type="hidden" value="${userID}" name="m_id">
-
-													<input type="hidden" value="${cvo.c_re_step }"
-														name="c_re_step"> <input type="hidden"
-														value="${cvo.c_description }" class="before-c_description">
-													<input type="hidden" value="${cvo.c_re_level }"
-														name="c_re_level"> <input type="hidden"
-														class="after-c_description" name="c_description" value="">
-													<input type="button" class="kdy-recommentupdate-submit"
-														value="등록"> <input type="button"
-														class="kdy-recommentupdate-close" value="취소">
-												</form>
-												<a
-													href="deleteRecomment.do?c_id=${cvo.c_id }&rc_id=${clist.c_id}"
-													class="">X</a>
-											</div>
-										</div>
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
-						</c:if>
-					</div>
-					<div id="kdy-comment-wrap">
-						<div id="kdy-comment-div">
-							<form action="commentInsert.do" method="post">
-								<div id="kdy-cwriter-wrap">
-									<input type="text" value="${userID }" name="m_id"
-										readonly="readonly" style="font-family: 'Jal_Onuel';">
-									<input type="hidden" value="${clist.c_id }" name="c_id">
-								</div>
-								<div id="kdy-ccontent-wrap">
-									<textarea id="kdy-comment-write" rows="1"
-										placeholder="댓글을 남겨보세요" name="c_description"></textarea>
-								</div>
-								<div id="kdy-commentsubmit-wrap">
-									<input type="submit" value="등록" id="kdy-comment-submit">
-								</div>
-							</form>
 						</div>
 					</div>
 				</div>
-			</section>
-		</div>
 
-		<div style="display: flex; justify-content: center;">
-			<div
-				style="width: 1000px; display: flex; justify-content: flex-end; margin-right: 10px; margin-top: 15px; margin-bottom: 15px;">
-				<a href="companion_updateform.do?c_id=${clist.c_id }"
-					id="kdy-blist-update">글수정</a> <a
-					href="companiondelete.do?c_id=${clist.c_id }" id="kdy-clist-delete">글삭제</a>
-				<a href="companion_list.do" id="kdy-clist-link">글목록</a>
-			</div>
-		</div>
-		<jsp:include page="footer.jsp" />
-	</div>
-	<script>
+				<div>
+					<c:if test="${empty clist}">
+						<div id="kdy-nonecomment-wrap">
+							<div>
+								<div style="display: flex; justify-content: center;">
+									<img
+										src="${pageContext.request.contextPath }/resources/images/chat.png"
+										style="width: 100px; height: 100px; display: flex;">
+								</div>
+								<div style="font-family: BMHANNAAir;">
+									등록된 댓글이 없습니다. <br> 댓글을 남겨보세요.
+								</div>
+							</div>
+
+						</div>
+					</c:if>
+				</div>
+			</section>
+					<script>
 		function xSize(e) {
 			var t;
-
 			e.onfocus = function() {
 				t = setInterval(function() {
 					e.style.height = '1px';
@@ -616,102 +483,8 @@ section {
 				clearInterval(t);
 			}
 		}
-		xSize(document.getElementById('kdy-comment-write'));
-		xSize($(".kdy-comment-textarea"));
-
-		var txtArea = $(".kdy-comment-textarea");
-		if (txtArea) {
-			txtArea.each(function() {
-				$(this).height(this.scrollHeight);
-			});
-		}
-
-		$(function() {
-
-			//대댓글 달기
-			$(".kdy-recomment-close").click(
-					function() {
-						$(this).parent().parent().parent().parent().css(
-								"display", "none");
-					})
-			$(".kdy-recomment-btn").click(function() {
-				$(this).parent().parent().next().css("display", "flex");
-			})
-
 			//수정부분
-			$(".kdy-comment-update").click(
-					function() {
-						$(this).css("display", "none");
-						$(this).next('#kdy-commentupdate-form').css("display",
-								"flex");
-						$(this).parent().parent().prev().children(
-								".kdy-comment-textarea")
-								.prop("readonly", false);
-					})
-
-			$(".kdy-commentupdate-close").click(
-					function() {
-						var beforeval = $(this).prev().prev().prev().prev(
-								".before-c_description").val();
-						$(this).parent().parent().prev().val(beforeval);
-						$(this).parent().css("display", "none");
-						$(this).parent().parent().parent().prev().children(
-								".kdy-comment-textarea").val(beforeval);
-						$(this).parent().parent().parent().prev().children(
-								".kdy-comment-textarea").prop("readonly", true)
-						$(this).parent().prev('.kdy-comment-update').css(
-								"display", "block");
-						$(this).prev("#kdy-recomment-submit").css("display",
-								"block");
-					})
-
-			$(".kdy-commentupdate-submit")
-					.click(
-							function() {
-								var c_description = $(this).parent().parent()
-										.parent().prev().children(
-												".kdy-comment-textarea").val();
-								$(this).prev(".after-c_description").val(c_description);
-								$(this).parent("#kdy-commentupdate-form")
-										.submit();
-							})
-
-			$(".kdy-recomment-update").click(
-					function() {
-						$(this).css("display", "none");
-						$(this).next('.kdy-recommentupdate-form').css(
-								"display", "flex");
-						$(this).parent().prev().children(
-								".kdy-comment-textarea")
-								.prop("readonly", false);
-					})
-			$(".kdy-recommentupdate-close").click(
-					function() {
-						var beforeval = $(this).prev().prev().prev().prev(
-								".before-c_description").val();
-						$(this).parent().parent().prev().val(beforeval);
-						$(this).parent().css("display", "none");
-						$(this).parent().parent().prev().children(
-								".kdy-comment-textarea").val(beforeval);
-						$(this).parent().parent().prev().children(
-								".kdy-comment-textarea").prop("readonly", true)
-						$(this).parent().prev('.kdy-recomment-update').css(
-								"display", "block");
-						$(this).prev("#kdy-recomment-submit").css("display",
-								"block");
-					})
-			$(".kdy-recommentupdate-submit").click(
-					function() {
-						var c_description = $(this).parent().parent().prev()
-								.children(".kdy-comment-textarea").val();
-						$(this).prev(".after-c_description").val(c_description);
-						$(this).parent(".kdy-recommentupdate-form").submit();
-					})
-
-		})
 		   $(function(){
-         
-         
          $("#kdy-c_like-btn").click(function(){
             var user_id = "${userID}";
             if(user_id=="null" || user_id == ""){
@@ -731,31 +504,59 @@ section {
                               success:function(res){
                                  alert("글 추천을 취소하셨습니다");
                                  $("#kdy-like-count").text(res);
-                              }
-                           })
-                        }
-                     }
+                             		 }
+                          		 })
+                       		 }
+                    	 }
                      else{
                var heart= confirm("글을 추천하시겠습니까?");
                
                if(heart == true){
                $.ajax({
                   url:"companion_like.do",
-                  data:{m_id: "${userID}",c_id :${blist.c_id},chc : res1},
+                  data:{m_id: "${userID}",c_id :${clist.c_id},chc : res1},
                 success : function(res) {
                   alert("글추천에 성공하셨습니다");
                   $("#kdy-like-count").text(res);
-                                                      }
-                                                   })
-                                          }
-                                       }
-                                    }
-                                 })
-
-                        }
-                     })
-
-      })
+       										}
+        								})
+        							}
+        						}
+        					}
+        				})
+        			}
+        		})
+        	})
+		</script>
+		<!-- 지도 스크립트 -->
+		<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bb74b1c432c6717d09c3677341bf1ead&libraries=services"></script>
+		<script>
+		var allpolyline = [];
+		var markers1 = [];
+		var clickLine
+		var pp = [];
+		var clickPosition = [];
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		mapOption = {
+			center : new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+			level : 3
+		// 지도의 확대 레벨
+		};
+		var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 	</script>
+		</div>
+		<div style="display: flex; justify-content: center;">
+			<div
+				style="width: 1000px; display: flex; justify-content: flex-end; margin-right: 10px; margin-top: 15px; margin-bottom: 15px;">
+				<a href="companion_update.do?c_id=${clist.c_id }"
+					id="kdy-blist-update">글수정</a> <a
+					href="companiondelete.do?c_id=${clist.c_id }" id="kdy-clist-delete">글삭제</a>
+				<a href="companion_list.do" id="kdy-clist-link">글목록</a>
+			</div>
+		</div>
+		<jsp:include page="footer.jsp" />
+
+	</div>
 </body>
 </html>
