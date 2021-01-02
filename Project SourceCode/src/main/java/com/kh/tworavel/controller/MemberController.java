@@ -73,9 +73,15 @@ public class MemberController {
 				// 로그인 성공
 				HttpSession session = request.getSession();
 				session.setAttribute("userID", m_id);
-
-				model.addAttribute("msg", "로그인 성공");
-				model.addAttribute("url", "/");
+				
+				int check3 = mService.updateLoginDate(m_id);
+				if(check3 == 1) {
+					model.addAttribute("msg", "로그인 성공");
+					model.addAttribute("url", "/");
+				}else {
+					model.addAttribute("msg", "로그인에 성공하였으나 출석체크에 실패하였습니다. 관리자에게 문의해주세요.");
+					model.addAttribute("url", "/");
+				}
 			} else if (check2 == 0) {
 				String reason = "";
 

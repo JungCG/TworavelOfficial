@@ -74,4 +74,8 @@ public class MemberDao {
 	public int updatePwd(HashMap<String, String> paramMap) {
 		return sqlSession.update("Member.updatePwd", paramMap);
 	}
+	
+	public int updateLoginDate(String m_id) {
+		return sqlSession.update("Member.updateLoginDate", m_id);
+	}
 }

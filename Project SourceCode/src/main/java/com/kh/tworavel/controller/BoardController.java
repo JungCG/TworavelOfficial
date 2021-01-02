@@ -25,11 +25,12 @@ import com.kh.tworavel.model.service.BoardService;
 
 @Controller
 public class BoardController {
-
+	
 	@Autowired
 	private BoardService bService;
 	public static final int LIMIT = 10;
-
+	
+	
 	// 게시판 리스트
 	@RequestMapping(value = "board_list.do")
 	public ModelAndView fBoardListService(ModelAndView mv, @RequestParam(name = "page", defaultValue = "1") int page,
@@ -38,17 +39,17 @@ public class BoardController {
 		try {
 			int currentPage = page;
 			// 한 페이지당 출력할 목록 갯수
-			String type = String.valueOf(b_type);
+		String type=String.valueOf(b_type);
 			int listCount = bService.totalCount(type);
 			int maxPage = (int) ((double) listCount / LIMIT + 0.9);
 			if (keyword != null && !keyword.equals(""))
 				mv.addObject("list", bService.selectSearch(keyword));
 			else
-				mv.addObject("list", bService.selectList(currentPage, LIMIT, type));
+			mv.addObject("list", bService.selectList(currentPage, LIMIT,type));
 			mv.addObject("currentPage", currentPage);
 			mv.addObject("maxPage", maxPage);
 			mv.addObject("listCount", listCount);
-			mv.addObject("type", type);
+			mv.addObject("type",type);
 			mv.setViewName("board_list");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -58,17 +59,16 @@ public class BoardController {
 		mv.addObject("hotlist", bService.selectHotViewList());
 		return mv;
 	}
-
 	// 게시글 상세페이지
-	@RequestMapping(value = "board_detail.do")
-	public ModelAndView boardDetailService(ModelAndView mv, @RequestParam(name = "b_id") int b_id) {
+	@RequestMapping(value="board_detail.do")
+	public ModelAndView boardDetailService(ModelAndView mv,@RequestParam(name="b_id")int b_id) {
 		try {
-			mv.addObject("blist", bService.selectBoard(b_id));
-			mv.addObject("clist", bService.selectComment(b_id));
+			mv.addObject("blist",bService.selectBoard(b_id));
+			mv.addObject("clist",bService.selectComment(b_id));
 			mv.setViewName("board_detail");
-
-		} catch (Exception e) {
-
+			
+		}catch(Exception e) {
+			
 			e.printStackTrace();
 		}
 		return mv;
@@ -81,31 +81,29 @@ public class BoardController {
 		mv.setViewName("board_write");
 		return mv;
 	}
-
-	// 댓글 등록
-	@RequestMapping(value = "commentInsert.do", method = RequestMethod.POST)
-	public ModelAndView commentInsertService(ModelAndView mv, Board vo, HttpServletRequest request) {
+	//댓글 등록
+	@RequestMapping(value="commentInsert.do",method=RequestMethod.POST)
+	public ModelAndView commentInsertService(ModelAndView mv,Board vo,HttpServletRequest request) {
 		System.out.println(vo.getB_id());
-		vo.setB_ref(vo.getB_id());
-		System.out.println(vo.getB_ref());
-		bService.commentInsert(vo);
-		mv.setViewName("redirect:/board_detail.do?b_id=" + vo.getB_ref());
-		return mv;
-	}
+	vo.setB_ref(vo.getB_id());	
+	System.out.println(vo.getB_ref());
+	bService.commentInsert(vo);
+	mv.setViewName("redirect:/board_detail.do?b_id="+vo.getB_ref());
+	return mv;
+	}	
 	// 대댓글 등록
-
-	@RequestMapping(value = "recommentInsert.do", method = RequestMethod.POST)
-	public ModelAndView recommentInsertService(ModelAndView mv, Board vo, HttpServletRequest request) {
-		vo.setB_ref(vo.getB_id());
-		System.out.println("aucd" + vo.getB_id());
-		HashMap<String, Integer> blist = new HashMap<String, Integer>();
-		blist.put("b_ref", vo.getB_id());
-		blist.put("b_re_step", vo.getB_re_step());
-		bService.recommentInsert(vo, blist);
-		mv.setViewName("redirect:/board_detail.do?b_id=" + vo.getB_ref());
-		return mv;
-	}
-
+	
+	@RequestMapping(value="recommentInsert.do",method=RequestMethod.POST)
+	public ModelAndView recommentInsertService(ModelAndView mv,Board vo,HttpServletRequest request) {
+	vo.setB_ref(vo.getB_id());	
+	System.out.println("aucd"+vo.getB_id());
+	HashMap<String, Integer>blist = new HashMap<String, Integer>();
+	blist.put("b_ref",vo.getB_id());
+	blist.put("b_re_step",vo.getB_re_step());
+	bService.recommentInsert(vo,blist);
+	mv.setViewName("redirect:/board_detail.do?b_id="+vo.getB_ref());
+	return mv;
+	}	
 	// 게시글 등록
 	@RequestMapping(value = "boardinsert.do", method = RequestMethod.POST)
 	public ModelAndView BoardInsertService(@RequestParam(name = "b_content") String b_content,
@@ -250,103 +248,105 @@ public class BoardController {
 	}
 
 	// 파일 업로드
-	@RequestMapping("/fileupload.do")
-	public void multiplePhotoUpload(HttpServletRequest request, HttpServletResponse response) {
-		try {
-			// 파일정보
-			String sFileInfo = "";
-			// 파일명을 받는다 - 일반 원본파일명
+	 @RequestMapping("/fileupload.do")
+	 public void multiplePhotoUpload(HttpServletRequest request, HttpServletResponse response){
 
-			String filename = request.getHeader("file-name");
+		    try {
+		         //파일정보
+		         String sFileInfo = "";
+		         //파일명을 받는다 - 일반 원본파일명
 
-			// 파일 확장자
+		         String filename = request.getHeader("file-name");
 
-			String filename_ext = filename.substring(filename.lastIndexOf(".") + 1);
+		         //파일 확장자
 
-			// 확장자를소문자로 변경
+		         String filename_ext = filename.substring(filename.lastIndexOf(".")+1);
 
-			filename_ext = filename_ext.toLowerCase();
+		         //확장자를소문자로 변경
 
-			// 파일 기본경로
+		         filename_ext = filename_ext.toLowerCase();
 
-			String dftFilePath = request.getSession().getServletContext().getRealPath("/");
+		         //파일 기본경로
 
-			// 파일 기본경로 _ 상세경로
+		         String dftFilePath = request.getSession().getServletContext().getRealPath("/");
 
-			String filePath = dftFilePath + "resources" + File.separator + "photo_upload" + File.separator;
+		         //파일 기본경로 _ 상세경로
 
-			System.out.println(filePath);
+		         String filePath = dftFilePath + "resources" + File.separator + "photo_upload" + File.separator;
 
-			File file = new File(filePath);
+		         System.out.println(filePath);
 
-			if (!file.exists()) {
+		         File file = new File(filePath);
 
-				file.mkdirs();
-			}
+		         if(!file.exists()) {
 
-			String realFileNm = "";
+		            file.mkdirs();
+		         }
 
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+		         String realFileNm = "";
 
-			String today = formatter.format(new java.util.Date());
+		         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
 
-			realFileNm = today + UUID.randomUUID().toString() + filename.substring(filename.lastIndexOf("."));
+		         String today= formatter.format(new java.util.Date());
 
-			String rlFileNm = filePath + realFileNm;
+		         realFileNm = today+UUID.randomUUID().toString() + filename.substring(filename.lastIndexOf("."));
 
-			///////////////// 서버에 파일쓰기 /////////////////
+		         String rlFileNm = filePath + realFileNm;
 
-			InputStream is = request.getInputStream();
+		         ///////////////// 서버에 파일쓰기 ///////////////// 
 
-			OutputStream os = new FileOutputStream(rlFileNm);
+		         InputStream is = request.getInputStream();
 
-			int numRead;
+		         OutputStream os=new FileOutputStream(rlFileNm);
 
-			byte b[] = new byte[Integer.parseInt(request.getHeader("file-size"))];
+		         int numRead;
 
-			while ((numRead = is.read(b, 0, b.length)) != -1) {
+		         byte b[] = new byte[Integer.parseInt(request.getHeader("file-size"))];
 
-				os.write(b, 0, numRead);
+		         while((numRead = is.read(b,0,b.length)) != -1){
 
-			}
+		            os.write(b,0,numRead);
 
-			if (is != null) {
+		         }
 
-				is.close();
+		         if(is != null) {
 
-			}
+		            is.close();
 
-			os.flush();
+		         }
 
-			os.close();
+		         os.flush();
 
-			///////////////// 서버에 파일쓰기 /////////////////
+		         os.close();
 
-			// 정보 출력
+		         ///////////////// 서버에 파일쓰기 /////////////////
 
-			sFileInfo += "&bNewLine=true";
+		         // 정보 출력
 
-			// img 태그의 title 속성을 원본파일명으로 적용시켜주기 위함
+		         sFileInfo += "&bNewLine=true";
 
-			sFileInfo += "&sFileName=" + filename;
-			;
+		         // img 태그의 title 속성을 원본파일명으로 적용시켜주기 위함
 
-			sFileInfo += "&sFileURL=" + "/tworavel/resources/photo_upload/" + realFileNm;
+		         sFileInfo += "&sFileName="+ filename;
 
-			PrintWriter print = response.getWriter();
+		         sFileInfo += "&sFileURL="+"/tworavel/resources/photo_upload/"+realFileNm;
 
-			print.print(sFileInfo);
+		         PrintWriter print = response.getWriter();
 
-			print.flush();
+		         print.print(sFileInfo);
 
-			print.close();
+		         print.flush();
 
-		} catch (Exception e) {
+		         print.close();
 
-			e.printStackTrace();
+		    } catch (Exception e) {
+
+		        e.printStackTrace();
+
+		    }
 
 		}
 
-	}
+
 
 }

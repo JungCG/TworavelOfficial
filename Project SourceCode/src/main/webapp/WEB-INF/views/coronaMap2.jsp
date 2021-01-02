@@ -56,7 +56,7 @@
 		
 		<c:if test="${not empty coronaList}">
 		<c:forEach var="vo" items="${coronaList}" varStatus="status">
- 		positions.push({content:'<div style="height:auto; padding:5px 2px; width : 150px;"><div style="font-size:18px; font-weight:bolder; padding-left:10px;  width : 150px;">${vo.c_name}</div><div style=" width : 150px; padding-top:5px; padding-left:5px;">격리중 환자 수 : ${vo.c_isolingcnt}</div><div style=" width : 150px; padding-top:3px; padding-left:5px;">격리 해제 수 : ${vo.c_isolclearcnt}</div><div style="width : 150px; padding-top:3px; padding-left:5px; <c:if test="${vo.c_incdec < 10}">color:green</c:if><c:if test="${vo.c_incdec >= 10}">color:red</c:if>; font-weight:bolder;">전일대비 증가 수 : ${vo.c_incdec}</div><div style="padding-top:3px; width : 150px; padding-left:5px;">사망자 수 : ${vo.c_deathcnt}</div><div style="padding-top:3px; width : 150px; padding-left:5px;">10만명당 발생률 : ${vo.c_qurrate}</div></div>',latlng:new kakao.maps.LatLng(${vo.c_la},${vo.c_ma})});
+ 		positions.push({content:'<div style="height:auto; padding:5px 2px; width : 150px;"><div style="font-size:18px; font-weight:bolder; padding-left:10px;  width : 150px;">${vo.c_name}</div><div style=" width : 150px; padding-top:5px; padding-left:5px;">격리중 환자 수 : ${vo.c_isolingcnt}</div><div style=" width : 150px; padding-top:3px; padding-left:5px;">격리 해제 수 : ${vo.c_isolclearcnt}</div><div style="width : 150px; padding-top:3px; padding-left:5px; <c:if test="${vo.c_incdec < 20}"><c:if test="${vo.c_incdec >= 10}">color:orange</c:if><c:if test="${vo.c_incdec < 10}">color:green</c:if></c:if><c:if test="${vo.c_incdec >= 20}">color:red</c:if>; font-weight:bolder;">전일대비 증가 수 : ${vo.c_incdec}</div><div style="padding-top:3px; width : 150px; padding-left:5px;">사망자 수 : ${vo.c_deathcnt}</div><div style="padding-top:3px; width : 150px; padding-left:5px;">10만명당 발생률 : ${vo.c_qurrate}</div></div>',latlng:new kakao.maps.LatLng(${vo.c_la},${vo.c_ma})});
 		</c:forEach>
 		</c:if>
 		
@@ -118,15 +118,17 @@
 			var updateDate=${vo.c_createdt};
 			$("#updateDateSpan").text(updateDate);
 		</c:if>
-		<c:if test="${vo.c_incdec < 10}">
-			fc='green';
-			sc='green';
-			fo = 0.5;
+		<c:if test="${vo.c_incdec < 20}">
+			fc='orange';
+			sc='orange';
+			<c:if test="${vo.c_incdec < 10}">
+				fc='green';
+				sc='green';
+			</c:if>
 		</c:if>
-		<c:if test="${vo.c_incdec >= 10}">
+		<c:if test="${vo.c_incdec >= 20}">
 			fc='red';
 			sc='red';
-			fo = 0.7;
 		</c:if>
 		
 		switch (${vo.c_id}) {
@@ -140,10 +142,11 @@
 		  case 8 :
 		  case 9 :
 			  cr = 50000;
-			  fo = 0.1
+			  fo = 0.1;
 			  break;
 		  default :
 			  cr = 20000;
+		  	fo = 0.6;
 		    break;
 		}
 		
@@ -154,8 +157,7 @@
 			strokeColor : sc, // 선의 색깔입니다
 			strokeOpacity : 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
 			fillColor : fc, // 채우기 색깔입니다
-			fillOpacity : fo
-		// 채우기 불투명도 입니다   
+			fillOpacity : fo // 채우기 불투명도 입니다   
 		});
 		//지도에 원을 표시합니다 
 		circle.setMap(map);
@@ -184,7 +186,7 @@
 					<td style="padding-top: 5px; padding-bottom: 5px;">${vo.c_defcnt}</td>
 					<td style="padding-top: 5px; padding-bottom: 5px;">${vo.c_isolingcnt}</td>
 					<td style="padding-top: 5px; padding-bottom: 5px;">${vo.c_isolclearcnt}</td>
-					<td style="padding-top: 5px; padding-bottom: 5px; <c:if test="${vo.c_incdec < 10}">color:green</c:if><c:if test="${vo.c_incdec >= 10}">color:red</c:if>; font-weight:bolder;">${vo.c_incdec}</td>
+					<td style="padding-top: 5px; padding-bottom: 5px; <c:if test="${vo.c_incdec < 20}"><c:if test="${vo.c_incdec >= 10}">color:orange</c:if><c:if test="${vo.c_incdec < 10}">color:green</c:if></c:if><c:if test="${vo.c_incdec >= 20}">color:red</c:if>; font-weight:bolder;">${vo.c_incdec}</td>
 					<td style="padding-top: 5px; padding-bottom: 5px;">${vo.c_deathcnt}</td>
 					<td style="padding-top: 5px; padding-bottom: 5px;">${vo.c_qurrate}</td>
 				</tr>

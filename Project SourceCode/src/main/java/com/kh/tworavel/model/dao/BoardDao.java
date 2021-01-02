@@ -41,6 +41,7 @@ public class BoardDao {
 		 public List<Board> searchList(String keyword) { // 게시글 검색 조회
 			 return sqlSession.selectList("Board.selectSearch", keyword);
 			 }
+		 
 		 public Board selectBoard(int b_id){
 			 return sqlSession.selectOne("Board.selectBoard",b_id);
 		 }

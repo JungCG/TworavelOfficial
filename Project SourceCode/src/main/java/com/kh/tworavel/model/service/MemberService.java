@@ -24,4 +24,6 @@ public interface MemberService {
 	Member searchUsingEmail(String m_email);
 	
 	int updatePwd(HashMap<String, String> paramMap);
+	
+	int updateLoginDate(String m_id);
 }

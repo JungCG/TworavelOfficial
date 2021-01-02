@@ -16,6 +16,7 @@
     font-style: normal;
 }
 * {
+	outline:none;
 	padding: 0;
 	margin: 0;
 	border: 0;

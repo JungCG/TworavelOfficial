@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>¸¶ְּ ֶהְֱּצ</title>
+<title>כ§ˆל´ ם˜ל´ל§€</title>
 <style>
 * {
 	padding: 0;

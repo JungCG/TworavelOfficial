@@ -64,5 +64,10 @@ public class MemberServiceImpl implements MemberService{
 		return mDao.updatePwd(paramMap);
 	}
 
+	@Override
+	public int updateLoginDate(String m_id) {
+		return mDao.updateLoginDate(m_id);
+	}
+
 	
 }

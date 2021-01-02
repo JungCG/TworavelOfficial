@@ -108,7 +108,7 @@
 								<li style="display: inline-block;"><a href="#"
 									style="padding: 0 15px;">동행 구하기</a></li>
 								<li id="jck_dropdown" style="display: inline-block;"><a
-									href="#" style="padding: 0 15px;">통합 게시판</a>
+									href="board_list.do?type=N" style="padding: 0 15px;">통합 게시판</a>
 									<div id="jck_dropdown_content">
 										<a href="board_list.do?type=N">공지 사항</a> <a href="board_list.do?type=G">여행 정보</a> <a href="board_list.do?type=R">여행
 											리뷰</a>
