@@ -18,7 +18,6 @@
 		<result property="c_description" column="c_description" />
 		<result property="c_meet" column="c_meet" />
 		<result property="c_address" column="c_address" />
-		<association property=""></association>
 	</resultMap>
 
 	<resultMap type="CompanionAdd" id="resultCompanionAdd">
@@ -27,104 +26,128 @@
 		<result property="ca_img2" column="ca_img2" />
 		<result property="ca_img3" column="ca_img3" />
 	</resultMap>
-	
+
 	<resultMap type="CompanionInfo" id="resultCompanionInfo">
 		<id property="c_id" column="c_id" />
 		<result property="m_id" column="m_id" />
 		<result property="c_yn" column="c_yn" />
 	</resultMap>
-	
-<!-- 	<resultMap type="CompanionLike" id="resultCompanionLike">
+
+	<resultMap type="CompanionLike" id="resultCompanionLike">
 		<id property="c_id" column="c_id" />
 		<result property="m_id" column="m_id" />
-	</resultMap> -->
+	</resultMap>
 
 	<resultMap type="CompanionMap" id="resultCompanionMap">
 		<id property="c_id" column="c_id" />
 		<result property="cm_id" column="cm_id" />
 		<result property="c_xy" column="c_xy" />
-
 	</resultMap>
-	
+
 	<resultMap type="CompanionTag" id="resultCompanionTag">
 		<id property="c_id" column="c_id" />
 		<result property="c_lid" column="c_lid" />
 		<result property="c_sid" column="c_sid" />
 	</resultMap>
-	
-<!-- 	<resultMap type="CompanionReply" id="resultCompanionReply">
-		<id property="c_id" column="c_id" />
-		<result property="" column="" />
-		<result property="" column="" />
-	</resultMap> -->
-	
+
+	<!-- <resultMap type="CompanionReply" id="resultCompanionReply"> <id property="c_id" 
+		column="c_id" /> <result property="" column="" /> <result property="" column="" 
+		/> </resultMap> -->
+
 	<!-- 게시글 등록 -->
-	<insert id="insertC" parameterType="Companion"
-		flushCache="true" statementType="PREPARED">
-		insert into Companion (
-		c_id, c_value, c_many, c_view, c_like,	
-		c_adddate, c_startd, c_endd, 
-		m_id, c_dealstatus, c_name, 
-		c_description, c_meet, c_address
-		)
-		values(
-		<!-- companion_seq.nextval, -->4, #{c_value}, #{c_many}, 0, 0,	
-		SYSDATE, #{c_startd}, #{c_endd}, 
+	<!--<insert id="insertC" parameterType="Companion" flushCache="true" statementType="PREPARED"> 
+		insert into Companion ( c_id, c_value, c_many, c_view, c_like, c_adddate, 
+		c_startd, c_endd, m_id, c_dealstatus, c_name, c_description, c_meet, c_address 
+		) values( companion_seq.nextval,4, #{c_value}, #{c_many}, 0, 0, SYSDATE, 
+		#{c_startd}, #{c_endd}, 'Tworavel1', 'N', #{c_name}, #{c_description}, #{c_meet}, 
+		#{c_address} ) </insert> -->
+	<insert id="insertC" parameterType="Companion" flushCache="true"
+		statementType="PREPARED">
+		insert into
+		Companion(
+		c_id, 
+		c_value, c_many, c_view, c_like,
+		c_adddate, c_startd, c_endd,
+		m_id, c_dealstatus, c_name,
+		c_description, c_meet, c_address)
+		values (
+		companion_seq.nextval,
+		#{c_value}, #{c_many}, 0, 0,
+		SYSDATE, #{c_startd}, #{c_endd},
 		'Tworavel1', 'N', #{c_name},
-		#{c_description}, #{c_meet}, #{c_address} 
+		#{c_description}, #{c_meet}, #{c_address})
+		
+	</insert>
+	<insert id="insertCAdd" parameterType="Companion" flushCache="true"
+		statementType="PREPARED">
+		insert into CAdd values (
+		#{c_id}, #{ca_img1},
+		#{ca_img2}, #{ca_img3}
 		)
 	</insert>
-	
-	<insert id="insertCAdd" parameterType="String"
-		flushCache="true" statementType="PREPARED">
-		insert into CompanionAdd values (
-		#{c_id}, #{ca_img1}, #{ca_img2}, #{ca_img3}
-		)
-	</insert>
-	
-	<insert id="insertCInfo" parameterType="String"
+
+	<insert id="insertCInfo" parameterType="Companion"
 		flushCache="true" statementType="PREPARED">
 		insert into CompanionInfo values (
 		#{c_id}, #{m_id}, #{c_yn}
 		)
 	</insert>
-	
-	<insert id="insertCMap" parameterType="String"
-		flushCache="true" statementType="PREPARED">
+
+	<insert id="insertCMap" parameterType="Companion" flushCache="true"
+		statementType="PREPARED">
 		insert into CompanionMap values (
-		#{c_id}, #{cm_id}, #{c_xy}
+		#{cm_id},#{c_id},
+		#{c_xy}
 		)
 	</insert>
-	
-	<insert id="insertCTag" parameterType="String"
-		flushCache="true" statementType="PREPARED">
-		insert into CompanionTag values (
-		#{c_id}, #{c_lid}, #{c_sid}
+
+	<insert id="insertCTag" parameterType="Companion" flushCache="true"
+		statementType="PREPARED">
+		insert into CTag values (
+		#{c_id}, #{c_lid},
+		#{c_sid}
 		)
 	</insert>
-	
+	<select id="selectCmaxc_id" resultType="int" >
+		select max(c_id) from Companion
+	</select>
 	<!-- 게시글 전체 개수 조회 -->
-	<select id="listCountC" resultType="int">
-		select count(*) from companion
+	<select id="listCountC" resultType="int" parameterType="string">
+		select
+		count(*) from companion
 	</select>
 
 	<!-- 전체 게시글 조회 -->
-	<select id="selectListC" resultType="arraylist"
+	<select id="selectListCp" resultType="arraylist"
 		resultMap="resultCompanion">
-		select * from companion
+		select * from companion order by c_id desc
 	</select>
 
 	<!-- 게시글 단일 조회 -->
 	<select id="searchOneC" parameterType="string"
 		resultType="Companion">
-		select * from companion where
-		c_id=#{c_id}
+		select * from Companion.*, CompanionAdd.*, CompanionInfo.*,
+		CompanionMap.*, CompanionTag.*
+		from Companion c
+		left outer join
+		CompanionAdd ca on c.c_id = ca.ca_img1, ca.ca_img2, ca.ca_img3
+		left
+		outer join CompanionInfo ci on c.c_id = ci.m_id, ci.c_yn
+		left outer
+		join CompanionMap cm on c.c_id = cm.cm_id, cm.c_xy
+		left outer join
+		CompanionTag ct on c.c_id = ct.c_lid, ct.c_sid
+		where c_id=#{c_id}
+		<!-- SELECT O.*, C.CUST_NAME, P.PRODUCT_NAME FROM TB_ORDER O LEFT OUTER 
+			JOIN TB_CUST C ON O.CUST_NO = C.CUST_NO LEFT OUTER JOIN TB_PRODUCT P ON O.PRODUCT_NO 
+			= P.PRODUCT_NO WHERE C.CUST_NAME = 'MIKE' -->
+
 	</select>
 
 	<!-- 검색한 게시글 조회 -->
 	<select id="searchListC" parameterType="string"
 		resultType="arraylist" resultMap="resultCompanion">
-		select * from companion
+		select * from Companion
 		where c_name
 		like '%'|| #{keyword} ||'%'
 		or c_description like '%'|| #{keyword}
@@ -132,13 +155,20 @@
 		order by regdate desc
 	</select>
 
-	<!-- 게시글 조회 수 증가 <update id="addReadCount" parameterType="string" flushCache="true" 
-		statementType="PREPARED"> update companion set read_count = (read_count+1) 
-		where c_id=#{c_id} </update> -->
-
+	<!-- 게시글 조회 수 증가 -->
+	<update id="addReadCountC" parameterType="int" flushCache="true"
+		statementType="PREPARED">
+		update companion set c_view = c_view+1 where
+		c_id=#{c_id}
+	</update>
+	<update id="addReadCount" parameterType="int"
+		statementType="PREPARED" flushCache="true">
+		update board set b_view =b_view+1
+		where b_id =#{b_id}
+	</update>
 	<!-- 게시글 수정 -->
-	<update id="updateC" parameterType="Companion"
-		flushCache="true" statementType="PREPARED">
+	<update id="updateC" parameterType="Companion" flushCache="true"
+		statementType="PREPARED">
 		update companion set
 		c_name=#{c_name},
 		c_description=#{c_description}
@@ -146,10 +176,18 @@
 		and
 		companion_pwd=#{companion_pwd}
 	</update>
+	<update id="updateBoard" parameterType="Board"
+		statementType="PREPARED" flushCache="true">
+		update board set b_content
+		=#{b_content},b_title =#{b_title},B_SECRET
+		=#{b_secret},B_SECRETNUMBER
+		=#{b_secretnumber} where b_id =#{b_id}
+	</update>
+
 
 	<!-- 게시글 삭제 -->
-	<delete id="deleteC" parameterType="string"
-		flushCache="true" statementType="PREPARED">
+	<delete id="deleteC" parameterType="string" flushCache="true"
+		statementType="PREPARED">
 		delete from companion
 		where
 		c_id=#{c_id}

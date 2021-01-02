@@ -132,10 +132,10 @@ input[type='radio']:checked:after {
 		<KDY>
 		<section>
 			<form name="frm" enctype="multipart/form-data">
-			<input type="hidden" value="0" name="c_id"/>
-			<input type="hidden" value="0" name="c_view"/>
-			<input type="hidden" value="0" name="c_like"/>
-			
+				<input type="hidden" value="0" name="c_id" /> <input type="hidden"
+					value="0" name="c_view" /> <input type="hidden" value="0"
+					name="c_like" />
+
 				<!-- 지도 시작 -->
 				<div id="map" style="width: 1000px; height: 500px; z-index: 0;"></div>
 				<p>
@@ -167,31 +167,44 @@ input[type='radio']:checked:after {
 					</tr>
 					<tr style="height: 30px">
 						<td style="color: #0AC5A8;">경비</td>
-						<td style="width: 85%;" colspan="3"><input type="text" name="c_value"
-							id="kdy-value-input" placeholder="1인당 여행경비를 입력해주세요"
-							required="required"></td>
+						<td style="width: 85%;" colspan="3"><input type="text"
+							name="c_value" id="kdy-value-input"
+							placeholder="1인당 여행경비를 입력해주세요" required="required"></td>
 					</tr>
 					<tr style="height: 30px">
 						<td style="color: #0AC5A8;">인원</td>
-						<td style="width: 85%;" colspan="3"><input type="text" name="c_many"
-							id="kdy-many-input" placeholder="총 인원을 입력해주세요"
+						<td style="width: 85%;" colspan="3"><input type="text"
+							name="c_many" id="kdy-many-input" placeholder="총 인원을 입력해주세요"
 							required="required"></td>
 					</tr>
 					<tr style="height: 30px">
 						<td style="color: #0AC5A8;">출발 날짜</td>
-						<td style="width: 85%;" colspan="3"><input type="date" name="c_startd"
-							id="kdy-startd-input" placeholder="출발 날짜를 입력해주세요"
+						<td style="width: 85%;" colspan="3"><input type="date"
+							name="c_startd" id="kdy-startd-input" placeholder="출발 날짜를 입력해주세요"
 							required="required"></td>
 					</tr>
 					<tr style="height: 30px">
 						<td style="color: #0AC5A8;">도착 날짜</td>
-						<td style="width: 85%;" colspan="3"><input type="date" name="c_endd"
-							id="kdy-endd-input" placeholder="도착 날짜를 입력해주세요"
+						<td style="width: 85%;" colspan="3"><input type="date"
+							name="c_endd" id="kdy-endd-input" placeholder="도착 날짜를 입력해주세요"
 							required="required"></td>
 					</tr>
-					
-					
-<!-- 					<tr style="height: 30px">
+					<tr>
+						<td>카테고리 분류</td>
+						<td><select name="c_lid" onchange="categoryChange(this)"
+							style="width: 130px; height: 25px;">
+								<option style="display: none;">카테고리</option>
+								<option value="1">지역</option>
+								<option value="2">인원</option>
+								<option value="3">성향</option>
+						</select> <select name="c_sid" id="ICR_smallCategory"
+							style="width: 130px; height: 25px;">
+								<option style="display: none;">소분류</option>
+						</select></td>
+					</tr>
+
+
+					<!-- 					<tr style="height: 30px">
 						<td style="color: #0AC5A8;">비밀글</td>
 						<td>&nbsp;&nbsp;<label for="yes"
 							style="color: rgb(78 102 255/ 90%);">Yes&nbsp;&nbsp;</label><input
@@ -235,26 +248,28 @@ input[type='radio']:checked:after {
 
 				});
 
-		$('#submitModifyCompanionBtn').click(function() {
-			if ($("#kdy-name-input").val() == "") {
-				alert("글 제목을 입력해주세요")
-				$("#kdy-name-input").focus();
-				return false;
-			}
-			if ($("#yes").is(":checked")) {
-				if ($("#kdy-password-input").val() == "") {
-					alert("비밀번호를 입력해주세요");
-					$("#kdy-password-input").focus();
-					return false;
-				}
-			}
-			oEditors.getById["c_description"].exec("UPDATE_CONTENTS_FIELD", []);
-			document.frm.action = "companioninsert.do";
-			document.frm.method = "POST";
-			document.frm.submit();
-		});
+		$('#submitModifyCompanionBtn').click(
+				function() {
+					if ($("#kdy-name-input").val() == "") {
+						alert("글 제목을 입력해주세요")
+						$("#kdy-name-input").focus();
+						return false;
+					}
+					if ($("#yes").is(":checked")) {
+						if ($("#kdy-password-input").val() == "") {
+							alert("비밀번호를 입력해주세요");
+							$("#kdy-password-input").focus();
+							return false;
+						}
+					}
+					oEditors.getById["c_description"].exec(
+							"UPDATE_CONTENTS_FIELD", []);
+					document.frm.action = "companioninsert.do";
+					document.frm.method = "POST";
+					document.frm.submit();
+				});
 		$(function() {
-		
+
 			if ($("#No").is(":checked")) {
 				$("#kdy-secret-tr").css("display", "none");
 			}
@@ -387,6 +402,31 @@ input[type='radio']:checked:after {
 			}
 
 		})
+	</script>
+	<script>
+		//카테고리 선택 스크립트
+		function categoryChange(e) {
+			var location = [ "강원도", "경기도", "경상남도", "경상북도", "전라남도", "전라북도", "충청남도", "충청북도" ];
+			var people = [ "~4명", "5~8명", "9명~" ];
+			var interest = [ "호캉스", "청춘", "자연", "유적지", "액티비티" ];
+			var target = document.getElementById("ICR_smallCategory");
+
+			if (e.value == "1")
+				var d = location;
+			else if (e.value == "2")
+				var d = people;
+			else if (e.value == "3")
+				var d = interest;
+			target.options.length = 0;
+
+			//소분류 value값
+			for (i = 0; i < d.length; i++) {
+				var opt = document.createElement("option");
+				opt.value = i + 1;
+				opt.innerHTML = d[i];
+				target.appendChild(opt);
+			}
+		}
 	</script>
 </body>
 </html>

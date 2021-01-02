@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.tworavel.model.dao.CompanionDao;
+import com.kh.tworavel.model.domain.Board;
 import com.kh.tworavel.model.domain.Companion;
 import com.kh.tworavel.model.domain.CompanionAdd;
 import com.kh.tworavel.model.domain.CompanionInfo;
@@ -20,17 +21,55 @@ public class CompanionServiceImpl implements CompanionService {
 	private CompanionDao cDao;
 
 	@Override
-	public void companion(Companion c, CompanionAdd ca, CompanionInfo ci, CompanionMap cm, CompanionTag ct) {
+	public void companion(Companion c, CompanionMap cm, CompanionTag ct) {
+		int result = 0;
+		result = cDao.companion(c);
+		System.out.println("sdsds"+result);
+		cm.setC_id(result);
+		cDao.companion(cm);
+		ct.setC_id(result);
+		cDao.companion(ct);
+	}
+
+	/*
+	 * @Override public void companion1(Companion c) { cDao.companion(c); }
+	 */
+
+	@Override
+	public int listCountC() {
+		return cDao.listCountC();
+	}
+	@Override
+	public List<Companion> selectListC() {
+		return cDao.selectListC();
+	}
+	@Override
+	public List<Companion> selectListCp(int startPage, int limit) {
+		return cDao.selectListCp(startPage, limit);
+	}
+
+
+
+	@Override
+	public Companion selectOneC(int c_id) {
 		// TODO Auto-generated method stub
-		cDao.companion(c, ca, ci, cm, ct);
-		
+		return null;
 	}
 
 	@Override
-	public void companion1(Companion c) {
-		cDao.companion(c);
+	public Companion updateC(Companion c) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
+	@Override
+	public void deleteC(String c_id) {
+		
+	}
+
+	
+	
+	
 //	@Override
 //	public int listCountC() {
 //		return cDao.listCountC();

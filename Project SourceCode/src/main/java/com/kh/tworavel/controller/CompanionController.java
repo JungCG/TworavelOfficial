@@ -37,22 +37,79 @@ public class CompanionController {
 	public static final int LIMIT = 5;
 
 	@RequestMapping(value = "companion_write.do", method = RequestMethod.GET)
-	   public ModelAndView companion_write(ModelAndView mv) {
-	      mv.setViewName("companion_write");
-	      return mv;
-	   }
-	
-	// 게시글 등록
-	@RequestMapping(value="companioninsert.do",method=RequestMethod.POST)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	public ModelAndView CompanionInsertService(
-			Companion c, /*CompanionAdd ca, CompanionInfo ci, CompanionMap cm, CompanionTag ct*/
-			ModelAndView mv,HttpServletRequest request) {
-		System.out.println("실행됨");
-		cService.companion1(c);
-		mv.setViewName("redirect:/");
+	public ModelAndView companion_write(ModelAndView mv) {
+		mv.setViewName("companion_write");
 		return mv;
 	}
+
+	// 게시글 등록
+	@RequestMapping(value = "companioninsert.do", method = RequestMethod.POST)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	public ModelAndView CompanionInsertService(Companion c, CompanionMap cm, CompanionTag ct, ModelAndView mv,
+			HttpServletRequest request) {
+		System.out.println("실행됨");
+		System.out.println(c.getC_id());
+		System.out.println(cm.getC_id());
+		System.out.println(ct.getC_id());
+		cService.companion(c, cm, ct);
+		mv.setViewName("redirect:/companion_list.do");
+		return mv;
+	}
+
+	@RequestMapping(value = "companion_list.do", method = RequestMethod.GET)
+	public ModelAndView boardListService(@RequestParam(name = "page", defaultValue = "1") int page,
+			@RequestParam(name = "keyword", required = false) String keyword, ModelAndView mv) {
+		try {
+			int currentPage = page;
+			// 한 페이지당 출력할 목록 갯수
+			int listcountC = cService.listCountC();
+			int maxPage = (int) ((double) listcountC / LIMIT + 0.9);
+			if (keyword != null && !keyword.equals(""))
+//	            mv.addObject("list", cService.selectSearch(keyword));
+				System.out.println("검색대신");
+			else
+				System.out.println();
+			mv.addObject("list", cService.selectListCp(currentPage, LIMIT));
+			mv.addObject("currentPage", currentPage);
+			mv.addObject("maxPage", maxPage);
+			mv.addObject("listCount", listcountC);
+			mv.setViewName("companion_list");
+		} catch (Exception e) {
+			mv.addObject("msg", e.getMessage());
+			mv.setViewName("errorPage");
+			e.printStackTrace();
+		}
+		return mv;
+	}
+	// 게시판 리스트
+//	@RequestMapping(value="companion_list.do")
+//	public ModelAndView fBoardListService(ModelAndView mv,@RequestParam(name = "page", defaultValue = "1") int page,
+//			@RequestParam(name = "keyword", required = false) String keyword,@RequestParam(name="type",defaultValue="G") char c_type
+//			){
+//		try {
+//			int currentPage = page;
+//			// 한 페이지당 출력할 목록 갯수
+//		String type=String.valueOf(c_type);
+//			int listCount = cService.listCountC(c)(type);
+//			int maxPage = (int) ((double) listCount / LIMIT + 0.9);
+//			if (keyword != null && !keyword.equals(""))
+//				mv.addObject("list", cService.selectSearchC(keyword));
+//			else {
+//			mv.addObject("list", cService.selectListC(currentPage, LIMIT,type));
+//			mv.addObject("currentPage", currentPage);
+//			mv.addObject("maxPage", maxPage);
+//			mv.addObject("listCount", listCount);
+//			mv.addObject("type",type);
+//			mv.setViewName("companion_list");
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			mv.addObject("msg", e.getMessage());
+//			mv.setViewName("errorPage");
+//		}
+//		return mv;
+//	}
+
 ////	작성된 글을 insert
 //	@RequestMapping(value = "/cInsert.do", method = RequestMethod.POST)
 //	public ModelAndView companionInsert(Companion c,CompanionAdd ca, @RequestParam(value = "upfile") MultipartFile report,
@@ -74,8 +131,7 @@ public class CompanionController {
 //		}
 //		return mv;
 //	}
-	
-	
+
 //	@RequestMapping(method=RequestMethod.GET)
 //	public String aaa(ModelAndView mv) {
 //		return "aaa";

@@ -9,19 +9,17 @@ import com.kh.tworavel.model.domain.CompanionMap;
 import com.kh.tworavel.model.domain.CompanionTag;
 
 public interface CompanionService {
-	void companion(Companion c, CompanionAdd ca, CompanionInfo ci, CompanionMap cm, CompanionTag ct);
-	void companion1(Companion c);
+	void companion(Companion c, CompanionMap cm, CompanionTag ct);
+//	void companion1(Companion c);
 
-//	int listCountC ();
-//	int insertC(Companion c);
-//	
-//	List<Companion> selectListC();   // 전체 읽기
-//	List<Companion> selectListC(int startPage, int limit);
-//	List<Companion> searchlistC(String keyword);
-//	
-//	Companion selectOneC(int c_id);
-//	Companion updateC(Companion c);
-//
-//	void deleteC(String c_id);
+	
+	int listCountC ();
+	List<Companion> selectListC();
+	List<Companion> selectListCp(int startPage, int limit);
+	
+	Companion selectOneC(int c_id);
+	Companion updateC(Companion c);
+
+	void deleteC(String c_id);
 	
 }

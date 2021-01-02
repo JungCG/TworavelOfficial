@@ -105,7 +105,7 @@
 								style="list-style: none; display: flex; justify-content: space-between; align-items: center;">
 								<li style="display: inline-block;"><a href="#"
 									style="padding: 0 15px;">사이트 소개</a></li>
-								<li style="display: inline-block;"><a href="#"
+								<li style="display: inline-block;"><a href="companion_list.do"
 									style="padding: 0 15px;">동행 구하기</a></li>
 								<li id="jck_dropdown" style="display: inline-block;"><a
 									href="board_list.do?type=N" style="padding: 0 15px;">통합 게시판</a>
