@@ -16,11 +16,10 @@
 @import url(//fonts.googleapis.com/earlyaccess/hanna.css);
 
 * {
-	outline:none;
 	padding: 0;
 	margin: 0;
 	border: 0;
-	border-collapse: collapse;
+	border-collapse: collapsed;
 	box-sizing: border-box;
 	text-decoration: none;
 	outline: none;
@@ -486,8 +485,17 @@ section {
 													<fmt:formatDate var="date" value="${cvo.b_timestamp}"
 														pattern="yyyy-MM-dd HH:mm" />
 
-													${date}&nbsp;&nbsp;&nbsp; <input type="button" value="답글달기"
-														class="gjw-recomment-btn"> <input type="button"
+													${date}&nbsp;&nbsp;&nbsp; 
+													<c:choose>
+					<c:when test="${not empty userID}">
+													<input type="button" value="답글달기"
+														class="gjw-recomment-btn">
+														</c:when>
+														</c:choose>
+														
+														<c:choose>
+					<c:when test="${cvo.m_id eq userID}">
+														 <input type="button"
 														value="수정하기" class="gjw-comment-update">
 													<form action="commentupdate.do" method="post"
 														style="display: none;" id="gjw-commentupdate-form"
@@ -509,6 +517,8 @@ section {
 													<a
 														href="deleteComment.do?b_id=${cvo.b_id }&rb_id=${blist.b_id}&b_re_step=${cvo.b_re_step}"
 														class="">X</a>
+														</c:when>
+														</c:choose>
 												</div>
 											</div>
 											<div style="display: none; justify-content: center;">
@@ -552,6 +562,8 @@ section {
 
 													${date}
 												</div>
+												<c:choose>
+					<c:when test="${cvo.m_id eq userID}">
 												<input type="button" value="수정하기"
 													class="gjw-recomment-update">
 												<form action="commentupdate.do" method="post"
@@ -573,6 +585,8 @@ section {
 												<a
 													href="deleteRecomment.do?b_id=${cvo.b_id }&rb_id=${blist.b_id}"
 													class="">X</a>
+													</c:when>
+													</c:choose>
 											</div>
 										</div>
 									</c:otherwise>
@@ -580,6 +594,8 @@ section {
 							</c:forEach>
 						</c:if>
 					</div>
+					<c:choose>
+					<c:when test="${not empty userID}">
 					<div id="gjw-comment-wrap">
 						<div id="gjw-comment-div">
 							<form action="commentInsert.do" method="post">
@@ -598,6 +614,8 @@ section {
 							</form>
 						</div>
 					</div>
+					</c:when>
+					</c:choose>
 				</div>
 			</section>
 		</div>
@@ -605,9 +623,15 @@ section {
 		<div style="display: flex; justify-content: center;">
 			<div
 				style="width: 1000px; display: flex; justify-content: flex-end; margin-right: 10px; margin-top: 15px; margin-bottom: 15px;">
+				
+				
+				<c:choose>
+					<c:when test="${blist.m_id eq userID}">
 				<a href="board_updateform.do?b_id=${blist.b_id }"
 					id="gjw-blist-update">글수정</a> <a
 					href="boarddelete.do?b_id=${blist.b_id }" id="gjw-blist-delete">글삭제</a>
+					</c:when>
+					</c:choose>
 				<a href="board_list.do?b_type=${blist.b_type }" id="gjw-blist-link">글목록</a>
 			</div>
 		</div>

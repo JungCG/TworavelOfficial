@@ -35,36 +35,14 @@ public class CompanionServiceImpl implements CompanionService {
 	 * @Override public void companion1(Companion c) { cDao.companion(c); }
 	 */
 
-	@Override
-	public int listCountC() {
-		return cDao.listCountC();
-	}
-	@Override
-	public List<Companion> selectListC() {
-		return cDao.selectListC();
-	}
-	@Override
-	public List<Companion> selectListCp(int startPage, int limit) {
-		return cDao.selectListCp(startPage, limit);
-	}
 
 	@Override
 	public List<Companion> selectSearchC(String keyword) {
 		return cDao.selectSearchC(keyword);
 	}
 
-	@Override
-	public Companion selectOneC(int c_id) {
-		return cDao.selectOneC(c_id);
-	}
-	@Override
-	public List<Companion> selectTwoC(int c_id) {
-		return cDao.selectTwoC(c_id);
-	}	
-	@Override
-	public List<Companion> selectThrC(int c_id) {
-		return cDao.selectThrC(c_id);
-	}	
+
+
 	
 	@Override
 	public void updateOneC(Companion c) {
@@ -81,11 +59,71 @@ public class CompanionServiceImpl implements CompanionService {
 		cDao.updateThrC(ct);
 	}
 	
+
+//
+	
+	@Override
+	public int companion(Companion c) {
+		int result = cDao.companion(c);
+		return result;
+	}
+	/*
+	 * @Override public void companion1(Companion c) { cDao.companion(c); }
+	 */
+
+	@Override
+	public int listCountC() {
+		return cDao.listCountC();
+	}
+	@Override
+	public List<Companion> selectListC() {
+		return cDao.selectListC();
+	}
+	@Override
+	public List<Companion> selectListCp(int startPage, int limit) {
+		return cDao.selectListCp(startPage, limit);
+	}
+	@Override
+	public Companion updateC(Companion c) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	@Override
 	public void deleteC(String c_id) {
 		
 	}
 
+	@Override
+	public void insertCmap(CompanionMap vo) {
+		cDao.insertCmap(vo);
+	}
+
+	@Override
+	public void insertCtag(CompanionTag vo) {
+
+			cDao.insertCtag(vo);
+	}
+	  @Override
+	   public Companion selectOneC(int c_id) {
+	      return cDao.selectOneC(c_id);
+	   }
+	   @Override
+	   public String selectTwoC(CompanionMap vo) {
+	      return cDao.selectTwoC(vo);
+	   }   
+	   @Override
+	   public List<Companion> selectThrC(int c_id) {
+	      return cDao.selectThrC(c_id);
+	   }
+
+	@Override
+	public int selectCmapCount(int c_id) {
+		return cDao.selectCmapCount(c_id);
+	}  
+	
+	
+	
 //	@Override
 //	public void updateC(Companion c, CompanionMap cm, CompanionTag ct) {
 //		int result = 0;

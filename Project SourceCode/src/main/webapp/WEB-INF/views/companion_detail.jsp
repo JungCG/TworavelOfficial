@@ -529,22 +529,63 @@ section {
         	})
 		</script>
 		<!-- 지도 스크립트 -->
-		<script type="text/javascript"
-		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bb74b1c432c6717d09c3677341bf1ead&libraries=services"></script>
-		<script>
-		var allpolyline = [];
-		var markers1 = [];
-		var clickLine
-		var pp = [];
-		var clickPosition = [];
-		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-		mapOption = {
-			center : new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-			level : 3
-		// 지도의 확대 레벨
-		};
-		var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-	</script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bb74b1c432c6717d09c3677341bf1ead&libraries=services"></script>
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = { 
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };  
+
+var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+// 지도에 표시할 원을 생성합니다
+<c:if test="${not empty meetpoint}">
+var marker1 = new kakao.maps.Marker({
+    position: new kakao.maps.LatLng${meetpoint},
+    zIndex:10000,
+    opacity:1
+});
+marker1.setMap(map);
+</c:if>
+
+
+<c:if test="${not empty maplist}">
+<c:forEach var="mvo" items="${maplist }">
+var marker = new kakao.maps.Marker({
+    position: new kakao.maps.LatLng${mvo.c_xy},
+    zIndex:3,
+    zIndex:1050,
+    opacity:0.8,
+});
+marker.setMap(map);
+</c:forEach>
+</c:if>
+
+
+// 선을 구성하는 좌표 배열입니다. 이 좌표들을 이어서 선을 표시합니다
+var linePath = [
+	<c:if test="${not empty maplist}">
+	<c:forEach var="mvo" items="${maplist }">
+    new kakao.maps.LatLng${mvo.c_xy},
+	</c:forEach>
+	</c:if>
+];
+
+// 지도에 표시할 선을 생성합니다
+var polyline = new kakao.maps.Polyline({
+    path: linePath, // 선을 구성하는 좌표배열 입니다
+    strokeWeight: 13	, // 선의 두께 입니다
+    strokeColor: '#FFAE00', // 선의 색깔입니다
+    strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+    strokeStyle: 'solid', // 선의 스타일입니다
+    zIndex:9999,
+    endArrow:true 
+});
+// 지도에 선을 표시합니다 
+polyline.setMap(map);  
+
+</script>
 		</div>
 		<div style="display: flex; justify-content: center;">
 			<div

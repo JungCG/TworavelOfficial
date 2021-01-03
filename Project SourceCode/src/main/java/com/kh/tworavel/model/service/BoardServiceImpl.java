@@ -27,8 +27,8 @@ public class BoardServiceImpl implements BoardService {
 		bDao.insertBoard(b);
 	}
 	@Override
-	public List<Board> selectSearch(String keyword) {
-		return bDao.searchList(keyword);
+	public List<Board> selectSearch(String keyword,int startPage,int limit) {
+		return bDao.searchList(keyword,startPage,limit);
 	}
 	@Override
 	public List<Board> selectComment(int b_id) {
@@ -121,5 +121,9 @@ bDao.deleteCommentB(b_id);
 	@Override
 	public List<Board> selectHotViewList() {
 		return bDao.selectHotViewList();
+	}
+	@Override
+	public int totalSearchCount(String keyword) {
+		return bDao.totalSearchCount(keyword);
 	}
 }

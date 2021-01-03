@@ -25,31 +25,39 @@ import com.kh.tworavel.model.service.BoardService;
 
 @Controller
 public class BoardController {
-	
+
 	@Autowired
 	private BoardService bService;
 	public static final int LIMIT = 10;
-	
-	
+
 	// 게시판 리스트
 	@RequestMapping(value = "board_list.do")
 	public ModelAndView fBoardListService(ModelAndView mv, @RequestParam(name = "page", defaultValue = "1") int page,
 			@RequestParam(name = "keyword", required = false) String keyword,
-			@RequestParam(name = "type", defaultValue = "G") char b_type) {
+			@RequestParam(name = "type", defaultValue = "G",required = false) char b_type) {
+		int listCount=0;
 		try {
 			int currentPage = page;
 			// 한 페이지당 출력할 목록 갯수
-		String type=String.valueOf(b_type);
-			int listCount = bService.totalCount(type);
+			String type = String.valueOf(b_type);
+			if(type!="S") {
+				listCount = bService.totalCount(type);
+			}
+			if (keyword != null && !keyword.equals("")) {
+				listCount = bService.totalSearchCount(keyword);
+				type ="S";
+			}
 			int maxPage = (int) ((double) listCount / LIMIT + 0.9);
-			if (keyword != null && !keyword.equals(""))
-				mv.addObject("list", bService.selectSearch(keyword));
+			if (keyword != null && !keyword.equals("")) {
+				mv.addObject("list", bService.selectSearch(keyword,currentPage,LIMIT));
+			}
 			else
-			mv.addObject("list", bService.selectList(currentPage, LIMIT,type));
+				mv.addObject("list", bService.selectList(currentPage, LIMIT, type));
 			mv.addObject("currentPage", currentPage);
 			mv.addObject("maxPage", maxPage);
 			mv.addObject("listCount", listCount);
-			mv.addObject("type",type);
+			mv.addObject("type", type);
+			mv.addObject("keyword",keyword);
 			mv.setViewName("board_list");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -59,16 +67,17 @@ public class BoardController {
 		mv.addObject("hotlist", bService.selectHotViewList());
 		return mv;
 	}
+
 	// 게시글 상세페이지
-	@RequestMapping(value="board_detail.do")
-	public ModelAndView boardDetailService(ModelAndView mv,@RequestParam(name="b_id")int b_id) {
+	@RequestMapping(value = "board_detail.do")
+	public ModelAndView boardDetailService(ModelAndView mv, @RequestParam(name = "b_id") int b_id) {
 		try {
-			mv.addObject("blist",bService.selectBoard(b_id));
-			mv.addObject("clist",bService.selectComment(b_id));
+			mv.addObject("blist", bService.selectBoard(b_id));
+			mv.addObject("clist", bService.selectComment(b_id));
 			mv.setViewName("board_detail");
-			
-		}catch(Exception e) {
-			
+
+		} catch (Exception e) {
+
 			e.printStackTrace();
 		}
 		return mv;
@@ -81,36 +90,38 @@ public class BoardController {
 		mv.setViewName("board_write");
 		return mv;
 	}
-	//댓글 등록
-	@RequestMapping(value="commentInsert.do",method=RequestMethod.POST)
-	public ModelAndView commentInsertService(ModelAndView mv,Board vo,HttpServletRequest request) {
+
+	// 댓글 등록
+	@RequestMapping(value = "commentInsert.do", method = RequestMethod.POST)
+	public ModelAndView commentInsertService(ModelAndView mv, Board vo, HttpServletRequest request) {
 		System.out.println(vo.getB_id());
-	vo.setB_ref(vo.getB_id());	
-	System.out.println(vo.getB_ref());
-	bService.commentInsert(vo);
-	mv.setViewName("redirect:/board_detail.do?b_id="+vo.getB_ref());
-	return mv;
-	}	
+		vo.setB_ref(vo.getB_id());
+		System.out.println(vo.getB_ref());
+		bService.commentInsert(vo);
+		mv.setViewName("redirect:/board_detail.do?b_id=" + vo.getB_ref());
+		return mv;
+	}
 	// 대댓글 등록
-	
-	@RequestMapping(value="recommentInsert.do",method=RequestMethod.POST)
-	public ModelAndView recommentInsertService(ModelAndView mv,Board vo,HttpServletRequest request) {
-	vo.setB_ref(vo.getB_id());	
-	System.out.println("aucd"+vo.getB_id());
-	HashMap<String, Integer>blist = new HashMap<String, Integer>();
-	blist.put("b_ref",vo.getB_id());
-	blist.put("b_re_step",vo.getB_re_step());
-	bService.recommentInsert(vo,blist);
-	mv.setViewName("redirect:/board_detail.do?b_id="+vo.getB_ref());
-	return mv;
-	}	
+
+	@RequestMapping(value = "recommentInsert.do", method = RequestMethod.POST)
+	public ModelAndView recommentInsertService(ModelAndView mv, Board vo, HttpServletRequest request) {
+		vo.setB_ref(vo.getB_id());
+		System.out.println("aucd" + vo.getB_id());
+		HashMap<String, Integer> blist = new HashMap<String, Integer>();
+		blist.put("b_ref", vo.getB_id());
+		blist.put("b_re_step", vo.getB_re_step());
+		bService.recommentInsert(vo, blist);
+		mv.setViewName("redirect:/board_detail.do?b_id=" + vo.getB_ref());
+		return mv;
+	}
+
 	// 게시글 등록
 	@RequestMapping(value = "boardinsert.do", method = RequestMethod.POST)
 	public ModelAndView BoardInsertService(@RequestParam(name = "b_content") String b_content,
-			@RequestParam(name = "b_title") String b_title, @RequestParam("b_type") String b_type,
-			@RequestParam(name = "m_id") String m_id, @RequestParam(name = "b_secret") String b_secret,
-			@RequestParam(name = "b_secretnumber", defaultValue = "0") int b_secretnumber, ModelAndView mv,
-			HttpServletRequest request) {
+		@RequestParam(name = "b_title") String b_title, @RequestParam("b_type") String b_type,
+		@RequestParam(name = "m_id") String m_id, @RequestParam(name = "b_secret") String b_secret,
+		@RequestParam(name = "b_secretnumber", defaultValue = "0") int b_secretnumber, ModelAndView mv,
+		HttpServletRequest request) {
 		Board b = new Board();
 		b_content.replace("\"", "'");
 		System.out.println(b_content);
@@ -248,105 +259,103 @@ public class BoardController {
 	}
 
 	// 파일 업로드
-	 @RequestMapping("/fileupload.do")
-	 public void multiplePhotoUpload(HttpServletRequest request, HttpServletResponse response){
+	@RequestMapping("/fileupload.do")
+	public void multiplePhotoUpload(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			// 파일정보
+			String sFileInfo = "";
+			// 파일명을 받는다 - 일반 원본파일명
 
-		    try {
-		         //파일정보
-		         String sFileInfo = "";
-		         //파일명을 받는다 - 일반 원본파일명
+			String filename = request.getHeader("file-name");
 
-		         String filename = request.getHeader("file-name");
+			// 파일 확장자
 
-		         //파일 확장자
+			String filename_ext = filename.substring(filename.lastIndexOf(".") + 1);
 
-		         String filename_ext = filename.substring(filename.lastIndexOf(".")+1);
+			// 확장자를소문자로 변경
 
-		         //확장자를소문자로 변경
+			filename_ext = filename_ext.toLowerCase();
 
-		         filename_ext = filename_ext.toLowerCase();
+			// 파일 기본경로
 
-		         //파일 기본경로
+			String dftFilePath = request.getSession().getServletContext().getRealPath("/");
 
-		         String dftFilePath = request.getSession().getServletContext().getRealPath("/");
+			// 파일 기본경로 _ 상세경로
 
-		         //파일 기본경로 _ 상세경로
+			String filePath = dftFilePath + "resources" + File.separator + "photo_upload" + File.separator;
 
-		         String filePath = dftFilePath + "resources" + File.separator + "photo_upload" + File.separator;
+			System.out.println(filePath);
 
-		         System.out.println(filePath);
+			File file = new File(filePath);
 
-		         File file = new File(filePath);
+			if (!file.exists()) {
 
-		         if(!file.exists()) {
+				file.mkdirs();
+			}
 
-		            file.mkdirs();
-		         }
+			String realFileNm = "";
 
-		         String realFileNm = "";
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
 
-		         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+			String today = formatter.format(new java.util.Date());
 
-		         String today= formatter.format(new java.util.Date());
+			realFileNm = today + UUID.randomUUID().toString() + filename.substring(filename.lastIndexOf("."));
 
-		         realFileNm = today+UUID.randomUUID().toString() + filename.substring(filename.lastIndexOf("."));
+			String rlFileNm = filePath + realFileNm;
 
-		         String rlFileNm = filePath + realFileNm;
+			///////////////// 서버에 파일쓰기 /////////////////
 
-		         ///////////////// 서버에 파일쓰기 ///////////////// 
+			InputStream is = request.getInputStream();
 
-		         InputStream is = request.getInputStream();
+			OutputStream os = new FileOutputStream(rlFileNm);
 
-		         OutputStream os=new FileOutputStream(rlFileNm);
+			int numRead;
 
-		         int numRead;
+			byte b[] = new byte[Integer.parseInt(request.getHeader("file-size"))];
 
-		         byte b[] = new byte[Integer.parseInt(request.getHeader("file-size"))];
+			while ((numRead = is.read(b, 0, b.length)) != -1) {
 
-		         while((numRead = is.read(b,0,b.length)) != -1){
+				os.write(b, 0, numRead);
 
-		            os.write(b,0,numRead);
+			}
 
-		         }
+			if (is != null) {
 
-		         if(is != null) {
+				is.close();
 
-		            is.close();
+			}
 
-		         }
+			os.flush();
 
-		         os.flush();
+			os.close();
 
-		         os.close();
+			///////////////// 서버에 파일쓰기 /////////////////
 
-		         ///////////////// 서버에 파일쓰기 /////////////////
+			// 정보 출력
 
-		         // 정보 출력
+			sFileInfo += "&bNewLine=true";
 
-		         sFileInfo += "&bNewLine=true";
+			// img 태그의 title 속성을 원본파일명으로 적용시켜주기 위함
 
-		         // img 태그의 title 속성을 원본파일명으로 적용시켜주기 위함
+			sFileInfo += "&sFileName=" + filename;
+			;
 
-		         sFileInfo += "&sFileName="+ filename;
+			sFileInfo += "&sFileURL=" + "/tworavel/resources/photo_upload/" + realFileNm;
 
-		         sFileInfo += "&sFileURL="+"/tworavel/resources/photo_upload/"+realFileNm;
+			PrintWriter print = response.getWriter();
 
-		         PrintWriter print = response.getWriter();
+			print.print(sFileInfo);
 
-		         print.print(sFileInfo);
+			print.flush();
 
-		         print.flush();
+			print.close();
 
-		         print.close();
+		} catch (Exception e) {
 
-		    } catch (Exception e) {
-
-		        e.printStackTrace();
-
-		    }
+			e.printStackTrace();
 
 		}
 
-
+	}
 
 }

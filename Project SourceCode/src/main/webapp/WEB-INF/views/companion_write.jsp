@@ -131,21 +131,24 @@ input[type='radio']:checked:after {
 		<jsp:include page="header.jsp" />
 		<KDY>
 		<section>
+				<input type="button" id="meetbtn" value="미팅포인트 지정">
+				<input type="button" id="meetsubmit" value="미팅포인트 등록">
+		<input type ="text" id="meet" value="0">
 			<form name="frm" enctype="multipart/form-data">
+			<input type="text"value="0" name="c_meet" id="meetvalue">
 				<input type="hidden" value="0" name="c_id" /> <input type="hidden"
 					value="0" name="c_view" /> <input type="hidden" value="0"
 					name="c_like" />
-
 				<!-- 지도 시작 -->
 				<div id="map" style="width: 1000px; height: 500px; z-index: 0;"></div>
 				<p>
-					<em>지도를 클릭해주세요!</em>
+					<em>지도를 클릭해서 마커를 표시하신후 '위치확정' 버튼을 눌러주세요</em>
 				</p>
 				<div id="clickLatlng"></div>
-				<input type="button" id="se" value="지도 "> <input type=text
-					id="mapval0"> <input type=text id="mapval1"> <input
-					type=text id="mapval2"> <input type=text id="mapval3">
-				<input type=text id="mapval4">
+				<input type="button" id="se" value="위치 확정 "> <input type="hidden"
+					id="mapval0" name="mapval1"> <input type="hidden" id="mapval1" name="mapval2"> <input
+					type="hidden" id="mapval2" name="mapval3"> <input type="hidden"id="mapval3" name="mapval4">
+				<input type="hidden"id="mapval4" name="mapval5">
 				<!-- 지도 끝 -->
 				<table align="center" style="width: 100%;">
 					<tr style="height: 30px">
@@ -283,11 +286,12 @@ input[type='radio']:checked:after {
 		})
 	</script>
 	<!-- 지도스크립트 -->
-	<script type="text/javascript"
+		<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bb74b1c432c6717d09c3677341bf1ead&libraries=services"></script>
 	<script>
 		var allpolyline = [];
 		var markers1 = [];
+		var meetpoint =[];
 		var clickLine
 		var pp = [];
 		var clickPosition = [];
@@ -299,16 +303,69 @@ input[type='radio']:checked:after {
 		};
 
 		var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-
+$("#se").click(function(){
+	alert("위치가 확정되었습니다");
+})
 		// 지도를 클릭한 위치에 표출할 마커입니다
-
+$("#meetbtn").click(function(){
+if($("#meet").val()=="0"){
+	
+	alert("미팅포인트로 지정할 위치에 클릭을 해주세요")
+	$("#meet").val("1");
+}else{
+	$("#meet").val("0");
+}
+	
+})
+$("#meetsubmit").click(function(){
+	if($("#meet").val()=="1"){
+		
+		alert("미팅포인트가 등록되었습니다");
+		$("#meet").val("0");
+	}
+})
 		// 지도에 마커를 표시합니다
-
+	/* 	$("#meetbtn").click(function(){
+				$("#meet").val("2");
+	
+			}) */
+			
+/* 					var meetmarker = new kakao.maps.Marker({
+				position: map.getCenter() 
+				});
+		meetpoint.push(meetmarker);
+		meetmarker.setMap(map);
+ */
 		// 지도에 클릭 이벤트를 등록합니다
 		// 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
-
+		var meetmarker = new kakao.maps.Marker({ 
+    // 지도 중심좌표에 마커를 생성합니다 
+}); 
 		var linePath = [];
 		kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+			if($("#meet").val()=="1"){
+				 var latlng = mouseEvent.latLng; 
+				    meetmarker.setPosition(latlng);
+					position : mouseEvent.latLng
+				$("#meet").val()=="0";
+				$("#meetvalue").val(mouseEvent.latLng);
+				meetmarker.setMap(map);
+				alert("미팅포인트등록 버튼을 눌러주세요");
+			}
+			else{
+			
+/* 			
+			if(meetpoint==null){
+				
+				var meetmarker = new kakao.maps.Marker({
+					// 지도 중심좌표에 마커를 생성합니다 
+					position : mouseEvent.latLng
+				});
+				meetpoint.push(meetmarker);
+			}
+				meetmarker.setMap(map);
+			 */
+			
 			if (markers1.length == 5) {
 				/*         markers1[0] = markers1[1];
 				 markers1[1] = markers1[2];
@@ -323,7 +380,6 @@ input[type='radio']:checked:after {
 				allpolyline[q].setMap(null);
 			}
 			// 지도에 선을 표시합니다 
-
 			var marker = new kakao.maps.Marker({
 				// 지도 중심좌표에 마커를 생성합니다 
 				position : mouseEvent.latLng
@@ -363,7 +419,6 @@ input[type='radio']:checked:after {
 				alert("linePath.length : " + linePath.length);
 				alert("pp.length : " + pp.length);
 				alert("markers1.length : " + markers1.length);
-
 				for (var q = 0; q < allpolyline.length; q++) {
 					console.log("q1 : " + q);
 					console.log(allpolyline[q]);
@@ -390,7 +445,7 @@ input[type='radio']:checked:after {
 			pp.push(polyline);
 
 			polyline.setMap(map);
-		});
+		}});
 
 		$("#se").click(function() {
 

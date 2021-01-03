@@ -72,11 +72,10 @@
 }
 
 * {
-	outline:none;
 	padding: 0;
 	margin: 0;
 	border: 0;
-	border-collapse: collapse;
+	border-collapse: collapsed;
 	box-sizing: border-box;
 	text-decoration: none;
 }
@@ -289,10 +288,11 @@ a {
 									<input type="hidden" value="${vo.b_secret }"
 										class="gjw-board-secret"> <input type="hidden"
 										value="${vo.b_id }" class="gjw-board-b_id"> <input
-										type="password" style="display: none;margin-bottom: 5px;width: 60%;"
+										type="password"
+										style="display: none; margin-bottom: 5px; width: 60%;"
 										class="gjw-secretnumber"> <input type="hidden"
 										value="${vo.b_secretnumber }" class="gjw-secretnumber-text">
-									<input type="button" style="display: none;margin-bottom: 5px"
+									<input type="button" style="display: none; margin-bottom: 5px"
 										class="gjw-secretsubmit" value="확인">
 								</div>
 								</td>
@@ -308,15 +308,19 @@ a {
 						</c:forEach>
 					</c:if>
 					<tr>
-						<td colspan="6"
-							style="text-align: end; padding-top: 30px; padding-right: 30px; color: #0AC5A8;"><a
-							href="board_write.do"
-							style="color: #0AC5A8; border: 3px solid #6495ed6b; border-radius: 10px; padding: 6px; font-family: 'Jal_Onuel';">글쓰기</a></td>
+						<c:choose>
+							<c:when test="${not empty userID}">
+								<td colspan="6"
+									style="text-align: end; padding-top: 30px; padding-right: 30px; color: #0AC5A8;"><a
+									href="board_write.do"
+									style="color: #0AC5A8; border: 3px solid #6495ed6b; border-radius: 10px; padding: 6px; font-family: 'Jal_Onuel';">글쓰기</a></td>
+							</c:when>
+						</c:choose>
 					</tr>
 
 					<tr>
 						<td colspan="6">
-							<form action="board_list.do" method="get">
+							<form action="board_list.do" method="get" style="padding-top:20px;">
 								<input type="text" placeholder="검색어를 입력해주세요"
 									style="width: 250px; height: 20px; border-radius: 10px; border: 3px solid #6495ed6b; padding: 10px;"
 									name="keyword"> <input type="submit" value="검색"
@@ -328,10 +332,15 @@ a {
 						<td colspan="6"
 							style="padding-top: 20px; color: #0AC5A8; font-family: 'Jal_Onuel';"><c:if
 								test="${currentPage <= 1}"> [이전]&nbsp;
- </c:if> <c:if test="${currentPage > 1}">
+ </c:if>
+ 							 	 <c:if test="${currentPage > 1}">
 								<c:url var="blistST" value="board_list.do">
 									<c:param name="page" value="${currentPage-1}" />
 									<c:param name="type" value="${type}" />
+									<c:if test="${not empty keyword}">
+										<c:param name="keyword" value="${keyword }"></c:param>
+										</c:if>
+									
 								</c:url>
 								<a href="${blistST}"
 									style="color: #0AC5A8; font-family: 'Jal_Onuel';">[이전]</a>
@@ -344,7 +353,9 @@ a {
 									<c:url var="blistchk" value="board_list.do">
 										<c:param name="page" value="${p}" />
 										<c:param name="type" value="${type}" />
-
+										<c:if test="${not empty keyword}">
+										<c:param name="keyword" value="${keyword }"></c:param>
+										</c:if>
 									</c:url>
 									<a href="${blistchk}">${p}</a>
 								</c:if>
@@ -354,6 +365,10 @@ a {
 								<c:url var="blistEND" value="board_list.do">
 									<c:param name="page" value="${currentPage+1}" />
 									<c:param name="type" value="${type}" />
+									<c:if test="${not empty keyword}">
+										<c:param name="keyword" value="${keyword }"></c:param>
+										</c:if>
+									
 								</c:url>
 								<a href="${blistEND}"
 									style="color: #0AC5A8; font-family: 'Jal_Onuel';">[다음]</a>
@@ -368,21 +383,24 @@ a {
 		$(function() {
 			$(".gjw-board-title").click(
 					function() {
-						var b_secret = $(this).nextAll(".gjw-pass-div").children(
-								".gjw-board-secret").val();
-						var b_id = $(this).nextAll(".gjw-pass-div").children(".gjw-board-b_id")
-								.val();
+						var b_secret = $(this).nextAll(".gjw-pass-div")
+								.children(".gjw-board-secret").val();
+						var b_id = $(this).nextAll(".gjw-pass-div").children(
+								".gjw-board-b_id").val();
 						if (b_secret == "Y") {
 							alert("비밀글입니다 비밀번호를 입력해주세요");
-							$(this).nextAll(".gjw-pass-div").children(".gjw-secretnumber").css(
-									"display", "block");
-							$(this).nextAll(".gjw-pass-div").children(".gjw-secretsubmit").css(
-									"display", "block");
-							$(this).nextAll(".gjw-pass-div").children(".gjw-secretnumber")
-									.focus();
+							$(this).nextAll(".gjw-pass-div").children(
+									".gjw-secretnumber")
+									.css("display", "block");
+							$(this).nextAll(".gjw-pass-div").children(
+									".gjw-secretsubmit")
+									.css("display", "block");
+							$(this).nextAll(".gjw-pass-div").children(
+									".gjw-secretnumber").focus();
 
 						} else {
-							location.href = "board_detail.do?b_id="+b_id+"&page=${currentPage}"
+							location.href = "board_detail.do?b_id=" + b_id
+									+ "&page=${currentPage}"
 						}
 					})
 		})
@@ -412,7 +430,8 @@ a {
 							return;
 						} else {
 							if (b_secretnumber == b_secretnumber1) {
-								location.href = "board_detail.do?b_id="+b_id+"&page=${currentPage}"
+								location.href = "board_detail.do?b_id=" + b_id
+										+ "&page=${currentPage}"
 
 							} else {
 								alert("비밀번호를 잘못입력하셨습니다");

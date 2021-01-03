@@ -46,8 +46,8 @@ z-index: 988;
     .bg_white {background:#fff;}
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
-.map_wrap {position:relative;width:100%;height:1000px;}
-#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 20px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
+.map_wrap {position:relative;width:80%;height:1000px;}
+#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 0px 0px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
 #menu_wrap .option{text-align: center;}
@@ -80,7 +80,7 @@ z-index: 988;
 #pagination {margin:10px auto;text-align: center;}
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}#category {position:absolute;top:10px;left:10px;border-radius: 5px; border:1px solid #909090;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);background: #fff;overflow: hidden;z-index: 2;}
-#category{left:270px;}
+#category{left:250px;}
 #category li {float:left;list-style: none;width:50px;px;border-right:1px solid #acacac;padding:6px 0;text-align: center; cursor: pointer;}
 #category li.own {background: #eee;}
 #category li:hover {background: #ffe6e6;border-left:1px solid #acacac;margin-left: -1px;}
@@ -109,6 +109,7 @@ z-index: 988;
 <body>
 <div class="jck_wrap">
 		<jsp:include page="header.jsp"/>
+		<div style="display:flex;justify-content: center;">
 <div class="map_wrap">
     <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
 
@@ -117,7 +118,7 @@ z-index: 988;
             <div>
                 <form onsubmit="searchPlaces(); return false;">
                     키워드 : <input type="text" value="" id="keyword" size="15"> 
-                    <button type="submit">검색하기</button> 
+                    <button type="submit" id="btnb">검색하기</button> 
                 </form>
             </div>
         </div>
@@ -151,6 +152,7 @@ z-index: 988;
             행사
         </li>      
     </ul>
+</div>
 </div>
 		<jsp:include page="footer.jsp"/>
 
@@ -515,8 +517,15 @@ if (!currCategory) {
 var infowindow = new kakao.maps.InfoWindow({zIndex:1});
 
 // 키워드로 장소를 검색합니다
-searchPlaces();
+var keyword = document.getElementById('keyword').value;
 
+if(keyword!=""){
+	
+	searchPlaces();
+}
+if("${keyword}"!=null){
+	searchPlaces4();
+}
 // 키워드 검색을 요청하는 함수입니다
 function searchPlaces() {
 
@@ -529,7 +538,6 @@ function searchPlaces() {
  	}
  	else{
     ps.keywordSearch( keyword, placesSearchCB); 
- 	
     if (!keyword.replace(/^\s+|\s+$/g, '')) {
         alert('키워드를 입력해주세요!');
         return false;
@@ -539,6 +547,17 @@ function searchPlaces() {
 
     // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
 }
+function searchPlaces4() {
+	  var keyword = document.getElementById('keyword').value;
+	 	if(searchtext!=""){
+	    	ps.keywordSearch(searchtext, placesSearchCB);
+	    	searchtext =""
+	 	}
+	 	else{
+	    ps.keywordSearch( keyword, placesSearchCB); 
+	 	}	
+	    // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
+	}
 
 // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
 function placesSearchCB(data, status, pagination) {

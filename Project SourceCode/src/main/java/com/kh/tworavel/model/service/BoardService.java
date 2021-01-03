@@ -12,7 +12,7 @@ public interface BoardService {
 	 List<Board> selectList(int startPage, int limit,String type);
 	 List<Board>selectHotViewList();
 	 void insertBoard(Board b);
-	 List<Board> selectSearch(String keyword);
+	 List<Board> selectSearch(String keyword,int startPage, int limit);
 	 List<Board>selectComment(int b_id);
 	 Board selectBoard(int b_id);
 	 int selectCommentStep(int b_id);
@@ -32,4 +32,5 @@ public interface BoardService {
 	 void deleteLike(Board vo);
 	 int selectLikeMid(Board vo);
 	 int selectLikeCount(int b_id);
+	 int totalSearchCount(String keyword);
 }

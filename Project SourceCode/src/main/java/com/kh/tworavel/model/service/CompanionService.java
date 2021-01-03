@@ -18,15 +18,16 @@ public interface CompanionService {
 	List<Companion> selectListC();
 	List<Companion> selectListCp(int startPage, int limit);
 	List<Companion> selectSearchC(String keyword);
-	
-	Companion selectOneC(int c_id);
-	List<Companion> selectTwoC(int c_id);
-	List<Companion> selectThrC(int c_id);
-	
 	void updateOneC(Companion c);
 	void updateTwoC(CompanionMap cm);
 	void updateThrC(CompanionTag ct);
-	
 	void deleteC(String c_id);
-	
+	 Companion selectOneC(int c_id);
+	  String selectTwoC(CompanionMap vo);
+	 List<Companion> selectThrC(int c_id);
+	  int selectCmapCount(int c_id);
+	  int companion(Companion c);
+	void insertCmap(CompanionMap vo);
+	void insertCtag(CompanionTag vo);
+	Companion updateC(Companion c);
 }

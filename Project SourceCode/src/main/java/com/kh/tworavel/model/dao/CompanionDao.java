@@ -77,16 +77,9 @@ public class CompanionDao {
 	}
 
 	// 동행글 상세 1,2,3
-	public Companion selectOneC(int c_id) {	// 동행글 상세 1
-		return sqlSession.selectOne("Companion.selectOneC", c_id);
-	}
 	public List<Companion> selectTwoC(int c_id) {	// 동행글 상세 2
 		return sqlSession.selectList("CompanionMap.selectTwoC", c_id);
 	}	
-	public List<Companion> selectThrC(int c_id) {	// 동행글 상세 3
-		return sqlSession.selectList("CompanionTag.selectThrC", c_id);
-	}
-	
 	// 동행글 수정 1,2,3
 	public int updateOneC(Companion c) {
 		return sqlSession.update("Companion.updateOneC", c);
@@ -105,5 +98,30 @@ public class CompanionDao {
 	public int deleteC(int c_id) {
 		return sqlSession.delete("Companion.deleteC", c_id);
 	}
+	public int selectCmapCount(int c_id) {
+		
+		return sqlSession.selectOne("Companion.selectCmapCount",c_id);
+	}
 
+
+	public int insertCtag(CompanionTag ct) { // 글 등록
+		return sqlSession.insert("Companion.insertCTag", ct);
+	}
+	
+	public void insertCmap(CompanionMap vo) {
+		
+		 sqlSession.insert("Companion.insertCMap", vo);
+	}
+	public Companion selectOneC(int c_id) {   // 동행글 상세 1
+	      return sqlSession.selectOne("Companion.selectOneC", c_id);
+	   }
+	   public String selectTwoC(CompanionMap vo) {   // 동행글 상세 2
+	      return sqlSession.selectOne("Companion.selectTwoC", vo);
+	   }   
+	   public List<Companion> selectThrC(int c_id) {   // 동행글 상세 3
+	      return sqlSession.selectList("Companion.selectThrC", c_id);
+	   }
+	
+	
+	
 }

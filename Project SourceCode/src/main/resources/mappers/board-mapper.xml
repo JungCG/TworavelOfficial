@@ -30,6 +30,13 @@
 		select* from board where
 		b_type=#{board_type} and b_re_step=0 order by b_id desc
 	</select>
+	
+	<select id="totalSearchCount" parameterType="string" resultType="int">
+	
+	select count(*) from board where
+		b_title LIKE '%'|| #{keyword} ||'%'
+		OR b_content LIKE '%'|| #{keyword} ||'%' and b_re_step=0
+	</select>
 	<select id="selectSearch" parameterType="string"
 		resultType="arraylist" resultMap="resultBoard">
 		select* from board where

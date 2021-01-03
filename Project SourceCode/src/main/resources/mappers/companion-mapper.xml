@@ -113,6 +113,18 @@
 		#{c_sid}
 		)
 	</insert>
+	
+		<select id="selectCmapCount" parameterType="int" resultType="int">
+		
+	select count(c_xy) from companionmap where c_id =#{c_id}
+	</select>
+   <select id="selectTwoC" parameterType="Companion"
+     resultType="string">
+      select c_xy from companionmap where c_id=#{c_id} and cm_id=#{cm_id}
+   </select>
+	
+	
+	
 	<select id="selectCmaxc_id" resultType="int">
 		select max(c_id)
 		from Companion
@@ -145,11 +157,7 @@
 		select * from companion where c_id=#{c_id}
 	</select>
 	
-	<select id="selectTwoC" parameterType="int"
-		resultType="arraylist" resultMap="resultCompanionMap">
-		select * from companionmap where c_id=#{c_id}
-	</select>
-	
+
 	<select id="selectThrC" parameterType="int"
 		resultType="arraylist" resultMap="resultCompanionTag">
 		select * from ctag where c_id=#{c_id}
