@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Companioninfo">
+  
+  <resultMap type="Companioninfo" id="resultCompanioninfo">
+		<id property="c_id" column="c_id"/>
+		<result property="m_id2" column="m_id2"/>
+		<result property="m_id" column="m_id"/>
+		<result property="c_name" column="c_name"/>
+		<result property="c_yn" column="c_yn"/>
+	</resultMap>
+	
+	
+	<!-- 동행 신청 내역-->
+	<select id="My_selectCompanioninfo" parameterType="string" resultMap="resultCompanioninfo" flushCache="true" statementType="PREPARED">
+	select * from companioninfo where m_id = #{m_id} order by c_id
+	</select>
+	
+	<!-- 동행 받은 내역-->
+	<select id="My_selectCompanioninfo2" parameterType="string" resultMap="resultCompanioninfo" flushCache="true" statementType="PREPARED">
+	select * from companioninfo where m_id2 = #{m_id} order by c_id
+	</select>
+	
+	<!-- 동행 수락 -->
+	<update id="My_updateCompanionOk" parameterType="Companioninfo" flushCache="true" statementType="PREPARED">
+	update companioninfo set c_yn = 'Y' where c_id = #{c_id} and m_id = #{m_id}
+	</update>
+	
+
+
+</mapper>

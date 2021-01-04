@@ -377,11 +377,6 @@ public class MemberController {
 		return "alertMsg";
 	}
 
-	@RequestMapping(value = "/MyPage.do", method = RequestMethod.GET)
-	public String MyPage(HttpServletRequest request, HttpServletResponse response, Model model, ModelAndView mv)
-			throws IOException {
-		return "MyPage";
-	}
 
 	@RequestMapping(value = "/AdminPage.do", method = RequestMethod.GET)
 	public String AdminPage(HttpServletRequest request, HttpServletResponse response, Model model, ModelAndView mv)

@@ -16,4 +16,10 @@
 	<insert id = "insertOut" parameterType="string" flushCache="true" statementType="PREPARED">
 		INSERT INTO OUT(M_ID, O_STATUS) VALUES(#{m_id}, 'N')
 	</insert>
+	
+	<!-- ================마이페이지 sql문================ -->
+	<!-- 회원탈퇴 -->
+	<update id="My_updateOutMember" parameterType="string" flushCache="true" statementType="PREPARED">
+	update out set o_status = 'Y', o_outdate = current_date where m_id = #{m_id}
+	</update>
 </mapper>

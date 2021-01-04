@@ -155,4 +155,28 @@
 
 		select b_like from board where b_id=#{b_id}
 	</select>
+	<!-- ==================마이페이지 sql문================ -->
+	<!-- 작성한 글 갯수 조회 -->
+	<select id="My_selectBoardCountAll" parameterType="string" resultType="int" flushCache="true" statementType="PREPARED">
+	select count(*) from board where m_id = #{m_id}
+	</select>
+	
+	<!-- 작성한 동행게시판 글 조회 -->
+	<select id="My_selectBoardlist" parameterType="string" resultMap="resultBoard" flushCache="true" statementType="PREPARED">
+	select * from board where m_id = #{m_id} order by b_timestamp desc
+	</select>
+	
+	<!-- 좋아요한 글 갯수 조회 -->
+	<select id="My_selectLikeBoardCountAll" parameterType="string" resultType="int" flushCache="true" statementType="PREPARED">
+	select count(*) from board where b_id in(select b_id from blike where m_id = #{m_id})
+	</select>
+	
+	<!-- 좋아요한 동행게시판 글 조회 -->
+	<select id="My_selectLikeBoardlist" parameterType="string" resultMap="resultBoard" flushCache="true" statementType="PREPARED">
+	select * from board where b_id in(select b_id from blike where m_id = #{m_id})
+	</select>
+	
+	<update id="My_updateBoardLikeVal" parameterType="int" flushCache="true" statementType="PREPARED">
+	update board set b_like = b_like-1 where b_id = #{b_id}
+	</update>
 </mapper>

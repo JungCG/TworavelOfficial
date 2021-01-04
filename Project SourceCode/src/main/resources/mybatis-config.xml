@@ -32,6 +32,14 @@
 			type="com.kh.tworavel.model.domain.Gallery" />
 			<typeAlias alias="Gallery"
 			type="com.kh.tworavel.model.domain.Gallery" />
+		<typeAlias alias="Companioninfo"
+			type="com.kh.tworavel.model.domain.CompanionInfo" />
+		<typeAlias alias="Favor"
+			type="com.kh.tworavel.model.domain.Favor" />
+		<typeAlias alias="Blike"
+			type="com.kh.tworavel.model.domain.Blike" />
+		<typeAlias alias="Clike"
+			type="com.kh.tworavel.model.domain.Clike" />
 			
 			
 	</typeAliases>
@@ -43,5 +51,9 @@
 		<mapper resource="mappers/out-mapper.xml" />
 		<mapper resource="mappers/coronamap-mapper.xml" />
 		<mapper resource="mappers/gallery-mapper.xml" />
+		<mapper resource="mappers/companioninfo-mapper.xml" />
+		<mapper resource="mappers/favor-mapper.xml" />
+		<mapper resource="mappers/blike-mapper.xml" />
+		<mapper resource="mappers/clike-mapper.xml" />
 	</mappers>
 </configuration>

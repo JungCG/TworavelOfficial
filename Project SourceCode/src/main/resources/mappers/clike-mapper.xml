@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Clike">
+
+	<resultMap type="Clike" id="resultClike">
+		<id property="c_id" column="c_id"/>
+		<result property="m_id" column="m_id"/>
+	</resultMap>
+
+	<!-- ================ 마이페이지 sql문  =================== -->
+	<!-- 좋아요 삭제 -->
+	<delete id="My_deleteCompanionLikelist" parameterType="Clike" flushCache="true" statementType="PREPARED">
+	delete from clike where m_id = #{m_id} and c_id = #{c_id}
+	</delete>
+</mapper>

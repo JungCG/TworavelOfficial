@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Favor">
+
+	<resultMap type="Favor" id="resultFavor">
+		<id property="m_id" column="m_id"/>
+		<result property="c_lid" column="c_lid"/>
+		<result property="c_sid" column="c_sid"/>
+	</resultMap>
+	
+	
+	
+	<!-- ============ 마이페이지 sql문 =========== -->
+	<insert id="My_insertFavor" parameterType="Favor" flushCache="true" statementType="PREPARED">
+	insert into favor values (#{m_id}, #{c_lid}, #{c_sid})
+	</insert>
+	
+	<select id="My_selectFavorOne" parameterType="Favor" resultType="int" flushCache="true" statementType="PREPARED">
+	select count(*) from favor where m_id = #{m_id} and c_lid = #{c_lid} and c_sid = #{c_sid}
+	</select>
+	
+	<select id="My_selectFavordlist" parameterType="string" resultMap="resultFavor" flushCache="true" statementType="PREPARED">
+	select * from favor where m_id = #{m_id} order by c_lid asc, c_sid asc
+	</select>
+	
+	<delete id="My_deleteFavordlist" parameterType="Favor" flushCache="true" statementType="PREPARED">
+	delete from favor where m_id = #{m_id} and c_lid = #{c_lid} and c_sid = #{c_sid}
+	</delete>
+	
+</mapper>

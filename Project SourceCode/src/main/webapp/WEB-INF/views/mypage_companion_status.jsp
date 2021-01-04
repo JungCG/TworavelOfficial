@@ -1,0 +1,217 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jck_main.css">
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+* {
+	padding: 0;
+	margin: 0;
+	border: 0;
+	border-collapse:collapse;
+	box-sizing:border-box;
+	text-decoration:none;
+}
+html{
+	height : 100%;
+}
+body{
+	height : 100%;
+}
+.jck_wrap{
+	min-height:100%;
+	position : relative;
+	padding-bottom : 200px;
+}
+</style>
+<script src="${pageContext.request.contextPath }/resources/js/jquery-3.5.1.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<script src="//code.jquery.com/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+</head>
+<style>
+#ICR_writedlist{
+	width: 1000px;
+	margin: 0 auto;
+	text-align: center;
+}
+.btn-default{
+	width: 49%;
+}
+#ICR_cominfoBtn_G{
+	background: #2C3C5B;
+	color: white;
+}
+#companioninfo_t, #ICR_msg2{
+	display: none;
+}
+#ICR_endBtn{
+	padding: 1px 3px 1px 3px;
+}
+a{
+	text-decoration: none;
+}
+.ICR_textDiv{
+	margin-top: 30px;
+}
+</style>
+<body>
+	<div class="jck_wrap">
+		<jsp:include page="header.jsp"/>
+		
+		<div id="ICR_writedlist">
+			<h3 style="margin-bottom: 50px;">동행 신청 내역</h3>
+			<button id="ICR_cominfoBtn_G" class="btn btn-default">보낸 동행신청 내역</button>
+			<button id="ICR_cominfoBtn_T" class="btn btn-default">받은 동행신청 내역</button><br><br>
+			
+			
+			
+			<!-- 보낸 동행 신청 -->
+			<c:if test="${not empty companioninfo_g}">
+			<table id="companioninfo_g" class="table">
+				<tr style="background: #eee;">
+					<td>글번호</td>
+					<td>동행글 제목</td>
+					<td>작성자</td>
+					<td>수락여부</td>
+				</tr>
+				<c:forEach items="${companioninfo_g}" var="companioninfo_g">
+				<tr>
+					<td>${companioninfo_g.c_id}</td>
+					<td>${companioninfo_g.c_name}</td>
+					<td>${companioninfo_g.m_id2}</td>
+					<td>${companioninfo_g.c_yn}</td>
+				</tr>
+				</c:forEach>
+			</table> 
+			</c:if>
+			<div id="ICR_msg1">
+				<c:if test="${empty companioninfo_g}">
+				<div class="ICR_textDiv">동행 신청내역이 없습니다.<br><a href="#">☞동행신청 하러가기☜</a>
+				</div>
+				</c:if>
+			</div>
+			
+			<!-- 받은 동행 신청 -->
+			<c:if test="${not empty companioninfo_t}">
+			<table id="companioninfo_t" class="table">
+				<tr style="background: #eee;">
+					<td>글번호</td>
+					<td>동행글 제목</td>
+					<td>신청자</td>
+					<td>수락여부</td>
+					<!-- <td>채팅</td> -->
+				</tr>
+				<c:forEach items="${companioninfo_t}" var="companioninfo_t">
+				<tr>
+					<td>${companioninfo_t.c_id}</td>
+					<td>${companioninfo_t.c_name}</td>
+					<td>${companioninfo_t.m_id}</td>
+					<td>${companioninfo_t.c_yn}&nbsp;&nbsp;&nbsp;
+					<c:if test="${companioninfo_t.c_yn eq 'N'.charAt(0)}">
+						<button class="ICR_OkBtn btn btn-default">수락하기</button>
+					</c:if>
+					<c:if test="${companioninfo_t.c_yn eq 'Y'.charAt(0)}"></c:if>
+					</td>
+					<%-- <td>
+					<c:if test="${companioninfo_t.c_yn eq 'N'.charAt(0)}">
+						<button class="ICR_ChattingBtn btn btn-default">채팅초대하기</button>
+					</c:if>
+					<c:if test="${companioninfo_t.c_yn eq 'Y'.charAt(0)}"></c:if>
+					
+					
+					</td> --%>
+				</tr>
+				</c:forEach>
+			</table> 
+			</c:if>
+			<div id="ICR_msg2">
+			<c:if test="${empty companioninfo_t}">
+			<div class="ICR_textDiv">받은 동행 신청내역이 없습니다.
+			</div>
+			</c:if>
+			</div>
+		</div>
+
+		<jsp:include page="footer.jsp"/>
+	</div>
+	
+
+
+<script>
+$(function() {
+	if("${listView}"=="t"){
+		ICR_cominfoBtn_T.click();
+	}
+});
+</script>
+<script>
+$('#ICR_cominfoBtn_G').on('click',function(){
+	$('#ICR_cominfoBtn_G').css('background','#2C3C5B');
+	$('#ICR_cominfoBtn_G').css('color','white');
+	$('#ICR_cominfoBtn_T').css('background','white');
+	$('#ICR_cominfoBtn_T').css('color','#333');
+	$('#companioninfo_g').css('display','table');
+	$('#companioninfo_t').css('display','none');
+	$('#ICR_msg1').css('display','block');
+	$('#ICR_msg2').css('display','none');
+})
+$('#ICR_cominfoBtn_T').on('click',function(){
+	$('#ICR_cominfoBtn_G').css('background','white');
+	$('#ICR_cominfoBtn_G').css('color','#333');
+	$('#ICR_cominfoBtn_T').css('background','#2C3C5B');
+	$('#ICR_cominfoBtn_T').css('color','white');
+	$('#companioninfo_g').css('display','none');
+	$('#companioninfo_t').css('display','table');
+	$('#ICR_msg1').css('display','none');
+	$('#ICR_msg2').css('display','block');
+})
+
+$('.ICR_OkBtn').on('click',function(e){
+	var bool = confirm("동행 신청을 수락하겠습니까?\n※수락 후 취소가 불가합니다.※");
+	if(bool){
+		var tdArr = new Array();    // 배열 선언
+	    var checkBtn = $(this);
+		
+	    var tr = checkBtn.parent().parent();
+	    var td = tr.children();
+	    
+	    var c_id = td.eq(0).text().trim();
+	    var m_id = td.eq(2).text().trim();
+	    window.location="updateCompanionOk.do?c_id="+c_id+"&m_id="+m_id;
+	}else if(bool==false){
+		return false;
+	}
+});
+
+$('.ICR_ChattingBtn').on('click',function(e){
+	var tdArr = new Array();    // 배열 선언
+    var checkBtn = $(this);
+	
+    var tr = checkBtn.parent().parent();
+    var td = tr.children();
+    
+    var c_id = td.eq(0).text().trim();
+    var m_id2 = td.eq(2).text().trim();	//신청자
+	
+	var bool = confirm("[" + m_id2 + "]를 [" + c_id + "번글 채팅방]에 초대하겠습니까?");
+	if(bool){
+		
+	 	// 채팅방 개설(본인 insert)
+	 	// 신청자 초대(상대방 insert)
+	    window.location="inviteChat.do?c_id=" + c_id + "&m_id2=" + m_id2;
+	}else if(bool==false){
+		return false;
+	}
+});
+</script>
+
+</body>
+</html>

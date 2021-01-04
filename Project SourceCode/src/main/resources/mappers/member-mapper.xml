@@ -79,4 +79,18 @@
 	<update id="updateLoginDate" parameterType="string" flushCache="true" statementType="PREPARED">
 		UPDATE MEMBER SET M_LOGINDATE = CURRENT_DATE WHERE M_ID = #{m_id}
 	</update>
+	
+	<!-- 마이페이지 sql문 -->
+	<!-- 회원 1명 조회 -->
+	<select id="My_SelectOne" parameterType="string" resultMap="resultMember" flushCache="true" statementType="PREPARED">
+	select * from member where m_id = #{m_id}
+	</select>
+	
+	<!-- 프로필 수정 -->
+	<update id="My_updateProfile" parameterType="Member" flushCache="true" statementType="PREPARED">
+	update member set m_nick = #{m_nick}, m_birth = #{m_birth},
+	 m_gender = #{m_gender}, m_address = #{m_address}, m_address_detail = #{m_address_detail}, m_intro = #{m_intro},
+	 m_image = #{m_image}, m_phone = #{m_phone} where m_id = #{m_id}
+	</update>
+	
 </mapper>
