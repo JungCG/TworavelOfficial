@@ -33,4 +33,6 @@ public interface BoardService {
 	 int selectLikeMid(Board vo);
 	 int selectLikeCount(int b_id);
 	 int totalSearchCount(String keyword);
+	 int selectBoardAllCount();
+	 List<Board>selectBoardAll(int startPage, int limit);
 }

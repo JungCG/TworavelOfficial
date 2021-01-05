@@ -126,4 +126,12 @@ bDao.deleteCommentB(b_id);
 	public int totalSearchCount(String keyword) {
 		return bDao.totalSearchCount(keyword);
 	}
+	@Override
+	public int selectBoardAllCount() {
+
+		return bDao.selectBoardAllCount();
+	}
+	public List<Board>selectBoardAll(int startPage, int limit){
+		return bDao.selectBoardAll(startPage,limit);
+	}
 }

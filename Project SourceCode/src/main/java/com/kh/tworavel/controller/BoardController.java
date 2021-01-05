@@ -33,9 +33,36 @@ public class BoardController {
 	// 게시판 리스트
 	@RequestMapping(value = "board_list.do")
 	public ModelAndView fBoardListService(ModelAndView mv, @RequestParam(name = "page", defaultValue = "1") int page,
-			@RequestParam(name = "keyword", required = false) String keyword,
-			@RequestParam(name = "type", defaultValue = "G",required = false) char b_type) {
+		@RequestParam(name = "keyword", required = false) String keyword,
+		@RequestParam(name = "type", defaultValue = "G",required = false) char b_type) {
 		int listCount=0;
+		int currentBlock = page%4==0 ? page/4:(page/4)+1;
+		int startPage =0;
+		int endPage=0;
+		/*
+		 * System.out.println(currentBlock);
+		 */		
+		System.out.println((page/5)*5 +1);
+		
+		if(page%5==0) {
+			
+			startPage = (page/5 -1)*5+1;
+			endPage= (page/5)*5;
+		}else if(page%5!=0) {
+			
+			startPage = (page/5)*5 +1;
+			endPage=(page/5 + 1)*5;
+		}
+		
+		/*
+		 * <c:set var="startPage" value="${(currentPage/5 -1)*5+1}"/> <c:set
+		 * var="endPage" value="${(currentPage/5)*5 }"/> </c:if> <c:if
+		 * test="${(currentPage%5) != 0}"> <c:set var="startPage"
+		 * value="${(currentPage/5)*5 +1 }"/> <c:set var="endPage"
+		 * value="${(currentPage/5 + 1)*5 }"/> </c:if>
+		 * 
+		 * 
+		 */
 		try {
 			int currentPage = page;
 			// 한 페이지당 출력할 목록 갯수
@@ -51,12 +78,17 @@ public class BoardController {
 			if (keyword != null && !keyword.equals("")) {
 				mv.addObject("list", bService.selectSearch(keyword,currentPage,LIMIT));
 			}
-			else
+			else {
+				
 				mv.addObject("list", bService.selectList(currentPage, LIMIT, type));
+			}
+			mv.addObject("startPage",startPage);
+			mv.addObject("endPage", endPage);
 			mv.addObject("currentPage", currentPage);
 			mv.addObject("maxPage", maxPage);
 			mv.addObject("listCount", listCount);
 			mv.addObject("type", type);
+			mv.addObject("currentblock", currentBlock);
 			mv.addObject("keyword",keyword);
 			mv.setViewName("board_list");
 		} catch (Exception e) {
@@ -98,7 +130,10 @@ public class BoardController {
 		vo.setB_ref(vo.getB_id());
 		System.out.println(vo.getB_ref());
 		bService.commentInsert(vo);
-		mv.setViewName("redirect:/board_detail.do?b_id=" + vo.getB_ref());
+		 mv.addObject("msg","댓글 작성에 성공하였습니다."
+		 		+ "5포인트가 적립되었습니다");
+		 mv.addObject("url","/board_detail.do?b_id="+vo.getB_ref());
+		 mv.setViewName("alertMsg");
 		return mv;
 	}
 	// 대댓글 등록
@@ -111,7 +146,10 @@ public class BoardController {
 		blist.put("b_ref", vo.getB_id());
 		blist.put("b_re_step", vo.getB_re_step());
 		bService.recommentInsert(vo, blist);
-		mv.setViewName("redirect:/board_detail.do?b_id=" + vo.getB_ref());
+		 mv.addObject("msg","댓글 작성에 성공하였습니다."
+		 		+ "5포인트가 적립되었습니다");
+		 mv.addObject("url","/board_detail.do?b_id="+vo.getB_ref());
+		 mv.setViewName("alertMsg");
 		return mv;
 	}
 
@@ -132,10 +170,11 @@ public class BoardController {
 		b.setB_secret(b_secret);
 		b.setB_secretnumber(b_secretnumber);
 		bService.insertBoard(b);
-		mv.setViewName("redirect:board_list.do");
+		 mv.addObject("msg","글작성에 성공하였습니다. 10포인트가 적립되었습니다");
+		 mv.addObject("url","/board_list.do");
+		 mv.setViewName("alertMsg");
 		return mv;
 	}
-
 	@RequestMapping(value = "boarddelete.do", method = RequestMethod.GET)
 	public ModelAndView BoardDeleteService(@RequestParam(name = "b_id") int b_id, ModelAndView mv,
 			HttpServletRequest request) {
@@ -159,6 +198,9 @@ public class BoardController {
 		} else {
 			bService.deleteCommentB(b_id);
 		}
+		
+		
+		
 		mv.setViewName("redirect:board_detail.do?b_id=" + rb_id);
 		return mv;
 	}
@@ -282,7 +324,7 @@ public class BoardController {
 
 			// 파일 기본경로 _ 상세경로
 
-			String filePath = dftFilePath + "resources" + File.separator + "photo_upload" + File.separator;
+			String filePath = dftFilePath + "resources" + File.separator + "board_photo_upload" + File.separator;
 
 			System.out.println(filePath);
 
@@ -292,7 +334,6 @@ public class BoardController {
 
 				file.mkdirs();
 			}
-
 			String realFileNm = "";
 
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -337,9 +378,10 @@ public class BoardController {
 
 			// img 태그의 title 속성을 원본파일명으로 적용시켜주기 위함
 
-		         sFileInfo += "&sFileName="+ filename;
+			sFileInfo += "&sFileName=" + filename;
+			;
 
-			sFileInfo += "&sFileURL=" + "/tworavel/resources/photo_upload/" + realFileNm;
+			sFileInfo += "&sFileURL=" + "/tworavel/resources/board_photo_upload/" + realFileNm;
 
 			PrintWriter print = response.getWriter();
 

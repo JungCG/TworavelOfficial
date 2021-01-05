@@ -3,6 +3,7 @@ package com.kh.tworavel.model.dao;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -99,4 +100,16 @@ public class MemberDao {
 	public int minusLoginPoint(String m_id) {
 		return sqlSession.update("Member.minusLoginPoint", m_id);
 	}
+	
+	//금지운부분
+		public int selectMemberAllCount() {
+			
+			return sqlSession.selectOne("Member.selectMemberAllCount");
+		}
+		public List<Member>selectMemberAll(int startPage,int limit){
+			 int startRow = (startPage-1)*limit;
+			 RowBounds row = new RowBounds(startRow, limit);
+			return sqlSession.selectList("Member.selectMemberAll","",row);
+			
+		}
 }

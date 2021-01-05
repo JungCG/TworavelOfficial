@@ -31,6 +31,7 @@ public class Member implements java.io.Serializable{
 	private String m_joinway;
 	private int m_point;
 	private int cnt;
+	private char m_out;
 	public Member() {
 	}
 	
@@ -237,6 +238,13 @@ public class Member implements java.io.Serializable{
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+public char getM_out() {
+		return m_out;
+	}
+
+	public void setM_out(char m_out) {
+		this.m_out = m_out;
 	}
 	
 	

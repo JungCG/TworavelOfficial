@@ -25,11 +25,8 @@ public class BoardDao {
 		 
 		 return sqlSession.selectList("Board.selectHotViewList");
 		 }
-	 
-	 
-	 	
-	 
 		 public int insertBoard(Board b) { // 글 입력
+			 	sqlSession.update("Member.updatePointBoardWrite",b.getM_id());
 		 return sqlSession.insert("Board.insertBoard",b);
 		 }
 		 public int addReadCount(String board_num) { // 글 조회 수 증가
@@ -53,12 +50,14 @@ public class BoardDao {
 			 return sqlSession.selectOne("Board.selectCommentStep",b_id);
 		 }
 		 public void commentInsert(Board vo) {
+			 sqlSession.update("Member.updatePointCommentWrite",vo.getM_id());
 			 sqlSession.insert("Board.commentInsert",vo);
 		 }
 		 public void addReadCount(int b_id) {
 			 sqlSession.update("Board.addReadCount",b_id);
 		 }
 		 public void recommentInsert(Board vo) {
+			 sqlSession.update("Member.updatePointCommentWrite",vo.getM_id());
 			 sqlSession.insert("Board.recommentInsert",vo);
 		 }
 		 
@@ -79,6 +78,14 @@ public class BoardDao {
 		 }
 		 public void deleteRecomment(int b_id) {
 			 sqlSession.delete("Board.deleteComment",b_id);
+		 }
+		 public int selectBoardAllCount() {
+			 return sqlSession.selectOne("Board.selectBoardAllCount");
+		 }
+		 public List<Board> selectBoardAll(int startPage,int limit){
+			 int startRow = (startPage-1)*limit;
+			 RowBounds row = new RowBounds(startRow, limit);
+			 return sqlSession.selectList("Board.selectBoardAll","",row);
 		 }
 		 
 		 public int selectCommentCount(HashMap<String, Integer> commentinfo) {

@@ -72,11 +72,10 @@
 }
 
 * {
-	outline:none;
 	padding: 0;
 	margin: 0;
 	border: 0;
-	border-collapse: collapse;
+	border-collapse: collapsed;
 	box-sizing: border-box;
 	text-decoration: none;
 }
@@ -341,12 +340,14 @@ a {
 									<c:if test="${not empty keyword}">
 										<c:param name="keyword" value="${keyword }"></c:param>
 										</c:if>
-									
 								</c:url>
 								<a href="${blistST}"
 									style="color: #0AC5A8; font-family: 'Jal_Onuel';">[이전]</a>
-							</c:if> <!-- 끝 페이지 번호 처리 --> <c:set var="endPage" value="${maxPage}" />
-							<c:forEach var="p" begin="${startPage+1}" end="${endPage}">
+							</c:if> <!-- 끝 페이지 번호 처리 --> 
+							
+		
+							<c:forEach var="p" begin="${startPage}" end="${endPage }">
+								<c:if test="${p <= maxPage}"> 
 								<c:if test="${p eq currentPage}">
 									<font color="cornflowerblue" size="4"><b>[${p}]</b></font>
 								</c:if>
@@ -360,6 +361,7 @@ a {
 									</c:url>
 									<a href="${blistchk}">${p}</a>
 								</c:if>
+								</c:if> 
 							</c:forEach> <c:if test="${currentPage >= maxPage}">
  [다음]
  </c:if> <c:if test="${currentPage < maxPage}">
@@ -369,7 +371,6 @@ a {
 									<c:if test="${not empty keyword}">
 										<c:param name="keyword" value="${keyword }"></c:param>
 										</c:if>
-									
 								</c:url>
 								<a href="${blistEND}"
 									style="color: #0AC5A8; font-family: 'Jal_Onuel';">[다음]</a>

@@ -16,11 +16,10 @@
 @import url(//fonts.googleapis.com/earlyaccess/hanna.css);
 
 * {
-	outline:none;
 	padding: 0;
 	margin: 0;
 	border: 0;
-	border-collapse: collapse;
+	border-collapse: collapsed;
 	box-sizing: border-box;
 	text-decoration: none;
 	outline: none;
@@ -501,7 +500,7 @@ section {
 													<form action="commentupdate.do" method="post"
 														style="display: none;" id="gjw-commentupdate-form"
 														name="commentupdateform">
-														<input type="hidden" value="${userID}" name="b_id">
+														<input type="hidden" value="${userID}" name="m_id">
 
 														<input type="hidden" value="${cvo.b_id }" name="b_id">
 														<input type="hidden" value="${blist.b_id }" name="b_ref">

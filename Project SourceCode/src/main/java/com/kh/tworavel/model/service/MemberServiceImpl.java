@@ -94,6 +94,16 @@ public class MemberServiceImpl implements MemberService{
 	public int minusLoginPoint(String m_id) {
 		return mDao.minusLoginPoint(m_id);
 	}
+	//陛瘤款何盒(包府磊)
+	@Override
+	public int selectMemberAllCount() {
+		return mDao.selectMemberAllCount();
+	}
 
+	@Override
+	public List<Member> selectMemberAll(int startPage, int limit) {
+		
+		return mDao.selectMemberAll(startPage,limit);
+	}
 	
 }

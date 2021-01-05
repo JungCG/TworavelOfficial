@@ -48,7 +48,13 @@
 <select id="selectHotViewList" resultType="arraylist" resultMap="resultBoard">
 	select* from(select* from board where b_re_step =0 order by b_view desc) where 5>= rownum
 	</select>
+<select id="selectBoardAllCount" resultType="int">
+select count(*) from board where b_re_step=0 
+</select>
 
+<select id="selectBoardAll" resultType="arraylist" resultMap="resultBoard">
+select* from board where b_re_step=0 
+</select>
 
 	<insert id="insertBoard" parameterType="Board" flushCache="true"
 		statementType="PREPARED">

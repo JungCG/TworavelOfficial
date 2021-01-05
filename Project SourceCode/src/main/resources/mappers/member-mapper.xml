@@ -25,6 +25,7 @@
 		<result property="m_joinway" column="m_joinway" />
 		<result property="m_point" column="m_point" />
 		<result property="cnt" column="cnt" />
+			<result property="m_out" column="o_status" />
 	</resultMap>
 	<resultMap type="Member" id="resultMember2">
 		<result property="m_id" column="m_id"/>
@@ -114,4 +115,25 @@
 	<update id="minusLoginPoint" parameterType="string" flushCache="true" statementType="PREPARED">
 		UPDATE MEMBER SET M_POINT = M_POINT-5 WHERE M_ID = #{m_id}
 	</update>
+
+
+	<!-- 금지운 -->
+	
+		<update id="updatePointBoardWrite" parameterType="string" flushCache="true" statementType="PREPARED">
+		update member set m_point = m_point+10 where m_id =#{m_id}
+	</update>
+	<update id="updatePointCommentWrite" parameterType="string" flushCache="true" statementType="PREPARED">
+		update member set m_point = m_point+5 where m_id =#{m_id}
+	</update>
+	<select id="selectMemberAll" resultType="arraylist" resultMap="resultMember">
+select m.*,o.o_status from member m join out o on(m.m_id=o.m_id)
+	</select>
+	<select id="selectMemberAllCount" resultType="int">
+	
+	select count(*) from member
+	</select>
+
 </mapper>
+
+
+

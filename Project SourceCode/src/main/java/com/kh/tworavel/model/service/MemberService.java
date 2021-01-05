@@ -37,4 +37,9 @@ public interface MemberService {
 	List<Member> unEqualLoginDate();
 	
 	int minusLoginPoint(String m_id);
+	
+	int selectMemberAllCount();
+	
+	List<Member>selectMemberAll(int startPage,int limit);
+	
 }

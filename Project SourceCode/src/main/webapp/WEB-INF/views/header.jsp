@@ -140,7 +140,7 @@
 									style="padding: 0 15px;">My Page</a></li>
 								<li style="display: inline-block;" class="jck_after_login" id="user_my_page"><a href="./MyPage.do"
 									style="padding: 0 15px;">My Page</a></li>
-									<li style="display: inline-block;" class="jck_after_login" id="manager_my_page"><a href="./AdminPage.do"
+									<li style="display: inline-block;" class="jck_after_login" id="manager_my_page"><a href="./adminpage.do"
 									style="padding: 0 15px;">Admin</a></li>
 								<li style="display: inline-block;" class="jck_before_login"><a href="./loginPre.do"
 									style="padding: 0 15px;">Login</a></li>
