@@ -77,18 +77,18 @@ public class CompanionDao {
 	}
 
 	// 동행글 상세 1,2,3
-	public List<Companion> selectTwoC(int c_id) {	// 동행글 상세 2
-		return sqlSession.selectList("CompanionMap.selectTwoC", c_id);
+	public List<Companion> selectMapC(int c_id) {	// 동행글 상세 2
+		return sqlSession.selectList("CompanionMap.selectMapC", c_id);
 	}	
 	// 동행글 수정 1,2,3
 	public int updateOneC(Companion c) {
 		return sqlSession.update("Companion.updateOneC", c);
 	}
-	public int updateTwoC(CompanionMap cm) {
-		return sqlSession.update("CompanionMap.updateTwoC", cm);
+	public int updateMapC(CompanionMap cm) {
+		return sqlSession.update("CompanionMap.updateMapC", cm);
 	}
-	public int updateThrC(CompanionTag ct) {
-		return sqlSession.update("CompanionTag.updateThrC", ct);
+	public int updateTagC(CompanionTag ct) {
+		return sqlSession.update("CompanionTag.updateTagC", ct);
 	}
 	
 	public int addReadCount(int c_id) {
@@ -104,24 +104,27 @@ public class CompanionDao {
 	}
 
 
-	public int insertCtag(CompanionTag ct) { // 글 등록
+	public int insertCTag(CompanionTag ct) { // 글 등록
 		return sqlSession.insert("Companion.insertCTag", ct);
 	}
 	
-	public void insertCmap(CompanionMap vo) {
+	public void insertCMap(CompanionMap vo) {
 		
 		 sqlSession.insert("Companion.insertCMap", vo);
 	}
 	public Companion selectOneC(int c_id) {   // 동행글 상세 1
 	      return sqlSession.selectOne("Companion.selectOneC", c_id);
 	   }
-	   public String selectTwoC(CompanionMap vo) {   // 동행글 상세 2
-	      return sqlSession.selectOne("Companion.selectTwoC", vo);
+	   public String selectMapC(CompanionMap vo) {   // 동행글 상세 2
+	      return sqlSession.selectOne("Companion.selectMapC", vo);
 	   }   
-	   public List<Companion> selectThrC(int c_id) {   // 동행글 상세 3
-	      return sqlSession.selectList("Companion.selectThrC", c_id);
+	   public List<Companion> selectTagC(int c_id) {   // 동행글 상세 3
+	      return sqlSession.selectList("Companion.selectTagC", c_id);
 	   }
 	
+	   	public void updateCMap(CompanionMap vo) {
+	   		sqlSession.update("Companion.updateCMap",vo);
+	   	}
 	
 	
 }

@@ -24,7 +24,7 @@ public class CompanionServiceImpl implements CompanionService {
 	public void companion(Companion c, CompanionMap cm, CompanionTag ct) {
 		int result = 0;
 		result = cDao.companion(c);
-		System.out.println("sdsds"+result);
+		System.out.println("sdsds" + result);
 		cm.setC_id(result);
 		cDao.companion(cm);
 		ct.setC_id(result);
@@ -35,95 +35,94 @@ public class CompanionServiceImpl implements CompanionService {
 	 * @Override public void companion1(Companion c) { cDao.companion(c); }
 	 */
 
-
 	@Override
 	public List<Companion> selectSearchC(String keyword) {
 		return cDao.selectSearchC(keyword);
 	}
 
-
-
-	
 	@Override
 	public void updateOneC(Companion c) {
 		cDao.updateOneC(c);
 	}
 
 	@Override
-	public void updateTwoC(CompanionMap cm) {
-		cDao.updateTwoC(cm);
+	public void updateMapC(CompanionMap cm) {
+		cDao.updateMapC(cm);
 	}
 
 	@Override
-	public void updateThrC(CompanionTag ct) {
-		cDao.updateThrC(ct);
+	public void updateTagC(CompanionTag ct) {
+		cDao.updateTagC(ct);
 	}
-	
 
 //
-	
+
 	@Override
 	public int companion(Companion c) {
 		int result = cDao.companion(c);
 		return result;
 	}
-	/*
-	 * @Override public void companion1(Companion c) { cDao.companion(c); }
-	 */
-
+	
 	@Override
 	public int listCountC() {
 		return cDao.listCountC();
 	}
+
 	@Override
 	public List<Companion> selectListC() {
 		return cDao.selectListC();
 	}
+
 	@Override
 	public List<Companion> selectListCp(int startPage, int limit) {
 		return cDao.selectListCp(startPage, limit);
 	}
+
 	@Override
 	public Companion updateC(Companion c) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void deleteC(String c_id) {
-		
+
 	}
 
 	@Override
-	public void insertCmap(CompanionMap vo) {
-		cDao.insertCmap(vo);
+	public void insertCMap(CompanionMap vo) {
+		cDao.insertCMap(vo);
 	}
 
 	@Override
-	public void insertCtag(CompanionTag vo) {
-
-			cDao.insertCtag(vo);
+	public void insertCTag(CompanionTag vo) {
+		cDao.insertCTag(vo);
 	}
-	  @Override
-	   public Companion selectOneC(int c_id) {
-	      return cDao.selectOneC(c_id);
-	   }
-	   @Override
-	   public String selectTwoC(CompanionMap vo) {
-	      return cDao.selectTwoC(vo);
-	   }   
-	   @Override
-	   public List<Companion> selectThrC(int c_id) {
-	      return cDao.selectThrC(c_id);
-	   }
+
+	@Override
+	public Companion selectOneC(int c_id) {
+		return cDao.selectOneC(c_id);
+	}
+
+	@Override
+	public String selectMapC(CompanionMap vo) {
+		return cDao.selectMapC(vo);
+	}
+
+	@Override
+	public List<Companion> selectTagC(int c_id) {
+		return cDao.selectTagC(c_id);
+	}
 
 	@Override
 	public int selectCmapCount(int c_id) {
 		return cDao.selectCmapCount(c_id);
-	}  
-	
-	
-	
+	}
+
+	@Override
+	public void updateCMap(CompanionMap vo) {
+		cDao.updateCMap(vo);
+	}
+
 //	@Override
 //	public void updateC(Companion c, CompanionMap cm, CompanionTag ct) {
 //		int result = 0;
@@ -135,7 +134,6 @@ public class CompanionServiceImpl implements CompanionService {
 //		cDao.companion(ct);
 //	}
 
-	
 //	@Override
 //	public int listCountC() {
 //		return cDao.listCountC();
@@ -168,5 +166,5 @@ public class CompanionServiceImpl implements CompanionService {
 //	public void deleteC(String c_id) {
 //	}
 //	
-	
+
 }

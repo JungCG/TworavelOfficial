@@ -19,7 +19,7 @@
 	padding: 0;
 	margin: 0;
 	border: 0;
-	border-collapse: collapsed;
+	border-collapse: collapse;
 	box-sizing: border-box;
 	text-decoration: none;
 	outline: none;
@@ -84,6 +84,8 @@ html {
 }
 
 body {
+	font-family: 'Hanna', fantasy;
+	color: #282828;
 	height: 100%;
 }
 
@@ -125,67 +127,37 @@ section {
 }
 
 #kdy-companion-date {
+	padding: 5px;
+	font-size: 5px;
 	display: flex;
-	justify-content: flex-end;
-	margin-right: 10px;
 	color: gray;
-	margin-bottom: 10px;
 }
 
 #kdy-companion-content {
-	border-top: 1px solid #00000017;
-	padding-top: 40px;
-	padding-left: 20px;
-	border-bottom: 1px solid #00000017;
-	padding-bottom: 40px;
-}
-
-#kdy-comment-div {
-	border: 2px solid #0ac5a866;
-	outline: none;
-	margin-top: 30px;
-	margin-bottom: 20px;
-	width: 80%;
-	border-radius: 9px;
-}
-
-#kdy-comment-wrap {
-	display: flex;
-	justify-content: center;
-	margin-bottom: 20px;
-}
-
-#kdy-comment-write {
-	overflow: hidden;
-	resize: none;
-	outline: none;
-	width: 100%;
-	overflow: hidden;
-	width: 100%;
-}
-
-#kdy-cwriter-wrap {
-	margin-left: 20px;
-	margin-top: 10px;
-	font-weight: bold;
-}
-
-#kdy-ccontent-wrap {
-	margin-left: 20px;
-	margin-top: 10px;
-}
-
-#kdy-commentsubmit-wrap {
-	display: flex;
-	justify-content: flex-end;
-	margin-right: 30px;
+	color : #282828;
+	width:828px;
+	border-top: 2px solid #00000017;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	border-bottom: 2px solid #00000017;
 	margin-bottom: 10px;
 }
 
-#kdy-comment-submit {
-	background: none;
-	color: #0ac5a8bf;
-	outline: none;
+#kdy-companion-content-tr {
+	border-bottom: 1px dotted #00000017;
+}
+
+#kdy-companion-description {
+	font-color: #282828;
+	margin-top: 10px;
+	border-top: 2px solid #00000017;
+	border-bottom: 2px solid #00000017;
+	margin-bottom: 10px;
+}
+
+#kdy-companion-description-p {
+	font-size: 16px;
+	font-weight: bold;
 }
 
 #kdy-companion-type {
@@ -227,166 +199,6 @@ section {
 	font-family: BMHANNAAir;
 }
 
-#kdy-nonecomment-wrap {
-	display: flex;
-	justify-content: center;
-	margin-top: 15px;
-	text-align: center;
-	color: cornflowerblue;
-	font-weight: bold;
-}
-
-.kdy-comment-cl {
-	margin-top: 10px;
-	margin-bottom: 10px;
-}
-
-#kdy-comment-writer {
-	font-weight: bold;
-}
-
-#kdy-comment-date {
-	font-size: 12px;
-	color: gray;
-	display: flex;
-}
-
-#kdy-commentlist-wrap {
-	border-bottom: 1px solid #00000017;
-}
-
-.kdy-recomment-btn {
-	background: none;
-	color: gray;
-	font-size: 12px;
-}
-
-#kdy-recomment-content {
-	margin-top: 10px;
-	margin-left: 80px;
-}
-
-#kdy-recomment-writer {
-	font-weight: bold;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	margin-left: 80px;
-}
-
-#kdy-recomment-date {
-	font-size: 12px;
-	color: gray;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	margin-left: 80px;
-}
-
-#kdy-recommentlist-wrap {
-	border-bottom: 1px solid #00000017;
-}
-
-#kdy-recommentwrite-div {
-	border: 2px solid #0ac5a866;
-	outline: none;
-	margin-top: 30px;
-	margin-bottom: 20px;
-	width: 80%;
-	border-radius: 9px;
-}
-
-#kdy-comment-wrap {
-	display: flex;
-	justify-content: center;
-	margin-bottom: 20px;
-}
-
-#kdy-recomment-write {
-	overflow: hidden;
-	resize: none;
-	outline: none;
-}
-
-#kdy-recomwriter-wrap {
-	margin-left: 20px;
-	margin-top: 10px;
-	font-weight: bold;
-}
-
-#kdy-recontent-wrap {
-	margin-left: 20px;
-	margin-top: 10px;
-}
-
-#kdy-recommentsubmit-wrap {
-	display: flex;
-	justify-content: flex-end;
-	margin-right: 30px;
-	margin-bottom: 10px;
-}
-
-#kdy-recomment-submit {
-	background: none;
-	color: #0ac5a8bf;
-	outline: none;
-}
-
-.kdy-recomment-close {
-	background: none;
-	color: #0ac5a8bf;
-	outline: none;
-	cursor: pointer;
-}
-
-.kdy-comment-update {
-	font-size: 12px;
-	color: gray;
-	background: none;
-	margin-left: 15px;
-	margin-right: 10px;
-}
-
-.kdy-recomment-update {
-	font-size: 12px;
-	color: gray;
-	background: none;
-	margin-left: 15px;
-	margin-right: 10px;
-}
-
-.kdy-commentupdate-submit {
-	font-size: 12px;
-	color: gray;
-	background: none;
-	margin-right: 5px;
-	margin-left: 5px;
-}
-
-.kdy-recommentupdate-submit {
-	font-size: 12px;
-	color: gray;
-	background: none;
-	margin-right: 5px;
-	margin-left: 5px;
-}
-
-.kdy-commentupdate-close {
-	font-size: 12px;
-	color: gray;
-	background: none;
-}
-
-.kdy-recommentupdate-close {
-	font-size: 12px;
-	color: gray;
-	background: none;
-}
-
-.kdy-comment-textarea {
-	resize: none;
-	height: auto;
-	width: 100%;
-}
-
 #Ad {
 	overflow: hidden;
 }
@@ -404,6 +216,11 @@ section {
 #kdy-like-count {
 	font-family: 'MaplestoryOTFBold';
 }
+
+table > tr {
+	border: 1px solid gray;
+}
+
 </style>
 <script
 	src="${pageContext.request.contextPath }/resources/js/jquery-3.5.1.js"></script>
@@ -415,27 +232,47 @@ section {
 			<section>
 				<div style="width: 100vh; padding-left: 10vh;">
 					<div id="kdy-companion-wrap">
-						<div id="kdy-companion-title">${clist.c_name }</div>
-						<div id="kdy-companion-writer">${clist.m_id }</div>
-						<div id="kdy-companion-date">
-							<fmt:formatDate var="date" value="${clist.c_adddate}"
-								pattern="yyyy-MM-dd HH:mm" />
-							${date}
+							<div id="kdy-companion-title">${clist.c_name}</div>
+							<div id="kdy-companion-writer">${clist.m_id}
+								<div id="kdy-companion-date">
+									<fmt:formatDate var="date" value="${clist.c_adddate}"
+										pattern="yyyy-MM-dd HH:mm" />
+									${date}
+								</div>
+							</div>
+						<table id="kdy-companion-content">
+							<tr id="kdy-companion-content-tr">
+								<td>1인당 경비</td>
+								<td>${clist.c_value}</td>
+							</tr>
+							<tr id="kdy-companion-content-tr">
+								<td>총인원</td>
+								<td>${clist.c_many}</td>
+							</tr>
+							<tr id="kdy-companion-content-tr">
+								<td>여행 시작일</td>
+								<td>
+									<fmt:parseDate var="Sdate" value="${clist.c_startd}"
+										pattern="yyyy-MM-dd HH:mm:ss" />
+									<fmt:formatDate value="${Sdate}" pattern="yyyy-MM-dd" />
+								</td>
+							</tr>
+							<tr>
+								<td>여행 마감일</td>
+								<td>
+									<fmt:parseDate var="Edate" value="${clist.c_endd}"
+										pattern="yyyy-MM-dd HH:mm:ss" />
+									<fmt:formatDate value="${Edate}" pattern="yyyy-MM-dd" />
+								</td>
+							</tr>
+						</table>
+						<div id="map"
+							style="width: 828px; height: 500px; z-index: 0; border: 1px gray;"></div>
+						<div id="kdy-companion-description">
+							<p id="kdy-companion-description-p">세부 내용</p>
+							&nbsp;
+							${clist.c_description}
 						</div>
-						<div id="kdy-companion-value">${clist.c_value}</div>
-						<div id="kdy-companion-many">${clist.c_many}</div>
-						<div id="kdy-companion-staartd">
-							<fmt:parseDate var="Sdate" value="${clist.c_startd}"
-								pattern="yyyy-MM-dd HH:mm:ss" />
-							<fmt:formatDate value="${Sdate}" pattern="yyyy-MM-dd" />
-						</div>
-						<div id="kdy-companion-endd">
-							<fmt:parseDate var="Edate" value="${clist.c_endd}"
-								pattern="yyyy-MM-dd HH:mm:ss" />
-							<fmt:formatDate value="${Edate}" pattern="yyyy-MM-dd" />
-						</div>
-						<div id="map" style="width: 1000px; height: 500px; z-index: 0;"></div>
-						<div id="kdy-companion-description">${clist.c_description}</div>
 						<div id="kdy-like-div"
 							style="display: flex; justify-content: center; margin-top: 100px;">
 							<div
@@ -451,26 +288,8 @@ section {
 						</div>
 					</div>
 				</div>
-
-				<div>
-					<c:if test="${empty clist}">
-						<div id="kdy-nonecomment-wrap">
-							<div>
-								<div style="display: flex; justify-content: center;">
-									<img
-										src="${pageContext.request.contextPath }/resources/images/chat.png"
-										style="width: 100px; height: 100px; display: flex;">
-								</div>
-								<div style="font-family: BMHANNAAir;">
-									등록된 댓글이 없습니다. <br> 댓글을 남겨보세요.
-								</div>
-							</div>
-
-						</div>
-					</c:if>
-				</div>
 			</section>
-					<script>
+			<script>
 		function xSize(e) {
 			var t;
 			e.onfocus = function() {
@@ -528,9 +347,10 @@ section {
         		})
         	})
 		</script>
-		<!-- 지도 스크립트 -->
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bb74b1c432c6717d09c3677341bf1ead&libraries=services"></script>
-<script>
+			<!-- 지도 스크립트 -->
+			<script type="text/javascript"
+				src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bb74b1c432c6717d09c3677341bf1ead&libraries=services"></script>
+			<script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 
         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표

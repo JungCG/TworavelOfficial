@@ -50,23 +50,14 @@
 		<result property="c_sid" column="c_sid" />
 	</resultMap>
 
-	<!-- <resultMap type="CompanionReply" id="resultCompanionReply"> <id property="c_id" 
-		column="c_id" /> <result property="" column="" /> <result property="" column="" 
-		/> </resultMap> -->
-
-	<!-- 게시글 등록 -->
-	<!--<insert id="insertC" parameterType="Companion" flushCache="true" statementType="PREPARED"> 
-		insert into Companion ( c_id, c_value, c_many, c_view, c_like, c_adddate, 
-		c_startd, c_endd, m_id, c_dealstatus, c_name, c_description, c_meet, c_address 
-		) values( companion_seq.nextval,4, #{c_value}, #{c_many}, 0, 0, SYSDATE, 
-		#{c_startd}, #{c_endd}, 'Tworavel1', 'N', #{c_name}, #{c_description}, #{c_meet}, 
-		#{c_address} ) </insert> -->
+	<!-- 동행글 등록 -->
 	<insert id="insertC" parameterType="Companion" flushCache="true"
 		statementType="PREPARED">
 		insert into
 		Companion(
 		c_id,
-		c_value, c_many, c_view, c_like,
+		c_value, c_many, c_view,
+		c_like,
 		c_adddate, c_startd, c_endd,
 		m_id,
 		c_dealstatus, c_name,
@@ -79,7 +70,6 @@
 		'Tworavel1', 'N', #{c_name},
 		#{c_description},
 		#{c_meet}, #{c_address})
-
 	</insert>
 	<insert id="insertCAdd" parameterType="Companion"
 		flushCache="true" statementType="PREPARED">
@@ -89,14 +79,12 @@
 		#{ca_img2}, #{ca_img3}
 		)
 	</insert>
-
 	<insert id="insertCInfo" parameterType="Companion"
 		flushCache="true" statementType="PREPARED">
 		insert into CompanionInfo values (
 		#{c_id}, #{m_id}, #{c_yn}
 		)
 	</insert>
-
 	<insert id="insertCMap" parameterType="Companion"
 		flushCache="true" statementType="PREPARED">
 		insert into CompanionMap values (
@@ -104,7 +92,6 @@
 		#{c_xy}
 		)
 	</insert>
-
 	<insert id="insertCTag" parameterType="Companion"
 		flushCache="true" statementType="PREPARED">
 		insert into CTag values (
@@ -113,41 +100,41 @@
 		#{c_sid}
 		)
 	</insert>
-	
-		<select id="selectCmapCount" parameterType="int" resultType="int">
-		
-	select count(c_xy) from companionmap where c_id =#{c_id}
-	</select>
-   <select id="selectTwoC" parameterType="Companion"
-     resultType="string">
-      select c_xy from companionmap where c_id=#{c_id} and cm_id=#{cm_id}
-   </select>
-	
-	
-	
-	<select id="selectCmaxc_id" resultType="int">
-		select max(c_id)
-		from Companion
-	</select>
+
+	<!-- 동행글 수정 -->
+	<update id="updateCMap" parameterType="CompanionMap"
+		flushCache="true" statementType="PREPARED">
+		update companionmap
+		set c_xy =#{c_xy}
+		where c_id=#{c_id}
+		and cm_id=#{cm_id}
+	</update>
+
 	<!-- 게시글 전체 개수 조회 -->
 	<select id="listCountC" resultType="int" parameterType="string">
 		select
 		count(*) from companion
 	</select>
-
+	<select id="selectCmaxc_id" resultType="int">
+		select max(c_id)
+		from
+		companion
+	</select>
+	
 	<!-- 전체 게시글 조회 -->
 	<select id="selectListCp" resultType="arraylist"
 		resultMap="resultCompanion">
 		select * from companion order by c_id desc
 	</select>
-
 	<!-- 검색한 게시글 조회 -->
 	<select id="selectSearchC" parameterType="string"
 		resultType="arraylist" resultMap="resultCompanion">
 		select* from companion where
-		c_name LIKE
+		c_name
+		LIKE
 		'%'|| #{keyword} ||'%'
-		OR c_description LIKE '%'|| #{keyword} ||'%' order by c_id
+		OR c_description LIKE '%'|| #{keyword} ||'%'
+		order by c_id
 		desc
 	</select>
 
@@ -156,13 +143,20 @@
 		resultType="Companion">
 		select * from companion where c_id=#{c_id}
 	</select>
-	
 
-	<select id="selectThrC" parameterType="int"
+	<select id="selectTagC" parameterType="int"
 		resultType="arraylist" resultMap="resultCompanionTag">
 		select * from ctag where c_id=#{c_id}
 	</select>
-	
+	<select id="selectCmapCount" parameterType="int"
+		resultType="int">
+		select count(c_xy) from companionmap where c_id =#{c_id}
+	</select>
+	<select id="selectTwoC" parameterType="Companion"
+		resultType="string">
+		select c_xy from companionmap where c_id=#{c_id} and cm_id=#{cm_id}
+	</select>
+
 	<!-- 게시글 조회 수 증가 -->
 	<update id="addReadCountC" parameterType="int" flushCache="true"
 		statementType="PREPARED">
@@ -171,33 +165,33 @@
 	</update>
 
 	<!-- 게시글 수정 -->
-	<update id="updateOneC" parameterType="Companion" flushCache="true"
-		statementType="PREPARED">
+	<update id="updateOneC" parameterType="Companion"
+		flushCache="true" statementType="PREPARED">
 		update companion set
 		c_name=#{c_name},
 		c_description=#{c_description},
 		c_value=#{c_value},
 		c_many=#{c_many},
+		c_meet=#{c_meet},
 		c_startd=#{c_startd},
 		c_endd=#{c_endd}
-		where c_id=#{c_id}
+		where
+		c_id=#{c_id}
 	</update>
-	<update id="updateTwoC" parameterType="CompanionMap" flushCache="true"
-		statementType="PREPARED">
+	<update id="updateMapC" parameterType="CompanionMap"
+		flushCache="true" statementType="PREPARED">
 		update companionmap set
-		cm_id=#{cm_id}, 
+		cm_id=#{cm_id},
 		c_xy=#{c_xy}
 		where c_id=#{c_id}
 	</update>
-	<update id="updateThrC" parameterType="CompanionTag" flushCache="true"
-		statementType="PREPARED">
+	<update id="updateTagC" parameterType="CompanionTag"
+		flushCache="true" statementType="PREPARED">
 		update ctag set
 		c_lid=#{c_lid},
 		c_sid=#{c_sid}
 		where c_id=#{c_id}
 	</update>
-
-
 	<!-- 게시글 삭제 -->
 	<delete id="deleteC" parameterType="string" flushCache="true"
 		statementType="PREPARED">
@@ -205,39 +199,4 @@
 		where
 		c_id=#{c_id}
 	</delete>
-	<!-- =========마이페이지 sql문============ -->
-	<!-- 작성한 동행게시판 글 조회 -->
-	<select id="My_selectCompanionlist" parameterType="string" resultType="arraylist" resultMap="resultCompanion" flushCache="true" statementType="PREPARED">
-	select * from companion where m_id = #{m_id} order by c_adddate desc
-	</select>
-	
-	<!-- 동행게시판 갯수 조회 -->
-	<select id="My_selectCompanionCountAll" parameterType="string" resultType="int" flushCache="true" statementType="PREPARED">
-	select count(*) from companion where m_id = #{m_id}
-	</select>
-	
-	<!-- 동행 마감 -->
-	<update id="My_updateCompanionEnd" parameterType="string" flushCache="true" statementType="PREPARED">
-	update companion set c_dealstatus = 'Y' where c_id = #{c_id}
-	</update>
-		
-	<!-- 동행 마감 취소 -->
-	<update id="My_updateCompanionRe" parameterType="string" flushCache="true" statementType="PREPARED">
-	update companion set c_dealstatus = 'N' where c_id = #{c_id}
-	</update>
-	
-	<!-- 좋아요한 동행게시글 갯수 조회 -->
-	<select id="My_selectLikeCompanionCountAll" parameterType="string" resultType="int" flushCache="true" statementType="PREPARED">
-	select count(*) from companion where c_id in(select c_id from clike where m_id = #{m_id})
-	</select>
-	
-	<!-- 작성한 동행게시판 글 조회 -->
-	<select id="My_selectLikeCompanionlist" parameterType="string" resultType="arraylist" resultMap="resultCompanion" flushCache="true" statementType="PREPARED">
-	select * from companion where c_id in(select c_id from clike where m_id = #{m_id})
-	</select>
-	
-	<update id="My_updateCompanionLikeVal" parameterType="int" flushCache="true" statementType="PREPARED">
-	update companion set c_like = c_like-1 where c_id = #{c_id}
-	</update>
-
 </mapper>

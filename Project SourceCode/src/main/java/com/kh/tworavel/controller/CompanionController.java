@@ -38,7 +38,7 @@ public class CompanionController {
 	private CompanionService cService;
 
 	public static final int LIMIT = 5;
-	
+
 	// 동행글 등록 페이지
 	@RequestMapping(value = "companion_write.do", method = RequestMethod.GET)
 	public ModelAndView companion_write(ModelAndView mv) {
@@ -48,51 +48,50 @@ public class CompanionController {
 
 	// 동행글 등록
 	@RequestMapping(value = "companioninsert.do", method = RequestMethod.POST)
-@DateTimeFormat(pattern = "yyyy-MM-dd")
-public ModelAndView CompanionInsertService(Companion c,CompanionTag ct,
-		@RequestParam(name ="mapval1", required = false) String mapval1,
-		@RequestParam(name ="mapval2", required = false) String mapval2,
-		@RequestParam(name ="mapval3", required = false) String mapval3,
-		@RequestParam(name ="mapval4", required = false) String mapval4,
-		@RequestParam(name ="mapval5", required = false) String mapval5, /*
-																			 * CompanionAdd ca, CompanionInfo ci,
-																			 * CompanionMap cm, CompanionTag ct
-																			 */
-	ModelAndView mv, HttpServletRequest request) {
-	List<String> maplist = new ArrayList<String>();
-	int c_id = cService.companion(c);
-	ct.setC_id(c_id);
-	cService.insertCtag(ct);
-	if (mapval1 != null) {
-		System.out.println(mapval1);
-		maplist.add(mapval1);
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	public ModelAndView CompanionInsertService(Companion c, CompanionTag ct,
+			@RequestParam(name = "mapval1", required = false) String mapval1,
+			@RequestParam(name = "mapval2", required = false) String mapval2,
+			@RequestParam(name = "mapval3", required = false) String mapval3,
+			@RequestParam(name = "mapval4", required = false) String mapval4,
+			@RequestParam(name = "mapval5", required = false) String mapval5,
+			ModelAndView mv, HttpServletRequest request) {
+		List<String> maplist = new ArrayList<String>();
+		int c_id = cService.companion(c);
+		ct.setC_id(c_id);
+		cService.insertCTag(ct);
+		if (mapval1 != null) {
+			System.out.println(mapval1);
+			maplist.add(mapval1);
+		}
+		if (mapval2 != null) {
+			System.out.println(mapval2);
+			maplist.add(mapval2);
+		}
+		if (mapval3 != null) {
+			System.out.println(mapval3);
+			maplist.add(mapval3);
+		}
+		if (mapval4 != null) {
+			maplist.add(mapval4);
+		}
+		if (mapval5 != null) {
+			maplist.add(mapval5);
+		}
+		for (int i = 0; i < maplist.size(); i++) {
+			CompanionMap vo = new CompanionMap();
+			vo.setC_id(c_id);
+			vo.setC_xy(maplist.get(i));
+			vo.setCm_id(i + 1);
+			System.out.println("값넣음"+maplist.get(i));
+			cService.insertCMap(vo);
+		}
+
+		mv.setViewName("redirect:/companion_list.do");
+		return mv;
 	}
-	if (mapval2 != null) {
-		System.out.println(mapval2);
-		maplist.add(mapval2);
-	}
-	if (mapval3 != null) {
-		System.out.println(mapval3);
-		maplist.add(mapval3);
-	}
-	if (mapval4 != null) {
-		maplist.add(mapval4);
-	}
-	if (mapval5 != null) {
-		maplist.add(mapval5);
-	}
-	for (int i = 0; i < maplist.size(); i++) {
-		CompanionMap vo = new CompanionMap();
-		vo.setC_id(c_id);
-		vo.setC_xy(maplist.get(i));
-		vo.setCm_id(i+1);
-		cService.insertCmap(vo);
-	}
-			 
-	mv.setViewName("redirect:/companion_list.do");
-	return mv;
-}
-	// 동행글 리스트  페이지
+
+	// 동행글 리스트 페이지
 	@RequestMapping(value = "companion_list.do", method = RequestMethod.GET)
 	public ModelAndView boardListService(@RequestParam(name = "page", defaultValue = "1") int page,
 			@RequestParam(name = "keyword", required = false) String keyword, ModelAndView mv) {
@@ -117,50 +116,93 @@ public ModelAndView CompanionInsertService(Companion c,CompanionTag ct,
 		}
 		return mv;
 	}
-	// 동행글 상세페이지
-	 @RequestMapping(value="companion_detail.do")
-	   public ModelAndView boardDetailService(ModelAndView mv,@RequestParam(name="c_id")int c_id) {
-	      try {
-	    	  int markercount = cService.selectCmapCount(c_id);
-	    	  List<CompanionMap>maplist = new ArrayList<CompanionMap>();
-	    	  for(int i=1; i<= markercount; i++) {
-	    		  CompanionMap mvo = new CompanionMap();
-	    		  mvo.setC_id(c_id);
-	    		  mvo.setCm_id(i);
-	    		  mvo.setC_xy(cService.selectTwoC(mvo));
-	    		  maplist.add(mvo);
-	    	  }
-		     mv.addObject("clist",cService.selectOneC(c_id));
-	         mv.addObject("meetpoint",cService.selectOneC(c_id).getC_meet());
-	         mv.addObject("maplist",maplist);
-	         mv.addObject("clist2",cService.selectThrC(c_id));
-	         mv.setViewName("companion_detail");
-	      }catch(Exception e) {
-	         e.printStackTrace();
-	      }
-	      return mv;
-	   }
-		/*
-		 * @RequestMapping(value = "companion_update.do") public ModelAndView
-		 * companionupdate(ModelAndView mv, @RequestParam(name = "c_id") int c_id) { try
-		 * { mv.addObject("clist",cService.selectOneC(c_id));
-		 * mv.addObject("clist",cService.selectTwoC(c_id));
-		 * mv.addObject("clist",cService.selectThrC(c_id));
-		 * mv.setViewName("companion_update"); } catch (Exception e) {
-		 * e.printStackTrace(); } return mv; }
-		 */
 
+	// 동행글 상세페이지
+	@RequestMapping(value = "companion_detail.do")
+	public ModelAndView boardDetailService(ModelAndView mv, @RequestParam(name = "c_id") int c_id) {
+		try {
+			int markercount = cService.selectCmapCount(c_id);
+			System.out.println(markercount);
+			List<CompanionMap> maplist = new ArrayList<CompanionMap>();
+			for (int i = 1; i <= markercount; i++) {
+				CompanionMap mvo = new CompanionMap();
+				mvo.setC_id(c_id);
+				mvo.setCm_id(i);
+				mvo.setC_xy(cService.selectMapC(mvo));
+				maplist.add(mvo);
+			}
+			mv.addObject("clist", cService.selectOneC(c_id));
+			mv.addObject("meetpoint", cService.selectOneC(c_id).getC_meet());
+			mv.addObject("maplist", maplist);
+			mv.addObject("clist2", cService.selectTagC(c_id));
+			mv.setViewName("companion_detail");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mv;
+	}
+	@RequestMapping(value = "companion_update.do")
+	public ModelAndView companionupdate(ModelAndView mv,@RequestParam(name ="c_id")int c_id) {
+		try {
+			int markercount = cService.selectCmapCount(c_id);
+			List<CompanionMap> maplist = new ArrayList<CompanionMap>();
+			for (int i = 1; i <= markercount; i++) {
+				CompanionMap mvo = new CompanionMap();
+				mvo.setC_id(c_id);
+				mvo.setCm_id(i);
+				mvo.setC_xy(cService.selectMapC(mvo));
+				maplist.add(mvo);
+			}
+			mv.addObject("clist", cService.selectOneC(c_id));
+			mv.addObject("meetpoint", cService.selectOneC(c_id).getC_meet());
+			mv.addObject("maplist", maplist);
+			mv.addObject("clist2", cService.selectTagC(c_id));
+			mv.setViewName("companion_update");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mv;
+	}
 	@RequestMapping(value = "updatecompanion.do", method = RequestMethod.POST)
-	public ModelAndView companionupdateService(Companion c,
-			CompanionMap cm, CompanionTag ct, ModelAndView mv,
+	public ModelAndView companionupdateService(Companion c,	@RequestParam(name = "mapval1", required = false) String mapval1,
+			@RequestParam(name = "mapval2", required = false) String mapval2,
+			@RequestParam(name = "mapval3", required = false) String mapval3,
+			@RequestParam(name = "mapval4", required = false) String mapval4,
+			@RequestParam(name = "mapval5", required = false) String mapval5, CompanionTag ct, ModelAndView mv,
 			HttpServletRequest request) {
+	
+		List<String> maplist = new ArrayList<String>();
+		if (mapval1 != null) {
+			System.out.println(mapval1);
+			maplist.add(mapval1);
+		}
+		if (mapval2 != null) {
+			System.out.println(mapval2);
+			maplist.add(mapval2);
+		}
+		if (mapval3 != null) {
+			System.out.println(mapval3);
+			maplist.add(mapval3);
+		}
+		if (mapval4 != null) {
+			maplist.add(mapval4);
+		}
+		if (mapval5 != null) {
+			maplist.add(mapval5);
+		}
+		for (int i = 0; i < maplist.size(); i++) {
+			CompanionMap vo = new CompanionMap();
+			vo.setC_id(c.getC_id());
+			vo.setC_xy(maplist.get(i));
+			vo.setCm_id(i + 1);
+			cService.updateCMap(vo);
+		}
 		cService.updateOneC(c);
 //		cService.updateTwoC(cm);
 //		cService.updateThrC(ct);
 		mv.setViewName("redirect:/companion_list.do");
 		return mv;
 	}
-	
 	// 게시판 리스트
 //	@RequestMapping(value="companion_list.do")
 //	public ModelAndView fBoardListService(ModelAndView mv,@RequestParam(name = "page", defaultValue = "1") int page,

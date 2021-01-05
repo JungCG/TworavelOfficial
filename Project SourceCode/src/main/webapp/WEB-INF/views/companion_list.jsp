@@ -102,7 +102,6 @@ body {
 
 section {
 	width: 1000px;
-	width: 1000px;
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
@@ -110,23 +109,40 @@ section {
 	border: 1px solid #0000001f;
 }
 
-.KDY-menutext {
-	font-size: 30px;
-	font-size: 30px;
-	border: 4px solid #3d91ff38;
-	border-radius: 40px;
-	padding: 10px;
-	background-color: #0000ff00;
-	text-shadow: 1px 1px 1px #3d91ff70;
-	box-shadow: 1px 1px 1px #3d91ff59;
-	font-family: 'Hanna', fantasy;
-}
-
 .KDY-menu {
 	display: flex;
 	margin-bottom: 60px;
 	justify-content: space-around;
 	margin-top: 30px;
+}
+
+.KDY-menutext {
+	color: #2C3C5B;
+	font-size: 50px;
+	padding: 10px;
+	text-shadow: 2px 2px 2px #FBE8D9;
+	font-family: 'Hanna', fantasy;
+}
+
+.KDY-notice {
+	
+}
+
+.KDY-noticetitle {
+	margin-top: 4px;
+	color: #2c555b;
+	font-size: 20px;
+	padding: 10px;
+	text-shadow: 1px 1px 1px #FBE8D9;
+	font-family: 'Hanna', fantasy;
+}
+
+.KDY-noticetext {
+	color: #93BDBF;
+	font-size: 16px;
+	padding: 10px;
+	padding-left: 40px;
+	font-family: 'Hanna', fantasy;
 }
 
 #KDY-companiontable {
@@ -139,6 +155,11 @@ tr:first-of-type>td {
 	padding-bottom: 20px;
 	font-size: 18px;
 	font-family: 'MaplestoryOTFBold';
+}
+
+tr>td {
+	/* color: #282828; */
+	color: #686868;
 }
 
 a {
@@ -175,7 +196,16 @@ a {
 			<section>
 				<div class="KDY-menu">
 					<div class="KDY-menutext">
-						<a href="companion_list.do?type=N" id="N">동행 구하기</a>
+						<p>동행 구하기</p>
+					</div>
+					<div class="KDY-notice">
+						<p class="KDY-noticetitle">동행글 작성 및 신청은 신중히 판단하여 본인이 신청해 주시기
+							바랍니다.</p>
+						<ul class="KDY-noticetext">
+							<li>글 작성시 포인트 30포인트 차감, 동행 신청시 20포인트 차감</li>
+							<li>게시글에는 연락처를 꼭 명시해 주시기 바랍니다.</li>
+							<li>중복글 및 규정에 맞지 않는 글은 운영자가 수정 및 삭제 가능합니다.</li>
+						</ul>
 					</div>
 				</div>
 				<table id="KDY-companiontable">
