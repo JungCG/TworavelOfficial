@@ -1,6 +1,7 @@
 package com.kh.tworavel.model.service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import com.kh.tworavel.model.domain.Member;
 
@@ -26,4 +27,14 @@ public interface MemberService {
 	int updatePwd(HashMap<String, String> paramMap);
 	
 	int updateLoginDate(String m_id);
+	
+	String getloginDate(String m_id);
+	
+	String getCurrentDate();
+	
+	int updateLoginPoint(String m_id);
+	
+	List<Member> unEqualLoginDate();
+	
+	int minusLoginPoint(String m_id);
 }

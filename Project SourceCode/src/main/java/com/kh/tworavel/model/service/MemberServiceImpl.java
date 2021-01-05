@@ -1,6 +1,7 @@
 package com.kh.tworavel.model.service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,6 +68,31 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int updateLoginDate(String m_id) {
 		return mDao.updateLoginDate(m_id);
+	}
+
+	@Override
+	public String getloginDate(String m_id) {
+		return mDao.getloginDate(m_id);
+	}
+
+	@Override
+	public String getCurrentDate() {
+		return mDao.getCurrentDate();
+	}
+
+	@Override
+	public int updateLoginPoint(String m_id) {
+		return mDao.updateLoginPoint(m_id);
+	}
+
+	@Override
+	public List<Member> unEqualLoginDate() {
+		return mDao.unEqualLoginDate();
+	}
+
+	@Override
+	public int minusLoginPoint(String m_id) {
+		return mDao.minusLoginPoint(m_id);
 	}
 
 	

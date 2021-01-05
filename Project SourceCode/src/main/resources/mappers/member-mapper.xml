@@ -26,7 +26,9 @@
 		<result property="m_point" column="m_point" />
 		<result property="cnt" column="cnt" />
 	</resultMap>
-
+	<resultMap type="Member" id="resultMember2">
+		<result property="m_id" column="m_id"/>
+	</resultMap>
 	<!-- 회원 한명 조회 -->
 	<select id="selectOne" parameterType="string"
 		resultType="Member">
@@ -63,7 +65,7 @@
 		M_NICK, M_BIRTH, M_GENDER, M_ADDRESS, M_ADDRESS_DETAIL, M_JOINDATE,
 		M_INTRO, M_IMAGE, M_REPORTCOUNT, M_PHONE, M_EMAIL, M_EMAILHASH)
 		VALUES(#{m_id}, #{m_pw}, #{m_name}, #{m_nick}, #{m_birth},
-		#{m_gender}, #{m_address}, #{m_address_detail}, SYSDATE, #{m_intro},
+		#{m_gender}, #{m_address}, #{m_address_detail}, current_date, #{m_intro},
 		#{m_image},
 		0, #{m_phone}, #{m_email}, #{m_emailhash})
 	</insert>
@@ -93,4 +95,23 @@
 	 m_image = #{m_image}, m_phone = #{m_phone} where m_id = #{m_id}
 	</update>
 	
+	<select id = "getloginDate" parameterType="string" resultType="string">
+		SELECT TO_CHAR(M_LOGINDATE,'YYYYmmDD') FROM MEMBER WHERE M_ID = #{m_id}
+	</select>
+	
+	<select id = "getCurrentDate" resultType="string">
+		SELECT TO_CHAR(CURRENT_DATE,'YYYYmmDD') FROM DUAL
+	</select>
+	
+	<update id="updateLoginPoint" parameterType="string" flushCache="true" statementType="PREPARED">
+		UPDATE MEMBER SET M_POINT = M_POINT+10 WHERE M_ID = #{m_id}
+	</update>
+	
+	<select id = "unEqualLoginDate" resultType="arraylist" resultMap="resultMember2">
+		SELECT M_ID FROM MEMBER WHERE (TO_CHAR(M_LOGINDATE,'YYYYmmDD') != TO_CHAR(CURRENT_DATE, 'YYYYmmDD')) AND M_POINT > 0
+	</select>
+	
+	<update id="minusLoginPoint" parameterType="string" flushCache="true" statementType="PREPARED">
+		UPDATE MEMBER SET M_POINT = M_POINT-5 WHERE M_ID = #{m_id}
+	</update>
 </mapper>

@@ -1,6 +1,7 @@
 package com.kh.tworavel.model.dao;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,5 +78,25 @@ public class MemberDao {
 	
 	public int updateLoginDate(String m_id) {
 		return sqlSession.update("Member.updateLoginDate", m_id);
+	}
+	
+	public String getloginDate(String m_id) {
+		return sqlSession.selectOne("Member.getloginDate", m_id);
+	}
+	
+	public String getCurrentDate() {
+		return sqlSession.selectOne("Member.getCurrentDate");
+	}
+	
+	public int updateLoginPoint(String m_id) {
+		return sqlSession.update("Member.updateLoginPoint", m_id);
+	}
+	
+	public List<Member> unEqualLoginDate(){
+		return sqlSession.selectList("Member.unEqualLoginDate");
+	}
+	
+	public int minusLoginPoint(String m_id) {
+		return sqlSession.update("Member.minusLoginPoint", m_id);
 	}
 }
