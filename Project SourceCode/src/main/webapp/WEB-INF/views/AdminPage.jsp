@@ -165,8 +165,7 @@ label {
 
 table {
    border-collapse: collapse;
-   border: 1px solid;
-}
+    border: 1px solid #0000003b;}
 
 .kdy_board_wrap {
    display: flex;
@@ -175,7 +174,6 @@ table {
 
 table {
    text-align: center;
-   border: inset;
    width: 100%;
 }
 
@@ -291,8 +289,13 @@ width: 350px;
     height:30px;
     border: 1px solid brown;
 }
-
+#typelink:link{text-decoration: none; color: #009688;;}
+#typelink:visited {text-decoration: none; color: #009688;;}
+a:visited {text-decoration: none; color: black;}
+a:link {text-decoration: none; color: black;}
 </style>
+
+
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.5.1.js"></script>
 </head>
 <body>
@@ -300,32 +303,26 @@ width: 350px;
 		<jsp:include page="header.jsp"/>
 		  <section>
               <div style ="display: flex;
-    justify-content: center;">
-              	<h1 style ="font-size: 50px; margin-bottom: 50px;color:#CC8431">관리자 페이지</h1>
+    justify-content: center;    margin-top: 50px;">
+              	<h1 style ="font-size: 50px; margin-bottom: 50px;color:#009688bd">TwoRavel Admin</h1>
               </div>
                <div id="GJW-menuwrap">
                   <div class="GJW-Board">
                      <div class="boardtype" style = "   font-family: 'Hanna', serif;">
-                     <a href="adminpage.do?type=B">게시판</a>
                         <div class="boardtype-1">
-                           <label for="ge" value="P" id="gela">동행게시판</label> <input
-                              type="radio" name="type" class="rd" id="ge" value="P"
-                              ${param.type == 'P'? "checked='checked'" : "" } />
+                        
+                     <a href="adminpage.do?type=B" id="typelink">게시판</a>
+                        
                         </div>
                         <div class="boardtype-1">
-                           <label for="pro" value="B" id="prola">게시판</label> <input
-                              type="radio" name="type" class="rd" id="pro" value="B"
-                              ${param.type == 'B' ? "checked='checked'" : "" } />
+                         <a href="adminpage.do?type=C" id="typelink">동행게시판</a>
                         </div>
                         <div class="boardtype-1">
-                           <label for="qna" value="M" id="qnala">회원정보</label> <input
-                              type="radio" name="type" class="rd" id="qna" value="M"
-                              ${param.type == 'M' ? "checked='checked'" : "" } />
+                        <a href="adminpage.do?type=M" id="typelink">회원관리</a>
                         </div>
-                        <div class="boardtype-1">
-                           <label for="news" value="S" id="newsla">신고리스트&nbsp;&nbsp;&nbsp;</label>
-                           <input type="radio" name="type" class="rd" id="news" value="S"
-                              ${param.type == 'S' ? "checked='checked'" : "" } />
+                        <div class="boardtype-1" >
+                                     <a href="adminpage.do?type=M" id="typelink">신고내역</a>
+                        
                         </div>
                      </div>
                   </div>
@@ -333,46 +330,39 @@ width: 350px;
                <div class="kdy_board_wrap">
                   <div class="gjw-board-wrap">
                               <c:if test="${type eq 'C'}">
-                              
                        <table>
 					<tr>
-						<td>상품번호</td>
-						<td>상품명</td>
+						<td>글번호</td>
+						<td>글제목</td>
 						<td>작성자</td>
-						<td>가격</td>
-						<td>등록일</td>
-						<td>조회수</td>
-						<td>삭제</td>
+						<td>등록날짜</td>
+						<td>인원수</td>
+						<td>완료상태</td>
+						<td>좋아요</td>
 					</tr>
-
-					<c:if test="${not empty plist }">
-						<c:forEach items="${plist }" var="pvo">
+					<c:if test="${not empty clist }">
+						<c:forEach items="${clist }" var="pvo">
 							<tr>
-								<td>${pvo.p_id}</td>
-								<td><a href="ProductContentCtl.do?p_id=${pvo.p_id}&c_lid=${pvo.c_lid}&m_id=${pvo.m_id}&Likeresult=0">${pvo.p_name}</a>
+								<td>${pvo.c_id}</td>
+								<td><a href="companion_detail.do?c_id=${pvo.c_id}">${pvo.c_name}</a>
 								</td>
 								<td>${pvo.m_id }</td>
-								<td>${pvo.p_value}원</td>
-								<td><fmt:parseDate var="dateString" value="${pvo.p_adddate }" pattern="yyyy-MM-dd HH:mm:ss" />
-                              <fmt:formatDate value="${dateString}" pattern="yyyy-MM-dd" /></td>
-								<td>${pvo.p_view }</td>
-								<td><a href="AdminDeleteProductCtl.do?p_id=${pvo.p_id }">상품
+								<td><fmt:formatDate var="date"
+										value="${pvo.c_adddate}" pattern="yyyy-MM-dd HH:mm" /> ${date}</td>
+								<td>${pvo.c_many}명</td>
+								<td>${pvo.c_dealstatus }</td>
+								<td><a href="admincompaniondelete.do?c_id=${pvo.c_id }">동행글
 										삭제</a></td>
 							</tr>
 						</c:forEach>
 					</c:if>
-					
-					
-					
-					<c:if test="${empty plist}">
+					<c:if test="${empty clist}">
 						<tr>
-							<td colspan='5'>검색결과가없습니다</td>
+							<td colspan='7'>검색결과가없습니다</td>
 						</tr>
 					</c:if>
 				</table>
                               </c:if>
-                              
-                              
                                                             <c:if test="${type eq 'B'}">
                               <table>
 				<tr>
@@ -387,9 +377,9 @@ width: 350px;
 					<c:forEach items="${blist }" var="mvo" varStatus="s">
 						<c:set var="b_secret" value="${mvo.b_secret}" />
 						<tr class="GJW-boardlisttr">
-							<td><a href ="BoardContentCtl.do?b_id=${mvo.b_id}&currentPage=${param.currentPage}">${mvo.b_id }</a></td>
+							<td><a href ="board_detail.do?b_id=${mvo.b_id}">${mvo.b_id }</a></td>
 							<td class="GJW"><span class="GJW-gocontent">
-								<a href ="BoardContentCtl.do?b_id=${mvo.b_id}&currentPage=${param.currentPage}">${mvo.b_title}</a>
+								<a href ="board_detail.do?b_id=${mvo.b_id}">${mvo.b_title}</a>
 									<input type="hidden" class="bb_secret" name="b_secret"
 									value="${mvo.b_secret }"> <c:if
 										test="${b_secret eq 'Y'}">
@@ -453,7 +443,7 @@ width: 350px;
 					<c:if test="${mb.m_out eq 'N'.charAt(0)}">
 					<input type = "button" class ="outbtn" value ="회원삭제">
 					</c:if>
-										<form action = "AdminDeleteMemberCtl.do" method ="post" class = "outform">
+										<form action = "AdminDeleteMember.do" method ="post" class = "outform" style="display:none;">
 										<input type ="hidden" value ="${mb.m_id }" name  ="m_id">
 										<input type = "text" name = "o_reason" placeholder = "삭제사유를 입력해주세요" class ="o_reason" required="required">
 										<input type = "submit" value ="등록">
@@ -508,7 +498,7 @@ width: 350px;
 								test="${currentPage <= 1}"> [이전]&nbsp;
  </c:if>
  							 	 <c:if test="${currentPage > 1}">
-								<c:url var="blistST" value="board_list.do">
+								<c:url var="blistST" value="adminpage.do">
 									<c:param name="page" value="${currentPage-1}" />
 									<c:param name="type" value="${type}" />
 									<c:if test="${not empty keyword}">
@@ -524,7 +514,7 @@ width: 350px;
 									<font color="cornflowerblue" size="4"><b>[${p}]</b></font>
 								</c:if>
 								<c:if test="${p ne currentPage}">
-									<c:url var="blistchk" value="board_list.do">
+									<c:url var="blistchk" value="adminpage.do">
 										<c:param name="page" value="${p}" />
 										<c:param name="type" value="${type}" />
 										<c:if test="${not empty keyword}">
@@ -537,7 +527,7 @@ width: 350px;
 							</c:forEach> <c:if test="${currentPage >= maxPage}">
  [다음]
  </c:if> <c:if test="${currentPage < maxPage}">
-								<c:url var="blistEND" value="board_list.do">
+								<c:url var="blistEND" value="adminpage.do">
 									<c:param name="page" value="${currentPage+1}" />
 									<c:param name="type" value="${type}" />
 									<c:if test="${not empty keyword}">
@@ -556,5 +546,19 @@ width: 350px;
             </section>
 		<jsp:include page="footer.jsp"/>
 	</div>
+	
+	<script>
+    
+    $(function(){
+    	
+  $(".outbtn").click(function(){
+		$(this).css("display","none");
+	  $(this).next(".outform").css("display","block");
+  })
+    })
+    
+    
+	
+	</script>
 </body>
 </html>

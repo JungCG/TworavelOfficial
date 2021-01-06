@@ -19,12 +19,22 @@ public class Board  implements java.io.Serializable {
 	private int b_ref;
 	private int b_re_step;
 	private int b_re_level;
-	
+	private int b_commentCount;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	public int getB_id() {
 		return b_id;
 	}
 	public void setB_id(int b_id) {
 		this.b_id = b_id;
+	}
+	
+	public int getB_commentCount() {
+		return b_commentCount;
+	}
+	public void setB_commentCount(int b_commentCount) {
+		this.b_commentCount = b_commentCount;
 	}
 	public String getM_id() {
 		return m_id;

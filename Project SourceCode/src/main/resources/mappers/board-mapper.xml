@@ -19,6 +19,7 @@
 		<result property="b_ref" column="B_REF" />
 		<result property="b_re_step" column="B_RE_STEP" />
 		<result property="b_re_level" column="B_RE_LEVEL" />
+		<result property="b_commentCount" column="C" />
 	</resultMap>
 	<!-- Final -->
 	<select id="listCount" resultType="int" parameterType="string">
@@ -27,8 +28,8 @@
 	</select>
 	<select id="selectList" parameterType="string"
 		resultType="arraylist" resultMap="resultBoard">
-		select* from board where
-		b_type=#{board_type} and b_re_step=0 order by b_id desc
+select A.*, B.c from (select * from (select d.* from(select* from board where b_re_step =0 and b_type=#{b_type})d)f where b_re_level = 0 order by b_view desc) A inner join (select B_REF,c from  (select b_ref,(count(b_ref)-1) AS c from board group by b_ref)) B on A.b_ref = B.b_ref
+
 	</select>
 	
 	<select id="totalSearchCount" parameterType="string" resultType="int">
@@ -46,14 +47,14 @@
 	</select>
 
 <select id="selectHotViewList" resultType="arraylist" resultMap="resultBoard">
-	select* from(select* from board where b_re_step =0 order by b_view desc) where 5>= rownum
+select A.*, B.c from (select * from (select d.* from(select* from board where b_re_step =0 order by b_view desc)d)f where b_re_level = 0 and 5>=rownum order by b_view desc) A inner join (select B_REF,c from  (select b_ref,(count(b_ref)-1) AS c from board group by b_ref)) B on A.b_ref = B.b_ref
 	</select>
 <select id="selectBoardAllCount" resultType="int">
 select count(*) from board where b_re_step=0 
 </select>
 
 <select id="selectBoardAll" resultType="arraylist" resultMap="resultBoard">
-select* from board where b_re_step=0 
+select A.*, B.c from (select * from (select d.* from(select* from board where b_re_step =0)d)f where b_re_level = 0 order by b_id desc) A inner join (select B_REF,c from  (select b_ref,(count(b_ref)-1) AS c from board group by b_ref)) B on A.b_ref = B.b_ref
 </select>
 
 	<insert id="insertBoard" parameterType="Board" flushCache="true"

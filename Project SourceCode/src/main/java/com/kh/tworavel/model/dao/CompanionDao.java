@@ -95,9 +95,6 @@ public class CompanionDao {
 		return sqlSession.update("Companion.addReadCount", c_id);
 	}
 
-	public int deleteC(int c_id) {
-		return sqlSession.delete("Companion.deleteC", c_id);
-	}
 	public int selectCmapCount(int c_id) {
 		
 		return sqlSession.selectOne("Companion.selectCmapCount",c_id);
@@ -125,6 +122,10 @@ public class CompanionDao {
 	   	public void updateCMap(CompanionMap vo) {
 	   		sqlSession.update("Companion.updateCMap",vo);
 	   	}
-	
+	    public void deleteC(int c_id) {
+	        sqlSession.delete("Companion.deleteCMap", c_id);
+	        sqlSession.delete("Companion.deleteCTag", c_id);
+	        sqlSession.delete("Companion.deleteC", c_id);
+	     }
 	
 }

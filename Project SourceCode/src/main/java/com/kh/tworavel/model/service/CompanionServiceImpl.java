@@ -83,10 +83,6 @@ public class CompanionServiceImpl implements CompanionService {
 		return null;
 	}
 
-	@Override
-	public void deleteC(String c_id) {
-
-	}
 
 	@Override
 	public void insertCMap(CompanionMap vo) {
@@ -166,5 +162,16 @@ public class CompanionServiceImpl implements CompanionService {
 //	public void deleteC(String c_id) {
 //	}
 //	
-
+	 @Override
+	   public void deleteCMap(int c_id) {
+	      cDao.deleteC(c_id);
+	   }
+	   @Override
+	   public void deleteCTag(int c_id) {
+	      cDao.deleteC(c_id);
+	   }
+	   @Override
+	   public void deleteC(int c_id) {
+	      cDao.deleteC(c_id);
+	   }
 }

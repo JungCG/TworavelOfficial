@@ -8,4 +8,6 @@ public interface OutService {
 	int outCheck(String m_id);
 	
 	int insertOut(String m_id);
+	
+	void adminOutMember(Out vo);
 }

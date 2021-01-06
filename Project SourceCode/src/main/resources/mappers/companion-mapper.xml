@@ -192,11 +192,23 @@
 		c_sid=#{c_sid}
 		where c_id=#{c_id}
 	</update>
-	<!-- 게시글 삭제 -->
-	<delete id="deleteC" parameterType="string" flushCache="true"
-		statementType="PREPARED">
-		delete from companion
-		where
-		c_id=#{c_id}
-	</delete>
+   <!-- 동행글 삭제 -->
+   <delete id="deleteC" parameterType="int" flushCache="true"
+      statementType="PREPARED">
+      delete from companion
+      where
+      c_id=#{c_id}
+   </delete>
+      <delete id="deleteCMap" parameterType="int" flushCache="true"
+      statementType="PREPARED">
+      delete from companionmap
+      where
+      c_id=#{c_id}
+   </delete>
+      <delete id="deleteCTag" parameterType="int" flushCache="true"
+      statementType="PREPARED">
+      delete from ctag
+      where
+      c_id=#{c_id}
+   </delete>
 </mapper>

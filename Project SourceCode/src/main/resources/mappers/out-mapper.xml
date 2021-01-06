@@ -22,4 +22,9 @@
 	<update id="My_updateOutMember" parameterType="string" flushCache="true" statementType="PREPARED">
 	update out set o_status = 'Y', o_outdate = current_date where m_id = #{m_id}
 	</update>
+	
+	
+	<update id="adminOutMember" parameterType="Out" flushCache="true" statementType="PREPARED">
+	update out set o_reason = #{o_reason},o_outdate = current_timestamp,o_status='Y' where m_id =#{m_id}
+	</update>
 </mapper>

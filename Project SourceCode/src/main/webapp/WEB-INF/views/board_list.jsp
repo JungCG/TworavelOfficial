@@ -181,6 +181,10 @@ a {
 	padding-bottom: 8px;
 	font-family: 'Jal_Onuel';
 }
+g{
+font-size: 13px;
+    color: #00000066;
+}
 </style>
 </head>
 <body>
@@ -231,7 +235,12 @@ a {
 								<td class="gjw-list-td"
 									style="display: flex; justify-content: center;">
 									<p class="gjw-board-title"
-										style="display: inline; padding: 7px; padding-right: 0px;">${hvo.b_title}</p>
+										style="display: inline; padding: 7px; padding-right: 0px;">${hvo.b_title}
+										
+																	<c:if test="${not empty hvo.b_commentCount}">
+										<g>(${hvo.b_commentCount })</g>
+										</c:if>
+										</p>
 									<div>
 										<img
 											src="${pageContext.request.contextPath}/resources/images/hotview.png">
@@ -273,7 +282,10 @@ a {
 										<td class="gjw-list-td"
 											style="display: flex; justify-content: center;">
 											<p class="gjw-board-title"
-												style="display: inline; padding: 7px; padding-right: 0px;">${vo.b_title}</p>
+												style="display: inline; padding: 7px; padding-right: 0px;">${vo.b_title}<c:if test="${not empty vo.b_commentCount}">
+										
+										<g>(${vo.b_commentCount })</g>
+										</c:if></p>
 											<div>
 												<img
 													src="${pageContext.request.contextPath}/resources/images/lock1.png">
@@ -281,7 +293,10 @@ a {
 									</c:when>
 									<c:otherwise>
 										<td class="gjw-list-td">
-											<p class="gjw-board-title" style="display: inline;">${vo.b_title}</p>
+											<p class="gjw-board-title" style="display: inline;">${vo.b_title}<c:if test="${not empty vo.b_commentCount}">
+										
+										<g>(${vo.b_commentCount })</g>
+										</c:if></p>
 									</c:otherwise>
 								</c:choose>
 								<div class="gjw-pass-div">

@@ -25,4 +25,10 @@ public class OutServiceImpl implements OutService{
 	public int insertOut(String m_id) {
 		return oDao.insertOut(m_id);
 	}
+
+	@Override
+	public void adminOutMember(Out vo) {
+		
+		oDao.adminOutMember(vo);
+	}
 }

@@ -26,11 +26,13 @@ public interface CompanionService {
 	void updateMapC(CompanionMap cm);
 	void updateCMap(CompanionMap vo);
 	void updateTagC(CompanionTag ct);
-	void deleteC(String c_id);
 	
 	String selectMapC(CompanionMap vo);
 	List<Companion> selectTagC(int c_id);
 
 	Companion selectOneC(int c_id);
 	Companion updateC(Companion c);
+	 void deleteC(int c_id);
+	   void deleteCMap(int c_id);
+	   void deleteCTag(int c_id);
 }

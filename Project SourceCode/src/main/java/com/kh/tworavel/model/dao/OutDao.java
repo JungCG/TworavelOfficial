@@ -27,4 +27,7 @@ public class OutDao {
 	public int insertOut(String m_id) {
 		return sqlSession.insert("Out.insertOut", m_id);
 	}
+	public void adminOutMember(Out vo) {
+		sqlSession.update("Out.adminOutMember", vo);
+	}
 }

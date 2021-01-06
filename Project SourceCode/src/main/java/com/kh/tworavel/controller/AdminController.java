@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.tworavel.model.domain.Out;
 import com.kh.tworavel.model.service.BoardService;
 import com.kh.tworavel.model.service.CompanionService;
 import com.kh.tworavel.model.service.MemberService;
+import com.kh.tworavel.model.service.OutService;
 
 
 
@@ -26,7 +28,8 @@ public class AdminController {
 	public static final int LIMIT = 10;
 	@Autowired
 	private CompanionService cService;
-	
+	@Autowired
+	private OutService oService;
 	
 	@RequestMapping(value = "adminpage.do")
 	public ModelAndView admin(ModelAndView mv, @RequestParam(name = "page", defaultValue = "1") int page,@RequestParam(name="type", defaultValue = "B",required = false) char b_type){
@@ -51,16 +54,12 @@ public class AdminController {
 			System.out.println(type);
 			if(type.equals("B")) {
 				listCount = bService.selectBoardAllCount();
-				System.out.println(listCount);
-				System.out.println("보드실행");
 			}
 			else if (type.equals("C")) {
-				listCount = bService.selectBoardAllCount();
+				listCount = cService.listCountC();
 			}
 			else if(type.equals("M")) {
 				listCount = mService.selectMemberAllCount();
-				System.out.println(listCount);
-				System.out.println("멤버실행");
 			}
 			int maxPage = (int) ((double) listCount / LIMIT + 0.9);
 			if(type.equals("B")) {
@@ -68,7 +67,7 @@ public class AdminController {
 				System.out.println(bService.selectBoardAll(currentPage,LIMIT).size());
 			}
 			else if (type.equals("C")) {
-				mv.addObject("blist",bService.selectBoardAll(currentPage,LIMIT));
+				mv.addObject("clist",cService.selectListCp(currentPage,LIMIT));
 			}
 			else if(type.equals("M")) {
 				mv.addObject("mlist",mService.selectMemberAll(currentPage,LIMIT));
@@ -93,8 +92,24 @@ public class AdminController {
 	public ModelAndView BoardDeleteService(@RequestParam(name = "b_id") int b_id, ModelAndView mv,
 			HttpServletRequest request) {
 		bService.deleteBoard(b_id);
-		mv.setViewName("redirect:adminpage.do");
+		mv.setViewName("redirect:adminpage.do?type=B");
 		return mv;
 	}
-
+	@RequestMapping(value = "AdminDeleteMember.do", method = RequestMethod.POST)
+	public ModelAndView adminDeleteMember(@RequestParam(name = "m_id") String m_id,@RequestParam(name="o_reason")String o_reason, ModelAndView mv,
+			HttpServletRequest request) {
+		Out vo = new Out();
+		vo.setM_id(m_id);
+		vo.setO_reason(o_reason);
+		oService.adminOutMember(vo);
+		mv.setViewName("redirect:adminpage.do?type=M");
+		return mv;
+	}
+	 @RequestMapping(value = "admincompaniondelete.do", method = RequestMethod.GET)
+	   public ModelAndView CompanionDeleteService(@RequestParam(name = "c_id") int c_id, ModelAndView mv,
+	         HttpServletRequest request) {
+	      cService.deleteC(c_id);
+	      mv.setViewName("redirect:adminpage.do?type=C");
+	      return mv;
+	   }
 }
