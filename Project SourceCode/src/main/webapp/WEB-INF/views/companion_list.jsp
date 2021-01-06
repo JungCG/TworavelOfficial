@@ -151,6 +151,13 @@ section {
 	margin-bottom: 30px;
 }
 
+.kdy-companion-title:hover {
+	color: #93BDBF;
+	font-weight: bold;
+	transition: 1s;
+	cursor: pointer;
+}
+
 tr:first-of-type>td {
 	padding-bottom: 20px;
 	font-size: 18px;

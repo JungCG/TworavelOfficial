@@ -221,6 +221,14 @@ table > tr {
 	border: 1px solid gray;
 }
 
+#csub {
+}
+.csub_btn {
+	cursor: pointer;
+	background: none;
+	color: gray;
+	font-size: 12px;
+}
 </style>
 <script
 	src="${pageContext.request.contextPath }/resources/js/jquery-3.5.1.js"></script>
@@ -273,6 +281,7 @@ table > tr {
 							&nbsp;
 							${clist.c_description}
 						</div>
+						
 						<div id="kdy-like-div"
 							style="display: flex; justify-content: center; margin-top: 100px;">
 							<div
@@ -285,6 +294,12 @@ table > tr {
 										style="height: 40px;" id="kdy-c_like-btn">
 								</div>
 							</div>
+						</div>
+						<div id="csub">
+							<form action="companion_insertInfo.do" method="post" id="csub_form" name="csub_form" enctype="multipart/form-data">
+								<a href="#"><input type="button" value="동행신청"
+												class="" id="csub_btn"></a>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -321,7 +336,7 @@ table > tr {
                               url:"companion_like.do",
                               data:{m_id: "${userID}",c_id:${clist.c_id},chc:res1},
                               success:function(res){
-                                 alert("글 추천을 취소하셨습니다");
+                                  alert("글 추천을 취소하셨습니다");
                                  $("#kdy-like-count").text(res);
                              		 }
                           		 })
@@ -335,7 +350,7 @@ table > tr {
                   url:"companion_like.do",
                   data:{m_id: "${userID}",c_id :${clist.c_id},chc : res1},
                 success : function(res) {
-                  alert("글추천에 성공하셨습니다");
+                    alert("글추천에 성공하셨습니다");
                   $("#kdy-like-count").text(res);
        										}
         								})
@@ -405,6 +420,12 @@ var polyline = new kakao.maps.Polyline({
 // 지도에 선을 표시합니다 
 polyline.setMap(map);  
 
+// 동행 신청
+$(document).ready(function(){
+	$("#csub_btn").click(function() {
+		location.href = "./companion_list.do";
+	});
+});
 </script>
 		</div>
 		<div style="display: flex; justify-content: center;">

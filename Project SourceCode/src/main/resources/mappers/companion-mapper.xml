@@ -29,6 +29,7 @@
 
 	<resultMap type="CompanionInfo" id="resultCompanionInfo">
 		<id property="c_id" column="c_id" />
+		<result property="m_id2" column="m_id2" />
 		<result property="m_id" column="m_id" />
 		<result property="c_yn" column="c_yn" />
 	</resultMap>
@@ -65,25 +66,11 @@
 		values (
 		companion_seq.nextval,
 		#{c_value}, #{c_many}, 0, 0,
-		SYSDATE,
-		#{c_startd}, #{c_endd},
-		'Tworavel1', 'N', #{c_name},
+		SYSDATE, #{c_startd}, #{c_endd},
+		#{m_id}, 
+		'N', #{c_name},
 		#{c_description},
 		#{c_meet}, #{c_address})
-	</insert>
-	<insert id="insertCAdd" parameterType="Companion"
-		flushCache="true" statementType="PREPARED">
-		insert into CAdd values (
-		#{c_id},
-		#{ca_img1},
-		#{ca_img2}, #{ca_img3}
-		)
-	</insert>
-	<insert id="insertCInfo" parameterType="Companion"
-		flushCache="true" statementType="PREPARED">
-		insert into CompanionInfo values (
-		#{c_id}, #{m_id}, #{c_yn}
-		)
 	</insert>
 	<insert id="insertCMap" parameterType="Companion"
 		flushCache="true" statementType="PREPARED">
@@ -120,7 +107,7 @@
 		from
 		companion
 	</select>
-	
+
 	<!-- 전체 게시글 조회 -->
 	<select id="selectListCp" resultType="arraylist"
 		resultMap="resultCompanion">
@@ -152,9 +139,10 @@
 		resultType="int">
 		select count(c_xy) from companionmap where c_id =#{c_id}
 	</select>
-	<select id="selectTwoC" parameterType="Companion"
+	<select id="selectMapC" parameterType="Companion"
 		resultType="string">
-		select c_xy from companionmap where c_id=#{c_id} and cm_id=#{cm_id}
+		select c_xy from companionmap where c_id=#{c_id} and
+		cm_id=#{cm_id}
 	</select>
 
 	<!-- 게시글 조회 수 증가 -->
@@ -192,23 +180,72 @@
 		c_sid=#{c_sid}
 		where c_id=#{c_id}
 	</update>
-   <!-- 동행글 삭제 -->
-   <delete id="deleteC" parameterType="int" flushCache="true"
-      statementType="PREPARED">
-      delete from companion
-      where
-      c_id=#{c_id}
-   </delete>
-      <delete id="deleteCMap" parameterType="int" flushCache="true"
-      statementType="PREPARED">
-      delete from companionmap
-      where
-      c_id=#{c_id}
-   </delete>
-      <delete id="deleteCTag" parameterType="int" flushCache="true"
-      statementType="PREPARED">
-      delete from ctag
-      where
-      c_id=#{c_id}
-   </delete>
+	<!-- 동행글 삭제 -->
+	<delete id="deleteC" parameterType="int" flushCache="true"
+		statementType="PREPARED">
+		delete from companion
+		where
+		c_id=#{c_id}
+	</delete>
+	<delete id="deleteCMap" parameterType="int" flushCache="true"
+		statementType="PREPARED">
+		delete from companionmap
+		where
+		c_id=#{c_id}
+	</delete>
+	<delete id="deleteCTag" parameterType="int" flushCache="true"
+		statementType="PREPARED">
+		delete from ctag
+		where
+		c_id=#{c_id}
+	</delete>
+
+	<!-- 동행글 추천/비추천 -->
+	<insert id="insertCLike" parameterType="Companion" flushCache="true"
+		statementType="PREPARED">
+		insert into clike values(#{c_id},#{m_id})
+	</insert>
+	<update id="updateCLikePlus" parameterType="int"
+		flushCache="true" statementType="PREPARED">
+		update companion set c_like = c_like+1
+		where 
+		c_id =#{c_id}
+	</update>
+	<delete id="deleteCLike" parameterType="Companion" flushCache="true"
+		statementType="PREPARED">
+		delete clike where m_id =#{m_id} and c_id =#{c_id}
+	</delete>
+
+	<update id="updateCLikeMinus" parameterType="int"
+		flushCache="true" statementType="PREPARED">
+		update companion set c_like = c_like-1
+		where c_id =#{c_id}
+	</update>
+	<select id="selectCLikeCount" parameterType="int"
+		resultType="int">
+		select c_like from companion where c_id=#{c_id}
+	</select>
+	<select id="selectCLikeMid" parameterType="Companion"
+		resultType="int">
+		select count(*) from clike where m_id = #{m_id} and c_id=#{c_id}
+	</select>
+	
+	<!-- 동행 신청 -->
+	<insert id="insertCInfo" parameterType="CompanionInfo" flushCache="true"
+		statementType="PREPARED">
+		insert into companioninfo 
+		values (#{c_id},#{m_id2},#{m_id}, #{c_name}, #{c_yn})
+	</insert>
+	
+<!-- 	<!조회수 증가 >
+	<select id="selectCHotViewList" resultType="arraylist" resultMap="resultCompanion">
+		select* from(select* from companion where c_id order by c_view desc) where 5 >= rownum
+	</select>
+	<select id="selectCAllCount" resultType="int">
+		select count(*) from companion where c_id=0 
+	</select> -->
+	<!-- 조회수 증가 -->
+	<update id="addCReadCount" parameterType="int" statementType="PREPARED" flushCache="true">
+		update companion set c_view = c_view+1 where c_id = #{c_id}
+	</update>
 </mapper>

@@ -11,6 +11,7 @@ import com.kh.tworavel.model.domain.Board;
 import com.kh.tworavel.model.domain.Companion;
 import com.kh.tworavel.model.domain.CompanionAdd;
 import com.kh.tworavel.model.domain.CompanionInfo;
+import com.kh.tworavel.model.domain.CompanionLike;
 import com.kh.tworavel.model.domain.CompanionMap;
 import com.kh.tworavel.model.domain.CompanionTag;
 
@@ -62,7 +63,7 @@ public class CompanionServiceImpl implements CompanionService {
 		int result = cDao.companion(c);
 		return result;
 	}
-	
+
 	@Override
 	public int listCountC() {
 		return cDao.listCountC();
@@ -83,7 +84,6 @@ public class CompanionServiceImpl implements CompanionService {
 		return null;
 	}
 
-
 	@Override
 	public void insertCMap(CompanionMap vo) {
 		cDao.insertCMap(vo);
@@ -96,6 +96,7 @@ public class CompanionServiceImpl implements CompanionService {
 
 	@Override
 	public Companion selectOneC(int c_id) {
+		cDao.addCReadCount(c_id);
 		return cDao.selectOneC(c_id);
 	}
 
@@ -119,59 +120,67 @@ public class CompanionServiceImpl implements CompanionService {
 		cDao.updateCMap(vo);
 	}
 
+//	동행글 삭제
+	@Override
+	public void deleteCMap(int c_id) {
+		cDao.deleteC(c_id);
+	}
+
+	@Override
+	public void deleteCTag(int c_id) {
+		cDao.deleteC(c_id);
+	}
+
+	@Override
+	public void deleteC(int c_id) {
+		cDao.deleteC(c_id);
+	}
+
+//	동행글 추천/비추천
+	@Override
+	public void insertCLike(Companion vo) {
+		cDao.insertCLike(vo);
+	}
+
+	@Override
+	public void updateCLikePlus(int c_id) {
+		cDao.updateCLikePlus(c_id);
+	}
+
+	@Override
+	public void updateCLikeMinus(int c_id) {
+		cDao.updateCLikeMinus(c_id);
+	}
+
+	@Override
+	public void deleteCLike(Companion vo) {
+		cDao.deleteCLike(vo);
+	}
+
+	@Override
+	public int selectCLikeMid(Companion vo) {
+		return cDao.selectCLikeMid(vo);
+	}
+
+	@Override
+	public int selectCLikeCount(int c_id) {
+		return cDao.selectCLikeCount(c_id);
+	}
+
+//	동행 조회수 증가
 //	@Override
-//	public void updateC(Companion c, CompanionMap cm, CompanionTag ct) {
-//		int result = 0;
-//		result = cDao.companion(c);
-//		System.out.println("sdsds"+result);
-//		cm.setC_id(result);
-//		cDao.companion(cm);
-//		ct.setC_id(result);
-//		cDao.companion(ct);
+//	public List<Companion> selectCHotViewList() {
+//		return cDao.selectCHotViewList();
+//	}
+//	@Override
+//	public int selectCAllCount() {
+//		return cDao.selectCAllCount();
 //	}
 
-//	@Override
-//	public int listCountC() {
-//		return cDao.listCountC();
-//	}
-//	@Override
-//	public int insertC(Companion c) {
-//		return cDao.insertC(c);
-//	}
-//	@Override
-//	public List<Companion> selectListC() {
-//		return cDao.selectListC();
-//	}
-//	@Override
-//	public List<Companion> selectListC(int startPage, int limit) {
-//		return cDao.selectListC(startPage, limit);
-//	}
-//	@Override
-//	public List<Companion> searchlistC(String keyword) {
-//		return cDao.selectListC();
-//	}
-//	@Override
-//	public Companion selectOneC(int c_id) {
-//		return null;
-//	}
-//	@Override
-//	public Companion updateC(Companion c) {
-//		return null;
-//	}
-//	@Override
-//	public void deleteC(String c_id) {
-//	}
-//	
-	 @Override
-	   public void deleteCMap(int c_id) {
-	      cDao.deleteC(c_id);
-	   }
-	   @Override
-	   public void deleteCTag(int c_id) {
-	      cDao.deleteC(c_id);
-	   }
-	   @Override
-	   public void deleteC(int c_id) {
-	      cDao.deleteC(c_id);
-	   }
+//	동행 신청
+	@Override
+	public void insertCInfo(CompanionInfo vo) {
+		cDao.insertCInfo(vo);
+	}
+
 }

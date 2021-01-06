@@ -48,8 +48,9 @@ section {
 }
 
 #smart_editor2 {
-	width: 100%;
+	width: 890px;
 }
+
 .mbuttonwrap {
 	justify-content: center;
 	display: inline-flex;
@@ -57,7 +58,7 @@ section {
 
 .mbutton {
 	margin: 20px;
-	width: 210px;
+	width: 200px;
 }
 
 #kdy-name-input {
@@ -141,11 +142,11 @@ input[type='radio']:checked:after {
 		<KDY>
 		<section>
 			<form name="frm" enctype="multipart/form-data">
-				
+
 				<table align="center" style="width: 100%;">
 					<tr style="height: 30px">
 						<td style="color: #0AC5A8;">작성자</td>
-						<td colspan="3"><input type="text" name="m_id"></td>
+						<td colspan="3"><input type="text" name="m_id" value="${userID}"></td>
 					</tr>
 					<tr style="height: 30px">
 						<td style="color: #0AC5A8;">제목</td>
@@ -191,49 +192,36 @@ input[type='radio']:checked:after {
 						</select></td>
 					</tr>
 					<tr>
-					<td colspan="2">
-					<!-- 지도 시작 -->
-				<div id="map2" style="width: 1000px; height: 500px; z-index: 0;"></div>
-				<p>
-					<em>미팅 포인트를 지정하고 싶으시면 지정 버튼을 누르고 등록해주세요.</em>
-				</p>
-				<p>
-					<em>지도를 클릭해서 마커를 표시하신후 '위치확정' 버튼을 눌러주세요.</em>
-				</p>
-				<div id="clickLatlng"></div>
-			<div class="mbuttonwrap">
-				<input type="button" id="meetbtn" class="mbutton" value="미팅포인트 지정">
-				<input type="button" id="meetsubmit" class="mbutton"
-					value="미팅포인트 등록"> <input type="button" id="meetdel"
-					class="mbutton" value="미팅포인트 삭제"> <input type="hidden"
-					id="meet" value="0">
-				<input type="hidden" value="0" name="c_meet" id="meetvalue">
-				<input type="hidden" value="0" name="c_id" /> <input type="hidden"
-					value="0" name="c_view" /> <input type="hidden" value="0"
-					name="c_like" />
-				<input type="button" id="se" class="mbutton" value="위치 확정 "> <input
-					type="hidden" id="mapval0" name="mapval1"> <input
-					type="hidden" id="mapval1" name="mapval2"> <input
-					type="hidden" id="mapval2" name="mapval3"> <input
-					type="hidden" id="mapval3" name="mapval4"> <input
-					type="hidden" id="mapval4" name="mapval5">
-			</div>
-				<!-- 지도 끝 -->
-				</td>
-	</tr>
-					<!-- 					<tr style="height: 30px">
-						<td style="color: #0AC5A8;">비밀글</td>
-						<td>&nbsp;&nbsp;<label for="yes"
-							style="color: rgb(78 102 255/ 90%);">Yes&nbsp;&nbsp;</label><input
-							type="radio" name="b_secret" id="yes" value="Y" />&nbsp;&nbsp;<label
-							for="No" style="color: rgb(78 102 255/ 90%);">No</label> <input
-							type="radio" name="b_secret" id="No" checked="checked" value="N" /></td>
+						<td colspan="2">
+							<!-- 지도 시작 -->
+							<div id="map2" style="width: 1000px; height: 500px; z-index: 0;"></div>
+							<p>
+								<em>미팅 포인트를 지정하고 싶으시면 지정 버튼을 누르고 등록해주세요.</em>
+							</p>
+							<p>
+								<em>지도를 클릭해서 마커를 표시하신후 '위치확정' 버튼을 눌러주세요.</em>
+							</p>
+							<div id="clickLatlng"></div>
+							<div class="mbuttonwrap">
+								<input type="button" id="meetbtn" class="mbutton"
+									value="미팅포인트 지정"> <input type="button" id="meetsubmit"
+									class="mbutton" value="미팅포인트 등록"> <input type="button"
+									id="meetdel" class="mbutton" value="미팅포인트 삭제">
+									<input type="hidden" id="meet" value="0">
+									<input type="hidden" value="0" name="c_meet" id="meetvalue">
+									<input type="hidden" value="0" name="c_id" />
+									<input type="hidden" value="0" name="c_view" /> 
+									<input type="hidden" value="0"name="c_like" />
+									<input type="button" id="se" class="mbutton"
+									value="위치 확정 "> <input type="hidden" id="mapval0"
+									name="mapval1"> <input type="hidden" id="mapval1"
+									name="mapval2"> <input type="hidden" id="mapval2"
+									name="mapval3"> <input type="hidden" id="mapval3"
+									name="mapval4"> <input type="hidden" id="mapval4"
+									name="mapval5">
+							</div> <!-- 지도 끝 -->
+						</td>
 					</tr>
-					<tr style="height: 70px" id="kdy-secret-tr">
-						<td style="color: #0AC5A8;">비밀번호</td>
-						<td><input type="password" name="b_secretnumber"
-							id="kdy-password-input"></td>
-					</tr> -->
 					<tr>
 						<td colspan="4" style="padding-top: 30px;"><textarea
 								id="c_description" name="c_description"></textarea></td>
@@ -423,8 +411,6 @@ input[type='radio']:checked:after {
 						console.log(i + "번째" + markers1[i].getPosition());
 
 						if (z == o) {
-							alert(i + "번쨰입니다");
-
 							console.log("9. markers1.splice(i,1); 전");
 							markers1.splice(i, 1);
 							pp.splice(i, 1);
@@ -435,9 +421,6 @@ input[type='radio']:checked:after {
 					}
 
 					marker.setMap(null);
-					alert("linePath.length : " + linePath.length);
-					alert("pp.length : " + pp.length);
-					alert("markers1.length : " + markers1.length);
 					for (var q = 0; q < allpolyline.length; q++) {
 						console.log("q1 : " + q);
 						console.log(allpolyline[q]);

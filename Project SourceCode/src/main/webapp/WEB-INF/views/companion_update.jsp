@@ -51,7 +51,7 @@ section {
 }
 
 #smart_editor2 {
-	width: 100%;
+	width: 890px;
 }
 
 #kdy-title-input {
@@ -175,37 +175,27 @@ input[type='radio']:checked:after {
 							value=<fmt:formatDate value="${Edate}" pattern="yyyy-MM-dd" />
 							required="required"></td>
 					</tr>
-
-					<tr style="height: 30px">
-						<td style="color: #0AC5A8;">글분류</td>
-						<td style="width: 90%; padding-top: 30px; padding-bottom: 30px;">
-							<select name="c_type" id="kdy-type-select">
-								<option value="S">수도권</option>
-								<option value="G">지방</option>
-								<option value="I">섬</option>
-						</select>
-						</td>
-					</tr>
+					<!-- 지도 시작 -->
 					<tr>
-						<td><input type="button" id="meetbtn" value="미팅포인트 지정">
-							<input type="button" id="meetsubmit" value="미팅포인트 등록"> <input
-							type="button" id="meetdel" value="미팅포인트 삭제"> <input
-							type="text" id="meet" value="0"> <input type="hidden"
-							value="${clist.c_meet }" name="c_meet" id="meetvalue"> <input
-							type="hidden" value="0" name="c_view" /> <input type="hidden"
-							value="0" name="c_like" /> <input type="button" id="se"
-							value="위치 확정 "> <input type="hidden" id="mapval0"
-							name="mapval1"> <input type="hidden" id="mapval1"
-							name="mapval2"> <input type="hidden" id="mapval2"
-							name="mapval3"> <input type="hidden" id="mapval3"
-							name="mapval4"> <input type="hidden" id="mapval4"
-							name="mapval5"> <!-- 지도 끝 --> <!-- 지도 시작 -->
+						<td colspan="2"><input type="button" id="meetbtn"
+							value="미팅포인트 지정"> <input type="button" id="meetsubmit"
+							value="미팅포인트 등록"> <input type="button" id="meetdel"
+							value="미팅포인트 삭제"> <input type="hidden" id="meet"
+							value="0"> <input type="hidden" value="${clist.c_meet }"
+							name="c_meet" id="meetvalue"> <input type="hidden"
+							value="0" name="c_view" /> <input type="hidden" value="0"
+							name="c_like" /> <input type="button" id="se" value="위치 확정 ">
+							<input type="hidden" id="mapval0" name="mapval1"> <input
+							type="hidden" id="mapval1" name="mapval2"> <input
+							type="hidden" id="mapval2" name="mapval3"> <input
+							type="hidden" id="mapval3" name="mapval4"> <input
+							type="hidden" id="mapval4" name="mapval5">
 							<div style="display: flex;">
-								<div id="map1" style="width: 500px; height: 500px; z-index: 0;"></div>
-								<div id="map2" style="width: 500px; height: 500px; z-index: 0;"></div>
+								<div id="map1" style="width: 500px; height: 450px; z-index: 0;"></div>
+								<div id="map2" style="width: 500px; height: 450px; z-index: 0;"></div>
 							</div></td>
-
 					</tr>
+					<!-- 지도 끝 -->
 					<tr>
 						<td colspan="2" style="padding-top: 30px;"><textarea
 								id="c_description" name="c_description"></textarea></td>
@@ -432,8 +422,6 @@ $("#meetdel").click(function(){
 					console.log(i + "번째" + markers1[i].getPosition());
 
 					if (z == o) {
-						alert(i + "번쨰입니다");
-
 						console.log("9. markers1.splice(i,1); 전");
 						markers1.splice(i, 1);
 						pp.splice(i, 1);
@@ -444,9 +432,6 @@ $("#meetdel").click(function(){
 				}
 
 				marker.setMap(null);
-				alert("linePath.length : " + linePath.length);
-				alert("pp.length : " + pp.length);
-				alert("markers1.length : " + markers1.length);
 				for (var q = 0; q < allpolyline.length; q++) {
 					console.log("q1 : " + q);
 					console.log(allpolyline[q]);
