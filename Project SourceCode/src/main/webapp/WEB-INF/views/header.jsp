@@ -103,7 +103,7 @@
 						<div id="header_inside_section_left_menu">
 							<ul
 								style="list-style: none; display: flex; justify-content: space-between; align-items: center;">
-								<li style="display: inline-block;"><a href="#"
+								<li style="display: inline-block;"><a href="intro.do"
 									style="padding: 0 15px;">사이트 소개</a></li>
 								<li style="display: inline-block;"><a href="companion_list.do"
 									style="padding: 0 15px;">동행 구하기</a></li>

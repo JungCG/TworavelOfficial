@@ -13,11 +13,10 @@
 	padding: 0;
 	margin: 0;
 	border: 0;
-	border-collapse: collapsed;
 	box-sizing: border-box;
 	text-decoration: none;
 }
-
+/*  border-collapse: collapse; */
 html {
 	height: 100%;
 }
@@ -31,6 +30,16 @@ body {
 	position: relative;
 	padding-bottom: 200px;
 }
+
+#ICR_writeBtn {
+	position: left;
+}
+
+#YJH_paging {
+	position: center;
+}
+
+
 </style>
 <script
 	src="${pageContext.request.contextPath }/resources/js/jquery-3.5.1.js"></script>
@@ -43,12 +52,6 @@ body {
 			<div class="jck_content_container_div2">
 
 
-
-
-
-
-
-
 				<div id="ICR_writeBtn">
 					<a href="Productwrite.jsp">글쓰기</a>
 				</div>
@@ -56,53 +59,77 @@ body {
 				<div id="ICR_Product_main">
 					<div>
 						<c:if test="${not empty list }">
-							<table>
 							<c:forEach items="${list }" var="pvo" varStatus="i">
+								<table style="display: inline; width: 350px;">
+									
 									<tr>
-										<td colspan="3">img</td>
+										<td colspan="3"><a href="./"><img
+												src="${pageContext.request.contextPath }/resources/images/gallery.png"
+												style="width: 300px; height: auto;"> </a></td>
 									</tr>
+									
+									
 									<tr>
 										<td>${pvo.g_content}</td>
 										<td>${pvo.g_like}</td>
 										<td>${pvo.g_view}</td>
 									</tr>
+									
+
+
+
+
+
+
+
+								</table>
 							</c:forEach>
-							
-							
-									<!-- 앞 페이지 번호 처리 -->
-									<tr align="center" height="20">
-										<td colspan="5"><c:if test="${currentPage <= 1}">
+
+
+
+ 
+
+							<!-- 앞 페이지 번호 처리 -->
+							<div id="YJH_paging">
+								<tr align="center" height="20">
+									<td colspan="5" style="padding-top: 20px; color: #0AC5A8; font-family: 'Jal_Onuel';"><c:if test="${currentPage <= 1}">
 [이전]&nbsp;
 </c:if> <c:if test="${currentPage > 1}">
-												<c:url var="blistST" value="gallery_list.do">
-													<c:param name="page" value="${currentPage-1}" />
+											<c:url var="blistST" value="gallery_list.do">
+												<c:param name="page" value="${currentPage-1}" />
+											</c:url>
+											<a href="${blistST}"
+												style="color: #0AC5A8;  font-family: 'Jal_Onuel';">[이전]</a>
+
+
+
+
+										</c:if> <!-- 끝 페이지 번호 처리 --> <c:set var="endPage" value="${maxPage}" />
+										<c:forEach var="p" begin="${startPage+1}" end="${endPage}">
+											<c:if test="${p eq currentPage}">
+												<font color="red" size="4"><b>[${p}]</b></font>
+											</c:if>
+											<c:if test="${p ne currentPage}">
+												<c:url var="blistchk" value="gallery_list.do">
+													<c:param name="page" value="${p}" />
 												</c:url>
-												<a href="${blistST}">[이전]</a>
-											</c:if> <!-- 끝 페이지 번호 처리 --> <c:set var="endPage" value="${maxPage}" />
-											<c:forEach var="p" begin="${startPage+1}" end="${endPage}">
-												<c:if test="${p eq currentPage}">
-													<font color="red" size="4"><b>[${p}]</b></font>
-												</c:if>
-												<c:if test="${p ne currentPage}">
-													<c:url var="blistchk" value="gallery_list.do">
-														<c:param name="page" value="${p}" />
-													</c:url>
-													<a href="${blistchk}">${p}</a>
-												</c:if>
-											</c:forEach> <c:if test="${currentPage >= maxPage}">
+												<a href="${blistchk}">${p}</a>
+											</c:if>
+										</c:forEach> <c:if test="${currentPage >= maxPage}">
 [다음]
 </c:if> <c:if test="${currentPage < maxPage}">
-												<c:url var="blistEND" value="gallery_list.do">
-													<c:param name="page" value="${currentPage+1}" />
-												</c:url>
-												<a href="${blistEND}">[다음]</a>
-											</c:if></td>
-									</tr>
-								</table>
-								<c:if test="${i.count%3 eq 0}">
-									<br>
-								</c:if>
-							
+											<c:url var="blistEND" value="gallery_list.do">
+												<c:param name="page" value="${currentPage+1}" />
+											</c:url>
+											<a href="${blistEND}"
+												style="color: #0AC5A8; font-family: 'Jal_Onuel';">[다음]</a>
+										</c:if></td>
+								</tr>
+							</div>
+							<c:if test="${i.count%3 eq 0}">
+								<br>
+							</c:if>
+
 						</c:if>
 						<c:if test="${empty list }">
 							<div id="ICR_Product">
