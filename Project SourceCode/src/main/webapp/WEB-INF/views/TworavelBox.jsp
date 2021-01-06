@@ -1,0 +1,196 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jck_main.css">
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>TwoRAVEL 박스</title>
+<style>
+* {
+	outline:none;
+	padding: 0;
+	margin: 0;
+	border: 0;
+	border-collapse:collapse;
+	box-sizing:border-box;
+	text-decoration:none;
+}
+
+html{
+	height : 100%;
+}
+
+body{
+	height : 100%;
+}
+
+.jck_wrap{
+	min-height:100%;
+	position : relative;
+	padding-bottom : 200px;
+}
+.jck_middle_contents{
+	display : flex;
+	flex-wrap : nowrap;
+	justify-content : space-between;
+	padding : 3px;
+	margin-top : 30px;
+}
+
+.content_img{
+	width : 300px;
+	height : 300px;
+}
+
+.contents_p{
+	border-radius : 20px;
+	line-height:40px;
+	height : 40px;
+	background-color : #93bdbf;
+	font-weight : bolder;
+	color : white;
+	text-align : center;
+}
+</style>
+<script src="${pageContext.request.contextPath }/resources/js/jquery-3.5.1.js"></script>
+</head>
+<body>
+	<div class="jck_wrap">
+		<jsp:include page="header.jsp"/>
+		<div id = "common" style="width : 1000px; padding : 80px 0px;">
+			<div>
+				<div id = "jck_top_contents" style="display:flex; flex-wrap:nowrap; justify-content:space-between; border-bottom : 3px solid gray; padding : 3px; padding-bottom : 15px;">
+					<div style="width : 480px; height : auto;">
+						<img src = "${pageContext.request.contextPath }/resources/images/tworavelbox1.jpg" style="width : 100%; height : 100%;">
+					</div>
+					<div style="width : 480px; height : auto; padding : 10px; padding-top:0px;">
+						<div style="border-bottom : 1px solid gray;">
+							<span style="font-size: 45px; font-weight : bolder;">TwoRAVEL 박스</span>
+							<button style="float : right; border: 0; outline: 0; background: none;">
+                                 <a href="http://localhost:8090/tworavel/TworavelBox.do" onclick="copy_trackback(this.href); return false;">
+                                 <img style="width: 48xp; height: 48px;" src= "${pageContext.request.contextPath }/resources/images/shareIcon.png"></a>
+                              </button>
+							<br>
+						</div>
+						<div>
+						<br>
+							<p style="line-height : 30px; padding-bottom : 10px;">
+								TwoRAVEL에서 판매하는 프로젝트 상품으로 국내 여행자들이 직접 뽑은 아이템들로 구성했습니다.<br>
+								TwoRAVELER들의 여행을 조금 더 편리하고 쾌적하게 다녀올 수 
+								있도록 경험을 잇습니다 :)<br>
+								"알차고 유용한 준비물 뽀시래기들 6종 모음 툴"<br>
+							</p>
+							<p style=" color : gray;">
+								&#8227;&nbsp;TwoRAVEL BOX S<br>
+								&nbsp;&nbsp;1) 국내산 KF94 4중 필터 마스크 대형 2매<br>
+								&nbsp;&nbsp;2) 응급/구급 상자 상비약<br>
+								&nbsp;&nbsp;3) 휴족시간 쿨링시트 6매입x 3개<br>
+								&nbsp;&nbsp;4) 6종 여행용세면도구<br>
+								&#8227;&nbsp;TwoRAVEL BOX L<br>
+								&nbsp;&nbsp;1) TwoRAVEL BOX S<br>
+								&nbsp;&nbsp;2) 코닥 FunSaver<br>
+								&nbsp;&nbsp;3) 마인그라피 카메라 스마트폰 삼각대 7500B
+							</p>
+							<br>
+						</div>
+						<div>
+							<table style="width : 100%;">
+								<tr>
+									<td>상품 선택 *</td>
+								</tr>
+								<tr>
+									<td>
+										<select name="options" id="options" style="width : 100%; height : 35px; border : 1px solid gray;">
+											<option value="">필수 선택 사항입니다.</option>
+										    <option value="S">&nbsp;&nbsp;&nbsp;(TwoRAVEL BOX S + 배송료 3000)&nbsp;&nbsp;15,000원</option>
+										    <option value="L">&nbsp;&nbsp;&nbsp;(TwoRAVEL BOX L + 배송료 3000)&nbsp;&nbsp;38,000원</option>
+									  	</select>
+									</td>
+								</tr>
+								<tr>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<td>
+										<button style="width : 100%; height : 50px; text-align : center; background-color: #34666f; color : white; cursor : pointer; font-weight : bolder;">구매하기</button>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+				
+				<div class = "jck_middle_contents" >
+					<div>
+						<div>
+							<img src = "${pageContext.request.contextPath }/resources/images/boxcontent1.jpg" class = "content_img">
+						</div>
+						<div>
+							<p class ="contents_p">국내산 KF94 4중 필터 마스크 대형 2매</p>
+						</div>
+					</div>
+					<div>
+						<div>
+							<img src = "${pageContext.request.contextPath }/resources/images/boxcontent7.jpg" class = "content_img">
+						</div>
+						<div>
+							<p class ="contents_p">코닥 FunSaver</p>
+						</div>
+					</div>
+					<div>
+						<div>
+							<img src = "${pageContext.request.contextPath }/resources/images/boxcontent3.jpg" class = "content_img">
+						</div>
+						<div>
+							<p class ="contents_p">마인그라피 카메라 스마트폰 삼각대 7500B</p>
+						</div>
+					</div>
+				</div>
+				
+				<div class = "jck_middle_contents" >
+					<div>
+						<div>
+							<img src = "${pageContext.request.contextPath }/resources/images/boxcontent4.jpg" class = "content_img">
+						</div>
+						<div>
+							<p class ="contents_p">응급/구급 상자 상비약</p>
+						</div>
+					</div>
+					<div>
+						<div>
+							<img src = "${pageContext.request.contextPath }/resources/images/boxcontent5.jpg" class = "content_img">
+						</div>
+						<div>
+							<p class ="contents_p">휴족시간 쿨링시트 6매입x 3개</p>
+						</div>
+					</div>
+					<div>
+						<div>
+							<img src = "${pageContext.request.contextPath }/resources/images/boxcontent6.jpg" class = "content_img">
+						</div>
+						<div>
+							<p class ="contents_p">6종 여행용세면도구</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<jsp:include page="footer.jsp"/>
+	</div>
+	
+	<script>
+   //상품 페이지 공유 버튼 
+    function copy_trackback(address) {
+        var IE=(document.all)?true:false;
+        if (IE) {
+            if(confirm("이 글의 주소를 클립보드에 복사하시겠습니까?"))
+                window.clipboardData.setData("Text", address);
+        } else {
+            temp = prompt("해당 상품 공유를 원하시면 Ctrl+C를 눌러 클립보드로 복사하세요", address);
+        }
+    }
+    </script>
+</body>
+</html>

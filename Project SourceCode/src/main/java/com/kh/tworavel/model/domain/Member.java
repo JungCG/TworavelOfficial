@@ -86,8 +86,6 @@ public class Member implements java.io.Serializable{
 		this.m_authorization = m_authorization;
 	}
 
-
-
 	@Override
 	public String toString() {
 		return "Member [m_id=" + m_id + ", m_pw=" + m_pw + ", m_name=" + m_name + ", m_nick=" + m_nick + ", m_birth="

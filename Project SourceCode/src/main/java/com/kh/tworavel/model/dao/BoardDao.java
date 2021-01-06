@@ -25,6 +25,10 @@ public class BoardDao {
 		 
 		 return sqlSession.selectList("Board.selectHotViewList");
 		 }
+	 
+	 
+	 	
+	 
 		 public int insertBoard(Board b) { // 글 입력
 			 	sqlSession.update("Member.updatePointBoardWrite",b.getM_id());
 		 return sqlSession.insert("Board.insertBoard",b);

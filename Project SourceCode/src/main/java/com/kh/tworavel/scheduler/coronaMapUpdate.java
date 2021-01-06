@@ -19,7 +19,7 @@ public class coronaMapUpdate {
 	@Autowired
 	private CoronaMapService cmService;
 	
-	@Scheduled(cron = "0 0 10 * * *")
+	@Scheduled(cron = "0 30 10 * * *")
 	public void minusLoginPoint() {
 		Date date = new Date();
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

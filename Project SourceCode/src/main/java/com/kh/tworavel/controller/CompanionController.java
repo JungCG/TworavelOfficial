@@ -38,7 +38,7 @@ public class CompanionController {
 	private CompanionService cService;
 
 	public static final int LIMIT = 5;
-
+	
 	// 동행글 등록 페이지
 	@RequestMapping(value = "companion_write.do", method = RequestMethod.GET)
 	public ModelAndView companion_write(ModelAndView mv) {
@@ -116,7 +116,6 @@ public class CompanionController {
 		}
 		return mv;
 	}
-
 	// 동행글 상세페이지
 	@RequestMapping(value = "companion_detail.do")
 	public ModelAndView boardDetailService(ModelAndView mv, @RequestParam(name = "c_id") int c_id) {
@@ -203,6 +202,7 @@ public class CompanionController {
 		mv.setViewName("redirect:/companion_list.do");
 		return mv;
 	}
+	
 	// 게시판 리스트
 //	@RequestMapping(value="companion_list.do")
 //	public ModelAndView fBoardListService(ModelAndView mv,@RequestParam(name = "page", defaultValue = "1") int page,
@@ -253,7 +253,8 @@ public class CompanionController {
 //		}
 //		return mv;
 //	}
-
+	
+	
 //	@RequestMapping(method=RequestMethod.GET)
 //	public String aaa(ModelAndView mv) {
 //		return "aaa";

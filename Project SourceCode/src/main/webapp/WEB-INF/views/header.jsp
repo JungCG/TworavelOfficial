@@ -13,12 +13,86 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style>
+*{
+	color : #333;
+}
 	header * {
 		font-size : 15px;
 	}
+	
+.pre-loader {
+	background: #fff;
+	background-position: center center;
+	background-size: 13%;
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 12345;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center
+}
+
+.pre-loader .loader-logo {
+	padding-bottom: 15px
+}
+
+.pre-loader .loader-progress {
+	height: 30px;
+	border-radius: 15px;
+	max-width: 700px;
+	margin: 0 auto;
+	display: block;
+	background: #ecf0f4;
+	overflow: hidden
+}
+
+.pre-loader .bar {
+	width: 0%;
+	height: 30px;
+	display: block;
+	background: #f1d6bc;
+}
+
+.pre-loader .percent {
+	text-align: center;
+	font-size: 24px;
+	display: none
+}
+
+.pre-loader .loading-text {
+	text-align: center;
+	font-size: 18px;
+	font-weight: bolder;
+	padding-top: 15px;
+}
+
+	
 </style>
 </head>
 <body>
+	<div class="pre-loader">
+		<div class="pre-loader-box">
+			<div class="loader-logo"><img src="${pageContext.request.contextPath }/resources/images/preloadImg.jpg" alt=""></div>
+			<div class='loader-progress' id="progress_div">
+				<div class='bar' id='bar1'></div>
+			</div>
+			<div class='percent' id='percent1'>0%</div>
+			<div class="loading-text">
+				페이지 로딩중...
+			</div>
+		</div>
+	</div>
 	<script type="text/javascript">
 		$(function() {
 			<% if(userID == null){
@@ -81,7 +155,7 @@
 		});
 	</script>
 	<div id="header_container"
-		style="width: 100vw; border-bottom: 1px solid black;">
+		style="width: 100%; border-bottom: 1px solid black;">
 		<header
 			style="position: relative; width: 1280px; padding: 0 10px; height: 70px; display: flex; justify-content: space-between; align-items: center; z-index:999; border-radius : 0 0 10px 10px;">
 			<div id="header_inside" style="position: fixed; width: 1280px;  border-radius : 0 0 10px 10px;">
@@ -115,8 +189,8 @@
 									</div></li>
 								<li style="display: inline-block;"><a href="gallery_list.do"
 									style="padding: 0 15px;">갤러리</a></li>
-								<li style="display: inline-block;"><a href="#"
-									style="padding: 0 15px;">포테이토박스</a></li>
+								<li style="display: inline-block;"><a href="TworavelBox.do"
+									style="padding: 0 15px;">Tworavel 박스</a></li>
 								<li style="display: inline-block;"><a href="tworavelmap.do"
 									style="padding: 0 15px;">여행 지도</a></li>
 							</ul>
@@ -140,7 +214,7 @@
 									style="padding: 0 15px;">My Page</a></li>
 								<li style="display: inline-block;" class="jck_after_login" id="user_my_page"><a href="./MyPage.do"
 									style="padding: 0 15px;">My Page</a></li>
-									<li style="display: inline-block;" class="jck_after_login" id="manager_my_page"><a href="./adminpage.do"
+									<li style="display: inline-block;" class="jck_after_login" id="manager_my_page"><a href="./AdminPage.do"
 									style="padding: 0 15px;">Admin</a></li>
 								<li style="display: inline-block;" class="jck_before_login"><a href="./loginPre.do"
 									style="padding: 0 15px;">Login</a></li>
@@ -201,5 +275,6 @@
 		});
 		
 	</script>
+	<script src="${pageContext.request.contextPath }/resources/js/process.js"></script>
 </body>
 </html>

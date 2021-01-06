@@ -54,7 +54,7 @@ public class MemberController {
 		mv.setViewName("MainPage");
 		return mv;
 	}
-
+	
 	@RequestMapping(value = "/LoginCtl.do", method = RequestMethod.POST)
 	public String LogInCtl(HttpServletRequest request, HttpServletResponse response, Model model, ModelAndView mv)
 			throws IOException {
@@ -76,7 +76,6 @@ public class MemberController {
 
 				String loginDate = mService.getloginDate(m_id);
 				String currentDate = mService.getCurrentDate();
-				System.out.println(loginDate+" "+currentDate);
 				
 				int check3 = 0;
 				int check4 = 0;
@@ -133,7 +132,6 @@ public class MemberController {
 	public ModelAndView JoinCtl(Member m, @RequestParam(name = "upfile", required = false) MultipartFile report,
 			HttpServletRequest request, ModelAndView mv) throws IOException {
 		try {
-
 			if (report != null && !report.getOriginalFilename().equals("")) {
 				saveFile(report, request);
 			}
@@ -148,7 +146,8 @@ public class MemberController {
 			if (check == 1) {
 				int check2 = oService.insertOut(m.getM_id());
 				if (check2 == 1) {
-					mv.setViewName("forward:EmailSendCtl.do");
+					mv.addObject("m_id", m.getM_id());
+					mv.setViewName("emailProgress");
 				} else {
 					mv.addObject("msg", "회원가입 실패");
 					mv.addObject("url", "/join.do");
@@ -168,18 +167,18 @@ public class MemberController {
 		return mv;
 	}
 
-	@RequestMapping(value = "/EmailSendCtl.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/EmailSendCtl.do", method = RequestMethod.GET)
 	public ModelAndView EmailSendCtl(Member m, HttpServletRequest request, HttpServletResponse response, Model model,
 			ModelAndView mv) throws IOException {
 
 		String m_id = m.getM_id();
-		System.out.println(m_id + "&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
 		// 사용자에게 보낼 메시지를 기입합니다.
-
+		HttpSession session = request.getSession();
+		session.removeAttribute("m_id");
+		
 		String host = "http://localhost:8090/tworavel/";
 		// 개인 이메일 작성
 		String from = "nothing1360@gmail.com";
-		System.out.println(mService.selectOne(m_id).getM_email() + "&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
 
 		String to = mService.selectOne(m_id).getM_email();
 		String subject = "[TwoRavel] 계정 활성화를 위한 이메일 확인 메일입니다.";
@@ -298,8 +297,8 @@ public class MemberController {
 				
 				int result = mService.updatePwd(paramMap);
 				if(result == 1) {
-					mv.addObject("m_id", m_id);
-					mv.setViewName("forward:SearchEmailSendCtl.do");
+					mv.addObject("m_id", m.getM_id());
+					mv.setViewName("searchEmailProgress");
 				}else {
 					mv.addObject("msg", "예기치 못한 에러가 발생했습니다. 다시 시도해주세요.");
 					mv.addObject("url", "/searchPage.do");
@@ -314,11 +313,13 @@ public class MemberController {
 		return mv;
 	}
 
-	@RequestMapping(value = "/SearchEmailSendCtl.do", method = RequestMethod.POST)
-	public ModelAndView SearchEmailSendCtl(HttpServletRequest request, HttpServletResponse response, Model model, ModelAndView mv)
+	@RequestMapping(value = "/SearchEmailSendCtl.do", method = RequestMethod.GET)
+	public ModelAndView SearchEmailSendCtl(Member m, HttpServletRequest request, HttpServletResponse response, Model model, ModelAndView mv)
 			throws IOException {
+		String m_id = m.getM_id();
 		
-		String m_id = (String) request.getAttribute("m_id");
+		HttpSession session = request.getSession();
+		session.removeAttribute("m_id");
 		// 사용자에게 보낼 메시지를 기입합니다.
 		
 		String host = "http://localhost:8090/tworavel/";
@@ -327,8 +328,8 @@ public class MemberController {
 		String to = mService.selectOne(m_id).getM_email();
 		String subject = "[TwoRavel] 임시 비밀번호가 담긴 메일입니다.";
 		
-		Member m = mService.selectOne(m_id);
-		String n_pwd = m.getM_pw();
+		Member m2 = mService.selectOne(m_id);
+		String n_pwd = m2.getM_pw();
 		
 		String content = "임시 비밀번호는 아래와 같습니다." +"<br>"+n_pwd+ "<br>임시 비밀번호로 로그인 후 비밀번호를 변경해주세요!!!";
 		
@@ -476,16 +477,10 @@ public class MemberController {
 		String filePath = null;
 
 		try { // 파일 저장
-			System.out.println(report.getOriginalFilename() + "을 저장합니다.");
-			System.out.println("저장 경로 : " + savePath);
 			filePath = folder + "\\" + report.getOriginalFilename();
-
 			report.transferTo(new File(filePath)); // 파일을 저장한다
-			System.out.println("파일 명 : " + report.getOriginalFilename());
-			System.out.println("파일 경로 : " + filePath);
-			System.out.println("파일 전송이 완료되었습니다.");
 		} catch (Exception e) {
-			System.out.println("파일 전송 에러 : " + e.getMessage());
+			e.printStackTrace();
 		}
 	}
 }

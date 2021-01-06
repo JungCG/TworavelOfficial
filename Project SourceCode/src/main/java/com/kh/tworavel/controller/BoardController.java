@@ -385,18 +385,20 @@ public class BoardController {
 
 			PrintWriter print = response.getWriter();
 
-			print.print(sFileInfo);
+		         print.print(sFileInfo);
 
-			print.flush();
+		         print.flush();
 
-			print.close();
+		         print.close();
 
-		} catch (Exception e) {
+		    } catch (Exception e) {
 
-			e.printStackTrace();
+		        e.printStackTrace();
+
+		    }
 
 		}
 
-	}
+
 
 }

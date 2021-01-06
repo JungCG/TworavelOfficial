@@ -134,6 +134,3 @@ select m.*,o.o_status from member m join out o on(m.m_id=o.m_id)
 	</select>
 
 </mapper>
-
-
-
