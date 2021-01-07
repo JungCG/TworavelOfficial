@@ -9,13 +9,13 @@ public class CompanionInfo implements java.io.Serializable{
 	private String m_id2;
 	private String m_id;
 	private String c_name;
-	private char c_yn;
+	private String c_yn;
 	
 	public CompanionInfo() {
 		super();
 	}
 
-	public CompanionInfo(int c_id, String m_id2, String m_id, String c_name, char c_yn) {
+	public CompanionInfo(int c_id, String m_id2, String m_id, String c_name, String c_yn) {
 		super();
 		this.c_id = c_id;
 		this.m_id2 = m_id2;
@@ -62,11 +62,11 @@ public class CompanionInfo implements java.io.Serializable{
 		this.c_name = c_name;
 	}
 
-	public char getC_yn() {
+	public String getC_yn() {
 		return c_yn;
 	}
 
-	public void setC_yn(char c_yn) {
+	public void setC_yn(String c_yn) {
 		this.c_yn = c_yn;
 	}
 	

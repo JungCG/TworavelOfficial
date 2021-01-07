@@ -296,9 +296,12 @@ table > tr {
 							</div>
 						</div>
 						<div id="csub">
-							<form action="companion_insertInfo.do" method="post" id="csub_form" name="csub_form" enctype="multipart/form-data">
-								<a href="#"><input type="button" value="동행신청"
-												class="" id="csub_btn"></a>
+							<form action="companion_insertInfo.do" method="post" id="csub_form" name="csub_form" >
+								<input type="hidden" value="${clist.c_id}" name="c_id">
+								<input type="hidden" value="${clist.m_id}" name="m_id2">
+								<input type="hidden" value="${userID}" name="m_id">
+								<input type="hidden" value="${clist.c_name}" name="c_name">
+								<input type="submit" value="동행신청" class="" id="csub_btn">
 							</form>
 						</div>
 					</div>

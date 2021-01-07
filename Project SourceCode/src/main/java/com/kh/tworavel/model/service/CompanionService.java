@@ -16,10 +16,11 @@ public interface CompanionService {
 	int listCountC ();
 	int companion(Companion c);
 	int selectCmapCount(int c_id);
+	int totalSearchCountC(String keyword);
 	
 	List<Companion> selectListC();
 	List<Companion> selectListCp(int startPage, int limit);
-	List<Companion> selectSearchC(String keyword);
+	List<Companion> selectSearchC(String keyword,int startPage, int limit);
 	
 	void insertCMap(CompanionMap vo);
 	void insertCTag(CompanionTag vo);

@@ -31,6 +31,7 @@
 		<id property="c_id" column="c_id" />
 		<result property="m_id2" column="m_id2" />
 		<result property="m_id" column="m_id" />
+		<result property="c_name" column="c_name" />
 		<result property="c_yn" column="c_yn" />
 	</resultMap>
 
@@ -116,15 +117,20 @@
 	<!-- 검색한 게시글 조회 -->
 	<select id="selectSearchC" parameterType="string"
 		resultType="arraylist" resultMap="resultCompanion">
-		select* from companion where
+		select * from companion where
 		c_name
 		LIKE
 		'%'|| #{keyword} ||'%'
-		OR c_description LIKE '%'|| #{keyword} ||'%'
+		OR c_description LIKE '%'|| #{keyword} ||'%' and c_id
 		order by c_id
 		desc
 	</select>
-
+	<select id="totalSearchCountC" parameterType="string" resultType="int">
+		select count(*) from companion where
+		c_name LIKE '%'|| #{keyword} ||'%'
+		OR c_description LIKE '%'|| #{keyword} ||'%' and c_id=0
+	</select>
+	
 	<!-- 게시글 상세 조회 -->
 	<select id="selectOneC" parameterType="int"
 		resultType="Companion">
@@ -145,13 +151,13 @@
 		cm_id=#{cm_id}
 	</select>
 
-	<!-- 게시글 조회 수 증가 -->
+<!--
 	<update id="addReadCountC" parameterType="int" flushCache="true"
 		statementType="PREPARED">
 		update companion set c_view = c_view+1 where
 		c_id=#{c_id}
-	</update>
-
+	</update> -->
+	
 	<!-- 게시글 수정 -->
 	<update id="updateOneC" parameterType="Companion"
 		flushCache="true" statementType="PREPARED">
@@ -233,9 +239,10 @@
 	<!-- 동행 신청 -->
 	<insert id="insertCInfo" parameterType="CompanionInfo" flushCache="true"
 		statementType="PREPARED">
-		insert into companioninfo 
+		insert into companioninfo
 		values (#{c_id},#{m_id2},#{m_id}, #{c_name}, #{c_yn})
 	</insert>
+	
 	
 <!-- 	<!조회수 증가 >
 	<select id="selectCHotViewList" resultType="arraylist" resultMap="resultCompanion">

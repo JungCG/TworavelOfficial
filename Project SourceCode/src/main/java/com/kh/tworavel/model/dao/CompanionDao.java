@@ -48,10 +48,15 @@ public class CompanionDao {
 		return sqlSession.selectList("Companion.selectListCp", row);
 	}
 
-	public List<Companion> selectSearchC(String keyword) { // 게시글 검색 조회
-		return sqlSession.selectList("Companion.selectSearchC", keyword);
+	public List<Companion> selectSearchC(String keyword,int startPage, int limit) { // 게시글 검색 조회
+		int startRow = (startPage-1)*limit;
+		 RowBounds row = new RowBounds(startRow, limit);
+		return sqlSession.selectList("Companion.selectSearchC", keyword, row);
 	}
-
+	public int totalSearchCountC(String keyword) {
+		return sqlSession.selectOne("Companion.totalSearchCountC", keyword);
+	}
+	
 	// 동행글 상세 1,2,3
 	public List<Companion> selectMapC(int c_id) { // 동행글 상세 2
 		return sqlSession.selectList("CompanionMap.selectMapC", c_id);
@@ -68,10 +73,6 @@ public class CompanionDao {
 
 	public int updateTagC(CompanionTag ct) {
 		return sqlSession.update("CompanionTag.updateTagC", ct);
-	}
-
-	public int addReadCount(int c_id) {
-		return sqlSession.update("Companion.addReadCount", c_id);
 	}
 
 //	동행글 삭제
@@ -145,11 +146,12 @@ public class CompanionDao {
 //	}
 //	동행 조회수 증가
 	 public int addCReadCount(int c_id) { // 글 조회 수 증가
+		 System.out.println("1개만 올라라 제발!!");
 	 return sqlSession.update("Companion.addCReadCount", c_id);
 	 }
 	
 //	동행 신청
 	public void insertCInfo(CompanionInfo vo) {
-		sqlSession.insert("CompanionInfo.insertCInfo",vo);
+		sqlSession.insert("Companion.insertCInfo",vo);
 	}
 }

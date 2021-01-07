@@ -277,7 +277,6 @@ a {
 							href="companion_write.do"
 							style="color: #0AC5A8; border: 3px solid #6495ed6b; border-radius: 10px; padding: 6px; font-family: 'Jal_Onuel';">글쓰기</a></td>
 					</tr>
-
 					<tr>
 						<td colspan="6">
 							<form action="companion_list.do" method="get">
@@ -289,39 +288,50 @@ a {
 						<td>
 					</tr>
 					<tr align="center" height="20">
-						<td colspan="6"
-							style="padding-top: 20px; color: #0AC5A8; font-family: 'Jal_Onuel';"><c:if
-								test="${currentPage <= 1}"> [이전]&nbsp;
- </c:if> <c:if test="${currentPage > 1}">
-								<c:url var="blistST" value="companion_list.do">
+						<td colspan="6" style="padding-top: 20px; color: #0AC5A8; font-family: 'Jal_Onuel';">
+							<c:if test="${currentPage <= 1}">[이전]&nbsp;
+							</c:if>
+							<c:if test="${currentPage > 1}">
+								<c:url var="blistST" value="board_list.do">
 									<c:param name="page" value="${currentPage-1}" />
 									<c:param name="type" value="${type}" />
+									<c:if test="${not empty keyword}">
+										<c:param name="keyword" value="${keyword }"></c:param>
+									</c:if>
 								</c:url>
-								<a href="${blistST}"
-									style="color: #0AC5A8; font-family: 'Jal_Onuel';">[이전]</a>
-							</c:if> <!-- 끝 페이지 번호 처리 --> <c:set var="endPage" value="${maxPage}" />
-							<c:forEach var="p" begin="${startPage+1}" end="${endPage}">
-								<c:if test="${p eq currentPage}">
-									<font color="cornflowerblue" size="4"><b>[${p}]</b></font>
+								<a href="${clistST}" style="color: #0AC5A8; font-family: 'Jal_Onuel';">[이전]</a>
+							</c:if> 
+							<!-- 끝 페이지 번호 처리 -->
+							<c:forEach var="p" begin="${startPage}" end="${endPage }">
+								<c:if test="${p <= maxPage}">
+									<c:if test="${p eq currentPage}">
+										<font color="cornflowerblue" size="4"><b>[${p}]</b></font>
+									</c:if>
+									<c:if test="${p ne currentPage}">
+										<c:url var="clistchk" value="companion_list.do">
+											<c:param name="page" value="${p}" />
+											<c:param name="type" value="${type}" />
+											<c:if test="${not empty keyword}">
+												<c:param name="keyword" value="${keyword }"></c:param>
+											</c:if>
+										</c:url>
+										<a href="${clistchk}">${p}</a>
+									</c:if>
 								</c:if>
-								<c:if test="${p ne currentPage}">
-									<c:url var="blistchk" value="companion_list.do">
-										<c:param name="page" value="${p}" />
-										<c:param name="type" value="${type}" />
-
-									</c:url>
-									<a href="${blistchk}">${p}</a>
-								</c:if>
-							</c:forEach> <c:if test="${currentPage >= maxPage}">
- [다음]
- </c:if> <c:if test="${currentPage < maxPage}">
-								<c:url var="blistEND" value="companion_list.do">
+							</c:forEach>
+							<c:if test="${currentPage >= maxPage}">[다음]
+	 						</c:if>
+	 						<c:if test="${currentPage < maxPage}">
+								<c:url var="clistEND" value="companion_list.do">
 									<c:param name="page" value="${currentPage+1}" />
 									<c:param name="type" value="${type}" />
+									<c:if test="${not empty keyword}">
+										<c:param name="keyword" value="${keyword }"></c:param>
+									</c:if>
 								</c:url>
-								<a href="${blistEND}"
-									style="color: #0AC5A8; font-family: 'Jal_Onuel';">[다음]</a>
-							</c:if></td>
+								<a href="${clistEND}" style="color: #0AC5A8; font-family: 'Jal_Onuel';">[다음]</a>
+							</c:if>
+						</td>
 					</tr>
 				</table>
 			</section>

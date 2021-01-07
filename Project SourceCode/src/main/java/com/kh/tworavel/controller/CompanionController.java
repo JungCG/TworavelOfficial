@@ -98,27 +98,71 @@ public class CompanionController {
 	@RequestMapping(value = "companion_list.do", method = RequestMethod.GET)
 	public ModelAndView companionListService(@RequestParam(name = "page", defaultValue = "1") int page,
 			@RequestParam(name = "keyword", required = false) String keyword, ModelAndView mv) {
+		int listCount = 0;
+		int currentBlock = page % 4 == 0 ? page / 4 : (page / 4) + 1;
+		int startPage = 0;
+		int endPage = 0;
+		/*
+		 * System.out.println(currentBlock);
+		 */
+		System.out.println((page / 5) * 5 + 1);
+		if (page % 5 == 0) {
+			startPage = (page / 5 - 1) * 5 + 1;
+			endPage = (page / 5) * 5;
+		} else if (page % 5 != 0) {
+			startPage = (page / 5) * 5 + 1;
+			endPage = (page / 5 + 1) * 5;
+		}
+
 		try {
 			int currentPage = page;
 			// 한 페이지당 출력할 목록 갯수
-			int listcountC = cService.listCountC();
-			int maxPage = (int) ((double) listcountC / LIMIT + 0.9);
+			listCount = cService.listCountC();
 			if (keyword != null && !keyword.equals("")) {
-				mv.addObject("list", cService.selectSearchC(keyword));
-			} else {
-				mv.addObject("list", cService.selectListCp(currentPage, LIMIT));
-				mv.addObject("currentPage", currentPage);
-				mv.addObject("maxPage", maxPage);
-				mv.addObject("listCount", listcountC);
-				mv.setViewName("companion_list");
+				listCount = cService.totalSearchCountC(keyword);
 			}
+			int maxPage = (int) ((double) listCount / LIMIT + 0.9);
+			if (keyword != null && !keyword.equals("")) {
+				mv.addObject("list", cService.selectSearchC(keyword, currentPage, LIMIT));
+			} else {
+
+				mv.addObject("list", cService.selectListCp(currentPage, LIMIT));
+			}
+			mv.addObject("startPage", startPage);
+			mv.addObject("endPage", endPage);
+			mv.addObject("currentPage", currentPage);
+			mv.addObject("maxPage", maxPage);
+			mv.addObject("listCount", listCount);
+			mv.addObject("currentblock", currentBlock);
+			mv.addObject("keyword", keyword);
+			mv.setViewName("companion_list");
 		} catch (Exception e) {
+			e.printStackTrace();
 			mv.addObject("msg", e.getMessage());
 			mv.setViewName("errorPage");
-			e.printStackTrace();
 		}
-//		mv.addObject("hotlist", cService.selectCHotViewList());
+//		mv.addObject("hotlist", cService.selectHotViewList());
 		return mv;
+//		try {
+//			int currentPage = page;
+//			// 한 페이지당 출력할 목록 갯수
+//			int listcountC = cService.listCountC();
+//			int maxPage = (int) ((double) listcountC / LIMIT + 0.9);
+//			if (keyword != null && !keyword.equals("")) {
+//				mv.addObject("list", cService.selectSearchC(keyword));
+//			} else {
+//				mv.addObject("list", cService.selectListCp(currentPage, LIMIT));
+//				mv.addObject("currentPage", currentPage);
+//				mv.addObject("maxPage", maxPage);
+//				mv.addObject("listCount", listcountC);
+//				mv.setViewName("companion_list");
+//			}
+//		} catch (Exception e) {
+//			mv.addObject("msg", e.getMessage());
+//			mv.setViewName("errorPage");
+//			e.printStackTrace();
+//		}
+//		return mv;
 	}
 
 	// 동행글 상세페이지
@@ -135,8 +179,9 @@ public class CompanionController {
 				mvo.setC_xy(cService.selectMapC(mvo));
 				maplist.add(mvo);
 			}
-			mv.addObject("clist", cService.selectOneC(c_id));
-			mv.addObject("meetpoint", cService.selectOneC(c_id).getC_meet());
+			Companion list = cService.selectOneC(c_id);
+			mv.addObject("clist", list);
+			mv.addObject("meetpoint", list.getC_meet());
 			mv.addObject("maplist", maplist);
 			mv.addObject("clist2", cService.selectTagC(c_id));
 			mv.setViewName("companion_detail");
@@ -227,7 +272,7 @@ public class CompanionController {
 			HttpServletResponse response) {
 		PrintWriter out;
 		try {
-			
+
 			out = response.getWriter();
 			Companion vo = new Companion();
 			vo.setC_id(c_id);
@@ -272,28 +317,23 @@ public class CompanionController {
 
 //	동행 신청
 	@RequestMapping(value = "companion_insertInfo.do")
-	public void companioninsertInfoService(CompanionInfo io, ModelAndView mv, HttpServletRequest request,
+	public ModelAndView companioninsertInfoService(CompanionInfo io, ModelAndView mv, HttpServletRequest request,
 			HttpServletResponse response, @RequestParam(name = "c_id") int c_id,
 			@RequestParam(name = "m_id2") String m_id2, @RequestParam(name = "m_id") String m_id,
-			@RequestParam(name = "c_name") String c_name, @RequestParam(name = "c_yn") char c_yn) {
-		PrintWriter out;
+			@RequestParam(name = "c_name") String c_name) {
 		try {
-			out = response.getWriter();
 			int checkid = 0;
 			CompanionInfo vo = new CompanionInfo();
 			vo.setC_id(c_id);
 			vo.setM_id2(m_id2);
 			vo.setM_id(m_id);
 			vo.setC_name(c_name);
-			vo.setC_yn(c_yn);
-			System.out.println(c_yn);
+			vo.setC_yn("N");
 			cService.insertCInfo(vo);
-			out.print(checkid);
-			out.flush();
-			out.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		mv.setViewName("redirect:companion_list.do");
+		return mv;
 	}
-
 }

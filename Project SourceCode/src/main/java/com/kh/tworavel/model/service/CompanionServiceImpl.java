@@ -37,9 +37,14 @@ public class CompanionServiceImpl implements CompanionService {
 	 */
 
 	@Override
-	public List<Companion> selectSearchC(String keyword) {
-		return cDao.selectSearchC(keyword);
+	public List<Companion> selectSearchC(String keyword,int startPage, int limit) {
+		return cDao.selectSearchC(keyword, startPage, limit);
 	}
+	@Override
+	public int totalSearchCountC(String keyword) {
+		return cDao.totalSearchCountC(keyword);
+	}
+
 
 	@Override
 	public void updateOneC(Companion c) {
@@ -182,5 +187,4 @@ public class CompanionServiceImpl implements CompanionService {
 	public void insertCInfo(CompanionInfo vo) {
 		cDao.insertCInfo(vo);
 	}
-
 }
