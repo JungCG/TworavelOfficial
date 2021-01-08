@@ -52,6 +52,11 @@
 		<result property="c_sid" column="c_sid" />
 	</resultMap>
 
+
+	<resultMap type="Companion" id="resultCountArea">
+		<id property="c_id" column="c" />
+	</resultMap>
+	
 	<!-- 동행글 등록 -->
 	<insert id="insertC" parameterType="Companion" flushCache="true"
 		statementType="PREPARED">
@@ -255,4 +260,15 @@
 	<update id="addCReadCount" parameterType="int" statementType="PREPARED" flushCache="true">
 		update companion set c_view = c_view+1 where c_id = #{c_id}
 	</update>
+	<select id="selectCountarea" resultType="arraylist" resultMap="resultCountArea">
+select count(*)as c from ctag group by c_sid,c_lid having c_lid=1 order by c_lid
+</select>
+
+<select id="selectCountpeople" resultType="arraylist" resultMap="resultCountArea">
+select count(*)as c from ctag group by c_sid,c_lid having c_lid=2 order by c_lid
+</select>   
+<select id="selectCounttendency" resultType="arraylist" resultMap="resultCountArea">
+select count(*)as c from ctag group by c_sid,c_lid having c_lid=3 order by c_lid
+</select>   
+
 </mapper>

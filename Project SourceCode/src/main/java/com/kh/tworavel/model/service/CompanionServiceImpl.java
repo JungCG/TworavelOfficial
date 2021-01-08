@@ -187,4 +187,17 @@ public class CompanionServiceImpl implements CompanionService {
 	public void insertCInfo(CompanionInfo vo) {
 		cDao.insertCInfo(vo);
 	}
+	@Override
+	public List<Companion> selectCountpeople() {
+		return cDao.selectCountpeople();
+	}
+@Override
+	public List<Companion> selectCountarea() {
+		return cDao.selectCountarea();
+	}
+	@Override
+	public List<Companion> selectCounttendency() {
+		// TODO Auto-generated method stub
+		return cDao.selectCounttendency();
+	}
 }

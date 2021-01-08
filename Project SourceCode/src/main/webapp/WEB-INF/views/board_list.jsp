@@ -221,7 +221,7 @@ font-size: 13px;
 					</div>
 				</div>
 				<table id="GJW-boardtable">
-					<tr>
+					<tr style="border-bottom: 1px solid #00000026;">
 						<td>글번호</td>
 						<td>글제목</td>
 						<td>작성자</td>
@@ -236,7 +236,7 @@ font-size: 13px;
 								<td class="gjw-list-td"
 									style="display: flex; justify-content: center;">
 									<p class="gjw-board-title"
-										style="display: inline; padding: 7px; padding-right: 0px;">${hvo.b_title}
+										style="display: inline; padding: 7px; padding-right: 0px; cursor: pointer;">${hvo.b_title}
 										
 																	<c:if test="${not empty hvo.b_commentCount}">
 										<g>(${hvo.b_commentCount })</g>

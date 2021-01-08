@@ -154,4 +154,17 @@ public class CompanionDao {
 	public void insertCInfo(CompanionInfo vo) {
 		sqlSession.insert("Companion.insertCInfo",vo);
 	}
+	    public List<Companion>selectCountarea(){
+	    	return sqlSession.selectList("Companion.selectCountarea");
+	    }
+	    
+   public List<Companion>selectCountpeople(){
+	    	
+	    	return sqlSession.selectList("Companion.selectCountpeople");
+	    }
+   public List<Companion>selectCounttendency(){
+   	
+   	return sqlSession.selectList("Companion.selectCounttendency");
+   }
+   
 }

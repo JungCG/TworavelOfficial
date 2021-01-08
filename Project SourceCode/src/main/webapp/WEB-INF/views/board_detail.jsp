@@ -584,7 +584,7 @@ section {
 														class="gjw-recommentupdate-close" value="취소">
 												</form>
 												<a
-													href="deleteRecomment.do?b_id=${cvo.b_id }&rb_id=${blist.b_id}"
+													href="deleteRecomment.do?b_id=${cvo.b_id }&rb_id=${blist.b_id}&b_re_step=${cvo.b_re_step}"
 													class="">X</a>
 													</c:when>
 													</c:choose>

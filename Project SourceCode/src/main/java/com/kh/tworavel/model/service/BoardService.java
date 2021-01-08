@@ -35,4 +35,7 @@ public interface BoardService {
 	 int totalSearchCount(String keyword);
 	 int selectBoardAllCount();
 	 List<Board>selectBoardAll(int startPage, int limit);
+	 int selectRecommentCount(Board vo);
+	 void deleteCommentC(Board vo);
+	 String selectCommentContent(Board vo);
 }

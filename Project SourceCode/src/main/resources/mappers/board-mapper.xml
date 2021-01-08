@@ -28,8 +28,7 @@
 	</select>
 	<select id="selectList" parameterType="string"
 		resultType="arraylist" resultMap="resultBoard">
-select A.*, B.c from (select * from (select d.* from(select* from board where b_re_step =0 and b_type=#{b_type})d)f where b_re_level = 0 order by b_view desc) A inner join (select B_REF,c from  (select b_ref,(count(b_ref)-1) AS c from board group by b_ref)) B on A.b_ref = B.b_ref
-
+select A.*, B.c from (select * from (select d.* from(select* from board where b_re_step =0 and b_type=#{b_type})d)f where b_re_level = 0 order by b_id desc) A inner join (select B_REF,c from  (select b_ref,(count(b_ref)-1) AS c from board group by b_ref)) B on A.b_ref = B.b_ref
 	</select>
 	
 	<select id="totalSearchCount" parameterType="string" resultType="int">
@@ -161,6 +160,18 @@ select A.*, B.c from (select * from (select d.* from(select* from board where b_
 		resultType="int">
 
 		select b_like from board where b_id=#{b_id}
+	</select>
+	<select id="selectRecommentCount" parameterType="Board" resultType="int">
+	
+	select count(*) from board where b_ref = #{b_id} and b_re_step = #{b_re_step}
+	</select>
+	<delete id="deleteCommentC" parameterType="Board" flushCache="true" statementType="PREPARED">
+delete board where b_ref = #{b_id} and b_re_step =#{b_re_step}
+	</delete>
+	<select id ="selectCommentContent" parameterType="Board" resultType="string">
+	
+	select b_content from board where b_ref =#{b_id} and b_re_step =#{b_re_step} and b_re_level =0
+	
 	</select>
 	<!-- ==================마이페이지 sql문================ -->
 	<!-- 작성한 글 갯수 조회 -->

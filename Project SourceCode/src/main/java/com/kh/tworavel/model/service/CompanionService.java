@@ -56,6 +56,8 @@ public interface CompanionService {
 	 //	 동행 신청
 	 void insertCInfo(CompanionInfo vo);
 
-	 
+	 	   List<Companion>selectCountarea();
+	   List<Companion>selectCountpeople();
+	   List<Companion>selectCounttendency();
 	 
 }

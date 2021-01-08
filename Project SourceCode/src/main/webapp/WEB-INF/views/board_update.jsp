@@ -127,6 +127,9 @@ outline:none;
 		<jsp:include page="header.jsp"/>
 <GJW>
 <section>
+<div style="
+    width: 90%;
+">
 	<form name ="frm" enctype="multipart/form-data">
 	<input type="hidden" value="${blist.b_id }" name="b_id">
 		<table align="center" style="width: 100%;">
@@ -168,6 +171,7 @@ outline:none;
 			</tr>	
 		</table>
 	</form>
+	</div>
 	</section>
 	</GJW>
 		<jsp:include page="footer.jsp"/>
