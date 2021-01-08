@@ -42,7 +42,7 @@ public class MemberController {
 
 	@Autowired
 	private OutService oService;
-	
+
 	@Autowired
 	private VillageWeatherParsing weatherparsing;
 
@@ -58,74 +58,81 @@ public class MemberController {
 	@RequestMapping(value = "/LoginCtl.do", method = RequestMethod.POST)
 	public String LogInCtl(HttpServletRequest request, HttpServletResponse response, Model model, ModelAndView mv)
 			throws IOException {
-		String m_id = request.getParameter("m_id");
-		String m_pw = request.getParameter("m_pw");
+		try {
+			String m_id = request.getParameter("m_id");
+			String m_pw = request.getParameter("m_pw");
 
-		int check = mService.loginCheck(m_id, m_pw);
-		if (check == 2) {
-			// 이메일 인증 필요
-			model.addAttribute("msg", "이메일 인증이 필요합니다.");
-			model.addAttribute("url", "/loginPre.do");
-		} else if (check == 1) {
-			int check2 = oService.outCheck(m_id);
+			int check = mService.loginCheck(m_id, m_pw);
+			if (check == 2) {
+				// 이메일 인증 필요
+				model.addAttribute("msg", "이메일 인증이 필요합니다.");
+				model.addAttribute("url", "/loginPre.do");
+			} else if (check == 1) {
+				int check2 = oService.outCheck(m_id);
 
-			if (check2 == 1) {
-				// 로그인 성공
-				HttpSession session = request.getSession();
-				session.setAttribute("userID", m_id);
+				if (check2 == 1) {
+					// 로그인 성공
+					HttpSession session = request.getSession();
+					session.setAttribute("userID", m_id);
 
-				String loginDate = mService.getloginDate(m_id);
-				String currentDate = mService.getCurrentDate();
-				
-				int check3 = 0;
-				int check4 = 0;
-				
-				if(!loginDate.equals(currentDate)) {
-					check4 = mService.updateLoginPoint(m_id);
-				}
-				check3 = mService.updateLoginDate(m_id);
-				
-				if(check3 == 1 && (check4 == 1 || check4 == 0)) {
-					model.addAttribute("msg", "로그인 성공");
-					model.addAttribute("url", "/");
-				}else if(check3 == 0 && check4 == 1){
-					model.addAttribute("msg", "로그인에 성공하였으나 출석체크에 실패하였습니다. 관리자에게 문의해주세요.");
-					model.addAttribute("url", "/");
-				}else {
-					model.addAttribute("msg", "로그인 성공에 성공하였으나 출석체크와 포인트 적립에 실해하였습니다. 관리자에게 문의해주세요.");
-					model.addAttribute("url", "/");
-				}
-			} else if (check2 == 0) {
-				String reason = "";
+					String loginDate = mService.getloginDate(m_id);
+					String currentDate = mService.getCurrentDate();
 
-				if (reason.equals("") || reason == null) {
-					// 탈퇴한 회원
-					model.addAttribute("msg", "탈퇴한 회원입니다.");
-					model.addAttribute("url", "/loginPre.do");
+					int check3 = 0;
+					int check4 = 0;
+
+					if (!loginDate.equals(currentDate)) {
+						check4 = mService.updateLoginPoint(m_id);
+					}
+					check3 = mService.updateLoginDate(m_id);
+
+					if (check3 == 1 && (check4 == 1 || check4 == 0)) {
+						model.addAttribute("msg", "로그인 성공");
+						model.addAttribute("url", "/");
+					} else if (check3 == 0 && check4 == 1) {
+						model.addAttribute("msg", "로그인에 성공하였으나 출석체크에 실패하였습니다. 관리자에게 문의해주세요.");
+						model.addAttribute("url", "/");
+					} else {
+						model.addAttribute("msg", "로그인 성공에 성공하였으나 출석체크와 포인트 적립에 실해하였습니다. 관리자에게 문의해주세요.");
+						model.addAttribute("url", "/");
+					}
+				} else if (check2 == 0) {
+					String reason = "";
+
+					if (reason.equals("") || reason == null) {
+						// 탈퇴한 회원
+						model.addAttribute("msg", "탈퇴한 회원입니다.");
+						model.addAttribute("url", "/loginPre.do");
+					} else {
+						// 탈퇴 + 사유
+						model.addAttribute("msg", "관리자에 의해 탈퇴 처리되었습니다.");
+						model.addAttribute("url", "/loginPre.do");
+					}
 				} else {
-					// 탈퇴 + 사유
-					model.addAttribute("msg", "관리자에 의해 탈퇴 처리되었습니다.");
+					// 데이터베이스 조회 실패
+					model.addAttribute("msg", "데이터베이스 조회에 실패했습니다.");
 					model.addAttribute("url", "/loginPre.do");
 				}
+			} else if (check == 0) {
+				// 비밀번호 불일치
+				model.addAttribute("msg", "비밀번호가 불일치합니다.");
+				model.addAttribute("url", "/loginPre.do");
+			} else if (check == -1) {
+				// 아이디 존재x
+				model.addAttribute("msg", "아이디가 존재하지 않습니다.");
+				model.addAttribute("url", "/loginPre.do");
 			} else {
 				// 데이터베이스 조회 실패
 				model.addAttribute("msg", "데이터베이스 조회에 실패했습니다.");
 				model.addAttribute("url", "/loginPre.do");
 			}
-		} else if (check == 0) {
-			// 비밀번호 불일치
-			model.addAttribute("msg", "비밀번호가 불일치합니다.");
-			model.addAttribute("url", "/loginPre.do");
-		} else if (check == -1) {
-			// 아이디 존재x
-			model.addAttribute("msg", "아이디가 존재하지 않습니다.");
-			model.addAttribute("url", "/loginPre.do");
-		} else {
-			// 데이터베이스 조회 실패
-			model.addAttribute("msg", "데이터베이스 조회에 실패했습니다.");
-			model.addAttribute("url", "/loginPre.do");
+			return "alertMsg";
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("msg", "에러발생");
+			model.addAttribute("url", "/");
+			return "alertMsg";
 		}
-		return "alertMsg";
 	}
 
 	@RequestMapping(value = "/mInsert.do", method = RequestMethod.POST)
@@ -171,33 +178,33 @@ public class MemberController {
 	public ModelAndView EmailSendCtl(Member m, HttpServletRequest request, HttpServletResponse response, Model model,
 			ModelAndView mv) throws IOException {
 
-		String m_id = m.getM_id();
-		// 사용자에게 보낼 메시지를 기입합니다.
-		HttpSession session = request.getSession();
-		session.removeAttribute("m_id");
-		
-		String host = "http://localhost:8090/tworavel/";
-		// 개인 이메일 작성
-		String from = "nothing1360@gmail.com";
-
-		String to = mService.selectOne(m_id).getM_email();
-		String subject = "[TwoRavel] 계정 활성화를 위한 이메일 확인 메일입니다.";
-		String content = "다음 링크에 접속하여 이메일 확인을 진행하세요." + "<br>" + "<a href='" + host + "EmailAcceptCtl.do?code="
-				+ SHA256.getSHA256(to) + "&m_id=" + m_id + "'>이메일 인증하기</a>";
-
-		// SMTP에 접속하기 위한 정보를 기입합니다.
-		Properties p = new Properties();
-		p.put("mail.smtp.user", from);
-		p.put("mail.smtp.host", "smtp.googlemail.com");
-		p.put("mail.smtp.port", "456");
-		p.put("mail.smtp.starttls.enable", "true");
-		p.put("mail.smtp.auth", "true");
-		p.put("mail.smtp.debug", "true");
-		p.put("mail.smtp.socketFactory.port", "465");
-		p.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-		p.put("mail.smtp.socketFactory.fallback", "false");
-
 		try {
+			String m_id = m.getM_id();
+			// 사용자에게 보낼 메시지를 기입합니다.
+			HttpSession session = request.getSession();
+			session.removeAttribute("m_id");
+
+			String host = "http://localhost:8090/tworavel/";
+			// 개인 이메일 작성
+			String from = "nothing1360@gmail.com";
+
+			String to = mService.selectOne(m_id).getM_email();
+			String subject = "[TwoRavel] 계정 활성화를 위한 이메일 확인 메일입니다.";
+			String content = "다음 링크에 접속하여 이메일 확인을 진행하세요." + "<br>" + "<a href='" + host + "EmailAcceptCtl.do?code="
+					+ SHA256.getSHA256(to) + "&m_id=" + m_id + "'>이메일 인증하기</a>";
+
+			// SMTP에 접속하기 위한 정보를 기입합니다.
+			Properties p = new Properties();
+			p.put("mail.smtp.user", from);
+			p.put("mail.smtp.host", "smtp.googlemail.com");
+			p.put("mail.smtp.port", "456");
+			p.put("mail.smtp.starttls.enable", "true");
+			p.put("mail.smtp.auth", "true");
+			p.put("mail.smtp.debug", "true");
+			p.put("mail.smtp.socketFactory.port", "465");
+			p.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+			p.put("mail.smtp.socketFactory.fallback", "false");
+
 			Authenticator auth = new Gmail();
 			Session ses = Session.getInstance(p, auth);
 
@@ -218,149 +225,166 @@ public class MemberController {
 			mv.setViewName("alertMsg");
 		} catch (Exception e) {
 			e.printStackTrace();
-			mv.addObject("msg", "오류 발생!");
-			mv.addObject("url", "/join.do");
+			mv.addObject("msg", "에러발생");
+			mv.addObject("url", "/");
 			mv.setViewName("alertMsg");
 		}
-
 		return mv;
 	}
 
 	@RequestMapping(value = "/EmailAcceptCtl.do", method = RequestMethod.GET)
 	public String EmailAcceptCtl(HttpServletRequest request, HttpServletResponse response, Model model, ModelAndView mv)
 			throws IOException {
-		String code = null;
-		String m_id = null;
-		if (request.getParameter("code") != null) {
-			code = request.getParameter("code");
-		}
-		if (request.getParameter("m_id") != null) {
-			m_id = request.getParameter("m_id");
-		}
+		try {
+			String code = null;
+			String m_id = null;
+			if (request.getParameter("code") != null) {
+				code = request.getParameter("code");
+			}
+			if (request.getParameter("m_id") != null) {
+				m_id = request.getParameter("m_id");
+			}
 
-		boolean isRight = (mService.getUserEmailCode(m_id).equals(code)) ? true : false;
-		if (isRight == true) {
-			mService.setUserEmailChecked(m_id);
-			model.addAttribute("msg", "인증에 성공했습니다.");
-			model.addAttribute("url", "/loginPre.do");
-		} else {
-			model.addAttribute("msg", "유효하지 않은 코드입니다.");
-			model.addAttribute("url", "/loginPre.do");
+			boolean isRight = (mService.getUserEmailCode(m_id).equals(code)) ? true : false;
+			if (isRight == true) {
+				mService.setUserEmailChecked(m_id);
+				model.addAttribute("msg", "인증에 성공했습니다.");
+				model.addAttribute("url", "/loginPre.do");
+			} else {
+				model.addAttribute("msg", "유효하지 않은 코드입니다.");
+				model.addAttribute("url", "/loginPre.do");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("msg", "에러발생");
+			model.addAttribute("url", "/");
 		}
 		return "alertMsg";
 	}
-	
+
 	@RequestMapping(value = "/IdSearchCtl.do", method = RequestMethod.POST)
 	public String IdSearchCtl(HttpServletRequest request, HttpServletResponse response, Model model, ModelAndView mv)
 			throws IOException {
-		String m_name = request.getParameter("search_name");
-		String m_email = request.getParameter("search_email");
-		
-		Member m = mService.searchUsingEmail(m_email);
-		
-		if(m != null) {
-			String m_id = m.getM_id();
-			int len = m_id.length();
-			String secret_id = "";
-			
-			for(int i = 0 ; i<len-3;i++) {
-				secret_id+=String.valueOf(m_id.charAt(i));
+		try {
+			String m_name = request.getParameter("search_name");
+			String m_email = request.getParameter("search_email");
+
+			Member m = mService.searchUsingEmail(m_email);
+
+			if (m != null) {
+				String m_id = m.getM_id();
+				int len = m_id.length();
+				String secret_id = "";
+
+				for (int i = 0; i < len - 3; i++) {
+					secret_id += String.valueOf(m_id.charAt(i));
+				}
+				secret_id += "***";
+				model.addAttribute("msg", m_name + "님의 아이디는 " + secret_id + " 입니다.");
+				model.addAttribute("url", "/loginPre.do");
+			} else {
+				model.addAttribute("msg", "해당 이메일을 가진 " + m_name + "님의 아이디는 존재하지 않습니다.");
+				model.addAttribute("url", "/searchPage.do");
 			}
-			secret_id+="***";
-			model.addAttribute("msg", m_name+"님의 아이디는 "+secret_id+" 입니다.");
-			model.addAttribute("url", "/loginPre.do");
-		}else {
-			model.addAttribute("msg", "해당 이메일을 가진 "+m_name+"님의 아이디는 존재하지 않습니다.");
-			model.addAttribute("url", "/searchPage.do");
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("msg", "에러 발생");
+			model.addAttribute("url", "/");
 		}
 		return "alertMsg";
 	}
-	
+
 	@RequestMapping(value = "/PwdSearchCtl.do", method = RequestMethod.POST)
-	public ModelAndView PwdSearchCtl(HttpServletRequest request, HttpServletResponse response, Model model, ModelAndView mv)
-			throws IOException {
-		String m_id = request.getParameter("search_id");
-		String m_email = request.getParameter("search_email");
-		
-		Member m = mService.searchUsingEmail(m_email);
-		
-		if(m != null) {
-			if(!m_id.equals(m.getM_id())) {
-				mv.addObject("msg", "아이디와 이메일이 일치하지 않습니다.");
-				mv.addObject("url", "/searchPage.do");
-				mv.setViewName("alertMsg");
-			}else {
-				HashMap<String, String> paramMap = new HashMap<String, String>();
-				RandomPassword rp = new RandomPassword();
-				paramMap.put("m_id", m_id);
-				paramMap.put("m_pw", rp.getRamdomPassword(10));
-				
-				int result = mService.updatePwd(paramMap);
-				if(result == 1) {
-					mv.addObject("m_id", m.getM_id());
-					mv.setViewName("searchEmailProgress");
-				}else {
-					mv.addObject("msg", "예기치 못한 에러가 발생했습니다. 다시 시도해주세요.");
+	public ModelAndView PwdSearchCtl(HttpServletRequest request, HttpServletResponse response, Model model,
+			ModelAndView mv) throws IOException {
+		try {
+			String m_id = request.getParameter("search_id");
+			String m_email = request.getParameter("search_email");
+
+			Member m = mService.searchUsingEmail(m_email);
+
+			if (m != null) {
+				if (!m_id.equals(m.getM_id())) {
+					mv.addObject("msg", "아이디와 이메일이 일치하지 않습니다.");
 					mv.addObject("url", "/searchPage.do");
 					mv.setViewName("alertMsg");
+				} else {
+					HashMap<String, String> paramMap = new HashMap<String, String>();
+					RandomPassword rp = new RandomPassword();
+					paramMap.put("m_id", m_id);
+					paramMap.put("m_pw", rp.getRamdomPassword(10));
+
+					int result = mService.updatePwd(paramMap);
+					if (result == 1) {
+						mv.addObject("m_id", m.getM_id());
+						mv.setViewName("searchEmailProgress");
+					} else {
+						mv.addObject("msg", "예기치 못한 에러가 발생했습니다. 다시 시도해주세요.");
+						mv.addObject("url", "/searchPage.do");
+						mv.setViewName("alertMsg");
+					}
 				}
+			} else {
+				mv.addObject("msg", "해당 이메일을 가진 아이디는 존재하지 않습니다.");
+				mv.addObject("url", "/searchPage.do");
+				mv.setViewName("alertMsg");
 			}
-		}else {
-			mv.addObject("msg", "해당 이메일을 가진 아이디는 존재하지 않습니다.");
-			mv.addObject("url", "/searchPage.do");
+		} catch (Exception e) {
+			e.printStackTrace();
+			mv.addObject("msg", "에러발생");
+			mv.addObject("url", "/");
 			mv.setViewName("alertMsg");
 		}
 		return mv;
 	}
 
 	@RequestMapping(value = "/SearchEmailSendCtl.do", method = RequestMethod.GET)
-	public ModelAndView SearchEmailSendCtl(Member m, HttpServletRequest request, HttpServletResponse response, Model model, ModelAndView mv)
-			throws IOException {
-		String m_id = m.getM_id();
-		
-		HttpSession session = request.getSession();
-		session.removeAttribute("m_id");
-		// 사용자에게 보낼 메시지를 기입합니다.
-		
-		String host = "http://localhost:8090/tworavel/";
-		// 개인 이메일 작성
-		String from = "nothing1360@gmail.com";
-		String to = mService.selectOne(m_id).getM_email();
-		String subject = "[TwoRavel] 임시 비밀번호가 담긴 메일입니다.";
-		
-		Member m2 = mService.selectOne(m_id);
-		String n_pwd = m2.getM_pw();
-		
-		String content = "임시 비밀번호는 아래와 같습니다." +"<br>"+n_pwd+ "<br>임시 비밀번호로 로그인 후 비밀번호를 변경해주세요!!!";
-		
-		// SMTP에 접속하기 위한 정보를 기입합니다.
-		
-		Properties p = new Properties();
-		p.put("mail.smtp.user", from);
-		p.put("mail.smtp.host", "smtp.googlemail.com");
-		p.put("mail.smtp.port", "456");
-		p.put("mail.smtp.starttls.enable", "true");
-		p.put("mail.smtp.auth", "true");
-		p.put("mail.smtp.debug", "true");
-		p.put("mail.smtp.socketFactory.port", "465");
-		p.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-		p.put("mail.smtp.socketFactory.fallback", "false");
-		
-		
+	public ModelAndView SearchEmailSendCtl(Member m, HttpServletRequest request, HttpServletResponse response,
+			Model model, ModelAndView mv) throws IOException {
 		try {
+			String m_id = m.getM_id();
+
+			HttpSession session = request.getSession();
+			session.removeAttribute("m_id");
+			// 사용자에게 보낼 메시지를 기입합니다.
+
+			String host = "http://localhost:8090/tworavel/";
+			// 개인 이메일 작성
+			String from = "nothing1360@gmail.com";
+			String to = mService.selectOne(m_id).getM_email();
+			String subject = "[TwoRavel] 임시 비밀번호가 담긴 메일입니다.";
+
+			Member m2 = mService.selectOne(m_id);
+			String n_pwd = m2.getM_pw();
+
+			String content = "임시 비밀번호는 아래와 같습니다." + "<br>" + n_pwd + "<br>임시 비밀번호로 로그인 후 비밀번호를 변경해주세요!!!";
+
+			// SMTP에 접속하기 위한 정보를 기입합니다.
+
+			Properties p = new Properties();
+			p.put("mail.smtp.user", from);
+			p.put("mail.smtp.host", "smtp.googlemail.com");
+			p.put("mail.smtp.port", "456");
+			p.put("mail.smtp.starttls.enable", "true");
+			p.put("mail.smtp.auth", "true");
+			p.put("mail.smtp.debug", "true");
+			p.put("mail.smtp.socketFactory.port", "465");
+			p.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+			p.put("mail.smtp.socketFactory.fallback", "false");
+
 			Authenticator auth = new Gmail();
 			Session ses = Session.getInstance(p, auth);
-			
+
 			ses.setDebug(true);
 			MimeMessage msg = new MimeMessage(ses);
 			msg.setSubject(subject);
-			
+
 			Address fromAddr = new InternetAddress(from);
 			msg.setFrom(fromAddr);
-			
+
 			Address toAddr = new InternetAddress(to);
 			msg.addRecipient(Message.RecipientType.TO, toAddr);
-			
+
 			msg.setContent(content, "text/html;charset=UTF-8");
 			Transport.send(msg);
 			mv.addObject("msg", "이메일로 임시 비밀번호가 전송되었습니다.");
@@ -372,10 +396,10 @@ public class MemberController {
 			mv.addObject("url", "/join.do");
 			mv.setViewName("alertMsg");
 		}
-		
+
 		return mv;
 	}
-	
+
 	@RequestMapping(value = "/loginPre.do", method = RequestMethod.GET)
 	public String LogIn(HttpServletRequest request, HttpServletResponse response, Model model, ModelAndView mv)
 			throws IOException {
@@ -385,13 +409,19 @@ public class MemberController {
 	@RequestMapping(value = "/logout.do", method = RequestMethod.GET)
 	public String LogOut(HttpServletRequest request, HttpServletResponse response, Model model, ModelAndView mv)
 			throws IOException {
-		HttpSession session = request.getSession();
-		session.invalidate();
-		model.addAttribute("msg", "로그아웃 하였습니다.");
-		model.addAttribute("url", "/");
-		return "alertMsg";
+		try {
+			HttpSession session = request.getSession();
+			session.invalidate();
+			model.addAttribute("msg", "로그아웃 하였습니다.");
+			model.addAttribute("url", "/");
+			return "alertMsg";
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("msg", "에러발생");
+			model.addAttribute("url", "/");
+			return "alertMsg";
+		}
 	}
-
 
 	@RequestMapping(value = "/AdminPage.do", method = RequestMethod.GET)
 	public String AdminPage(HttpServletRequest request, HttpServletResponse response, Model model, ModelAndView mv)
@@ -410,22 +440,20 @@ public class MemberController {
 			throws IOException {
 		return "join";
 	}
-		
+
 	@RequestMapping(value = "/searchPage.do", method = RequestMethod.GET)
 	public String searchPage(HttpServletRequest request, HttpServletResponse response, Model model, ModelAndView mv)
 			throws IOException {
 		return "searchPage";
-	}	
-	
+	}
+
 	@ResponseBody
 	@RequestMapping(value = "/IdCheckCtl.do", method = RequestMethod.GET)
 	public String IdCheckCtl(HttpServletRequest request, HttpServletResponse response, Model model, ModelAndView mv)
 			throws IOException {
 		JSONObject job = new JSONObject();
-
-		String m_id = request.getParameter("m_id");
-
 		try {
+			String m_id = request.getParameter("m_id");
 			job.put("cnt", mService.duplecateID(m_id));
 		} catch (Exception e) {
 			job.put("cnt", 0);
@@ -438,10 +466,8 @@ public class MemberController {
 	public String NickCheckCtl(HttpServletRequest request, HttpServletResponse response, Model model, ModelAndView mv)
 			throws IOException {
 		JSONObject job = new JSONObject();
-
-		String m_nick = request.getParameter("m_nick");
-
 		try {
+			String m_nick = request.getParameter("m_nick");
 			job.put("cnt", mService.duplecateNickname(m_nick));
 		} catch (Exception e) {
 			job.put("cnt", 0);
@@ -454,10 +480,8 @@ public class MemberController {
 	public String EmailCheckCtl(HttpServletRequest request, HttpServletResponse response, Model model, ModelAndView mv)
 			throws IOException {
 		JSONObject job = new JSONObject();
-
-		String m_email = request.getParameter("m_email");
-
 		try {
+			String m_email = request.getParameter("m_email");
 			job.put("cnt", mService.duplecateEMAIL(m_email));
 		} catch (Exception e) {
 			job.put("cnt", 0);
