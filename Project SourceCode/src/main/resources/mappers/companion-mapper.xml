@@ -56,7 +56,6 @@
 	<resultMap type="Companion" id="resultCountArea">
 		<id property="c_id" column="c" />
 	</resultMap>
-	
 	<!-- 동행글 등록 -->
 	<insert id="insertC" parameterType="Companion" flushCache="true"
 		statementType="PREPARED">
@@ -120,15 +119,21 @@
 		select * from companion order by c_id desc
 	</select>
 	<!-- 검색한 게시글 조회 -->
-	<select id="selectSearchC" parameterType="string"
+<!-- 	<select id="selectSearchC" parameterType="string"
 		resultType="arraylist" resultMap="resultCompanion">
 		select * from companion where
 		c_name
 		LIKE
 		'%'|| #{keyword} ||'%'
 		OR c_description LIKE '%'|| #{keyword} ||'%' and c_id
-		order by c_id
-		desc
+		order by c_id desc
+	</select> -->
+	<select id="selectSearchC" parameterType="string"
+	resultType="arraylist" resultMap="resultCompanion">
+		select * from companion where
+		c_name LIKE '%'|| #{keyword} ||'%'
+		OR c_description LIKE '%'|| #{keyword} ||'%' order by c_id 
+		desc 
 	</select>
 	<select id="totalSearchCountC" parameterType="string" resultType="int">
 		select count(*) from companion where
@@ -145,6 +150,7 @@
 	<select id="selectTagC" parameterType="int"
 		resultType="arraylist" resultMap="resultCompanionTag">
 		select * from ctag where c_id=#{c_id}
+		<!-- select c_sid from ctag where c_id = #{c_id} and c_lid = #{c_lid} -->
 	</select>
 	<select id="selectCmapCount" parameterType="int"
 		resultType="int">
@@ -311,5 +317,4 @@ select count(*)as c from ctag group by c_sid,c_lid having c_lid=3 order by c_lid
 	<update id="My_updateCompanionLikeVal" parameterType="int" flushCache="true" statementType="PREPARED">
 	update companion set c_like = c_like-1 where c_id = #{c_id}
 	</update>
-
 </mapper>

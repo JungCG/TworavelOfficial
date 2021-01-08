@@ -111,8 +111,8 @@ public class CompanionServiceImpl implements CompanionService {
 	}
 
 	@Override
-	public List<Companion> selectTagC(int c_id) {
-		return cDao.selectTagC(c_id);
+	public List<CompanionTag> selectTagC(CompanionTag ct) {
+		return cDao.selectTagC(ct);
 	}
 
 	@Override

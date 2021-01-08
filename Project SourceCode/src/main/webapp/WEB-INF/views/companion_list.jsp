@@ -292,17 +292,17 @@ a {
 							<c:if test="${currentPage <= 1}">[이전]&nbsp;
 							</c:if>
 							<c:if test="${currentPage > 1}">
-								<c:url var="blistST" value="board_list.do">
+								<c:url var="clistST" value="companion_list.do">
 									<c:param name="page" value="${currentPage-1}" />
 									<c:param name="type" value="${type}" />
 									<c:if test="${not empty keyword}">
-										<c:param name="keyword" value="${keyword }"></c:param>
+										<c:param name="keyword" value="${keyword}"></c:param>
 									</c:if>
 								</c:url>
 								<a href="${clistST}" style="color: #0AC5A8; font-family: 'Jal_Onuel';">[이전]</a>
 							</c:if> 
 							<!-- 끝 페이지 번호 처리 -->
-							<c:forEach var="p" begin="${startPage}" end="${endPage }">
+							<c:forEach var="p" begin="${startPage}" end="${endPage}">
 								<c:if test="${p <= maxPage}">
 									<c:if test="${p eq currentPage}">
 										<font color="cornflowerblue" size="4"><b>[${p}]</b></font>

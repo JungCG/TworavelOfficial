@@ -35,7 +35,7 @@ public interface CompanionService {
 	void deleteCTag(int c_id);
 	
 	String selectMapC(CompanionMap vo);
-	List<Companion> selectTagC(int c_id);
+	List<CompanionTag> selectTagC(CompanionTag ct);
 
 	Companion selectOneC(int c_id);
 	Companion updateC(Companion c);
@@ -56,8 +56,8 @@ public interface CompanionService {
 	 //	 동행 신청
 	 void insertCInfo(CompanionInfo vo);
 
-	 	   List<Companion>selectCountarea();
-	   List<Companion>selectCountpeople();
-	   List<Companion>selectCounttendency();
+	 List<Companion>selectCountarea();
+	 List<Companion>selectCountpeople();
+	 List<Companion>selectCounttendency();
 	 
 }

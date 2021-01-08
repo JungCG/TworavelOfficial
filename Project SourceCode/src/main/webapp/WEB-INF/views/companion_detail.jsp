@@ -160,12 +160,12 @@ section {
 	font-weight: bold;
 }
 
-#kdy-companion-type {
+/* #kdy-companion-type {
 	margin-top: 40px;
 	color: #3d91ffc4;
 	font-size: 26px;
 	font-family: 'Hanna', fantasy;
-}
+} */
 
 #kdy-blist-link {
 	color: rgb(0 166 255/ 68%);
@@ -251,15 +251,15 @@ table > tr {
 						<table id="kdy-companion-content">
 							<tr id="kdy-companion-content-tr">
 								<td>1인당 경비</td>
-								<td>${clist.c_value}</td>
+								<td colspan="3">${clist.c_value}</td>
 							</tr>
 							<tr id="kdy-companion-content-tr">
 								<td>총인원</td>
-								<td>${clist.c_many}</td>
+								<td colspan="3">${clist.c_many}</td>
 							</tr>
 							<tr id="kdy-companion-content-tr">
 								<td>여행 시작일</td>
-								<td>
+								<td colspan="3">
 									<fmt:parseDate var="Sdate" value="${clist.c_startd}"
 										pattern="yyyy-MM-dd HH:mm:ss" />
 									<fmt:formatDate value="${Sdate}" pattern="yyyy-MM-dd" />
@@ -267,15 +267,22 @@ table > tr {
 							</tr>
 							<tr>
 								<td>여행 마감일</td>
-								<td>
+								<td colspan="3">
 									<fmt:parseDate var="Edate" value="${clist.c_endd}"
 										pattern="yyyy-MM-dd HH:mm:ss" />
 									<fmt:formatDate value="${Edate}" pattern="yyyy-MM-dd" />
 								</td>
 							</tr>
+							<tr>
+						<td>카테고리</td>
+						<td>지역&nbsp;&nbsp;${tlist1}</td>
+						<td>인원&nbsp;&nbsp;${tlist2}</td>
+				 		<td>성향&nbsp;&nbsp;${tlist3}</td>
+						
+					</tr>
 						</table>
 						<div id="map"
-							style="width: 828px; height: 500px; z-index: 0; border: 1px gray;"></div>
+							style="width: 897px; height: 500px; z-index: 0; border: 1px gray;"></div>
 						<div id="kdy-companion-description">
 							<p id="kdy-companion-description-p">세부 내용</p>
 							&nbsp;

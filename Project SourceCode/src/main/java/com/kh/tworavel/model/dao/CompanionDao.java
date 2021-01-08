@@ -31,6 +31,8 @@ public class CompanionDao {
 	}
 
 	public int companion(CompanionTag ct) { // 글 등록
+		sqlSession.insert("Companion.insertCTag", ct);
+		sqlSession.insert("Companion.insertCTag", ct);
 		return sqlSession.insert("Companion.insertCTag", ct);
 	}
 
@@ -45,18 +47,19 @@ public class CompanionDao {
 	public List<Companion> selectListCp(int startPage, int limit) { // limit:한페이지당 글개수, 특정 페이지 단위의 게시글 조회
 		int startRow = (startPage - 1) * limit; // 0~9, 10~19, 20~19
 		RowBounds row = new RowBounds(startRow, limit);
-		return sqlSession.selectList("Companion.selectListCp", row);
+		return sqlSession.selectList("Companion.selectListCp", "", row);
 	}
 
-	public List<Companion> selectSearchC(String keyword,int startPage, int limit) { // 게시글 검색 조회
-		int startRow = (startPage-1)*limit;
-		 RowBounds row = new RowBounds(startRow, limit);
+	public List<Companion> selectSearchC(String keyword, int startPage, int limit) { // 게시글 검색 조회
+		int startRow = (startPage - 1) * limit;
+		RowBounds row = new RowBounds(startRow, limit);
 		return sqlSession.selectList("Companion.selectSearchC", keyword, row);
 	}
+
 	public int totalSearchCountC(String keyword) {
 		return sqlSession.selectOne("Companion.totalSearchCountC", keyword);
 	}
-	
+
 	// 동행글 상세 1,2,3
 	public List<Companion> selectMapC(int c_id) { // 동행글 상세 2
 		return sqlSession.selectList("CompanionMap.selectMapC", c_id);
@@ -102,8 +105,8 @@ public class CompanionDao {
 		return sqlSession.selectOne("Companion.selectMapC", vo);
 	}
 
-	public List<Companion> selectTagC(int c_id) { // 동행글 상세 3
-		return sqlSession.selectList("Companion.selectTagC", c_id);
+	public List<CompanionTag> selectTagC(CompanionTag ct) { // 동행글 상세 3
+		return sqlSession.selectList("Companion.selectTagC", ct);
 	}
 
 	public void updateCMap(CompanionMap vo) {
@@ -138,21 +141,13 @@ public class CompanionDao {
 	}
 
 //	동행 조회수 증가
-//	public List<Companion> selectCHotViewList(){
-//		return sqlSession.selectList("Companion.selectCHotViewList");
-//	}
-//	public int selectCAllCount() {
-//		return sqlSession.selectOne("Companion.selectCAllCount");	
-//	}
-//	동행 조회수 증가
-	 public int addCReadCount(int c_id) { // 글 조회 수 증가
-		 System.out.println("1개만 올라라 제발!!");
-	 return sqlSession.update("Companion.addCReadCount", c_id);
-	 }
-	
+	public int addCReadCount(int c_id) { // 글 조회 수 증가
+		return sqlSession.update("Companion.addCReadCount", c_id);
+	}
+
 //	동행 신청
 	public void insertCInfo(CompanionInfo vo) {
-		sqlSession.insert("Companion.insertCInfo",vo);
+		sqlSession.insert("Companion.insertCInfo", vo);
 	}
 	    public List<Companion>selectCountarea(){
 	    	return sqlSession.selectList("Companion.selectCountarea");
@@ -166,5 +161,4 @@ public class CompanionDao {
    	
    	return sqlSession.selectList("Companion.selectCounttendency");
    }
-   
 }
