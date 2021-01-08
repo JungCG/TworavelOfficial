@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Chatmessage">
+
+	<resultMap type="Chatmessage" id="resultChatmessage">
+		<id property="ch_id" column="ch_id"/>
+		<result property="c_id" column="c_id"/>
+		<result property="m_sender" column="m_sender"/>
+		<result property="m_receiver" column="m_receiver"/>
+		<result property="ch_content" column="ch_content"/>
+		<result property="ch_time" column="ch_time"/>
+		<result property="ch_read" column="ch_read"/>
+		<result property="m_id" column="m_id"/>
+	</resultMap>
+	
+	
+	
+	<!-- 채팅방 목록 -->
+	<select id="selectChatGroup" parameterType="string" resultMap="resultChatmessage" flushCache="true" statementType="PREPARED">
+	select ch_id, c_id, m_sender, ch_content, ch_time from (select first_value(ch_id) over(partition by c_id order by ch_id desc) as ch_id_first,
+	ch_id, c_id, m_sender, ch_content, ch_time from chatmessage where c_id in(select c_id from chatjoin where m_id = #{m_id} and ch_inout = 'I')) where ch_id_first = ch_id order by ch_time desc
+	</select>
+	<!-- 채팅 invite-->
+	<insert id="inviteChatMessage" parameterType="ChatMessage" flushCache="true" statementType="PREPARED">
+	insert into chatmessage values ((select nvl(max(ch_id),0) from chatmessage)+1, #{c_id}, #{m_sender}, #{m_receiver}, #{ch_content}, CURRENT_TIMESTAMP, 1)
+	</insert>
+	<!-- 채팅 insert-->
+	<insert id="insertChatMessage" parameterType="ChatMessage" flushCache="true" statementType="PREPARED">
+	insert into chatmessage values ((select nvl(max(ch_id),0) from chatmessage)+1, #{c_id}, #{m_sender}, #{m_receiver}, #{ch_content}, CURRENT_TIMESTAMP, 0)
+	</insert>
+	<!-- 이전 채팅 목록-->
+	<select id="selectBeforeChat" parameterType="ChatMessage" resultMap="resultChatmessage" flushCache="true" statementType="PREPARED">
+	select * from chatmessage where c_id = #{c_id} and m_receiver = #{m_receiver} and ch_time <![CDATA[ >= ]]> (select ch_intime from chatjoin where c_id = #{c_id} and m_id = #{m_id}) order by ch_id asc
+	</select>
+	
+	
+	
+</mapper>

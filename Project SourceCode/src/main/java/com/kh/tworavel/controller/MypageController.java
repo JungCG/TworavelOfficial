@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -343,10 +344,12 @@ public class MypageController {
 	// 회원탈퇴
 	@ResponseBody
 	@RequestMapping(value = "/MemberOut.do", method = RequestMethod.GET)
-	public void MemberOut(@RequestParam(name = "m_id") String m_id) {
+	public void MemberOut(HttpServletRequest request, @RequestParam(name = "m_id") String m_id) {
 		try {
 			int result = 0;
 			result = mypService.outMember(m_id);
+			HttpSession session = request.getSession();
+			session.removeAttribute("userID");
 			if (result > 0) {
 				System.out.println("회원탈퇴 완료!");
 			}

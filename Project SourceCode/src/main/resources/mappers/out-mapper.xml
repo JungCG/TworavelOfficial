@@ -20,7 +20,7 @@
 	<!-- ================마이페이지 sql문================ -->
 	<!-- 회원탈퇴 -->
 	<update id="My_updateOutMember" parameterType="string" flushCache="true" statementType="PREPARED">
-	update out set o_status = 'Y', o_outdate = current_date where m_id = #{m_id}
+	update out set o_status = 'Y', o_outdate = current_date, o_reason = 'MY' where m_id = #{m_id}
 	</update>
 	
 	
