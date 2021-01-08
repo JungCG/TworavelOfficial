@@ -33,10 +33,14 @@ public class GalleryController {
 	public ModelAndView galleryListService(@RequestParam(name = "page", defaultValue = "1") int page, ModelAndView mv) {
 		int listCount = gService.listCount(); // 게시글 개수
 		int maxPage = (int) ((double) listCount / LIMIT + 0.9);
+		try {
 		mv.addObject("maxPage", maxPage);
 		mv.addObject("currentPage", page);
 		mv.addObject("list", gService.selectList(page, LIMIT)); // 첫번째 페이지에 5개
 		mv.setViewName("gallery_list"); // gallery/glist View페이지가 보여짐 
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		return mv;
 	}
 
