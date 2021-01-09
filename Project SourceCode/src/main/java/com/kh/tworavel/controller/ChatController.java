@@ -62,7 +62,9 @@ public class ChatController {
 			chatJn.setC_id(c_id);
 			int result01 = chService.checkChatJoin(chatJn);
 			if(result01>0) {
-//				System.out.println("글 작성자가 이미 채팅방에 있음");
+//				System.out.println("글 작성자가 이미 채팅방에 insert 있음");
+				//해당 채팅방 나갔는지 아닌지 확인하기
+				chService.checkInoutChatJoin(chatJn);
 			}else {
 				int result02 = chService.insertChatJoin(chatJn);
 				chatMsg.setM_sender(userID);

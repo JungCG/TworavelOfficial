@@ -30,7 +30,7 @@
 	</insert>
 	<!-- 이전 채팅 목록-->
 	<select id="selectBeforeChat" parameterType="ChatMessage" resultMap="resultChatmessage" flushCache="true" statementType="PREPARED">
-	select * from chatmessage where c_id = #{c_id} and m_receiver = #{m_receiver} and ch_time <![CDATA[ >= ]]> (select ch_intime from chatjoin where c_id = #{c_id} and m_id = #{m_id}) order by ch_id asc
+	select * from chatmessage where c_id = #{c_id} and m_receiver = #{m_receiver} and ch_time <![CDATA[ >= ]]> (select ch_intime from chatjoin where c_id = #{c_id} and m_id = #{m_id} and ch_inout = 'I') order by ch_id asc
 	</select>
 	
 	

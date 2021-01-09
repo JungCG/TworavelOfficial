@@ -35,6 +35,10 @@ public class ChatDao {
 	public int checkChatJoin(ChatJoin chatJn) {
 		return sqlSession.selectOne("Chatjoin.checkChatJoin", chatJn);
 	}
+	//채팅 inout Check
+	public String checkInoutChatJoin(ChatJoin chatJn) {
+		return sqlSession.selectOne("Chatjoin.checkInoutChatJoin", chatJn);
+	}
 	//같은 채팅방 사람 조회
 	public List<ChatJoin> selectSameRoom(int c_id) {
 		return sqlSession.selectList("Chatjoin.selectSameRoom", c_id);

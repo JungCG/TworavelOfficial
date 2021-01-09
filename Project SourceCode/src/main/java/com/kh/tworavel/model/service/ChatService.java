@@ -30,6 +30,17 @@ public class ChatService {
 	public int checkChatJoin(ChatJoin chatJn) {
 		return chDao.checkChatJoin(chatJn);
 	}
+	public int checkInoutChatJoin(ChatJoin chatJn) {
+		String ioStr = chDao.checkInoutChatJoin(chatJn);
+		int result = 0;
+		if(ioStr.equals("I")) {
+			//System.out.println("이미 입장해있는 사람임");
+		}else if(ioStr.equals("O")) {
+			//나간사람 I로 바꾸고 InTime 시간 다시 갱신
+			result = chDao.updateChatInTime(chatJn);
+		}
+		return result;
+	}
 	public List<ChatJoin> selectSameRoom(int c_id) {
 		return chDao.selectSameRoom(c_id);
 	}
