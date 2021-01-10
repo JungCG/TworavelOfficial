@@ -10,7 +10,7 @@
 }
 #ICR_weatherBox{
 	width: 200px;
-	height: 218px;
+	height: 236.4px;
 	background: white;
 	border: 1px solid gray;
 	border-radius: 3px;
@@ -39,7 +39,7 @@
 	
 }
 #OtherWeather{
-	width: 200px;
+	width: 198px;
 	background: #0AC5A8;
 	color: white;
 	border: none;

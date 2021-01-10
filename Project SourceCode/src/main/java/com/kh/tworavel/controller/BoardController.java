@@ -38,11 +38,7 @@ public class BoardController {
 		int listCount=0;
 		int currentBlock = page%4==0 ? page/4:(page/4)+1;
 		int startPage =0;
-		int endPage=0;
-		/*
-		 * System.out.println(currentBlock);
-		 */		
-		System.out.println((page/5)*5 +1);
+		int endPage=0;	
 		
 		if(page%5==0) {
 			
@@ -53,16 +49,6 @@ public class BoardController {
 			startPage = (page/5)*5 +1;
 			endPage=(page/5 + 1)*5;
 		}
-		
-		/*
-		 * <c:set var="startPage" value="${(currentPage/5 -1)*5+1}"/> <c:set
-		 * var="endPage" value="${(currentPage/5)*5 }"/> </c:if> <c:if
-		 * test="${(currentPage%5) != 0}"> <c:set var="startPage"
-		 * value="${(currentPage/5)*5 +1 }"/> <c:set var="endPage"
-		 * value="${(currentPage/5 + 1)*5 }"/> </c:if>
-		 * 
-		 * 
-		 */
 		try {
 			int currentPage = page;
 			// 한 페이지당 출력할 목록 갯수
@@ -126,7 +112,8 @@ public class BoardController {
 	// 댓글 등록
 	@RequestMapping(value = "commentInsert.do", method = RequestMethod.POST)
 	public ModelAndView commentInsertService(ModelAndView mv, Board vo, HttpServletRequest request) {
-		System.out.println(vo.getB_id());
+
+		
 		
 		try {
 			
@@ -151,7 +138,6 @@ public class BoardController {
 	@RequestMapping(value = "recommentInsert.do", method = RequestMethod.POST)
 	public ModelAndView recommentInsertService(ModelAndView mv, Board vo, HttpServletRequest request) {
 		vo.setB_ref(vo.getB_id());
-		System.out.println("aucd" + vo.getB_id());
 		HashMap<String, Integer> blist = new HashMap<String, Integer>();
 		try {
 			blist.put("b_ref", vo.getB_id());
@@ -238,7 +224,6 @@ public class BoardController {
 			commentinfo.put("b_ref", rb_id);
 			commentinfo.put("b_re_step", b_re_step);
 			commentCount = bService.selectCommentCount(commentinfo);
-			System.out.println(commentCount);
 			if (commentCount == 1) {
 				bService.deleteComment(b_id);
 			} else {
@@ -272,7 +257,6 @@ public class BoardController {
 			
 			int count = bService.selectRecommentCount(vo);
 			String commentcontent = bService.selectCommentContent(vo);
-			System.out.println(commentcontent);
 			if (count == 2 && commentcontent.equals("삭제된 댓글입니다")) {
 				bService.deleteCommentC(vo);
 			} else {
@@ -280,11 +264,14 @@ public class BoardController {
 			}
 			
 		}catch(Exception e) {
-			
+			 mv.addObject("msg","댓글 삭제에 실패하혔습니다");
+			 mv.addObject("url","/board_detail.do?b_id=" + rb_id);
+			 mv.setViewName("alertMsg");
 			
 		}
-
-		mv.setViewName("redirect:board_detail.do?b_id=" + rb_id);
+		 mv.addObject("msg","댓글이 삭제되었습니다");
+		 mv.addObject("url","/board_detail.do?b_id=" + rb_id);
+		 mv.setViewName("alertMsg");
 		return mv;
 	}
 
@@ -302,10 +289,15 @@ public class BoardController {
 			vo.setB_id(b_id);
 			bService.updateComment(vo);
 		}catch(Exception e) {
-			
+			 mv.addObject("msg","댓글 수정 실패하셨습니다");
+			 mv.addObject("url","/board_detail.do?b_id="+b_ref);
+			 mv.setViewName("alertMsg");
 			
 		}
-		mv.setViewName("redirect:/board_detail.do?b_id=" + b_ref);
+		
+		 mv.addObject("msg","댓글이 수정되었습니다");
+		 mv.addObject("url","/board_detail.do?b_id="+b_ref);
+		 mv.setViewName("alertMsg");
 		return mv;
 	}
 
@@ -334,11 +326,14 @@ public class BoardController {
 			bService.updateBoard(vo);
 			
 		}catch(Exception e) {
-			
+			 mv.addObject("msg","게시글 수정 실패");
+			 mv.addObject("url","/board_detail.do?b_id=" + b_id);
+			 mv.setViewName("alertMsg");
 			
 		}
-		
-		mv.setViewName("redirect:/board_detail.do?b_id=" + b_id);
+		 mv.addObject("msg","게시글이 수정되었습니다");
+		 mv.addObject("url","/board_detail.do?b_id=" + b_id);
+		 mv.setViewName("alertMsg");
 		return mv;
 	}
 
@@ -352,9 +347,7 @@ public class BoardController {
 			Board vo = new Board();
 			vo.setB_id(b_id);
 			vo.setM_id(m_id);
-			System.out.println(chc);
 			if (chc == 1) {
-				System.out.println("실행");
 				bService.deleteLike(vo);
 				bService.updateLikeMinus(b_id);
 			} else {
@@ -392,7 +385,7 @@ public class BoardController {
 		}
 	}
 
-	// 파일 업로드
+	
 	@RequestMapping("/fileupload.do")
 	public void multiplePhotoUpload(HttpServletRequest request, HttpServletResponse response) {
 		try {
@@ -418,7 +411,6 @@ public class BoardController {
 
 			String filePath = dftFilePath + "resources" + File.separator + "board_photo_upload" + File.separator;
 
-			System.out.println(filePath);
 
 			File file = new File(filePath);
 

@@ -62,7 +62,6 @@ public class AdminController {
 			int currentPage = page;
 			// 한 페이지당 출력할 목록 갯수
 			String type = String.valueOf(b_type);
-			System.out.println(type);
 			if (type.equals("B")) {
 				listCount = bService.selectBoardAllCount();
 			}
@@ -75,7 +74,6 @@ public class AdminController {
 			int maxPage = (int) ((double) listCount / LIMIT + 0.9);
 			if(type.equals("B")) {
 				mv.addObject("blist",bService.selectBoardAll(currentPage,LIMIT));
-				System.out.println(bService.selectBoardAll(currentPage,LIMIT).size());
 			}
 			else if (type.equals("C")) {
 				mv.addObject("clist",cService.selectListCp(currentPage,LIMIT));

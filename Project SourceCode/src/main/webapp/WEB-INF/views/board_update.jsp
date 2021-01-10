@@ -11,11 +11,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+@import url(//fonts.googleapis.com/earlyaccess/hanna.css);
+
 * {
 	padding: 0;
 	margin: 0;
 	border: 0;
-	border-collapse:collapsed;
+	border-collapse:collapse;
 	box-sizing:border-box;
 	text-decoration:none;
 }
@@ -45,7 +47,7 @@ section {
 	width: 1000px;
 	display: flex;
 	justify-content: center;
-	flex-direction: column;
+	border: 1px solid #00000021;
 }
 #smart_editor2{
 width: 100%;
@@ -130,41 +132,43 @@ outline:none;
 <div style="
     width: 90%;
 ">
-	<form name ="frm" enctype="multipart/form-data">
+<div style=" font-family: 'Hanna', fantasy;font-size:30px;margin-bottom: 30px;margin-top: 30px;">
+게시판 글수정
+</div>	<form name ="frm" enctype="multipart/form-data">
 	<input type="hidden" value="${blist.b_id }" name="b_id">
 		<table align="center" style="width: 100%;">
-			<tr style="height:80px">
+			<tr style="height:60px;     border-bottom: 1px solid #00000024;" >
 				 <td style="color:#0AC5A8;">제목</td>
 				 <td style="width:85%;">
 				<input type="text" name="b_title" id="gjw-title-input" required="required" value="${blist.b_title }"></td>
-			<tr style="height:30px">
+			<tr style="height:60px;    border-bottom: 1px solid #00000024;">
 				<td style="color:#0AC5A8;">작성자</td>
 				<td><input type="text" name="m_id" value="${userID }" readonly="readonly"></td>
 			</tr>
-			<tr style="height:30px">
+			<tr style="height:60px;    border-bottom: 1px solid #00000024;">
 			<td style="color:#0AC5A8;">글분류</td>
-			<td style="width:90%;padding-top: 30px;padding-bottom: 30px;"><select name="b_type" id="gjw-type-select">
+			<td style="width:90%;"><select name="b_type" id="gjw-type-select">
                               <option value="N">공지사항</option>
                               <option value="G">여행정보</option>
                               <option value="R">리뷰</option>
                         </select></td>
 			</tr>
 			
-			 <tr style="height:30px">
+			 <tr style="height:60px;border-bottom: 1px solid #00000024;">
                         <td style="color:#0AC5A8;">비밀글</td>
                         <td>&nbsp;&nbsp;<label for="yes" style="color:rgb(78 102 255 / 90%);">Yes&nbsp;&nbsp;</label><input type="radio"
                            name="b_secret" id="yes" value="Y" />&nbsp;&nbsp;<label for="No" style="color:rgb(78 102 255 / 90%);">No</label>
                            <input type="radio" name="b_secret" id="No"
                        value="N" /></td>
                      </tr>
-			<tr style="height:70px" id="gjw-secret-tr">
+			<tr style="height:70px;border-bottom: 1px solid #00000024;" id="gjw-secret-tr">
 				<td style="color:#0AC5A8;">비밀번호</td>
 				<td><input type="password" name="b_secretnumber" id="gjw-password-input" value="${blist.b_secretnumber }"></td>
 			</tr>
 			<tr>
 				<td colspan="2" style="padding-top: 30px;"><textarea id="b_content" name="b_content"></textarea></td>
 			</tr>
-			<tr style="height:50px">
+			<tr style="height:50px;">
 				<td colspan="2" align="end"><input type="button" id ="submitModifyBoardBtn"
 					value="등록하기"> 
 		 <a href="board_list.do" id="gjw-serach-list">목록으로</a></td>
