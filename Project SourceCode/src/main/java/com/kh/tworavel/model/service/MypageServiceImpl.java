@@ -14,6 +14,8 @@ import com.kh.tworavel.model.domain.Companion;
 import com.kh.tworavel.model.domain.CompanionInfo;
 import com.kh.tworavel.model.domain.Favor;
 import com.kh.tworavel.model.domain.Member;
+import com.kh.tworavel.model.domain.Mlike;
+import com.kh.tworavel.model.domain.Report;
 
 @Service("mypService")
 public class MypageServiceImpl implements MypageService{
@@ -146,6 +148,28 @@ public class MypageServiceImpl implements MypageService{
 	@Override
 	public int updateCompanionRe(String c_id) {
 		return mypDao.updateCompanionRe(c_id);
+	}
+	@Override
+	public int selectReportStatus(Report report) {
+		return mypDao.selectReportStatus(report);
+	}
+	@Override
+	public int insertReport(Report report) {
+		return mypDao.insertReport(report);
+	}
+
+	@Override
+	public int selectMlikeStatus(Mlike mlike) {
+		return mypDao.selectMlikeStatus(mlike);
+	}
+
+	@Override
+	public int MemberLikeInsert(Mlike mlike) {
+		return mypDao.MemberLikeInsert(mlike);
+	}
+	@Override
+	public int MemberLikeUpdate(Mlike mlike) {
+		return mypDao.MemberLikeUpdate(mlike);
 	}
 	
 	

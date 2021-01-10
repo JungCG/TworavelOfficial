@@ -22,12 +22,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.tworavel.model.domain.Board;
 import com.kh.tworavel.model.service.BoardService;
+import com.kh.tworavel.model.service.MypageService;
 
 @Controller
 public class BoardController {
 
 	@Autowired
 	private BoardService bService;
+	@Autowired
+	private MypageService mypService;
 	public static final int LIMIT = 10;
 
 	// 게시판 리스트
@@ -88,8 +91,9 @@ public class BoardController {
 
 	// 게시글 상세페이지
 	@RequestMapping(value = "board_detail.do")
-	public ModelAndView boardDetailService(ModelAndView mv, @RequestParam(name = "b_id") int b_id) {
+	public ModelAndView boardDetailService(ModelAndView mv, @RequestParam(name = "b_id") int b_id, @RequestParam(name = "m_id") String m_id) {
 		try {
+			mv.addObject("member", mypService.selectMember(m_id));
 			mv.addObject("blist", bService.selectBoard(b_id));
 			mv.addObject("clist", bService.selectComment(b_id));
 			mv.setViewName("board_detail");

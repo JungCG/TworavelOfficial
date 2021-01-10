@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Mlike">
+
+	<resultMap type="Mlike" id="resultMlike">
+		<id property="m_id" column="m_id"/>
+		<result property="m_id2" column="m_id2"/>
+	</resultMap>
+
+	<!-- =========== 마이페이지 sql문 =========== -->
+	<select id="My_selectMlikeStatus"  parameterType="Mlike" resultType="int" flushCache="true" statementType="PREPARED">
+	select count(*) from mlike where m_id = #{m_id} and m_id2 = #{m_id2}
+	</select>
+	
+	<insert id="My_MemberLikeInsert" parameterType="Mlike" flushCache="true" statementType="PREPARED">
+	insert into mlike values (#{m_id},#{m_id2})
+	</insert>
+
+	<delete id="My_MemberLikeUpdate" parameterType="Mlike" flushCache="true" statementType="PREPARED">
+	delete from mlike where m_id = #{m_id} and m_id2 = #{m_id2}
+	</delete>
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Report">
+
+	<resultMap type="Report" id="resultReport">
+		<id property="r_id" column="r_id"/>
+		<result property="m_id" column="m_id"/>
+		<result property="m_id2" column="m_id2"/>
+		<result property="r_reason" column="r_reason"/>
+	</resultMap>
+	
+	
+	<select id="My_selectReportStatus"  parameterType="Report" resultType="int" flushCache="true" statementType="PREPARED">
+	select count(*) from report where m_id = #{m_id} and m_id2 = #{m_id2}
+	</select>
+	
+	<delete id="My_deleteReport" parameterType="Report" flushCache="true" statementType="PREPARED">
+	delete from report where m_id = #{m_id} and m_id2 = #{m_id2}
+	</delete>
+	
+	<insert id="My_insertReport" parameterType="Report" flushCache="true" statementType="PREPARED">
+	insert into report values ((select nvl(max(r_id),0) from report)+1,#{m_id},#{m_id2},#{r_reason})
+	</insert>
+	
+</mapper>

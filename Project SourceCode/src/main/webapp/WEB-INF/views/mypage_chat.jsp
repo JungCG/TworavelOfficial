@@ -66,6 +66,26 @@ body{
 #ICR_noneimg{
 	margin: 35% 40% 35% 40%;
 }
+#ICR_other{
+	float: left;
+	width: 100%;
+	text-align: left;
+}
+#ICR_Myid{
+	float: right;
+	width: 100%;
+	text-align: right;
+}
+#ICR_Mytext{
+	background: #79c7c5;
+	float: right;
+}
+#ICR_br{
+	widows: 100%;
+}
+#ICR_othertext{
+	float: left;
+}
 a { text-decoration:none !important }
 </style>
 
@@ -136,15 +156,18 @@ a { text-decoration:none !important }
       	<div style="width: 100%; height: 100%;">
 	        <div class="incoming" id="before_messages">
 			    <c:forEach items="${chatList}" var="Chlist">
-			    	<span>${Chlist.m_sender}</span><br>
-			        <div class="bubble"><span>${Chlist.ch_content}</span></div><br>
+			    	<c:if test="${Chlist.m_sender ne sessionScope.userID}">
+				    	<span id="ICR_other">${Chlist.m_sender}</span><br>
+				        <div id="ICR_othertext" class="bubble"><span>${Chlist.ch_content}</span></div><br>
+				        <span class="ICR_br"></span>
+			    	</c:if>
+			    	<c:if test="${Chlist.m_sender eq sessionScope.userID}">
+				    	<span id="ICR_Myid">${Chlist.m_sender}</span><br>
+				        <div id="ICR_Mytext" class="bubble"><span>${Chlist.ch_content}</span></div><br>
+				        <span class="ICR_br"></span>
+			    	</c:if>
 			    </c:forEach>
 	        </div>
-	        
-	       <!--  <div class="outgoing">
-	          <div class="bubble lower">Nah, it's cool.</div>
-	        </div> -->
-	        
       	</div>
         
         
@@ -247,8 +270,15 @@ $(".person").on("click", function () {
             		sender = jbSplit[i];
             	else if(i==1)
             		massage = jbSplit[i];
-            }
-	            $('.incoming').append("<span>" + sender + "</span> <br/> <div class='bubble'><span>" + massage + "</span></div><br/>");
+            }	
+            	if(sender=="${sessionScope.userID}"){
+	            	//내가 보낸거면
+		            $('.incoming').append("<span class='ICR_br'></span> <span id='ICR_Myid'>" + sender + "</span> <br/> <div id='ICR_Mytext' class='bubble'> <span>" + massage + "</span> </div> <br/> <span class='ICR_br'></span>");
+            	}else{
+	            	//다른사람이 보낸거면
+		            $('.incoming').append("<span class='ICR_br'></span> <span id='ICR_other'>" + sender + "</span> <br/> <div id='ICR_othertext' class='bubble'><span>" + massage + "</span> </div> <br/> <span class='ICR_br'></span>");
+            	}
+            	
 	            //스크롤 맨아래
 	            var objDiv = document.getElementsByClassName("incoming")[0];
 		        objDiv.scrollTop = objDiv.scrollHeight;

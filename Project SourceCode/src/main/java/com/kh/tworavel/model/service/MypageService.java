@@ -11,6 +11,8 @@ import com.kh.tworavel.model.domain.Companion;
 import com.kh.tworavel.model.domain.CompanionInfo;
 import com.kh.tworavel.model.domain.Favor;
 import com.kh.tworavel.model.domain.Member;
+import com.kh.tworavel.model.domain.Mlike;
+import com.kh.tworavel.model.domain.Report;
 
 public interface MypageService {
 	//회원 1명 조회
@@ -32,6 +34,13 @@ public interface MypageService {
 	public int outMember(String m_id);
 	//키워드 insert
 	public int insertFavor(Favor favor);
+	//신고
+	public int selectReportStatus(Report report);
+	public int insertReport(Report report);
+	//추천
+	public int selectMlikeStatus(Mlike mlike);
+	public int MemberLikeInsert(Mlike mlike);
+	public int MemberLikeUpdate(Mlike mlike);
 	//키워드 select
 	public List<Favor> selectFavordlist(String m_id);
 	//키워드 삭제
