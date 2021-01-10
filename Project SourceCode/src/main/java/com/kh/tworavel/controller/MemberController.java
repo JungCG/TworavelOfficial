@@ -54,7 +54,7 @@ public class MemberController {
 		mv.setViewName("MainPage");
 		return mv;
 	}
-	
+
 	@RequestMapping(value = "/LoginCtl.do", method = RequestMethod.POST)
 	public String LogInCtl(HttpServletRequest request, HttpServletResponse response, Model model, ModelAndView mv)
 			throws IOException {
@@ -81,8 +81,10 @@ public class MemberController {
 					int check3 = 0;
 					int check4 = 0;
 
-					if (!loginDate.equals(currentDate)) {
-						check4 = mService.updateLoginPoint(m_id);
+					if (loginDate != null) {
+						if (!loginDate.equals(currentDate)) {
+							check4 = mService.updateLoginPoint(m_id);
+						}
 					}
 					check3 = mService.updateLoginDate(m_id);
 
@@ -153,10 +155,20 @@ public class MemberController {
 			if (check == 1) {
 				int check2 = oService.insertOut(m.getM_id());
 				if (check2 == 1) {
-					mv.addObject("m_id", m.getM_id());
-					mv.setViewName("emailProgress");
+					String m_id = m.getM_id();
+
+					HttpSession session = request.getSession();
+					session.removeAttribute("m_id");
+
+					String to = mService.selectOne(m_id).getM_email();
+
+					mService.joinEmailSend(m_id, to);
+
+					mv.addObject("msg", "이메일 인증 후 로그인 해주세요.");
+					mv.addObject("url", "/loginPre.do");
+					mv.setViewName("alertMsg");
 				} else {
-					mv.addObject("msg", "회원가입 실패");
+					mv.addObject("msg", "회원가입 실패, 관리자에게 문의해주세요!");
 					mv.addObject("url", "/join.do");
 					mv.setViewName("alertMsg");
 				}
@@ -169,64 +181,6 @@ public class MemberController {
 			e.printStackTrace();
 			mv.addObject("msg", e.getMessage());
 			mv.addObject("url", "/join.do");
-			mv.setViewName("alertMsg");
-		}
-		return mv;
-	}
-
-	@RequestMapping(value = "/EmailSendCtl.do", method = RequestMethod.GET)
-	public ModelAndView EmailSendCtl(Member m, HttpServletRequest request, HttpServletResponse response, Model model,
-			ModelAndView mv) throws IOException {
-
-		try {
-			String m_id = m.getM_id();
-			// 사용자에게 보낼 메시지를 기입합니다.
-			HttpSession session = request.getSession();
-			session.removeAttribute("m_id");
-
-			String host = "http://localhost:8090/tworavel/";
-			// 개인 이메일 작성
-			String from = "nothing1360@gmail.com";
-
-			String to = mService.selectOne(m_id).getM_email();
-			String subject = "[TwoRavel] 계정 활성화를 위한 이메일 확인 메일입니다.";
-			String content = "다음 링크에 접속하여 이메일 확인을 진행하세요." + "<br>" + "<a href='" + host + "EmailAcceptCtl.do?code="
-					+ SHA256.getSHA256(to) + "&m_id=" + m_id + "'>이메일 인증하기</a>";
-
-			// SMTP에 접속하기 위한 정보를 기입합니다.
-			Properties p = new Properties();
-			p.put("mail.smtp.user", from);
-			p.put("mail.smtp.host", "smtp.googlemail.com");
-			p.put("mail.smtp.port", "456");
-			p.put("mail.smtp.starttls.enable", "true");
-			p.put("mail.smtp.auth", "true");
-			p.put("mail.smtp.debug", "true");
-			p.put("mail.smtp.socketFactory.port", "465");
-			p.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-			p.put("mail.smtp.socketFactory.fallback", "false");
-
-			Authenticator auth = new Gmail();
-			Session ses = Session.getInstance(p, auth);
-
-			ses.setDebug(true);
-			MimeMessage msg = new MimeMessage(ses);
-			msg.setSubject(subject);
-
-			Address fromAddr = new InternetAddress(from);
-			msg.setFrom(fromAddr);
-
-			Address toAddr = new InternetAddress(to);
-			msg.addRecipient(Message.RecipientType.TO, toAddr);
-
-			msg.setContent(content, "text/html;charset=UTF-8");
-			Transport.send(msg);
-			mv.addObject("msg", "이메일 인증 후 로그인 해주세요.");
-			mv.addObject("url", "/loginPre.do");
-			mv.setViewName("alertMsg");
-		} catch (Exception e) {
-			e.printStackTrace();
-			mv.addObject("msg", "에러발생");
-			mv.addObject("url", "/");
 			mv.setViewName("alertMsg");
 		}
 		return mv;
@@ -316,8 +270,13 @@ public class MemberController {
 
 					int result = mService.updatePwd(paramMap);
 					if (result == 1) {
-						mv.addObject("m_id", m.getM_id());
-						mv.setViewName("searchEmailProgress");
+						Member m2 = mService.selectOne(m_id);
+
+						mService.searchEmailSend(m2);
+
+						mv.addObject("msg", "이메일로 임시 비밀번호가 전송되었습니다.");
+						mv.addObject("url", "/loginPre.do");
+						mv.setViewName("alertMsg");
 					} else {
 						mv.addObject("msg", "예기치 못한 에러가 발생했습니다. 다시 시도해주세요.");
 						mv.addObject("url", "/searchPage.do");
@@ -335,68 +294,6 @@ public class MemberController {
 			mv.addObject("url", "/");
 			mv.setViewName("alertMsg");
 		}
-		return mv;
-	}
-
-	@RequestMapping(value = "/SearchEmailSendCtl.do", method = RequestMethod.GET)
-	public ModelAndView SearchEmailSendCtl(Member m, HttpServletRequest request, HttpServletResponse response,
-			Model model, ModelAndView mv) throws IOException {
-		try {
-			String m_id = m.getM_id();
-
-			HttpSession session = request.getSession();
-			session.removeAttribute("m_id");
-			// 사용자에게 보낼 메시지를 기입합니다.
-
-			String host = "http://localhost:8090/tworavel/";
-			// 개인 이메일 작성
-			String from = "nothing1360@gmail.com";
-			String to = mService.selectOne(m_id).getM_email();
-			String subject = "[TwoRavel] 임시 비밀번호가 담긴 메일입니다.";
-
-			Member m2 = mService.selectOne(m_id);
-			String n_pwd = m2.getM_pw();
-
-			String content = "임시 비밀번호는 아래와 같습니다." + "<br>" + n_pwd + "<br>임시 비밀번호로 로그인 후 비밀번호를 변경해주세요!!!";
-
-			// SMTP에 접속하기 위한 정보를 기입합니다.
-
-			Properties p = new Properties();
-			p.put("mail.smtp.user", from);
-			p.put("mail.smtp.host", "smtp.googlemail.com");
-			p.put("mail.smtp.port", "456");
-			p.put("mail.smtp.starttls.enable", "true");
-			p.put("mail.smtp.auth", "true");
-			p.put("mail.smtp.debug", "true");
-			p.put("mail.smtp.socketFactory.port", "465");
-			p.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-			p.put("mail.smtp.socketFactory.fallback", "false");
-
-			Authenticator auth = new Gmail();
-			Session ses = Session.getInstance(p, auth);
-
-			ses.setDebug(true);
-			MimeMessage msg = new MimeMessage(ses);
-			msg.setSubject(subject);
-
-			Address fromAddr = new InternetAddress(from);
-			msg.setFrom(fromAddr);
-
-			Address toAddr = new InternetAddress(to);
-			msg.addRecipient(Message.RecipientType.TO, toAddr);
-
-			msg.setContent(content, "text/html;charset=UTF-8");
-			Transport.send(msg);
-			mv.addObject("msg", "이메일로 임시 비밀번호가 전송되었습니다.");
-			mv.addObject("url", "/loginPre.do");
-			mv.setViewName("alertMsg");
-		} catch (Exception e) {
-			e.printStackTrace();
-			mv.addObject("msg", "오류 발생!");
-			mv.addObject("url", "/join.do");
-			mv.setViewName("alertMsg");
-		}
-
 		return mv;
 	}
 
