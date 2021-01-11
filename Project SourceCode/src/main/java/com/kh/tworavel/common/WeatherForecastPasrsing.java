@@ -49,17 +49,31 @@ public class WeatherForecastPasrsing {
 	@ResponseBody
     public Object main(ModelAndView mv,HttpServletRequest request) throws SAXException, IOException{
 		
-		String currentdate = "202101090600";
+
+	
 		String regId =request.getParameter("area");
 		String weid = null;
      	Calendar cal = Calendar.getInstance();
     	cal.setTime(new Date());
     	DateFormat df = new SimpleDateFormat("yyyyMMdd");
+    	DateFormat df3 = new SimpleDateFormat("HHmm");
     	String today =null; 
-    	today=df.format(cal.getTime())+"0600";
-    	System.out.println(today);
+    	String sysdate =df3.format(cal.getTime());
+    	if((sysdate.substring(0,1).equals("0"))) {
+    		if((sysdate.substring(1,2).equals("0"))||(559>=Integer.parseInt(sysdate.substring(1,4)))) {
+    		
+    			cal.add(Calendar.DATE,-1);
+    			today=String.valueOf(df.format(cal.getTime())+"0600");
+    		}else {
+    		
+    			today=String.valueOf(df.format(cal.getTime())+"0600");
+    		}
+    	}else {
+    	
+    		today=String.valueOf(df.format(cal.getTime())+"0600");
+    	}
+    
 		if(regId.equals("11B10101")||regId.equals("11B20201")||regId.equals("11B20601")||regId.equals("11B20305")) {
-			
 			weid="11B00000";
 		}
 		else if(regId.equals("11D10301")||regId.equals("11D10401")||regId.equals("11D20501")){

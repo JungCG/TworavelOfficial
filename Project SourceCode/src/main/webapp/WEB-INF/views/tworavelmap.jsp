@@ -279,8 +279,8 @@ function addMarker11(position,title,content, makerImage,address,tel) {
 		   //console.log(jsonSt[i].address)
 		   var address = jsonSt[i].address;
 		   var tel = jsonSt[i].tel
-	    var imageSize = new kakao.maps.Size(33, 35);
-		var imageSrc = "${pageContext.request.contextPath}/resources/images/party.png"; 
+	    var imageSize = new kakao.maps.Size(55,60);
+		var imageSrc = "${pageContext.request.contextPath}/resources/images/realparty.png"; 
 	 var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
 	    addMarker11(position, title,content1,markerImage,address,tel);
 		    }
@@ -445,30 +445,30 @@ if (!currCategory) {
 		
 		
 		function addmarker1(position, order) {
-				var imageSize = new kakao.maps.Size(35, 35); 
+				var imageSize1 = new kakao.maps.Size(100, 100); 
 				var imageSrc = "${pageContext.request.contextPath}/resources/images/placeholder.png"; 
 				if(order==0){
-					imageSrc = "${pageContext.request.contextPath}/resources/images/metro.png";
+					imageSrc = "${pageContext.request.contextPath}/resources/images/realmetro.png";
 					
 				}
 				if(order==1){
-					imageSrc = "${pageContext.request.contextPath}/resources/images/gb.png";
+					imageSrc = "${pageContext.request.contextPath}/resources/images/realgb.png";
 					
 				}
 				if(order==2){
-					imageSrc = "${pageContext.request.contextPath}/resources/images/motel.png";
+					imageSrc = "${pageContext.request.contextPath}/resources/images/realmotel.png";
 					
 				}
 				if(order==3){
-					imageSrc = "${pageContext.request.contextPath}/resources/images/food.png";
+					imageSrc = "${pageContext.request.contextPath}/resources/images/realfood.png";
 					
 				}
 				if(order==4){
-					imageSrc = "${pageContext.request.contextPath}/resources/images/cafe.png";
+					imageSrc = "${pageContext.request.contextPath}/resources/images/realcafe.png";
 					
 				}
-				    var markerImage1 = new kakao.maps.MarkerImage(imageSrc, imageSize); 
-				imageSize = new kakao.maps.Size(33, 35),  // 마커 이미지의 크기
+				    var markerImage1 = new kakao.maps.MarkerImage(imageSrc, imageSize1); 
+				imageSize = new kakao.maps.Size(55, 60),  // 마커 이미지의 크기
 		/* 	    imgOptions =  {
 			        spriteSize : new kakao.maps.Size(72, 208), // 스프라이트 이미지의 크기
 			        spriteOrigin : new kakao.maps.Point(46, (order*36)), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표

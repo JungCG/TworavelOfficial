@@ -111,6 +111,16 @@ public class WeatherForecast {
      	Calendar cal = Calendar.getInstance();
     	cal.setTime(new Date());
     	DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+    	DateFormat df3 = new SimpleDateFormat("HHmm");
+    	String sysdate =df3.format(cal.getTime());
+
+    	if((sysdate.substring(0,1).equals("0"))) {
+    		if((sysdate.substring(1,2).equals("0"))||(559>=Integer.parseInt(sysdate.substring(1,4)))) {
+    			System.out.println(sysdate);
+    			cal.add(Calendar.DATE,-1);
+    		}
+    	}
+    	
     	cal.add(Calendar.DATE,3);
     	date3=df.format(cal.getTime());
     	cal.add(Calendar.DATE,1);

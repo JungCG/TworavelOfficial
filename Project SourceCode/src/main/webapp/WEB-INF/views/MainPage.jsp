@@ -118,29 +118,15 @@ body{
 		<div id="GJW-dropdown">
 			<ul class="dropdown-menu2" role="menu">
 				<li><button type="button" value="11B10101" class="weatherbtn">서울</button>
-				<li><button type="button" value="11B20201" class="weatherbtn">인천</button>
-				<li><button type="button" value="11B20601" class="weatherbtn">수원</button>
-				<li><button type="button" value="11B20305" class="weatherbtn">파주</button>
-				<li><button type="button" value="11D10301" class="weatherbtn">춘천</button>
-				<li><button type="button" value="11D10401" class="weatherbtn">원주</button>
-				<li><button type="button" value="11D20501" class="weatherbtn">강릉</button>
-				<li><button type="button" value="11C20401" class="weatherbtn">대전</button>
-				<li><button type="button" value="11C20101" class="weatherbtn">서산</button>
-				<li><button type="button" value="11C20404" class="weatherbtn">세종</button>
-				<li><button type="button" value="11C10301" class="weatherbtn">청주</button>
-				<li><button type="button" value="11G00201" class="weatherbtn">제주</button>
-				<li><button type="button" value="11G00401" class="weatherbtn">서귀포</button>
-				<li><button type="button" value="11F20501" class="weatherbtn">광주</button>
-				<li><button type="button" value="21F20801" class="weatherbtn">목포</button>
-				<li><button type="button" value="11F20401" class="weatherbtn">여수</button>
-				<li><button type="button" value="11F10201" class="weatherbtn">전주</button>
-				<li><button type="button" value="21F10501" class="weatherbtn">군산</button>
-				<li><button type="button" value="11H20201" class="weatherbtn">부산</button>
-				<li><button type="button" value="11H20101" class="weatherbtn">울산</button>
-				<li><button type="button" value="11H20301" class="weatherbtn">창원</button>
-				<li><button type="button" value="11H10701" class="weatherbtn">대구</button>
-				<li><button type="button" value="11H10501" class="weatherbtn">안동</button>
-				<li><button type="button" value="11H10201" class="weatherbtn">포항</button>
+				<li><button type="button" value="11B20201" class="weatherbtn">경기도(인천)</button>
+				<li><button type="button" value="11D20501" class="weatherbtn">강원도(강릉)</button>
+				<li><button type="button" value="11C20401" class="weatherbtn">충청남도(대전)</button>
+				<li><button type="button" value="11C10301" class="weatherbtn">충청북도(청주)</button>
+				<li><button type="button" value="11F20501" class="weatherbtn">전라남도(광주)</button>
+				<li><button type="button" value="11F10201" class="weatherbtn">전라북도(전주)</button>
+				<li><button type="button" value="11H20201" class="weatherbtn">경상남도(부산)</button>
+				<li><button type="button" value="11H10201" class="weatherbtn">경상북도(포항)</button>
+				<li><button type="button" value="11G00201" class="weatherbtn">제주도</button>
 			</ul>
 		</div>
 
