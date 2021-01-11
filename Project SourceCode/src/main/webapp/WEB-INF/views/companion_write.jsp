@@ -265,14 +265,14 @@ input[type='radio']:checked:after {
 					</tr>
 					<tr style="height: 30px">
 						<td>경비</td>
-						<td style="width: 85%;" colspan="3"><input type="text"
+						<td style="width: 85%;" colspan="3"><input type="text" onkeypress="doNumber();"
 							name="c_value" id="kdy-value-input"
-							placeholder="1인당 여행경비를 입력해주세요" required="required"></td>
+							placeholder="1인당 여행경비를 입력해주세요(숫자만)" required="required"></td>
 					</tr>
 					<tr style="height: 30px">
 						<td>인원</td>
-						<td style="width: 85%;" colspan="3"><input type="text"
-							name="c_many" id="kdy-many-input" placeholder="총 인원을 입력해주세요"
+						<td style="width: 85%;" colspan="3"><input type="text" onkeypress="doNumber();"
+							name="c_many" id="kdy-many-input" placeholder="총 인원을 입력해주세요(숫자만)"
 							required="required"></td>
 					</tr>
 					<tr style="height: 30px">
@@ -655,6 +655,14 @@ input[type='radio']:checked:after {
 			}
 		}
 
+	</script>
+	<script>
+		<!--자바스크립트를 불러오는 속성입력-->
+		function doNumber(){
+		          if(event.keyCode<48 || event.keyCode>57){
+		             event.returnValue=false;
+		          }
+		}
 	</script>
 </body>
 </html>
