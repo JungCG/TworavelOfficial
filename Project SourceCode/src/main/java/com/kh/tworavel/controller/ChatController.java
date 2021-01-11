@@ -158,4 +158,18 @@ public class ChatController {
 		}
 		return mv;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/ChatUnreadServlet", method = RequestMethod.POST)
+	public int ChatUnreadServlet(HttpServletRequest request) {
+		String userID = (String) request.getSession().getAttribute("userID");
+
+		int result = 0;
+		try {
+			result = chService.ChatUnreadServlet(userID);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		return result;
+	}
 }

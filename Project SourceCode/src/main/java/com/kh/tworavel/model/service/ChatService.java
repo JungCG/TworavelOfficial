@@ -53,6 +53,8 @@ public class ChatService {
 	public int updateChatInTime(ChatJoin chatJn) {
 		return chDao.updateChatInTime(chatJn);
 	}
-	
+	public int ChatUnreadServlet(String m_receiver) {
+		return chDao.ChatUnreadServlet(m_receiver);
+	}
 	
 }

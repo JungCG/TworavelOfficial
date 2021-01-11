@@ -26,7 +26,7 @@
 		</div>
 	</div>
 	<div style="text-align:center; padding-top : 40px; padding-bottom: 10px;">
-		<h1 style="color : #0AC5A8;">Travel</h1>
+		<h1 style="color : #0AC5A8;">TwoRAVELER VLOG</h1>
 	</div>	
 	<div>
 		<div>
@@ -34,7 +34,7 @@
 		</div>
 	</div>
 	<div style="text-align:center; padding-top : 40px; padding-bottom: 10px;">
-		<h1 style="color : #0AC5A8;">Travel</h1>
+		<h1 style="color : #0AC5A8;">What is a travel to us</h1>
 	</div>
 	<div style="text-align:center; padding-bottom : 40px;">
 		<div>

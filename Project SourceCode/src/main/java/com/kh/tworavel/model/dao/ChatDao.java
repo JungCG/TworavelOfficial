@@ -55,6 +55,8 @@ public class ChatDao {
 	public int updateChatInTime(ChatJoin chatJn) {
 		return sqlSession.update("Chatjoin.updateChatInTime", chatJn);
 	}
-	
-	
+	// 안읽은 채팅 개수 띄우기
+	public int ChatUnreadServlet(String m_receiver) {
+		return sqlSession.selectOne("Chatmessage.ChatUnreadServlet", m_receiver);
+	}
 }

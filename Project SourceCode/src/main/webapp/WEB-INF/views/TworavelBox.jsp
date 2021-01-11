@@ -66,7 +66,7 @@ body{
 					<div style="width : 480px; height : auto;">
 						<img src = "${pageContext.request.contextPath }/resources/images/tworavelbox1.jpg" style="width : 100%; height : 100%;">
 					</div>
-					<div style="width : 480px; height : auto; padding : 10px; padding-top:0px;">
+					<div style="width : 480px; height : auto; padding-left:10px;">
 						<div style="border-bottom : 1px solid gray;">
 							<span style="font-size: 45px; font-weight : bolder;">TwoRAVEL 박스</span>
 							<button style="float : right; border: 0; outline: 0; background: none;">
