@@ -243,9 +243,11 @@ $(".person").on("click", function () {
         	var inputVal = document.getElementById("messageinput").value;
         	if(inputVal==""){
         		alert("메세지를 입력해주세요.");
+        		document.getElementById("messageinput").focus();
         		return;
         	}else{
 	            var text = inputVal+"§"+document.getElementById("sender").value+"§"+c_id;
+	            ICR_insertFn();
 	            ws.send(text);
 	            text = "";
 	            ICR_insertFn();
@@ -261,9 +263,9 @@ $(".person").on("click", function () {
         		return;
         	}
         }
+       	var sender = "";
+       	var massage = "";
         function writeResponse(text){
-        	var sender = "";
-        	var massage = "";
         	var jbSplit = text.split('§');
             for ( var i in jbSplit ) {	//jbSplit[i]
             	if(i==0)
@@ -322,9 +324,46 @@ $(".person").on("click", function () {
 	      	var roomTime = year + "-" + month + "-" + date + "\t\t\t" + hours + ':' + minutes + ":" + seconds;
 	      	return roomTime;
         }
-        
-        
-	  </script>
+					//클릭읽음
+					$('.chatbox').on({
+						'click': function(e) {
+							var c_id = ${c_id};
+							$.ajax({
+									url : "updateReadChat.do",
+									async : false,
+									data : {
+										c_id : c_id,
+										m_sender : sender,
+										m_receiver : "${sessionScope.userID}",
+										ch_content : massage
+									},
+									success : function() {
+									},
+									error : function() {
+									}
+								});
+						}
+					});
+					
+					//포커스읽음
+					$(".chatbox").attr("tabindex",-1).focus(function() {
+						var c_id = ${c_id};
+						$.ajax({
+								url : "updateReadChat.do",
+								async : false,
+								data : {
+									c_id : c_id,
+									m_sender : sender,
+									m_receiver : "${sessionScope.userID}",
+									ch_content : massage
+								},
+								success : function() {
+								},
+								error : function() {
+								}
+							});
+						});
+				</script>
 	  <script>
 	  function ICR_insertFn(){
 		  var c_id = ${c_id};

@@ -22,7 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.tworavel.model.domain.ChatJoin;
 import com.kh.tworavel.model.domain.ChatMessage;
-import com.kh.tworavel.model.service.ChatService;
+import com.kh.tworavel.model.service.ChatServiceImpl;
 
 @Controller
 public class ChatController {
@@ -33,7 +33,7 @@ public class ChatController {
 	@Autowired
 	private ChatMessage chatMsg;
 	@Autowired
-	private ChatService chService;
+	private ChatServiceImpl chService;
 	
 	// 채팅방 목록 페이지
 	@RequestMapping(value = "/Chat.do", method = { RequestMethod.GET})
@@ -107,11 +107,9 @@ public class ChatController {
 			List<ChatJoin> userlist = new ArrayList<ChatJoin>();
 			userlist = chService.selectSameRoom(c_id);
 			for (int i = 0; i < userlist.size(); i++) {
-				if (userlist.get(i).getM_id() != userID) {
-					chatMsg.setM_receiver(userlist.get(i).getM_id());
-					// 해당 채팅방 하나 생성 (insert)
-					int result = chService.insertChatMessage(chatMsg);
-				}
+				chatMsg.setM_receiver(userlist.get(i).getM_id());
+				// 해당 채팅방 하나 생성 (insert)
+				int result = chService.insertChatMessage(chatMsg);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -136,6 +134,23 @@ public class ChatController {
 		}
 		mv.setViewName("mypage_chat");
 		return mv;
+	}
+	
+	//채팅방 입장
+	@ResponseBody
+	@RequestMapping(value = "/updateReadChat.do", method = RequestMethod.GET)
+	public void updateReadChat(HttpServletRequest request, @RequestParam int c_id, @RequestParam String m_sender,
+			@RequestParam String m_receiver, @RequestParam String ch_content) {
+		chatMsg.setC_id(c_id);
+		chatMsg.setM_sender(m_sender);
+		chatMsg.setM_receiver(m_receiver);
+		chatMsg.setCh_content(ch_content);
+		
+		try {
+			int result = chService.updateReadChat2(chatMsg);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	//채팅방 나가기

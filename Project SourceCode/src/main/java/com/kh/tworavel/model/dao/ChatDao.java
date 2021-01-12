@@ -29,7 +29,20 @@ public class ChatDao {
 	}
 	//채팅메세지 insert
 	public int insertChatMessage(ChatMessage chatmsg) {
-		return sqlSession.insert("Chatmessage.insertChatMessage", chatmsg);
+		String sender = chatmsg.getM_sender();
+		String receiver = chatmsg.getM_receiver();
+		int result = 0;
+		int result2 = 0;
+		int result3 = 0;
+		if(sender.equals(receiver)) {
+			result = sqlSession.insert("Chatmessage.insertChatMessage2", chatmsg);
+		}else {
+			result2 = sqlSession.insert("Chatmessage.insertChatMessage", chatmsg);
+		}
+		if(result>0 && result2>0) {
+			result3 = 1;
+		}
+		return result3;
 	}
 	//채팅 insertCheck
 	public int checkChatJoin(ChatJoin chatJn) {
@@ -46,6 +59,13 @@ public class ChatDao {
 	//이전 채팅 목록
 	public List<ChatMessage> selectBeforeChat(ChatMessage chatMsg) {
 		return sqlSession.selectList("Chatmessage.selectBeforeChat", chatMsg);
+	}
+	//읽음
+	public int updateReadChat(ChatMessage chatMsg) {
+		return sqlSession.update("Chatmessage.updateReadChat", chatMsg);
+	}
+	public int updateReadChat2(ChatMessage chatMsg) {
+		return sqlSession.update("Chatmessage.updateReadChat2", chatMsg);
 	}
 	//채팅 Out
 	public int updateChatOut(ChatJoin chatJn) {

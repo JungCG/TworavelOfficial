@@ -28,13 +28,21 @@
 	<insert id="insertChatMessage" parameterType="ChatMessage" flushCache="true" statementType="PREPARED">
 	insert into chatmessage values ((select nvl(max(ch_id),0) from chatmessage)+1, #{c_id}, #{m_sender}, #{m_receiver}, #{ch_content}, CURRENT_TIMESTAMP, 0)
 	</insert>
+	<insert id="insertChatMessage2" parameterType="ChatMessage" flushCache="true" statementType="PREPARED">
+	insert into chatmessage values ((select nvl(max(ch_id),0) from chatmessage)+1, #{c_id}, #{m_sender}, #{m_receiver}, #{ch_content}, CURRENT_TIMESTAMP, 1)
+	</insert>
 	<!-- 이전 채팅 목록-->
 	<select id="selectBeforeChat" parameterType="ChatMessage" resultMap="resultChatmessage" flushCache="true" statementType="PREPARED">
 	select * from chatmessage where c_id = #{c_id} and m_receiver = #{m_receiver} and ch_time <![CDATA[ >= ]]> (select ch_intime from chatjoin where c_id = #{c_id} and m_id = #{m_id} and ch_inout = 'I') order by ch_id asc
 	</select>
 	
-	<select id = "ChatUnreadServlet" parameterType="string" resultType="int">
-		select count(*) from chatmessage where m_receiver = #{m_receiver} and m_sender != #{m_receiver} and ch_read=0
-	</select>
+	<update id="updateReadChat" parameterType="ChatMessage" flushCache="true" statementType="PREPARED">
+	update chatmessage set ch_read = 1 where c_id = #{c_id} and m_receiver = #{m_receiver}
+	</update>
+	
+	<update id="updateReadChat2" parameterType="ChatMessage" flushCache="true" statementType="PREPARED">
+	update chatmessage set ch_read = 1 where c_id = #{c_id} and m_receiver = #{m_receiver} and m_sender = #{m_sender} and ch_content = #{ch_content}
+	</update>
+	
 	
 </mapper>

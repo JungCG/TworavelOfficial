@@ -10,24 +10,26 @@ public class CompanionInfo implements java.io.Serializable{
 	private String m_id;
 	private String c_name;
 	private String c_yn;
+	private String ch_inout;
 	
 	public CompanionInfo() {
 		super();
 	}
 
-	public CompanionInfo(int c_id, String m_id2, String m_id, String c_name, String c_yn) {
+	public CompanionInfo(int c_id, String m_id2, String m_id, String c_name, String c_yn, String ch_inout) {
 		super();
 		this.c_id = c_id;
 		this.m_id2 = m_id2;
 		this.m_id = m_id;
 		this.c_name = c_name;
 		this.c_yn = c_yn;
+		this.ch_inout = ch_inout;
 	}
 
 	@Override
 	public String toString() {
-		return "Companioninfo [c_id=" + c_id + ", m_id2=" + m_id2 + ", m_id=" + m_id + ", c_name=" + c_name + ", c_yn="
-				+ c_yn + "]";
+		return "CompanionInfo [c_id=" + c_id + ", m_id2=" + m_id2 + ", m_id=" + m_id + ", c_name=" + c_name + ", c_yn="
+				+ c_yn + ", ch_inout=" + ch_inout + "]";
 	}
 
 	public int getC_id() {
@@ -69,8 +71,17 @@ public class CompanionInfo implements java.io.Serializable{
 	public void setC_yn(String c_yn) {
 		this.c_yn = c_yn;
 	}
-	
-	
-	
+
+	public String getCh_inout() {
+		return ch_inout;
+	}
+
+	public void setCh_inout(String ch_inout) {
+		this.ch_inout = ch_inout;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	
 }
