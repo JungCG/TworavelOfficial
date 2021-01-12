@@ -40,6 +40,14 @@
 			type="com.kh.tworavel.model.domain.Blike" />
 		<typeAlias alias="Clike"
 			type="com.kh.tworavel.model.domain.Clike" />
+		<typeAlias alias="Chatjoin"
+			type="com.kh.tworavel.model.domain.ChatJoin" />
+		<typeAlias alias="Chatmessage"
+			type="com.kh.tworavel.model.domain.ChatMessage" />
+		<typeAlias alias="Report"
+			type="com.kh.tworavel.model.domain.Report" />
+		<typeAlias alias="Mlike"
+			type="com.kh.tworavel.model.domain.Mlike" />
 			
 			
 	</typeAliases>
@@ -56,5 +64,9 @@
 		<mapper resource="mappers/favor-mapper.xml" />
 		<mapper resource="mappers/blike-mapper.xml" />
 		<mapper resource="mappers/clike-mapper.xml" />
+		<mapper resource="mappers/chatjoin-mapper.xml" />
+		<mapper resource="mappers/chatmessage-mapper.xml" />
+		<mapper resource="mappers/report-mapper.xml" />
+		<mapper resource="mappers/mlike-mapper.xml" />
 	</mappers>
 </configuration>

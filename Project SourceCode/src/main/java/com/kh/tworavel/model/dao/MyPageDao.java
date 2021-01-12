@@ -14,6 +14,8 @@ import com.kh.tworavel.model.domain.Companion;
 import com.kh.tworavel.model.domain.CompanionInfo;
 import com.kh.tworavel.model.domain.Favor;
 import com.kh.tworavel.model.domain.Member;
+import com.kh.tworavel.model.domain.Mlike;
+import com.kh.tworavel.model.domain.Report;
 
 @Repository("mypDao")
 public class MyPageDao {
@@ -119,7 +121,55 @@ public class MyPageDao {
 	public int updateCompanionRe(String c_id) {
 		return sqlSession.update("Companion.My_updateCompanionRe", c_id);
 	}
-	
+	public int updateLike(String m_id) {
+		return sqlSession.update("Member.My_updateLike", m_id);
+	}
+	public int selectReportStatus(Report report) {
+		return sqlSession.selectOne("Report.My_selectReportStatus", report);
+	}
+	public int selectMlikeStatus(Mlike mlike) {
+		return sqlSession.selectOne("Mlike.My_selectMlikeStatus", mlike);
+	}
+	public int updateReport(Report report) {
+		int result = sqlSession.delete("Report.My_deleteReport", report);
+		String m_id = report.getM_id2();
+		int result2 = sqlSession.update("Member.My_minusReport", m_id);
+		if(result>0 && result2>0) {
+			return 1;
+		}else {
+			return -1;
+		}
+	}
+	public int insertReport(Report report) {
+		int result = sqlSession.insert("Report.My_insertReport", report);
+		String m_id = report.getM_id2();
+		int result2 = sqlSession.update("Member.My_plusReport", m_id);
+		if (result>0 &&result2>0) {
+			return 1;
+		}else {
+			return -1;
+		}
+	}
+	public int MemberLikeInsert(Mlike mlike) {
+		int result = sqlSession.insert("Mlike.My_MemberLikeInsert", mlike);
+		String m_id = mlike.getM_id();
+		int result2 = sqlSession.update("Member.My_plusLike", m_id);
+		if (result>0 &&result2>0) {
+			return 1;
+		}else {
+			return -1;
+		}
+	}
+	public int MemberLikeUpdate(Mlike mlike) {
+		int result = sqlSession.delete("Mlike.My_MemberLikeUpdate", mlike);
+		String m_id = mlike.getM_id();
+		int result2 = sqlSession.update("Member.My_minusLike", m_id);
+		if(result>0 && result2>0) {
+			return 1;
+		}else {
+			return -1;
+		}
+	}
 	
 	
 }

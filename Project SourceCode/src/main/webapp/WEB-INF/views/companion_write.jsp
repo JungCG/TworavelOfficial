@@ -9,6 +9,61 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+@import url(//fonts.googleapis.com/earlyaccess/hanna.css);
+
+@font-face {
+	font-family: 'MaplestoryOTFBold';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'MaplestoryOTFLight';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFLight.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'NEXONFootballGothicLA1';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXONFootballGothicLA1.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Jal_Onuel';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/Jal_Onuel.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'BMHANNAAir';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/BMHANNAAir.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'BBTreeGB';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/BBTreeGB.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
 * {
 	padding: 0;
 	margin: 0;
@@ -39,7 +94,16 @@ KDY {
 	margin-top: 70px;
 	margin-bottom: 100px;
 }
-
+table {
+	padding-left: 6vh;
+	font-size: 16px;
+	font-family: 'Hanna', fantasy;
+	color: #282828;
+}
+table > tr > td {
+	margin-top: 51px;
+	margin-bottom: 51px;
+}
 section {
 	width: 1000px;
 	display: flex;
@@ -57,27 +121,54 @@ section {
 }
 
 .mbutton {
+	border-bottom: 2px solid rgb(28	28 28/ 39%);
+	font-size: 16px;
+	background-color: white;
+	border-radius: 15px;
+ 	padding: 5px;
+	font-family: 'Hanna', fantasy;
 	margin: 20px;
-	width: 200px;
+	width: 180px;
 }
 
 #kdy-name-input {
 	height: 30px;
 	width: 50%;
-	border: 3px solid rgb(78 102 255/ 39%);
+	border-bottom: 2px solid rgb(48	28 28/ 39%);
 	outline: none;
 	padding-left: 5px;
 }
 
-#kdy-type-select {
-	border: 3px solid rgb(78 102 255/ 39%);
+#kdy-value-input {
+	height: 30px;
+	width: 30%;
+	border-bottom: 2px solid rgb(48	28 28/ 39%);
 	outline: none;
-	color: dodgerblue;
+	padding-left: 5px;
 }
 
-#kdy-password-input {
-	border: 3px solid rgb(78 102 255/ 39%);
+#kdy-startd-input {
+	height: 30px;
+	width: 30%;
+	border-bottom: 2px solid rgb(48	28 28/ 39%);
 	outline: none;
+	padding-left: 5px;
+}
+
+#kdy-endd-input {
+	height: 30px;
+	width: 30%;
+	border-bottom: 2px solid rgb(48	28 28/ 39%);
+	outline: none;
+	padding-left: 5px;
+}
+
+#kdy-many-input {
+	height: 30px;
+	width: 30%;
+	border-bottom: 2px solid rgb(48	28 28/ 39%);
+	outline: none;
+	padding-left: 5px;
 }
 
 input[type='radio']:after {
@@ -113,19 +204,37 @@ input[type='radio']:checked:after {
 }
 
 #submitModifyCompanionBtn {
-	color: #0AC5A8;
-	border: 3px solid rgb(78 102 255/ 39%);
+	font-family: 'Hanna', fantasy;
+	border-bottom: 3px solid rgb(78	28 28/ 39%);
 	font-size: 16px;
 	background-color: white;
-	border-radius: 5px;
+	border-radius: 15px;
+	margin-right: 20px;
 	padding: 5px;
 }
 
 #kdy-serach-list {
-	color: #0AC5A8;
-	border: 3px solid rgb(78 102 255/ 39%);
-	border-radius: 5px;
-	padding: 5px;
+	border-bottom: 3px solid rgb(78	28 28/ 39%);
+	font-size: 16px;
+	background-color: white;
+	border-radius: 15px;
+	margin-right: 100px;
+ 	padding: 5px;
+}
+
+.categoryleft {
+	margin-right: 2px;
+	width: 90px;
+	height: 25px;
+	border-bottom: 2px solid rgb(48	28 28/ 39%);
+	padding-left: 5px;
+}
+.categoryright {
+	margin-right: 10px;
+	width: 120px;
+	height: 25px;
+	border-bottom: 2px solid rgb(48	28 28/ 39%);
+	padding-left: 5px;
 }
 </style>
 <script type="text/javascript"
@@ -144,63 +253,86 @@ input[type='radio']:checked:after {
 			<form name="frm" enctype="multipart/form-data">
 
 				<table align="center" style="width: 100%;">
-					<tr style="height: 30px">
-						<td style="color: #0AC5A8;">작성자</td>
+					<tr style="height: 30px;">
+						<td>작성자</td>
 						<td colspan="3"><input type="text" name="m_id" value="${userID}"></td>
 					</tr>
 					<tr style="height: 30px">
-						<td style="color: #0AC5A8;">제목</td>
+						<td>제목</td>
 						<td style="width: 55%;"><input type="text" name="c_name"
 							id="kdy-name-input" placeholder="글 제목을 입력해주세요"
 							required="required"></td>
 					</tr>
 					<tr style="height: 30px">
-						<td style="color: #0AC5A8;">경비</td>
-						<td style="width: 85%;" colspan="3"><input type="text"
+						<td>경비</td>
+						<td style="width: 85%;" colspan="3"><input type="text" onkeypress="doNumber();"
 							name="c_value" id="kdy-value-input"
-							placeholder="1인당 여행경비를 입력해주세요" required="required"></td>
+							placeholder="1인당 여행경비를 입력해주세요(숫자만)" required="required"></td>
 					</tr>
 					<tr style="height: 30px">
-						<td style="color: #0AC5A8;">인원</td>
-						<td style="width: 85%;" colspan="3"><input type="text"
-							name="c_many" id="kdy-many-input" placeholder="총 인원을 입력해주세요"
+						<td>인원</td>
+						<td style="width: 85%;" colspan="3"><input type="text" onkeypress="doNumber();"
+							name="c_many" id="kdy-many-input" placeholder="총 인원을 입력해주세요(숫자만)"
 							required="required"></td>
 					</tr>
 					<tr style="height: 30px">
-						<td style="color: #0AC5A8;">출발 날짜</td>
+						<td>출발 날짜</td>
 						<td style="width: 85%;" colspan="3"><input type="date"
 							name="c_startd" id="kdy-startd-input" placeholder="출발 날짜를 입력해주세요"
 							required="required"></td>
 					</tr>
 					<tr style="height: 30px">
-						<td style="color: #0AC5A8;">도착 날짜</td>
+						<td style="1">도착 날짜</td>
 						<td style="width: 85%;" colspan="3"><input type="date"
 							name="c_endd" id="kdy-endd-input" placeholder="도착 날짜를 입력해주세요"
 							required="required"></td>
 					</tr>
 					<tr>
 						<td>카테고리 분류</td>
-						<td><select name="c_lid" onchange="categoryChange(this)"
-							style="width: 130px; height: 25px;">
+						<!-- <td>
+						<select name="c_lid" onchange="categoryChange1(this)" class="categoryleft" required="required">
 								<option style="display: none;">카테고리</option>
 								<option value="1">지역</option>
-								<option value="2">인원</option>
-								<option value="3">성향</option>
-						</select> <select name="c_sid" id="ICR_smallCategory"
-							style="width: 130px; height: 25px;">
+						</select> <select name="c_sid" id="ICR_smallCategory1" class="categoryright">
 								<option style="display: none;">소분류</option>
-						</select></td>
+						</select>
+						<select name="c_lid" onchange="categoryChange2(this)" class="categoryleft" required="required">
+								<option style="display: none;">카테고리</option>
+								<option value="2">인원</option>
+						</select> <select name="c_sid" id="ICR_smallCategory2" class="categoryright">
+								<option style="display: none;">소분류</option>
+						</select>
+						<select name="c_lid" onchange="categoryChange3(this)" class="categoryleft" required="required">
+								<option style="display: none;">카테고리</option>
+								<option value="3">성향</option>
+						</select> <select name="c_sid" id="ICR_smallCategory3" class="categoryright">
+								<option style="display: none;">소분류</option>
+						</select>
+						</td> -->
+						<td>
+						<label>
+						<input type="checkbox" name="c_lid1" onchange="categoryChange1(this)" class="categoryleft" value="1" required="required">
+						지역</label>
+						<select name="c_sid1" id="ICR_smallCategory1" class="categoryright">
+								<option style="display: none;">소분류</option>
+						</select>
+						<label>
+						<input type="checkbox" name="c_lid2" onchange="categoryChange2(this)" class="categoryleft" value="2" required="required">
+								인원</label>
+								<select name="c_sid2" id="ICR_smallCategory2" class="categoryright">
+								<option style="display: none;">소분류</option>
+						</select>
+						<label>
+						<input type="checkbox" name="c_lid3" onchange="categoryChange3(this)" class="categoryleft" value="3" required="required">
+						성향</label>
+						<select name="c_sid3" id="ICR_smallCategory3" class="categoryright">
+								<option style="display: none;">소분류</option>
+						</select>
+						</td>
 					</tr>
 					<tr>
 						<td colspan="2">
 							<!-- 지도 시작 -->
-							<div id="map2" style="width: 1000px; height: 500px; z-index: 0;"></div>
-							<p>
-								<em>미팅 포인트를 지정하고 싶으시면 지정 버튼을 누르고 등록해주세요.</em>
-							</p>
-							<p>
-								<em>지도를 클릭해서 마커를 표시하신후 '위치확정' 버튼을 눌러주세요.</em>
-							</p>
 							<div id="clickLatlng"></div>
 							<div class="mbuttonwrap">
 								<input type="button" id="meetbtn" class="mbutton"
@@ -219,17 +351,25 @@ input[type='radio']:checked:after {
 									name="mapval3"> <input type="hidden" id="mapval3"
 									name="mapval4"> <input type="hidden" id="mapval4"
 									name="mapval5">
-							</div> <!-- 지도 끝 -->
+							</div> 
+							<p style="margin-top: 10px; text-align">
+								<em>미팅 포인트를 지정하고 싶으시면 지정 버튼을 누르고 등록해주세요.</em>
+							</p>
+							<p style="margin-top: 10px;">
+								<em>지도를 클릭해서 마커를 표시하신후 '위치확정' 버튼을 눌러주세요.</em>
+							</p>
+							<div id="map2" style="width: 897px; height: 500px; z-index: 0; margin-top: 20px;"></div>
+							<!-- 지도 끝 -->
 						</td>
 					</tr>
 					<tr>
-						<td colspan="4" style="padding-top: 30px;"><textarea
+						<td colspan="4" style="padding-top: 20px;"><textarea
 								id="c_description" name="c_description"></textarea></td>
 					</tr>
 					<tr style="height: 50px">
-						<td colspan="4" align="end"><input type="button"
-							id="submitModifyCompanionBtn" value="등록하기"> <a
-							href="companion_list.do" id="kdy-serach-list">목록으로</a></td>
+						<td colspan="4" align="end">
+						<input type="button" id="submitModifyCompanionBtn" value="등록하기">
+						<a href="companion_list.do" id="kdy-serach-list">목록으로</a></td>
 					</tr>
 				</table>
 			</form>
@@ -462,19 +602,47 @@ input[type='radio']:checked:after {
 		})
 	</script>
 	<script>
-		//카테고리 선택 스크립트
-		function categoryChange(e) {
+		//카테고리 선택 스크립트 value1
+		function categoryChange1(e) {
 			var location = [ "강원도", "경기도", "경상남도", "경상북도", "전라남도", "전라북도",
 					"충청남도", "충청북도" ];
-			var people = [ "~4명", "5~8명", "9명~" ];
-			var interest = [ "호캉스", "청춘", "자연", "유적지", "액티비티" ];
-			var target = document.getElementById("ICR_smallCategory");
+			var target = document.getElementById("ICR_smallCategory1");
 
 			if (e.value == "1")
 				var d = location;
-			else if (e.value == "2")
+			target.options.length = 0;
+
+			//소분류 value값
+			for (i = 0; i < d.length; i++) {
+				var opt = document.createElement("option");
+				opt.value = i + 1;
+				opt.innerHTML = d[i];
+				target.appendChild(opt);
+			}
+		}
+		//value2
+		function categoryChange2(e) {
+			var people = [ "~4명", "5~8명", "9명~" ];
+			var target = document.getElementById("ICR_smallCategory2");
+
+			if (e.value == "2")
 				var d = people;
-			else if (e.value == "3")
+			target.options.length = 0;
+
+			//소분류 value값
+			for (i = 0; i < d.length; i++) {
+				var opt = document.createElement("option");
+				opt.value = i + 1;
+				opt.innerHTML = d[i];
+				target.appendChild(opt);
+			}
+		}
+		//value3
+		function categoryChange3(e) {
+			var interest = [ "호캉스", "청춘", "자연", "유적지", "액티비티" ];
+			var target = document.getElementById("ICR_smallCategory3");
+
+			if (e.value == "3")
 				var d = interest;
 			target.options.length = 0;
 
@@ -485,6 +653,15 @@ input[type='radio']:checked:after {
 				opt.innerHTML = d[i];
 				target.appendChild(opt);
 			}
+		}
+
+	</script>
+	<script>
+		<!--자바스크립트를 불러오는 속성입력-->
+		function doNumber(){
+		          if(event.keyCode<48 || event.keyCode>57){
+		             event.returnValue=false;
+		          }
 		}
 	</script>
 </body>

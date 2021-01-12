@@ -134,4 +134,20 @@ bDao.deleteCommentB(b_id);
 	public List<Board>selectBoardAll(int startPage, int limit){
 		return bDao.selectBoardAll(startPage,limit);
 	}
+	@Override
+	public int selectRecommentCount(Board vo) {
+		
+		return bDao.selectRecommentCount(vo);
+	}
+	@Override
+	public void deleteCommentC(Board vo) {
+
+		bDao.deleteCommentC(vo);
+	}
+	@Override
+	public String selectCommentContent(Board vo) {
+		
+		return bDao.selectCommentContent(vo);
+		
+	}
 }

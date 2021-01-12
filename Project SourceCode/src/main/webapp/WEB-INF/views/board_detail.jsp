@@ -405,9 +405,25 @@ section {
 #gjw-like-count {
 	font-family: 'MaplestoryOTFBold';
 }
+#ICR_PFmodal {
+    width: 400px;
+    height: 325px;
+}
+@media (min-width: 768px){
+	.modal-sm {
+	   	 width: 375px;
+	}
+}
+						
+						
 </style>
 <script
 	src="${pageContext.request.contextPath }/resources/js/jquery-3.5.1.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<script src="//code.jquery.com/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<div class="jck_wrap">
@@ -429,7 +445,12 @@ section {
 					</c:if>
 						</div>
 						<div id="gjw-board-title">${blist.b_title }</div>
-						<div id="gjw-board-writer">${blist.m_id }</div>
+						<div id="gjw-board-writer" data-toggle="modal" data-target=".bs-example-modal-sm">${blist.m_id }
+						</div>	
+						
+						
+						
+						
 						<div id="gjw-board-date">
 							<fmt:formatDate var="date" value="${blist.b_timestamp}"
 								pattern="yyyy-MM-dd HH:mm" />
@@ -584,7 +605,7 @@ section {
 														class="gjw-recommentupdate-close" value="취소">
 												</form>
 												<a
-													href="deleteRecomment.do?b_id=${cvo.b_id }&rb_id=${blist.b_id}"
+													href="deleteRecomment.do?b_id=${cvo.b_id }&rb_id=${blist.b_id}&b_re_step=${cvo.b_re_step}"
 													class="">X</a>
 													</c:when>
 													</c:choose>
@@ -637,7 +658,244 @@ section {
 			</div>
 		</div>
 		<jsp:include page="footer.jsp" />
+		
+		
+		
+		
+		
+		
+		
+		<!-- 프로필 모달 -->
+		<form>
+		<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-sm">
+		    <div id="ICR_PFmodal" class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title">${blist.m_id }님의 프로필</h4>
+					</div>
+					<div class="modal-body">
+			
+			
+			<div id="ICR_info" style="text-align: center;">
+				<table id="ICR_info_table" style="margin: 0 auto;">
+					<tr>
+						<td rowspan="7" style="text-align: center;line-height: normal;">
+							<c:if test="${not empty member.m_image}">
+							<img src="${pageContext.request.contextPath}/resources/uploadFiles/${member.m_image}" style="width: 150px; height: 150px; display: inline;">
+							</c:if>
+							<c:if test="${empty member.m_image}">
+							<img src="${pageContext.request.contextPath}/resources/images/none_img.JPG" style="width: 150px; height: 150px; display: inline;">
+							</c:if>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							&nbsp;<font color="#0AC5A8" style="font-weight: bold;">회원 아이디 : </font>&nbsp;&nbsp;${member.m_id}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							&nbsp;<font color="#0AC5A8" style="font-weight: bold;">회원 이름 : </font>&nbsp;&nbsp;${member.m_name}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							&nbsp;<font color="#0AC5A8" style="font-weight: bold;">추천수 : </font>&nbsp;&nbsp;${member.m_like}
+						</td>
+					</tr>
+					<tr>
+						<td id="ICR_ReportCnt">
+							&nbsp;<font color="#0AC5A8" style="font-weight: bold;">신고당한 수 : </font>&nbsp;&nbsp;${member.m_reportcount}
+						</td>
+					</tr>
+					<%-- <tr>
+						<td>
+							&nbsp;<font color="#0AC5A8" style="font-weight: bold;">이메일 : </font>&nbsp;&nbsp;${member.m_email}
+						</td>
+					</tr> --%>
+					<tr>
+						<td>&nbsp;<font color="#0AC5A8" style="font-weight: bold;">소개글 : </font>&nbsp;&nbsp;${member.m_intro}</td>
+					</tr>
+				</table><br>
+				<c:if test="${sessionScope.userID ne null}">
+					<div style="text-align: center;">
+						<div>
+						<input type="text" id="ICR_reasonBox" name="r_reason" style="display: none;margin: 0 auto;" placeholder="신고 사유를 입력해주세요.">
+						<br>
+						<button id="ICR_likeBtn" type="button" class="btn btn-primary">추천하기</button>
+						<button id="ICR_ReportBtn1" type="button" class="btn btn-primary">신고하기</button>
+						<button id="ICR_ReportBtn2" type="button" class="btn btn-primary" style="display: none;">신고하기</button>
+						</div>
+					</div>
+				</c:if>
+				<c:if test="${sessionScope.userID eq null}">
+					<div style="text-align: center;">
+						<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+					</div>
+				</c:if>
+				</div>
+					</div>
+				</div>
+		  </div>
+		</div>
+		</form>
+		
+		
+		
+
+		
 	</div>
+	
+	
+<!-- 프로필 스트립트 -->
+<script>
+//추천
+$(document).on("click", "#ICR_likeBtn", function(event){
+	$.ajax({
+		url : "MemberLikeCh.do?writer=${blist.m_id}",
+		dataType : "json",
+		async: false,
+		type : "get",
+		success : function(data){
+	         if(data.result == 1){
+	        	 if(confirm("이미 추천한 회원입니다. 추천을 취소할까요?")==true){
+	        		 ICRLikeDelete();
+	        	 }else{
+	        		 return;
+	        	 }
+	         }else {
+				if(confirm("${blist.m_id}님을 추천하시겠습니까?.")==true){
+					ICRLikeInsert();
+				}else{
+					return;
+				}
+	         }
+		},
+		error : function(data){
+			alert("회원 추천에 실패했습니다. 관리자에게 문의하세요!");
+		}
+	});
+});
+function ICRLikeInsert(){
+	$.ajax({
+		url : "MemberLikeInsert.do?writer=${blist.m_id}",
+		dataType : "json",
+		async: false,
+		type : "get",
+		success : function(data){
+			 if(data.result == 1){
+				 alert("추천되었습니다.");
+				 window.location="board_detail.do?b_id=${blist.b_id}&m_id=${blist.m_id}";
+				 return;
+			 }else{
+				alert("회원 추천에 실패했습니다. 관리자에게 문의하세요!");
+				window.location="board_detail.do?b_id=${blist.b_id}&m_id=${blist.m_id}";
+				return;
+			 }
+		},
+		error : function(data){
+			alert("회원 추천에 실패했습니다. 관리자에게 문의하세요!");
+		}
+	});
+}
+function ICRLikeDelete(){
+	$.ajax({
+		url : "MemberLikeUpdate.do?writer=${blist.m_id}",
+		dataType : "json",
+		async: false,
+		type : "get",
+		success : function(data){
+			 if(data.result == 1){
+				 alert("추천이 취소되었습니다.");
+				 window.location="board_detail.do?b_id=${blist.b_id}&m_id=${blist.m_id}";
+				 return;
+			 }else{
+				alert("추천 취소에 실패했습니다. 관리자에게 문의하세요!ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ");
+				window.location="board_detail.do?b_id=${blist.b_id}&m_id=${blist.m_id}";
+				return;
+			 }
+		},
+		error : function(data){
+			alert("추천 취소에 실패했습니다. 관리자에게 문의하세요!");
+		}
+	});
+}
+
+
+$('#gjw-board-writer').on('click',function(){
+	$('#ICR_reasonBox').val("");
+	$('#ICR_reasonBox').css('display','none');
+	$('#ICR_ReportBtn1').css('display','inline-block');
+	$('#ICR_ReportBtn2').css('display','none');
+})
+//신고
+$(document).on("click", "#ICR_ReportBtn1", function(event){
+	$.ajax({
+		url : "MemberReportCh.do?writer=${blist.m_id}",
+		dataType : "json",
+		async: false,
+		type : "get",
+		success : function(data){
+	         if(data.result == 1){
+				alert("이미 신고한 회원입니다.");
+	         }else {
+				$('#ICR_reasonBox').css('display','block');
+				$('#ICR_ReportBtn1').css('display','none');
+				$('#ICR_ReportBtn2').css('display','inline-block');
+				$('#ICR_reasonBox').focus();
+	         }
+		},
+		error : function(data){
+			alert("회원 신고에 실패했습니다. 관리자에게 문의하세요!");
+		}
+	});
+});
+
+
+$(document).on("click", "#ICR_ReportBtn2", function(event){
+	var r_reason = $('#ICR_reasonBox').val();
+	if(r_reason!=null && r_reason!=""){
+		$.ajax({
+			url : "MemberReport2.do?writer=${blist.m_id}&r_reason="+r_reason,
+			dataType : "json",
+			async: false,
+			type : "get",
+			success : function(data){
+				if(data.result==1){
+					alert("접수되었습니다. 신고해주셔서 감사합니다.");
+					$('#ICR_reasonBox').val("");
+					$('#ICR_reasonBox').css('display','none');
+					$('#ICR_ReportBtn1').css('display','inline-block');
+					$('#ICR_ReportBtn2').css('display','none');
+					window.location="board_detail.do?b_id=${blist.b_id}&m_id=${blist.m_id}";
+				}else{
+					alert("회원 신고에 실패했습니다. 관리자에게 문의하세요!");
+					$('#ICR_reasonBox').val("");
+					$('#ICR_reasonBox').css('display','none');
+					$('#ICR_ReportBtn1').css('display','inline-block');
+					$('#ICR_ReportBtn2').css('display','none');
+					window.location="board_detail.do?b_id=${blist.b_id}&m_id=${blist.m_id}";
+				}
+			},
+			error : function(data){
+				alert("회원 신고에 실패했습니다. 관리자에게 문의하세요!");
+			}
+		});
+	}else{
+		alert("신고 사유를 입력해주세요.");
+		$('#ICR_reasonBox').focus();
+		return;
+	}
+	
+});
+
+</script>
+	
+	
+	
 	<script>
 		function xSize(e) {
 			var t;

@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ import com.kh.tworavel.model.domain.Clike;
 import com.kh.tworavel.model.domain.CompanionInfo;
 import com.kh.tworavel.model.domain.Favor;
 import com.kh.tworavel.model.domain.Member;
+import com.kh.tworavel.model.domain.Mlike;
+import com.kh.tworavel.model.domain.Report;
 import com.kh.tworavel.model.service.MypageService;
 
 @Controller
@@ -35,9 +38,13 @@ public class MypageController {
 	@Autowired
 	private Blike blike;
 	@Autowired
+	private Mlike mlike;
+	@Autowired
 	private Clike clike;
 	@Autowired
 	private CompanionInfo companioninfo;
+	@Autowired
+	private Report report;
 
 	public static final int LIMIT = 10;
 
@@ -343,10 +350,12 @@ public class MypageController {
 	// 회원탈퇴
 	@ResponseBody
 	@RequestMapping(value = "/MemberOut.do", method = RequestMethod.GET)
-	public void MemberOut(@RequestParam(name = "m_id") String m_id) {
+	public void MemberOut(HttpServletRequest request, @RequestParam(name = "m_id") String m_id) {
 		try {
 			int result = 0;
 			result = mypService.outMember(m_id);
+			HttpSession session = request.getSession();
+			session.removeAttribute("userID");
 			if (result > 0) {
 				System.out.println("회원탈퇴 완료!");
 			}
@@ -389,6 +398,98 @@ public class MypageController {
 		}
 		return job.toJSONString();
 	}
+
+	// 추천
+	@ResponseBody
+	@RequestMapping(value = "/MemberLikeCh.do", method = RequestMethod.GET)
+	public String MemberLikeCh(HttpServletRequest request, @RequestParam Map<String, String> param) {
+		String userID = (String) request.getSession().getAttribute("userID");
+		String writer = param.get("writer");
+		JSONObject job = new JSONObject();
+		mlike.setM_id(writer);
+		mlike.setM_id2(userID);
+		try {
+			int result = mypService.selectMlikeStatus(mlike);
+			job.put("result", result);
+		} catch (Exception e) {
+			job.put("result", -1);
+		} finally {
+		}
+		return job.toJSONString();
+	}
+	@ResponseBody
+	@RequestMapping(value = "/MemberLikeInsert.do", method = RequestMethod.GET)
+	public String MemberLikeInsert(HttpServletRequest request, @RequestParam Map<String, String> param) {
+		String userID = (String) request.getSession().getAttribute("userID");
+		String writer = param.get("writer");
+		JSONObject job = new JSONObject();
+		mlike.setM_id(writer);
+		mlike.setM_id2(userID);
+		try {
+			int result = mypService.MemberLikeInsert(mlike);
+			job.put("result", result);
+		} catch (Exception e) {
+			job.put("result", -1);
+		} finally {
+		}
+		return job.toJSONString();
+	}
+	@ResponseBody
+	@RequestMapping(value = "/MemberLikeUpdate.do", method = RequestMethod.GET)
+	public String MemberLikeUpdate(HttpServletRequest request, @RequestParam Map<String, String> param) {
+		String userID = (String) request.getSession().getAttribute("userID");
+		String writer = param.get("writer");
+		JSONObject job = new JSONObject();
+		mlike.setM_id(writer);
+		mlike.setM_id2(userID);
+		try {
+			int result = mypService.MemberLikeUpdate(mlike);
+			job.put("result", result);
+		} catch (Exception e) {
+			job.put("result", -1);
+		} finally {
+		}
+		return job.toJSONString();
+	}
+	// 신고
+	@ResponseBody
+	@RequestMapping(value = "/MemberReportCh.do", method = RequestMethod.GET)
+	public String MemberReportCh(HttpServletRequest request, @RequestParam Map<String, String> param) {
+		String userID = (String) request.getSession().getAttribute("userID");
+		String writer = param.get("writer");
+		JSONObject job = new JSONObject();
+		report.setM_id(userID);
+		report.setM_id2(writer);
+		try {
+			int result = mypService.selectReportStatus(report);
+			job.put("result", result);
+		} catch (Exception e) {
+			job.put("result", -1);
+		} finally {
+		}
+		return job.toJSONString();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/MemberReport2.do", method = RequestMethod.GET)
+	public String MemberReport(HttpServletRequest request, @RequestParam Map<String, String> param) {
+		String userID = (String) request.getSession().getAttribute("userID");
+		String writer = param.get("writer");
+		String r_reason = param.get("r_reason");
+		JSONObject job = new JSONObject();
+		report.setM_id(userID);
+		report.setM_id2(writer);
+		report.setR_reason(r_reason);
+		try {//신고할거임
+			int result = mypService.insertReport(report);
+			job.put("result", result);
+		} catch (Exception e) {
+			job.put("result", -1);
+		} finally {
+		}
+		return job.toJSONString();
+	}
+	 
 
 	// 키워드 삭제 페이지
 	@RequestMapping(value = "/FavorDelete.do", method = RequestMethod.GET)

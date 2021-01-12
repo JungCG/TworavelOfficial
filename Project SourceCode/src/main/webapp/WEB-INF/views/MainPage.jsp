@@ -1,8 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jck_main.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/icr_weather.css">
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/jck_main.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/icr_weather.css">
+	<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/GJW-weather.css">
 <!DOCTYPE html>
 <html>
 <head>
@@ -79,25 +83,147 @@ body{
 		
 		<!-- Small button group -->
 		<div class="btn-group">
-		  <button id="OtherWeather" class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-		    다른 지역 날씨 보기&nbsp;<span class="caret"></span>
-		  </button>
-		  <ul class="dropdown-menu" role="menu">
-		    <li><button class="Village" value="1">서울</button></li>
-		    <li><button class="Village" value="2">경기도</button></li>
-			<li><button class="Village" value="3">강원도</button></li>
-			<li><button class="Village" value="4">충청북도</button></li>
-			<li><button class="Village" value="5">충청남도</button></li>
-			<li><button class="Village" value="6">전라북도</button></li>
-			<li><button class="Village" value="7">전라남도</button></li>
-			<li><button class="Village" value="8">경상북도</button></li>
-			<li><button class="Village" value="9">경상남도</button></li>
-			<li><button class="Village" value="10">제주도</button></li>
-		  </ul>
+			<button id="OtherWeather"
+				class="btn btn-default btn-sm dropdown-toggle" type="button"
+				data-toggle="dropdown" aria-expanded="false">
+				다른 지역 날씨 보기&nbsp;<span class="caret"></span>
+			</button>
+
+			<ul class="dropdown-menu" role="menu">
+				<li><button class="Village" value="1">서울</button></li>
+				<li><button class="Village" value="2">경기도</button></li>
+				<li><button class="Village" value="3">강원도</button></li>
+				<li><button class="Village" value="4">충청북도</button></li>
+				<li><button class="Village" value="5">충청남도</button></li>
+				<li><button class="Village" value="6">전라북도</button></li>
+				<li><button class="Village" value="7">전라남도</button></li>
+				<li><button class="Village" value="8">경상북도</button></li>
+				<li><button class="Village" value="9">경상남도</button></li>
+				<li><button class="Village" value="10">제주도</button></li>
+			</ul>
+				<button id="GJW-OtherWeather">
+				일기예보&nbsp;<span class="caret"></span>
+			</button>
+		</div>
+	<!-- 	<div class="btn-group"style="
+    left: 1px;
+">
+			<button id="GJW-OtherWeather">
+				일기예보 보기&nbsp;<span class="caret"></span>
+			</button>
+		</div> -->
+
+	</div>
+	<div id="GJW-weatherbox">
+		<div id="GJW-dropdown">
+			<ul class="dropdown-menu2" role="menu">
+				<li><button type="button" value="11B10101" class="weatherbtn">서울</button>
+				<li><button type="button" value="11B20201" class="weatherbtn">경기도(인천)</button>
+				<li><button type="button" value="11D20501" class="weatherbtn">강원도(강릉)</button>
+				<li><button type="button" value="11C20401" class="weatherbtn">충청남도(대전)</button>
+				<li><button type="button" value="11C10301" class="weatherbtn">충청북도(청주)</button>
+				<li><button type="button" value="11F20501" class="weatherbtn">전라남도(광주)</button>
+				<li><button type="button" value="11F10201" class="weatherbtn">전라북도(전주)</button>
+				<li><button type="button" value="11H20201" class="weatherbtn">경상남도(부산)</button>
+				<li><button type="button" value="11H10201" class="weatherbtn">경상북도(포항)</button>
+				<li><button type="button" value="11G00201" class="weatherbtn">제주도</button>
+			</ul>
+		</div>
+
+
+
+		<div id="day1" style="display: nonedisplay: flex;background: #f5f5dc85;/* margin-top: 20; */padding-top: 65px;padding-bottom: 65px;margin-top: 0px;">
+
+			<div class="weatherbox" style="text-align: center;">
+				<div id="date36" class="date">날짜</div>
+				<div class="weathern">
+					<div id="min16" class="min">최저온도</div>
+					/
+					<div id="max16" class="max">최고온도</div>
+
+				</div>
+				<div id="max16" class="max">날씨</div>
+			</div>
+
+			<div class="weatherbox">
+				<div id="date3" class="date"></div>
+				<div class="weathern">
+					<div id="min1" class="min"></div>
+					/
+					<div id="max1" class="max"></div>
+				</div>
+				<div id="we1" class=we></div>
+			</div>
+			<div class="weatherbox">
+				<div id="date4" class="date"></div>
+				<div class="weathern">
+					<div id="min2" class="min"></div>
+					/
+					<div id="max2" class="max"></div>
+				</div>
+				<div id="we2" class=we></div>
+			</div>
+			<div class="weatherbox">
+				<div id="date5" class="date"></div>
+				<div class="weathern">
+					<div id="min3" class="min"></div>
+					/
+					<div id="max3" class="max"></div>
+				</div>
+				<div id="we3" class=we></div>
+			</div>
+			<div class="weatherbox">
+				<div id="date6" class="date"></div>
+				<div class="weathern">
+					<div id="min4" class="min"></div>
+					/
+					<div id="max4" class="max"></div>
+				</div>
+				<div id="we4" class=we></div>
+			</div>
+			<div class="weatherbox">
+				<div id="date7" class="date"></div>
+				<div class="weathern">
+					<div id="min5" class="min"></div>
+					/
+					<div id="max5" class="max"></div>
+				</div>
+				<div id="we5" class=we></div>
+			</div>
+			<div class="weatherbox">
+				<div id="date8" class="date"></div>
+				<div class="weathern">
+					<div id="min6" class="min"></div>
+					/
+					<div id="max6" class="max"></div>
+				</div>
+				<div id="we6" class=we></div>
+			</div>
+			<div class="weatherbox">
+				<div id="date9" class="date"></div>
+				<div class="weathern">
+					<div id="min7" class="min"></div>
+					/
+					<div id="max7" class="max"></div>
+				</div>
+				<div id="we7" class=we></div>
+			</div>
+			<div class="weatherbox">
+				<div id="date10" class="date"></div>
+				<div class="weathern">
+					<div id="min8" class="min"></div>
+					/
+					<div id="max8" class="max"></div>
+				</div>
+				<div id="we8" class=we></div>
+			</div>
 		</div>
 	</div>
-	<div id="coronaMap" style="position: fixed; width: 100px; height: 170px; right: 50px; bottom: 180px; outline:none; z-index:1;">
-		<div style="color : red; font-weight:bolder;position: relative; width: 100%; height: 120px; background-color: rgba(255,255,255,0);outline:none;">
+
+	<div id="coronaMap"
+		style="position: fixed; width: 100px; height: 170px; right: 50px; bottom: 180px; outline: none; z-index: 1;">
+		<div
+			style="color: red; font-weight: bolder; position: relative; width: 100%; height: 120px; background-color: rgba(255, 255, 255, 0); outline: none;">
 			<img width="100%" height="120px;"
 				src="${pageContext.request.contextPath}/resources/images/coronaIcon2.png">
 		</div>
@@ -218,6 +344,83 @@ $(function(){
 		}
 	})
 })
+		$(function() {
+
+			$(".weatherbtn").click(function() {
+				$("#day1").css("display", "flex");
+				var areavalue = $(this).val();
+				var values = [];
+				$.post("weatherforecast.do", {
+					area : areavalue
+				}, function(retVal) {
+					values = retVal.list;
+					$.each(values, function(index, value) {
+
+						$("#min1").text(value.taMin3);
+						$("#max1").text(+value.taMax3);
+						$("#min2").text(value.taMin4);
+						$("#max2").text(+value.taMax4);
+						$("#min3").text(value.taMin5);
+						$("#max3").text(+value.taMax5);
+						$("#min4").text(value.taMin6);
+						$("#max4").text(value.taMax6);
+						$("#min5").text(value.taMin7);
+						$("#max5").text(+value.taMax7);
+						$("#min6").text(value.taMin8);
+						$("#max6").text(+value.taMax8);
+						$("#min7").text(value.taMin9);
+						$("#max7").text(+value.taMax9);
+						$("#min8").text(value.taMin10);
+						$("#max8").text(+value.taMax10);
+						$("#date3").text(value.date3);
+						$("#date4").text(value.date4);
+						$("#date5").text(value.date5);
+						$("#date6").text(value.date6);
+						$("#date7").text(value.date7);
+						$("#date8").text(value.date8);
+						$("#date9").text(value.date9);
+						$("#date10").text(value.date10);
+						$("#date11").text(value.date11);
+						$("#date12").text(value.date12);
+						$("#we1").text(value.wf3);
+						$("#we2").text(value.wf4);
+						$("#we3").text(value.wf5);
+						$("#we4").text(value.wf6);
+						$("#we5").text(value.wf7);
+						$("#we6").text(value.wf8);
+						$("#we7").text(value.wf9);
+						$("#we8").text(value.wf10);
+						$("#we1").text(value.wf11);
+
+					});
+
+				});
+
+			})
+		})
+		
+		
+		$("#GJW-OtherWeather").click(function(){
+			
+			$(".dropdown-menu2").css("display","block");
+		})
+		$(document).mouseup(function (e) {
+
+// 팝업 아이디
+
+var container = $(".dropdown-menu2");
+
+if (!container.is(e.target) && container.has(e.target).length === 0){
+container.css("display","none");
+
+}	
+var container = $("#day1");
+
+if (!container.is(e.target) && container.has(e.target).length === 0){
+container.css("display","none");
+
+}	
+});
  </script>
 </body>
 </html>

@@ -89,11 +89,29 @@
 	select * from member where m_id = #{m_id}
 	</select>
 	
+	<update id="My_minusReport" parameterType="string" flushCache="true" statementType="PREPARED">
+	update member set M_REPORTCOUNT = M_REPORTCOUNT-1 where m_id = #{m_id}
+	</update>
+	<update id="My_minusLike" parameterType="string" flushCache="true" statementType="PREPARED">
+	update member set m_like = m_like-1 where m_id = #{m_id}
+	</update>
+	
+	<update id="My_plusReport" parameterType="string" flushCache="true" statementType="PREPARED">
+	update member set M_REPORTCOUNT = M_REPORTCOUNT+1 where m_id = #{m_id}
+	</update>
+	<update id="My_plusLike" parameterType="string" flushCache="true" statementType="PREPARED">
+	update member set m_like = m_like+1 where m_id = #{m_id}
+	</update>
+	
 	<!-- 프로필 수정 -->
 	<update id="My_updateProfile" parameterType="Member" flushCache="true" statementType="PREPARED">
 	update member set m_nick = #{m_nick}, m_birth = #{m_birth},
 	 m_gender = #{m_gender}, m_address = #{m_address}, m_address_detail = #{m_address_detail}, m_intro = #{m_intro},
 	 m_image = #{m_image}, m_phone = #{m_phone} where m_id = #{m_id}
+	</update>
+	
+	<update id="My_updateLike" parameterType="string" flushCache="true" statementType="PREPARED">
+		UPDATE MEMBER SET m_reportcount = m_reportcount+1 WHERE M_ID = #{m_id}
 	</update>
 	
 	<select id = "getloginDate" parameterType="string" resultType="string">
@@ -115,6 +133,8 @@
 	<update id="minusLoginPoint" parameterType="string" flushCache="true" statementType="PREPARED">
 		UPDATE MEMBER SET M_POINT = M_POINT-5 WHERE M_ID = #{m_id}
 	</update>
+	
+	
 
 
 	<!-- 금지운 -->

@@ -94,7 +94,6 @@ public class VillageWeatherParsing {
 					weatherArr[2] = fcst_Value;
 				}else if(category.equals("VEC")) {	// VEC : 풍향 (m/s)
 					weatherArr[3] = fcst_Value;
-					System.out.println("풍향 : " + fcst_Value);
 				}
 				//처음 서울 지역 보여줄 때
 				weatherArr[4] = "서울";
@@ -156,15 +155,7 @@ public class VillageWeatherParsing {
 			hour2 = "0" + hour2;
 		}
 		
-		
-		
-			
-		
 		calArr[1] = hour2 + "00";
-		
-		System.out.println("날짜 : " + calArr[0]);
-		System.out.println("시간 : " + calArr[1]);
-		
 		return calArr;
 	}
 	

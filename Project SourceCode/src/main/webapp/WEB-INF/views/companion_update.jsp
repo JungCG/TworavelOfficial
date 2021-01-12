@@ -12,6 +12,62 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+@import url(//fonts.googleapis.com/earlyaccess/hanna.css);
+
+@font-face {
+	font-family: 'MaplestoryOTFBold';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'MaplestoryOTFLight';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFLight.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'NEXONFootballGothicLA1';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXONFootballGothicLA1.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Jal_Onuel';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/Jal_Onuel.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'BMHANNAAir';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/BMHANNAAir.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'BBTreeGB';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/BBTreeGB.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
 * {
 	padding: 0;
 	margin: 0;
@@ -26,6 +82,8 @@ html {
 }
 
 body {
+	font-family: 'Hanna', fantasy;
+	color: #282828;
 	height: 100%;
 }
 
@@ -54,23 +112,60 @@ section {
 	width: 890px;
 }
 
-#kdy-title-input {
+.mbuttonwrap {
+	justify-content: center;
+	display: inline-flex;
+}
+
+.mbutton {
+	border-bottom: 2px solid rgb(28	28 28/ 39%);
+	font-size: 16px;
+	background-color: white;
+	border-radius: 15px;
+ 	padding: 5px;
+	font-family: 'Hanna', fantasy;
+	margin: 20px;
+	width: 180px;
+}
+
+#kdy-name-input {
 	height: 30px;
 	width: 50%;
-	border: 3px solid rgb(78 102 255/ 39%);
+	border-bottom: 2px solid rgb(48	28 28/ 39%);
 	outline: none;
 	padding-left: 5px;
 }
 
-#kdy-type-select {
-	border: 3px solid rgb(78 102 255/ 39%);
+#kdy-value-input {
+	height: 30px;
+	width: 30%;
+	border-bottom: 2px solid rgb(48	28 28/ 39%);
 	outline: none;
-	color: dodgerblue;
+	padding-left: 5px;
 }
 
-#kdy-password-input {
-	border: 3px solid rgb(78 102 255/ 39%);
+#kdy-startd-input {
+	height: 30px;
+	width: 30%;
+	border-bottom: 2px solid rgb(48	28 28/ 39%);
 	outline: none;
+	padding-left: 5px;
+}
+
+#kdy-endd-input {
+	height: 30px;
+	width: 30%;
+	border-bottom: 2px solid rgb(48	28 28/ 39%);
+	outline: none;
+	padding-left: 5px;
+}
+
+#kdy-many-input {
+	height: 30px;
+	width: 30%;
+	border-bottom: 2px solid rgb(48	28 28/ 39%);
+	outline: none;
+	padding-left: 5px;
 }
 
 input[type='radio']:after {
@@ -106,19 +201,21 @@ input[type='radio']:checked:after {
 }
 
 #submitModifyCompanionBtn {
-	color: #0AC5A8;
-	border: 3px solid rgb(78 102 255/ 39%);
+	font-family: 'Hanna', fantasy;
+	border-bottom: 3px solid rgb(78	28 28/ 39%);
 	font-size: 16px;
 	background-color: white;
-	border-radius: 5px;
+	border-radius: 15px;
 	padding: 5px;
 }
 
 #kdy-serach-list {
-	color: #0AC5A8;
-	border: 3px solid rgb(78 102 255/ 39%);
-	border-radius: 5px;
-	padding: 5px;
+	border-bottom: 3px solid rgb(78	28 28/ 39%);
+	font-size: 16px;
+	background-color: white;
+	border-radius: 15px;
+	margin-right: 100px;
+ 	padding: 5px;
 }
 </style>
 <script type="text/javascript"
@@ -138,36 +235,37 @@ input[type='radio']:checked:after {
 				<input type="hidden" value="${clist.c_id }" name="c_id">
 				<table align="center" style="width: 100%;">
 					<tr style="height: 80px">
-						<td style="color: #0AC5A8;">글제목</td>
-						<td style="width: 85%;"><input type="text" name="c_name"
-							id="kdy-title-input" required="required" value="${clist.c_name }"></td>
-					<tr style="height: 30px">
-						<td style="color: #0AC5A8;">작성자</td>
+						<td>작성자</td>
 						<td><input type="text" name="m_id" value="${userID }"
 							readonly="readonly"></td>
 					</tr>
 					<tr>
-						<td style="color: #0AC5A8;">경비</td>
+						<td>글제목</td>
+						<td style="width: 85%;"><input type="text" name="c_name"
+							id="kdy-name-input" required="required" value="${clist.c_name }"></td>
+					<tr style="height: 30px">
+					<tr>
+						<td>경비</td>
 						<td style="width: 85%;"><input type="text" name="c_value"
-							id="kdy-companion-value" required="required"
+							id="kdy-value-input" required="required"
 							value="${clist.c_value}"></td>
 					</tr>
 					<tr>
-						<td style="color: #0AC5A8;">인원</td>
+						<td>인원</td>
 						<td style="width: 85%;"><input type="text" name="c_many"
-							id="kdy-companion-many" required="required"
+							id="kdy-many-input" required="required"
 							value="${clist.c_many}"></td>
 					</tr>
 
 					<tr style="height: 30px">
-						<td style="color: #0AC5A8;">출발 날짜</td>
+						<td>출발 날짜</td>
 						<td style="width: 85%;" colspan="3"><fmt:parseDate
 								var="Sdate" value="${clist.c_startd}" pattern="yyyy-MM-dd" /> <input
 							type="date" name="c_startd" id="kdy-startd-input"
 							value=<fmt:formatDate value="${Sdate}" pattern="yyyy-MM-dd" />></td>
 					</tr>
 					<tr style="height: 30px">
-						<td style="color: #0AC5A8;">도착 날짜</td>
+						<td>도착 날짜</td>
 						<td style="width: 85%;" colspan="3"><fmt:parseDate
 								var="Edate" value="${clist.c_endd}"
 								pattern="yyyy-MM-dd HH:mm:ss" /> <input type="date"
@@ -175,24 +273,53 @@ input[type='radio']:checked:after {
 							value=<fmt:formatDate value="${Edate}" pattern="yyyy-MM-dd" />
 							required="required"></td>
 					</tr>
+					<tr>
+						<td>카테고리 분류</td>
+						<td>
+						<select name="c_lid" onchange="categoryChange1(this)" class="categoryleft" required="required">
+								<option style="display: none;">카테고리</option>
+								<option value="1">지역</option>
+						</select> <select name="c_sid" id="ICR_smallCategory1" class="categoryright">
+								<option style="display: none;">소분류</option>
+						</select>
+						<select name="c_lid" onchange="categoryChange2(this)" class="categoryleft" required="required">
+								<option style="display: none;">카테고리</option>
+								<option value="2">인원</option>
+						</select> <select name="c_sid" id="ICR_smallCategory2" class="categoryright">
+								<option style="display: none;">소분류</option>
+						</select>
+						<select name="c_lid" onchange="categoryChange3(this)" class="categoryleft" required="required">
+								<option style="display: none;">카테고리</option>
+								<option value="3">성향</option>
+						</select> <select name="c_sid" id="ICR_smallCategory3" class="categoryright">
+								<option style="display: none;">소분류</option>
+						</select>
+						</td>
+					</tr>
 					<!-- 지도 시작 -->
 					<tr>
-						<td colspan="2"><input type="button" id="meetbtn"
-							value="미팅포인트 지정"> <input type="button" id="meetsubmit"
-							value="미팅포인트 등록"> <input type="button" id="meetdel"
+						<td colspan="2"><input type="button" id="meetbtn" class="mbutton"
+							value="미팅포인트 지정"> <input type="button" id="meetsubmit" class="mbutton"
+							value="미팅포인트 등록"> <input type="button" id="meetdel" class="mbutton"
 							value="미팅포인트 삭제"> <input type="hidden" id="meet"
 							value="0"> <input type="hidden" value="${clist.c_meet }"
 							name="c_meet" id="meetvalue"> <input type="hidden"
 							value="0" name="c_view" /> <input type="hidden" value="0"
-							name="c_like" /> <input type="button" id="se" value="위치 확정 ">
+							name="c_like" /> <input type="button" id="se" class="mbutton" value="위치 확정 ">
 							<input type="hidden" id="mapval0" name="mapval1"> <input
 							type="hidden" id="mapval1" name="mapval2"> <input
 							type="hidden" id="mapval2" name="mapval3"> <input
 							type="hidden" id="mapval3" name="mapval4"> <input
 							type="hidden" id="mapval4" name="mapval5">
+							<p style="margin-top: 10px; text-align; margin-left: 245px;">
+								<em>미팅 포인트를 지정하고 싶으시면 지정 버튼을 누르고 등록해주세요.</em>
+							</p>
+							<p style="margin-top: 10px; margin-bottom: 10px; margin-left: 245px;">
+								<em>지도를 클릭해서 마커를 표시하신후 '위치확정' 버튼을 눌러주세요.</em>
+							</p>
 							<div style="display: flex;">
-								<div id="map1" style="width: 500px; height: 450px; z-index: 0;"></div>
-								<div id="map2" style="width: 500px; height: 450px; z-index: 0;"></div>
+								<div id="map1" style="width: 445px; height: 440px; z-index: 0;"></div>
+								<div id="map2" style="width: 445px; height: 440px; z-index: 0; margin-left: 10px;"></div>
 							</div></td>
 					</tr>
 					<!-- 지도 끝 -->
@@ -238,9 +365,9 @@ nhn.husky.EZCreator.createInIFrame({
    }
 });
 $('#submitModifyCompanionBtn').click(function() {
-   if($("#kdy-title-input").val()==""){
+   if($("#kdy-name-input").val()==""){
       alert("글 제목을 입력해주세요")
-   $("#kdy-title-input").focus();
+   $("#kdy-name-input").focus();
       return false;
    }
 oEditors.getById["c_description"].exec("UPDATE_CONTENTS_FIELD", []);

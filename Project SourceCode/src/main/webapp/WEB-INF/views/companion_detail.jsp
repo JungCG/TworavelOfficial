@@ -134,8 +134,8 @@ section {
 }
 
 #kdy-companion-content {
-	color : #282828;
-	width:828px;
+	color: #282828;
+	width: 828px;
 	border-top: 2px solid #00000017;
 	padding-top: 20px;
 	padding-bottom: 20px;
@@ -160,13 +160,12 @@ section {
 	font-weight: bold;
 }
 
-#kdy-companion-type {
+/* #kdy-companion-type {
 	margin-top: 40px;
 	color: #3d91ffc4;
 	font-size: 26px;
 	font-family: 'Hanna', fantasy;
-}
-
+} */
 #kdy-blist-link {
 	color: rgb(0 166 255/ 68%);
 	background: #3d91ff00;
@@ -217,12 +216,14 @@ section {
 	font-family: 'MaplestoryOTFBold';
 }
 
-table > tr {
+table>tr {
 	border: 1px solid gray;
 }
 
 #csub {
+	
 }
+
 .csub_btn {
 	cursor: pointer;
 	background: none;
@@ -240,48 +241,50 @@ table > tr {
 			<section>
 				<div style="width: 100vh; padding-left: 10vh;">
 					<div id="kdy-companion-wrap">
-							<div id="kdy-companion-title">${clist.c_name}</div>
-							<div id="kdy-companion-writer">${clist.m_id}
-								<div id="kdy-companion-date">
-									<fmt:formatDate var="date" value="${clist.c_adddate}"
-										pattern="yyyy-MM-dd HH:mm" />
-									${date}
-								</div>
+						<div id="kdy-companion-title">${clist.c_name}</div>
+						<div id="kdy-companion-writer">${clist.m_id}
+							<div id="kdy-companion-date">
+								<fmt:formatDate var="date" value="${clist.c_adddate}"
+									pattern="yyyy-MM-dd HH:mm" />
+								${date}
 							</div>
+						</div>
 						<table id="kdy-companion-content">
 							<tr id="kdy-companion-content-tr">
 								<td>1인당 경비</td>
-								<td>${clist.c_value}</td>
+								<td colspan="3">${clist.c_value}</td>
 							</tr>
 							<tr id="kdy-companion-content-tr">
 								<td>총인원</td>
-								<td>${clist.c_many}</td>
+								<td colspan="3">${clist.c_many}</td>
 							</tr>
 							<tr id="kdy-companion-content-tr">
 								<td>여행 시작일</td>
-								<td>
-									<fmt:parseDate var="Sdate" value="${clist.c_startd}"
-										pattern="yyyy-MM-dd HH:mm:ss" />
-									<fmt:formatDate value="${Sdate}" pattern="yyyy-MM-dd" />
-								</td>
+								<td colspan="3"><fmt:parseDate var="Sdate"
+										value="${clist.c_startd}" pattern="yyyy-MM-dd HH:mm:ss" /> <fmt:formatDate
+										value="${Sdate}" pattern="yyyy-MM-dd" /></td>
 							</tr>
 							<tr>
 								<td>여행 마감일</td>
-								<td>
-									<fmt:parseDate var="Edate" value="${clist.c_endd}"
-										pattern="yyyy-MM-dd HH:mm:ss" />
-									<fmt:formatDate value="${Edate}" pattern="yyyy-MM-dd" />
-								</td>
+								<td colspan="3"><fmt:parseDate var="Edate"
+										value="${clist.c_endd}" pattern="yyyy-MM-dd HH:mm:ss" /> <fmt:formatDate
+										value="${Edate}" pattern="yyyy-MM-dd" /></td>
+							</tr>
+							<tr>
+								<td>카테고리</td>
+								<td>지역&nbsp;&nbsp;${tlist1}</td>
+								<td>인원&nbsp;&nbsp;${tlist2}</td>
+								<td>성향&nbsp;&nbsp;${tlist3}</td>
+
 							</tr>
 						</table>
 						<div id="map"
-							style="width: 828px; height: 500px; z-index: 0; border: 1px gray;"></div>
+							style="width: 897px; height: 500px; z-index: 0; border: 1px gray;"></div>
 						<div id="kdy-companion-description">
 							<p id="kdy-companion-description-p">세부 내용</p>
-							&nbsp;
-							${clist.c_description}
+							&nbsp; ${clist.c_description}
 						</div>
-						
+
 						<div id="kdy-like-div"
 							style="display: flex; justify-content: center; margin-top: 100px;">
 							<div
@@ -295,15 +298,20 @@ table > tr {
 								</div>
 							</div>
 						</div>
-						<div id="csub">
-							<form action="companion_insertInfo.do" method="post" id="csub_form" name="csub_form" >
-								<input type="hidden" value="${clist.c_id}" name="c_id">
-								<input type="hidden" value="${clist.m_id}" name="m_id2">
-								<input type="hidden" value="${userID}" name="m_id">
-								<input type="hidden" value="${clist.c_name}" name="c_name">
-								<input type="submit" value="동행신청" class="" id="csub_btn">
-							</form>
-						</div>
+						<c:choose>
+							<c:when test="${clist.m_id ne userID && not empty userID}">
+								<div id="csub">
+									<form action="companion_insertInfo.do" method="post"
+										id="csub_form" name="csub_form">
+										<input type="hidden" value="${clist.c_id}" name="c_id">
+										<input type="hidden" value="${clist.m_id}" name="m_id2">
+										<input type="hidden" value="${userID}" name="m_id"> <input
+											type="hidden" value="${clist.c_name}" name="c_name">
+										<input type="submit" value="동행신청" class="" id="csub_btn">
+									</form>
+								</div>
+							</c:when>
+						</c:choose>
 					</div>
 				</div>
 			</section>

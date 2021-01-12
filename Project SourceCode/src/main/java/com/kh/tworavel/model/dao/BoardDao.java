@@ -139,4 +139,15 @@ public class BoardDao {
 			 
 			 return sqlSession.selectOne("Board.totalSearchCount",keyword);
 		 }
+	public int selectRecommentCount(Board vo) {
+		
+		return sqlSession.selectOne("Board.selectRecommentCount",vo);
+	}
+	public void deleteCommentC(Board vo) {
+		sqlSession.delete("Board.deleteCommentC", vo);
+	}
+	public String selectCommentContent(Board vo) {
+		
+		return sqlSession.selectOne("Board.selectCommentContent",vo);
+	}
 }

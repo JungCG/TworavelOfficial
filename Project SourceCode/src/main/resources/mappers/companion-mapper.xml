@@ -52,6 +52,10 @@
 		<result property="c_sid" column="c_sid" />
 	</resultMap>
 
+
+	<resultMap type="Companion" id="resultCountArea">
+		<id property="c_id" column="c" />
+	</resultMap>
 	<!-- 동행글 등록 -->
 	<insert id="insertC" parameterType="Companion" flushCache="true"
 		statementType="PREPARED">
@@ -115,15 +119,21 @@
 		select * from companion order by c_id desc
 	</select>
 	<!-- 검색한 게시글 조회 -->
-	<select id="selectSearchC" parameterType="string"
+<!-- 	<select id="selectSearchC" parameterType="string"
 		resultType="arraylist" resultMap="resultCompanion">
 		select * from companion where
 		c_name
 		LIKE
 		'%'|| #{keyword} ||'%'
 		OR c_description LIKE '%'|| #{keyword} ||'%' and c_id
-		order by c_id
-		desc
+		order by c_id desc
+	</select> -->
+	<select id="selectSearchC" parameterType="string"
+	resultType="arraylist" resultMap="resultCompanion">
+		select * from companion where
+		c_name LIKE '%'|| #{keyword} ||'%'
+		OR c_description LIKE '%'|| #{keyword} ||'%' order by c_id 
+		desc 
 	</select>
 	<select id="totalSearchCountC" parameterType="string" resultType="int">
 		select count(*) from companion where
@@ -140,6 +150,7 @@
 	<select id="selectTagC" parameterType="int"
 		resultType="arraylist" resultMap="resultCompanionTag">
 		select * from ctag where c_id=#{c_id}
+		<!-- select c_sid from ctag where c_id = #{c_id} and c_lid = #{c_lid} -->
 	</select>
 	<select id="selectCmapCount" parameterType="int"
 		resultType="int">
@@ -254,5 +265,56 @@
 	<!-- 조회수 증가 -->
 	<update id="addCReadCount" parameterType="int" statementType="PREPARED" flushCache="true">
 		update companion set c_view = c_view+1 where c_id = #{c_id}
+	</update>
+	<select id="selectCountarea" resultType="arraylist" resultMap="resultCountArea">
+select count(*)as c from ctag group by c_sid,c_lid having c_lid=1 order by c_lid
+</select>
+
+<select id="selectCountpeople" resultType="arraylist" resultMap="resultCountArea">
+select count(*)as c from ctag group by c_sid,c_lid having c_lid=2 order by c_lid
+</select>   
+<select id="selectCounttendency" resultType="arraylist" resultMap="resultCountArea">
+select count(*)as c from ctag group by c_sid,c_lid having c_lid=3 order by c_lid
+</select>   
+
+
+
+
+
+
+
+	<!-- =========마이페이지 sql문============ -->
+	<!-- 작성한 동행게시판 글 조회 -->
+	<select id="My_selectCompanionlist" parameterType="string" resultType="arraylist" resultMap="resultCompanion" flushCache="true" statementType="PREPARED">
+	select * from companion where m_id = #{m_id} order by c_adddate desc
+	</select>
+	
+	<!-- 동행게시판 갯수 조회 -->
+	<select id="My_selectCompanionCountAll" parameterType="string" resultType="int" flushCache="true" statementType="PREPARED">
+	select count(*) from companion where m_id = #{m_id}
+	</select>
+	
+	<!-- 동행 마감 -->
+	<update id="My_updateCompanionEnd" parameterType="string" flushCache="true" statementType="PREPARED">
+	update companion set c_dealstatus = 'Y' where c_id = #{c_id}
+	</update>
+		
+	<!-- 동행 마감 취소 -->
+	<update id="My_updateCompanionRe" parameterType="string" flushCache="true" statementType="PREPARED">
+	update companion set c_dealstatus = 'N' where c_id = #{c_id}
+	</update>
+	
+	<!-- 좋아요한 동행게시글 갯수 조회 -->
+	<select id="My_selectLikeCompanionCountAll" parameterType="string" resultType="int" flushCache="true" statementType="PREPARED">
+	select count(*) from companion where c_id in(select c_id from clike where m_id = #{m_id})
+	</select>
+	
+	<!-- 작성한 동행게시판 글 조회 -->
+	<select id="My_selectLikeCompanionlist" parameterType="string" resultType="arraylist" resultMap="resultCompanion" flushCache="true" statementType="PREPARED">
+	select * from companion where c_id in(select c_id from clike where m_id = #{m_id})
+	</select>
+	
+	<update id="My_updateCompanionLikeVal" parameterType="int" flushCache="true" statementType="PREPARED">
+	update companion set c_like = c_like-1 where c_id = #{c_id}
 	</update>
 </mapper>

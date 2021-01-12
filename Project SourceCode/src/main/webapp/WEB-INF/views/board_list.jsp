@@ -221,7 +221,7 @@ font-size: 13px;
 					</div>
 				</div>
 				<table id="GJW-boardtable">
-					<tr>
+					<tr style="border-bottom: 1px solid #00000026;">
 						<td>글번호</td>
 						<td>글제목</td>
 						<td>작성자</td>
@@ -236,7 +236,7 @@ font-size: 13px;
 								<td class="gjw-list-td"
 									style="display: flex; justify-content: center;">
 									<p class="gjw-board-title"
-										style="display: inline; padding: 7px; padding-right: 0px;">${hvo.b_title}
+										style="display: inline; padding: 7px; padding-right: 0px; cursor: pointer;">${hvo.b_title}
 										
 																	<c:if test="${not empty hvo.b_commentCount}">
 										<g>(${hvo.b_commentCount })</g>
@@ -253,6 +253,8 @@ font-size: 13px;
 											type="password" style="display: none;"
 											class="gjw-secretnumber"> <input type="hidden"
 											value="${hvo.b_secretnumber }" class="gjw-secretnumber-text">
+											<input type="hidden" value="${hvo.m_id }"
+											class="gjw-board-m_id">
 										<input type="button" style="display: none;"
 											class="gjw-secretsubmit" value="확인">
 									</div>
@@ -308,6 +310,7 @@ font-size: 13px;
 										style="display: none; margin-bottom: 5px; width: 60%;"
 										class="gjw-secretnumber"> <input type="hidden"
 										value="${vo.b_secretnumber }" class="gjw-secretnumber-text">
+										<input type="hidden" value="${vo.m_id }"  class="gjw-board-m_id"> 
 									<input type="button" style="display: none; margin-bottom: 5px"
 										class="gjw-secretsubmit" value="확인">
 								</div>
@@ -407,6 +410,8 @@ font-size: 13px;
 								.children(".gjw-board-secret").val();
 						var b_id = $(this).nextAll(".gjw-pass-div").children(
 								".gjw-board-b_id").val();
+						var m_id = $(this).nextAll(".gjw-pass-div").children(
+								".gjw-board-m_id").val();
 						if (b_secret == "Y") {
 							alert("비밀글입니다 비밀번호를 입력해주세요");
 							$(this).nextAll(".gjw-pass-div").children(
@@ -419,7 +424,7 @@ font-size: 13px;
 									".gjw-secretnumber").focus();
 
 						} else {
-							location.href = "board_detail.do?b_id=" + b_id
+							location.href = "board_detail.do?b_id=" + b_id + "&m_id=" + m_id
 									+ "&page=${currentPage}"
 						}
 					})

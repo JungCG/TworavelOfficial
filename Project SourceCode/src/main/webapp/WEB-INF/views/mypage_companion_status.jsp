@@ -107,7 +107,7 @@ a{
 					<td>동행글 제목</td>
 					<td>신청자</td>
 					<td>수락여부</td>
-					<!-- <td>채팅</td> -->
+					<td>채팅</td>
 				</tr>
 				<c:forEach items="${companioninfo_t}" var="companioninfo_t">
 				<tr>
@@ -115,19 +115,14 @@ a{
 					<td>${companioninfo_t.c_name}</td>
 					<td>${companioninfo_t.m_id}</td>
 					<td>${companioninfo_t.c_yn}&nbsp;&nbsp;&nbsp;
-					<c:if test="${companioninfo_t.c_yn eq 'N'.charAt(0)}">
+					<c:if test="${companioninfo_t.c_yn eq 'N'}">
 						<button class="ICR_OkBtn btn btn-default">수락하기</button>
 					</c:if>
-					<c:if test="${companioninfo_t.c_yn eq 'Y'.charAt(0)}"></c:if>
+					<c:if test="${companioninfo_t.c_yn eq 'Y'}"></c:if>
 					</td>
-					<%-- <td>
-					<c:if test="${companioninfo_t.c_yn eq 'N'.charAt(0)}">
+					<td id="ICR_inviteBtnTd">
 						<button class="ICR_ChattingBtn btn btn-default">채팅초대하기</button>
-					</c:if>
-					<c:if test="${companioninfo_t.c_yn eq 'Y'.charAt(0)}"></c:if>
-					
-					
-					</td> --%>
+					</td>
 				</tr>
 				</c:forEach>
 			</table> 
@@ -206,7 +201,16 @@ $('.ICR_ChattingBtn').on('click',function(e){
 		
 	 	// 채팅방 개설(본인 insert)
 	 	// 신청자 초대(상대방 insert)
-	    window.location="inviteChat.do?c_id=" + c_id + "&m_id2=" + m_id2;
+	 	$.ajax({
+	 		url : "inviteChat.do?c_id=" + c_id + "&m_id2=" + m_id2,
+	 		success : function(){
+				alert("초대가 완료되었습니다. \n [ 마이페이지 → 채팅방 ] 에서 확인하세요!");
+				window.location = "CompanionStatus2.do?m_id=${sessionScope.userID}";
+	 		},
+	 		error : function(){
+				alert("초대에 실패했습니다. 관리자에게 문의하세요!");	 			
+	 		}
+	 	});
 	}else if(bool==false){
 		return false;
 	}

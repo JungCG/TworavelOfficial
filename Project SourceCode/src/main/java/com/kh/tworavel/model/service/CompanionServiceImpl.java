@@ -111,8 +111,8 @@ public class CompanionServiceImpl implements CompanionService {
 	}
 
 	@Override
-	public List<Companion> selectTagC(int c_id) {
-		return cDao.selectTagC(c_id);
+	public List<CompanionTag> selectTagC(CompanionTag ct) {
+		return cDao.selectTagC(ct);
 	}
 
 	@Override
@@ -186,5 +186,18 @@ public class CompanionServiceImpl implements CompanionService {
 	@Override
 	public void insertCInfo(CompanionInfo vo) {
 		cDao.insertCInfo(vo);
+	}
+	@Override
+	public List<Companion> selectCountpeople() {
+		return cDao.selectCountpeople();
+	}
+@Override
+	public List<Companion> selectCountarea() {
+		return cDao.selectCountarea();
+	}
+	@Override
+	public List<Companion> selectCounttendency() {
+		// TODO Auto-generated method stub
+		return cDao.selectCounttendency();
 	}
 }

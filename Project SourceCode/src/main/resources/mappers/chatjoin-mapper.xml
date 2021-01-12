@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Chatjoin">
+
+	<resultMap type="Chatjoin" id="resultChatjoin">
+		<id property="c_id" column="c_id"/>
+		<result property="m_id" column="m_id"/>
+		<result property="ch_inout" column="ch_inout"/>
+		<result property="ch_intime" column="ch_intime"/>
+		<result property="ch_outtime" column="ch_outtime"/>
+	</resultMap>
+	
+	<!-- 채팅방 입장 -->
+	<insert id="insertChatJoin" parameterType="ChatJoin" flushCache="true" statementType="PREPARED">
+	insert into chatjoin values (#{c_id}, #{m_id}, 'I', CURRENT_TIMESTAMP, null)
+	</insert>
+	<!-- 채팅방 입장 유무 확인 -->
+	<select id="checkChatJoin" parameterType="ChatJoin" resultType="int" flushCache="true" statementType="PREPARED">
+	select count(*) from chatjoin where c_id = #{c_id} and m_id = #{m_id}
+	</select>
+	<!-- 채팅방 I.O 유무 확인 -->
+	<select id="checkInoutChatJoin" parameterType="ChatJoin" resultType="ChatJoin" flushCache="true" statementType="PREPARED">
+	select ch_inout from chatjoin where c_id = #{c_id} and m_id = #{m_id}
+	</select>
+	<!-- 같은 채팅방 사람들 조회 -->
+	<select id="selectSameRoom" parameterType="int" resultType="ChatJoin" flushCache="true" statementType="PREPARED">
+	select m_id from chatjoin where c_id = #{c_id}
+	</select>
+	<!-- 채팅방 나가기 -->
+	<update id="updateChatOut" parameterType="ChatJoin" flushCache="true" statementType="PREPARED">
+	update chatjoin set ch_inout = 'O', ch_outtime = current_timestamp where c_id = #{c_id} and m_id = #{m_id}
+	</update>
+	<!-- 채팅방 처음입장 -->
+	<update id="updateChatInTime" parameterType="ChatJoin" flushCache="true" statementType="PREPARED">
+	update chatjoin set ch_intime = current_timestamp where c_id = #{c_id} and m_id = #{m_id}
+	</update>
+</mapper>

@@ -122,7 +122,7 @@ body{
 			
 		<hr id="ICR_hr">
 		<div id="ICR_myicon">
-			<%-- <a href="Chat.do?m_id=${member.m_id}" title="채팅방"><img class="ICR_my_img" src=""></a> --%>
+			<div style="display: inline; cursor: pointer;" title="채팅방" onclick="ICR_ChatOpen();"><img class="ICR_my_img" src="${pageContext.request.contextPath}/resources/images/chatting.png"></div>
 			<a href="WritedList.do?m_id=${member.m_id}" title="작성한 게시글"><img class="ICR_my_img" src="${pageContext.request.contextPath}/resources/images/edit.png"></a>
 			<a href="CompanionStatus.do?m_id=${member.m_id}" title="동행신청내역"><img class="ICR_my_img" src="${pageContext.request.contextPath}/resources/images/friends.png"></a>
 			<a href="FavordPage.do?m_id=${member.m_id}" title="키워드 설정"><img class="ICR_my_img" src="${pageContext.request.contextPath}/resources/images/ring.png"></a><br>
@@ -169,15 +169,22 @@ $('#ICR_exBtn').on('click',function(){
 		typd : "get",
 		success : function(data){
 			alert("회원 탈퇴되었습니다.");
-			window.location = "MainPage.do?m_id=" + m_id;
+			window.location = "${pageContext.request.contextPath}";
 		},
 		error : function(data){
 			alert("회원 탈퇴에 실패했습니다. 관리자에게 문의하세요!");
-			window.location = "MyPage.do?m_id=" + m_id;
+			window.location = "${pageContext.request.contextPath}";
 		}
 	});
 	
 });
+function ICR_ChatOpen(){
+	var popupX = (window.screen.width / 2) - 400;
+
+	var popupY= (window.screen.height / 2) - 250;
+ 
+	window.open('Chat.do?m_id=${member.m_id}', 'TworavelChat', 'width='+ 800 +', height='+ 500 +', left=' + popupX + ', top='+ popupY);
+	}
 </script>
 </body>
 

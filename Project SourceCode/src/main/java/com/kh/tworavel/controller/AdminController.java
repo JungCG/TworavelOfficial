@@ -1,6 +1,16 @@
 package com.kh.tworavel.controller;
 
+import java.util.Properties;
+
+import javax.mail.Address;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,20 +19,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.tworavel.common.Gmail;
+import com.kh.tworavel.common.SHA256;
+import com.kh.tworavel.model.domain.Member;
 import com.kh.tworavel.model.domain.Out;
 import com.kh.tworavel.model.service.BoardService;
 import com.kh.tworavel.model.service.CompanionService;
 import com.kh.tworavel.model.service.MemberService;
 import com.kh.tworavel.model.service.OutService;
 
-
-
 @Controller
 public class AdminController {
 
 	@Autowired
 	private MemberService mService;
-	
+
 	@Autowired
 	private BoardService bService;
 	public static final int LIMIT = 10;
@@ -30,7 +41,7 @@ public class AdminController {
 	private CompanionService cService;
 	@Autowired
 	private OutService oService;
-	
+
 	@RequestMapping(value = "adminpage.do")
 	public ModelAndView admin(ModelAndView mv, @RequestParam(name = "page", defaultValue = "1") int page,@RequestParam(name="type", defaultValue = "B",required = false) char b_type){
 		
@@ -38,21 +49,20 @@ public class AdminController {
 		int endPage=0;
 		int listCount=0;
 
-		if(page%5==0) {
-			
-			startPage = (page/5 -1)*5+1;
-			endPage= (page/5)*5;
-		}else if(page%5!=0) {
-			
-			startPage = (page/5)*5 +1;
-			endPage=(page/5 + 1)*5;
+		if (page % 5 == 0) {
+
+			startPage = (page / 5 - 1) * 5 + 1;
+			endPage = (page / 5) * 5;
+		} else if (page % 5 != 0) {
+
+			startPage = (page / 5) * 5 + 1;
+			endPage = (page / 5 + 1) * 5;
 		}
 		try {
 			int currentPage = page;
 			// 한 페이지당 출력할 목록 갯수
 			String type = String.valueOf(b_type);
-			System.out.println(type);
-			if(type.equals("B")) {
+			if (type.equals("B")) {
 				listCount = bService.selectBoardAllCount();
 			}
 			else if (type.equals("C")) {
@@ -64,7 +74,6 @@ public class AdminController {
 			int maxPage = (int) ((double) listCount / LIMIT + 0.9);
 			if(type.equals("B")) {
 				mv.addObject("blist",bService.selectBoardAll(currentPage,LIMIT));
-				System.out.println(bService.selectBoardAll(currentPage,LIMIT).size());
 			}
 			else if (type.equals("C")) {
 				mv.addObject("clist",cService.selectListCp(currentPage,LIMIT));
@@ -95,6 +104,7 @@ public class AdminController {
 		mv.setViewName("redirect:adminpage.do?type=B");
 		return mv;
 	}
+
 	@RequestMapping(value = "AdminDeleteMember.do", method = RequestMethod.POST)
 	public ModelAndView adminDeleteMember(@RequestParam(name = "m_id") String m_id,@RequestParam(name="o_reason")String o_reason, ModelAndView mv,
 			HttpServletRequest request) {
@@ -102,14 +112,24 @@ public class AdminController {
 		vo.setM_id(m_id);
 		vo.setO_reason(o_reason);
 		oService.adminOutMember(vo);
+
+		/////////////////////////////////////
+		try {
+			mService.outEmailSend(mService.selectOne(m_id).getM_email(), vo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		/////////////////////////////////////
+
 		mv.setViewName("redirect:adminpage.do?type=M");
 		return mv;
 	}
-	 @RequestMapping(value = "admincompaniondelete.do", method = RequestMethod.GET)
-	   public ModelAndView CompanionDeleteService(@RequestParam(name = "c_id") int c_id, ModelAndView mv,
-	         HttpServletRequest request) {
-	      cService.deleteC(c_id);
-	      mv.setViewName("redirect:adminpage.do?type=C");
-	      return mv;
-	   }
+
+	@RequestMapping(value = "admincompaniondelete.do", method = RequestMethod.GET)
+	public ModelAndView CompanionDeleteService(@RequestParam(name = "c_id") int c_id, ModelAndView mv,
+			HttpServletRequest request) {
+		cService.deleteC(c_id);
+		mv.setViewName("redirect:adminpage.do?type=C");
+		return mv;
+	}
 }

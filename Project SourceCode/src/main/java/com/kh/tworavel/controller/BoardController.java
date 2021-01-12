@@ -22,12 +22,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.tworavel.model.domain.Board;
 import com.kh.tworavel.model.service.BoardService;
+import com.kh.tworavel.model.service.MypageService;
 
 @Controller
 public class BoardController {
 
 	@Autowired
 	private BoardService bService;
+	@Autowired
+	private MypageService mypService;
 	public static final int LIMIT = 10;
 
 	// 게시판 리스트
@@ -38,11 +41,7 @@ public class BoardController {
 		int listCount=0;
 		int currentBlock = page%4==0 ? page/4:(page/4)+1;
 		int startPage =0;
-		int endPage=0;
-		/*
-		 * System.out.println(currentBlock);
-		 */		
-		System.out.println((page/5)*5 +1);
+		int endPage=0;	
 		
 		if(page%5==0) {
 			
@@ -53,16 +52,6 @@ public class BoardController {
 			startPage = (page/5)*5 +1;
 			endPage=(page/5 + 1)*5;
 		}
-		
-		/*
-		 * <c:set var="startPage" value="${(currentPage/5 -1)*5+1}"/> <c:set
-		 * var="endPage" value="${(currentPage/5)*5 }"/> </c:if> <c:if
-		 * test="${(currentPage%5) != 0}"> <c:set var="startPage"
-		 * value="${(currentPage/5)*5 +1 }"/> <c:set var="endPage"
-		 * value="${(currentPage/5 + 1)*5 }"/> </c:if>
-		 * 
-		 * 
-		 */
 		try {
 			int currentPage = page;
 			// 한 페이지당 출력할 목록 갯수
@@ -102,8 +91,9 @@ public class BoardController {
 
 	// 게시글 상세페이지
 	@RequestMapping(value = "board_detail.do")
-	public ModelAndView boardDetailService(ModelAndView mv, @RequestParam(name = "b_id") int b_id) {
+	public ModelAndView boardDetailService(ModelAndView mv, @RequestParam(name = "b_id") int b_id, @RequestParam(name = "m_id") String m_id) {
 		try {
+			mv.addObject("member", mypService.selectMember(m_id));
 			mv.addObject("blist", bService.selectBoard(b_id));
 			mv.addObject("clist", bService.selectComment(b_id));
 			mv.setViewName("board_detail");
@@ -126,10 +116,21 @@ public class BoardController {
 	// 댓글 등록
 	@RequestMapping(value = "commentInsert.do", method = RequestMethod.POST)
 	public ModelAndView commentInsertService(ModelAndView mv, Board vo, HttpServletRequest request) {
-		System.out.println(vo.getB_id());
-		vo.setB_ref(vo.getB_id());
-		System.out.println(vo.getB_ref());
-		bService.commentInsert(vo);
+
+		
+		
+		try {
+			
+			
+			vo.setB_ref(vo.getB_id());
+			bService.commentInsert(vo);
+		}catch(Exception e) {
+			
+			mv.addObject("msg","댓글 작성에 실패하셨습니다 다시 시도해주세요");
+			 mv.setViewName("alertMsg");
+			return mv;
+			
+		}
 		 mv.addObject("msg","댓글 작성에 성공하였습니다."
 		 		+ "5포인트가 적립되었습니다");
 		 mv.addObject("url","/board_detail.do?b_id="+vo.getB_ref());
@@ -141,11 +142,19 @@ public class BoardController {
 	@RequestMapping(value = "recommentInsert.do", method = RequestMethod.POST)
 	public ModelAndView recommentInsertService(ModelAndView mv, Board vo, HttpServletRequest request) {
 		vo.setB_ref(vo.getB_id());
-		System.out.println("aucd" + vo.getB_id());
 		HashMap<String, Integer> blist = new HashMap<String, Integer>();
-		blist.put("b_ref", vo.getB_id());
-		blist.put("b_re_step", vo.getB_re_step());
-		bService.recommentInsert(vo, blist);
+		try {
+			blist.put("b_ref", vo.getB_id());
+			blist.put("b_re_step", vo.getB_re_step());
+			bService.recommentInsert(vo, blist);
+			
+		}catch(Exception e) {
+			
+			mv.addObject("msg", "댓글작성에 실패하셨습니다");
+			 mv.setViewName("alertMsg");
+			 return mv;
+		}
+		
 		 mv.addObject("msg","댓글 작성에 성공하였습니다."
 		 		+ "5포인트가 적립되었습니다");
 		 mv.addObject("url","/board_detail.do?b_id="+vo.getB_ref());
@@ -162,14 +171,25 @@ public class BoardController {
 		HttpServletRequest request) {
 		Board b = new Board();
 		b_content.replace("\"", "'");
-		System.out.println(b_content);
-		b.setB_content(b_content);
-		b.setM_id(m_id);
-		b.setB_type(b_type);
-		b.setB_title(b_title);
-		b.setB_secret(b_secret);
-		b.setB_secretnumber(b_secretnumber);
-		bService.insertBoard(b);
+		
+		
+		try {
+			b.setB_content(b_content);
+			b.setM_id(m_id);
+			b.setB_type(b_type);
+			b.setB_title(b_title);
+			b.setB_secret(b_secret);
+			b.setB_secretnumber(b_secretnumber);
+			bService.insertBoard(b);
+			
+			
+		}catch(Exception e) {
+			 mv.addObject("msg","글작성에 실패하셨습니다.");
+			 mv.addObject("url","/board_list.do");
+			 mv.setViewName("alertMsg");
+			return mv;
+			
+		}
 		 mv.addObject("msg","글작성에 성공하였습니다. 10포인트가 적립되었습니다");
 		 mv.addObject("url","/board_list.do");
 		 mv.setViewName("alertMsg");
@@ -178,8 +198,20 @@ public class BoardController {
 	@RequestMapping(value = "boarddelete.do", method = RequestMethod.GET)
 	public ModelAndView BoardDeleteService(@RequestParam(name = "b_id") int b_id, ModelAndView mv,
 			HttpServletRequest request) {
+		
+		
+	try {
+		
 		bService.deleteBoard(b_id);
-		mv.setViewName("redirect:board_list.do");
+	}catch(Exception e) {
+		 mv.addObject("msg","글 삭제에 실패하셨습니다");
+		 mv.addObject("url","/board_list.do");
+		 mv.setViewName("alertMsg");
+		return mv;
+	}
+	mv.addObject("msg","글 삭제에 성공하셨습니다");
+	 mv.addObject("url","/board_list.do");
+	 mv.setViewName("alertMsg");
 		return mv;
 	}
 
@@ -189,39 +221,87 @@ public class BoardController {
 			HttpServletRequest request) {
 		int commentCount = 0;
 		HashMap<String, Integer> commentinfo = new HashMap<String, Integer>();
-		commentinfo.put("b_ref", rb_id);
-		commentinfo.put("b_re_step", b_re_step);
-		commentCount = bService.selectCommentCount(commentinfo);
-		System.out.println(commentCount);
-		if (commentCount == 1) {
-			bService.deleteComment(b_id);
-		} else {
-			bService.deleteCommentB(b_id);
+		
+		try {
+			
+			
+			commentinfo.put("b_ref", rb_id);
+			commentinfo.put("b_re_step", b_re_step);
+			commentCount = bService.selectCommentCount(commentinfo);
+			if (commentCount == 1) {
+				bService.deleteComment(b_id);
+			} else {
+				bService.deleteCommentB(b_id);
+			}
+			
+		}catch(Exception e) {
+			
+			 mv.addObject("msg","댓글 삭제에 실패하셨습니다");
+			 mv.addObject("url","/board_detail.do?b_id="+ rb_id);
+			 mv.setViewName("alertMsg");
 		}
+		 mv.addObject("msg","댓글 삭제에 성공 하셨습니다");
+		 mv.addObject("url","/board_detail.do?b_id="+rb_id);
+		 mv.setViewName("alertMsg");
 		
 		
-		
-		mv.setViewName("redirect:board_detail.do?b_id=" + rb_id);
 		return mv;
 	}
 
-	@RequestMapping(value = "deleteRecomment.do", method = RequestMethod.GET)
+@RequestMapping(value = "deleteRecomment.do", method = RequestMethod.GET)
 	public ModelAndView recommentDeleteService(@RequestParam(name = "b_id") int b_id,
-			@RequestParam(name = "rb_id") int rb_id, ModelAndView mv, HttpServletRequest request) {
-		bService.deleteRecomment(b_id);
-		mv.setViewName("redirect:board_detail.do?b_id=" + rb_id);
+			@RequestParam(name = "rb_id") int rb_id, @RequestParam(name = "b_re_step") int b_re_step, ModelAndView mv,
+			HttpServletRequest request) {
+		Board vo = new Board();
+		
+		try {
+			
+			vo.setB_id(rb_id);
+			vo.setB_re_step(b_re_step);
+			
+			int count = bService.selectRecommentCount(vo);
+			String commentcontent = bService.selectCommentContent(vo);
+			if (count == 2 && commentcontent.equals("삭제된 댓글입니다")) {
+				bService.deleteCommentC(vo);
+			} else {
+				bService.deleteRecomment(b_id);
+			}
+			
+		}catch(Exception e) {
+			 mv.addObject("msg","댓글 삭제에 실패하혔습니다");
+			 mv.addObject("url","/board_detail.do?b_id=" + rb_id);
+			 mv.setViewName("alertMsg");
+			
+		}
+		 mv.addObject("msg","댓글이 삭제되었습니다");
+		 mv.addObject("url","/board_detail.do?b_id=" + rb_id);
+		 mv.setViewName("alertMsg");
 		return mv;
 	}
+
 
 	@RequestMapping(value = "commentupdate.do", method = RequestMethod.POST)
 	public ModelAndView commentUpdateService(ModelAndView mv, @RequestParam(name = "b_id") int b_id,
 			@RequestParam(name = "b_content") String b_content, @RequestParam(name = "b_ref") int b_ref,
 			HttpServletRequest request) {
 		Board vo = new Board();
-		vo.setB_content(b_content);
-		vo.setB_id(b_id);
-		bService.updateComment(vo);
-		mv.setViewName("redirect:/board_detail.do?b_id=" + b_ref);
+		
+		try {
+			
+			
+			vo.setB_content(b_content);
+			vo.setB_id(b_id);
+			bService.updateComment(vo);
+		}catch(Exception e) {
+			 mv.addObject("msg","댓글 수정 실패하셨습니다");
+			 mv.addObject("url","/board_detail.do?b_id="+b_ref);
+			 mv.setViewName("alertMsg");
+			
+		}
+		
+		 mv.addObject("msg","댓글이 수정되었습니다");
+		 mv.addObject("url","/board_detail.do?b_id="+b_ref);
+		 mv.setViewName("alertMsg");
 		return mv;
 	}
 
@@ -239,14 +319,25 @@ public class BoardController {
 			@RequestParam(name = "b_secretnumber") int b_secretnumber, @RequestParam(name = "b_id") int b_id,
 			@RequestParam(name = "b_type") String b_type) {
 		Board vo = new Board();
-		vo.setB_content(b_content);
-		vo.setB_id(b_id);
-		vo.setB_secret(b_secret);
-		vo.setB_secretnumber(b_secretnumber);
-		vo.setB_type(b_type);
-		vo.setB_title(b_title);
-		bService.updateBoard(vo);
-		mv.setViewName("redirect:/board_detail.do?b_id=" + b_id);
+		
+		try {
+			vo.setB_content(b_content);
+			vo.setB_id(b_id);
+			vo.setB_secret(b_secret);
+			vo.setB_secretnumber(b_secretnumber);
+			vo.setB_type(b_type);
+			vo.setB_title(b_title);
+			bService.updateBoard(vo);
+			
+		}catch(Exception e) {
+			 mv.addObject("msg","게시글 수정 실패");
+			 mv.addObject("url","/board_detail.do?b_id=" + b_id);
+			 mv.setViewName("alertMsg");
+			
+		}
+		 mv.addObject("msg","게시글이 수정되었습니다");
+		 mv.addObject("url","/board_detail.do?b_id=" + b_id);
+		 mv.setViewName("alertMsg");
 		return mv;
 	}
 
@@ -260,9 +351,7 @@ public class BoardController {
 			Board vo = new Board();
 			vo.setB_id(b_id);
 			vo.setM_id(m_id);
-			System.out.println(chc);
 			if (chc == 1) {
-				System.out.println("실행");
 				bService.deleteLike(vo);
 				bService.updateLikeMinus(b_id);
 			} else {
@@ -300,7 +389,7 @@ public class BoardController {
 		}
 	}
 
-	// 파일 업로드
+	
 	@RequestMapping("/fileupload.do")
 	public void multiplePhotoUpload(HttpServletRequest request, HttpServletResponse response) {
 		try {
@@ -326,7 +415,6 @@ public class BoardController {
 
 			String filePath = dftFilePath + "resources" + File.separator + "board_photo_upload" + File.separator;
 
-			System.out.println(filePath);
 
 			File file = new File(filePath);
 

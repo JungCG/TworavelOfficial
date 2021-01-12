@@ -55,6 +55,7 @@ body{
 }
 </style>
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.5.1.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
 <body>
 	<div class="jck_wrap">
@@ -65,7 +66,7 @@ body{
 					<div style="width : 480px; height : auto;">
 						<img src = "${pageContext.request.contextPath }/resources/images/tworavelbox1.jpg" style="width : 100%; height : 100%;">
 					</div>
-					<div style="width : 480px; height : auto; padding : 10px; padding-top:0px;">
+					<div style="width : 480px; height : auto; padding-left:10px;">
 						<div style="border-bottom : 1px solid gray;">
 							<span style="font-size: 45px; font-weight : bolder;">TwoRAVEL 박스</span>
 							<button style="float : right; border: 0; outline: 0; background: none;">
@@ -103,9 +104,9 @@ body{
 								<tr>
 									<td>
 										<select name="options" id="options" style="width : 100%; height : 35px; border : 1px solid gray;">
-											<option value="">필수 선택 사항입니다.</option>
-										    <option value="S">&nbsp;&nbsp;&nbsp;(TwoRAVEL BOX S + 배송료 3000)&nbsp;&nbsp;15,000원</option>
-										    <option value="L">&nbsp;&nbsp;&nbsp;(TwoRAVEL BOX L + 배송료 3000)&nbsp;&nbsp;38,000원</option>
+											<option value="0">필수 선택 사항입니다.</option>
+										    <option value="15000">&nbsp;&nbsp;&nbsp;(TwoRAVEL BOX S + 배송료 3000)&nbsp;&nbsp;15,000원</option>
+										    <option value="38000">&nbsp;&nbsp;&nbsp;(TwoRAVEL BOX L + 배송료 3000)&nbsp;&nbsp;38,000원</option>
 									  	</select>
 									</td>
 								</tr>
@@ -114,7 +115,7 @@ body{
 								</tr>
 								<tr>
 									<td>
-										<button style="width : 100%; height : 50px; text-align : center; background-color: #34666f; color : white; cursor : pointer; font-weight : bolder;">구매하기</button>
+										<button class="btn btn-lg btn-block  btn-custom" id="charge_kakao" style="width : 100%; height : 50px; text-align : center; background-color: #34666f; color : white; cursor : pointer; font-weight : bolder;">구매하기</button>
 									</td>
 								</tr>
 							</table>
@@ -192,5 +193,46 @@ body{
         }
     }
     </script>
+    
+    <script>
+	    $('#charge_kakao').click(function () {
+	    	var bill = $("#options option:selected").val();
+	    	if(bill == '0'){
+	    		alert("옵션을 선택해주세요!");
+	    		return;
+	    	}
+	    	
+	        // getter
+	        var IMP = window.IMP;
+	        IMP.init('imp65132807');
+	        var money = bill;
+	
+	        IMP.request_pay({
+	            pg: 'inicis',
+	            merchant_uid: 'merchant_' + new Date().getTime(),
+	            name: 'TwoRavel Box',
+	            amount: money,
+	            buyer_email: 'iamport@siot.do',
+	            buyer_name: '구매자이름',
+	            buyer_tel: '010-1234-5678',
+	            buyer_addr: '인천광역시 부평구',
+	            buyer_postcode: '123-456'
+	        }, function (rsp) {
+	            console.log(rsp);
+	            if (rsp.success) {
+	                var msg = '결제가 완료되었습니다.';
+	                msg += '\n고유ID : ' + rsp.imp_uid;
+	                msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+	                msg += '\n결제 금액 : ' + rsp.paid_amount;
+	                msg += '\n카드 승인번호 : ' + rsp.apply_num;
+	            } else {
+	                var msg = '결제에 실패하였습니다.';
+	                msg += '\n에러내용 : ' + rsp.error_msg;
+	            }
+	            alert(msg);
+	            document.location.href="TworavelBox.do"; //alert창 확인 후 이동할 url 설정
+	        });
+	    });
+	</script>
 </body>
 </html>

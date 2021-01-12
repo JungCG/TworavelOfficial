@@ -114,12 +114,14 @@ outline:none;
     background-color: white;
     border-radius: 5px;
     padding: 5px;
+    color: #0AC5A8;
     }
     #gjw-serach-list{
         color: #black;
   border:3px solid rgb(78 102 255 / 39%);
   border-radius: 5px;
     padding: 5px;
+        color: #0AC5A8;
     }
     td{
 padding-top: 20px;
