@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
+	<typeAliases>
+		<typeAlias type="com.kh.tworavel.model.domain.Member"
+			alias="Member" />
+			<typeAlias type="com.kh.tworavel.model.domain.Out"
+			alias="Out" />
+		<typeAlias alias="Board"
+			type="com.kh.tworavel.model.domain.Board" />
+
+		<typeAlias alias="Mapp"
+			type="com.kh.tworavel.model.domain.Map" />
+		<typeAlias alias="Companion"
+			type="com.kh.tworavel.model.domain.Companion" />
+		<typeAlias alias="CompanionAdd"
+			type="com.kh.tworavel.model.domain.CompanionAdd" />
+		<typeAlias alias="CompanionInfo"
+			type="com.kh.tworavel.model.domain.CompanionInfo" />
+		<typeAlias alias="CompanionLike"
+			type="com.kh.tworavel.model.domain.CompanionLike" />
+		<typeAlias alias="CompanionMap"
+			type="com.kh.tworavel.model.domain.CompanionMap" />
+		<typeAlias alias="CompanionTag"
+			type="com.kh.tworavel.model.domain.CompanionTag" />
+			<typeAlias alias="CoronaMap"
+			type="com.kh.tworavel.model.domain.CoronaMap" />
+			
+			
+	</typeAliases>
+	<mappers>
+		<mapper resource="mappers/board-mapper.xml" />
+		<mapper resource="mappers/companion-mapper.xml" />
+		<mapper resource="mappers/map-mapper.xml" />
+		<mapper resource="mappers/member-mapper.xml" />
+		<mapper resource="mappers/out-mapper.xml" />
+		<mapper resource="mappers/coronamap-mapper.xml" />
+		<mapper resource="mappers/gallery-mapper.xml" />
+	</mappers>
+</configuration>

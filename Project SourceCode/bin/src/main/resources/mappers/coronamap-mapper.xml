@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CoronaMap">
+	<resultMap type="CoronaMap" id="resultCoronaMap">
+		<id property="c_id" column="c_id"/>
+		<result property="c_name" column="c_name"/>
+		<result property="c_la" column="c_la"/>
+		<result property="c_ma" column="c_ma"/>
+		<result property="c_defcnt" column="c_defcnt"/>
+		<result property="c_isolingcnt" column="c_isolingcnt"/>
+		<result property="c_isolclearcnt" column="c_isolclearcnt"/>
+		<result property="c_incdec" column="c_incdec"/>
+		<result property="deathcnt" column="deathcnt"/>
+		<result property="c_qurdate" column="c_qurdate"/>
+		<result property="c_createdt" column="c_createdt"/>
+	</resultMap>
+	
+	<select id="selectList" resultType="arraylist" resultMap="resultCoronaMap">
+		select C_ID,C_NAME,C_LA,C_MA,C_defCnt,C_isolIngCnt,C_isolClearCnt,C_incDec,C_deathCnt,C_qurRate,TO_CHAR(C_createDt, 'yyyyMMdd') as C_createDt from coronamap
+	</select>
+	
+	<update id="updateUsingName" parameterType="CoronaMap" flushCache="true" statementType="PREPARED">
+		update coronamap set c_defcnt=#{c_defcnt},
+		c_isolingcnt=#{c_isolingcnt},
+		c_isolclearcnt=#{c_isolclearcnt},
+		c_incdec=#{c_incdec},
+		c_deathcnt=#{c_deathcnt},
+		c_qurrate=#{c_qurrate},
+		c_createdt=#{c_createdt}
+		 where c_name=#{c_name}
+	</update>
+</mapper>

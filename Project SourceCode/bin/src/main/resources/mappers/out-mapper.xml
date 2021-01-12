@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Out">
+	<resultMap type="Out" id="resultOut">
+		<id property="m_id" column="m_id"/>
+		<result property="o_status" column="o_status"/>
+		<result property="o_outdate" column="o_outdate"/>
+		<result property="o_reason" column="o_reason"/>
+	</resultMap>
+	
+	<!-- 한명 조회 -->
+	<select id="selectOne" parameterType="string" resultType="Out">
+		SELECT * FROM OUT WHERE M_ID = #{m_id}
+	</select>
+	
+	<insert id = "insertOut" parameterType="string" flushCache="true" statementType="PREPARED">
+		INSERT INTO OUT(M_ID, O_STATUS) VALUES(#{m_id}, 'N')
+	</insert>
+</mapper>

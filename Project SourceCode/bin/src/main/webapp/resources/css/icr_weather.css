@@ -1,0 +1,53 @@
+@charset "UTF-8";
+#weather_Img1, #weather_Img2, #weather_Img3{
+	display: none;
+	float: left;
+	padding: 10;
+}
+#ICR_weatherBox2 p {
+	margin: 8px;
+	font-size: small;
+}
+#ICR_weatherBox{
+	width: 200px;
+	height: 218px;
+	background: white;
+	border: 1px solid gray;
+	border-radius: 3px;
+	position: fixed;
+	top: 15%;
+	left: 50px;
+	z-index:2;
+	text-align: center;
+	
+}
+#ICR_weatherBox2{
+	width: 90px;
+	height: 130px;
+	display: inline-block;
+	text-align: left;
+}
+.Village{
+	background: none;
+	border: none;
+	font-size: small;
+	width: 200px;
+	padding: 3px 0 0 3px;
+	outline: 0;
+}
+.Village:hover{
+	background: #eee;
+	
+}
+#OtherWeather{
+	width: 200px;
+	background: #0AC5A8;
+	color: white;
+	border: none;
+}
+.dropdown-menu{
+	text-align: center;
+}
+.dropdown-menu li{
+	display: inline-block;
+}
