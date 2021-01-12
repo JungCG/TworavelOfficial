@@ -31,13 +31,7 @@ body {
 	padding-bottom: 200px;
 }
 
-#ICR_writeBtn {
-	position: left;
-}
 
-#YJH_paging {
-	position: center;
-}
 
 
 </style>
@@ -53,7 +47,7 @@ body {
 
 
 				<div id="ICR_writeBtn">
-					<a href="Productwrite.jsp">글쓰기</a>
+					<a href="gallery_write.do">글쓰기</a>
 				</div>
 
 				<div id="ICR_Product_main">
@@ -63,11 +57,13 @@ body {
 								<table style="display: inline; width: 350px;">
 									
 									<tr>
-										<td colspan="3"><a href="./"><img
-												src="${pageContext.request.contextPath }/resources/images/gallery.png"
-												style="width: 300px; height: auto;"> </a></td>
+										<td colspan="3"><a href="./">
+										<img
+												src="${pageContext.request.contextPath }/resources/gallery_uploadFiles/${pvo.g_img1}"
+												style="width: 300px; height: auto;"> 
+										
+												</a></td>
 									</tr>
-									
 									
 									<tr>
 										<td>${pvo.g_content}</td>

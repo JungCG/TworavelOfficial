@@ -30,8 +30,8 @@
 			type="com.kh.tworavel.model.domain.CoronaMap" />
 		<typeAlias alias="Gallery"
 			type="com.kh.tworavel.model.domain.Gallery" />
-			<typeAlias alias="Gallery"
-			type="com.kh.tworavel.model.domain.Gallery" />
+		<typeAlias alias="GAdd"
+			type="com.kh.tworavel.model.domain.GAdd" />
 		<typeAlias alias="Companioninfo"
 			type="com.kh.tworavel.model.domain.CompanionInfo" />
 		<typeAlias alias="Favor"
@@ -51,6 +51,7 @@
 		<mapper resource="mappers/out-mapper.xml" />
 		<mapper resource="mappers/coronamap-mapper.xml" />
 		<mapper resource="mappers/gallery-mapper.xml" />
+		<mapper resource="mappers/gadd-mapper.xml" />
 		<mapper resource="mappers/companioninfo-mapper.xml" />
 		<mapper resource="mappers/favor-mapper.xml" />
 		<mapper resource="mappers/blike-mapper.xml" />

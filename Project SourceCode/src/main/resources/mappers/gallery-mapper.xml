@@ -12,6 +12,12 @@
 		<result property="g_like" column="g_like" />
 		<result property="g_content" column="g_content" />
 		<result property="g_view" column="g_view" />
+		<result property="g_img1" column="g_img1" />
+		<result property="g_img2" column="g_img2" />
+		<result property="g_img3" column="g_img3" />
+		
+		
+		
 		
 	</resultMap>
 	<!-- Final -->
@@ -20,9 +26,21 @@
 	</select>
 	
 	<select id="selectList" resultType="arraylist" resultMap="resultGallery">
-		select * from gallery
+		select g.g_id as g_id, g.m_id as m_id, g.g_like as g_like, g.g_content as g_content, g.g_view as g_view, 
+		 d.g_img1 as g_img1, d.g_img2 as g_img2, d.g_img3 as g_img3 from gallery g join gadd d on g.g_id=d.g_id order by g.g_id
 	</select>
 	
+	
+	<!-- 게시글 삽입  -->
+	<insert id="insertGallery" parameterType="Gallery" flushCache="true" statementType="PREPARED">
+		insert into gallery values ((select nvl(max(g_id),0) from gallery)+1, #{m_id}, 0, #{g_content}, 0)
+	</insert>
+	
+	
+	
+	
+	
+
 </mapper>
 
 

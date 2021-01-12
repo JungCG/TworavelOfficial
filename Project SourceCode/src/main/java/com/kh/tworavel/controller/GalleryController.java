@@ -1,8 +1,11 @@
 package com.kh.tworavel.controller;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,8 +15,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.tworavel.model.domain.GAdd;
+import com.kh.tworavel.model.domain.Gallery;
 import com.kh.tworavel.model.service.GalleryService;
 
 /**
@@ -24,24 +30,101 @@ public class GalleryController {
 
 	@Autowired
 	private GalleryService gService;
-	public static final int LIMIT = 6; //한 페이지당 6개 사진을 보여준다. 
+	@Autowired
+	private Gallery gallery;
+	@Autowired
+	private GAdd gadd;
+
+	public static final int LIMIT = 6; // 한 페이지당 6개 사진을 보여준다.
+
+	@RequestMapping("gallery_write.do") // 글등록 페이지로 이동
+	public String gallery_write() {
+		return "gallery_write";
+	}
 
 //게시판 리스트
-
 	// 게시글 리스트 select
-	@RequestMapping(value = { "/gallery_list.do" }, method= {RequestMethod.GET})
+	@RequestMapping(value = { "/gallery_list.do" }, method = { RequestMethod.GET })
 	public ModelAndView galleryListService(@RequestParam(name = "page", defaultValue = "1") int page, ModelAndView mv) {
 		int listCount = gService.listCount(); // 게시글 개수
 		int maxPage = (int) ((double) listCount / LIMIT + 0.9);
 		try {
-		mv.addObject("maxPage", maxPage);
-		mv.addObject("currentPage", page);
-		mv.addObject("list", gService.selectList(page, LIMIT)); // 첫번째 페이지에 5개
-		mv.setViewName("gallery_list"); // gallery/glist View페이지가 보여짐 
-		}catch(Exception e) {
+			mv.addObject("maxPage", maxPage);
+			mv.addObject("currentPage", page);
+			mv.addObject("list", gService.selectList(page, LIMIT)); // 첫번째 페이지에 5개
+			mv.setViewName("gallery_list"); // gallery/glist View페이지가 보여짐
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return mv;
+	}
+
+//	//*여기부터 게시글 작성//
+//	// 게시글 작성 페이지
+//		@RequestMapping(value = "/gallery_write.do", method = RequestMethod.GET)
+//		public String boardInsertForm(ModelAndView mv) { // 너가 입력할 게 있다면 여기 mv에 채워줘
+//			// DI
+//			gService.testFunc();
+//			return "gallery/gallery_write"; // View페이지에서 작성 후 form action = "bInsert.do" 로 들어오도록 함.
+//		}
+//	
+	// 작성된 글을 insert
+	@RequestMapping(value = "/gInsert.do", method = RequestMethod.POST)
+		public ModelAndView galleryInsert(Gallery g, @RequestParam(name = "upfile") MultipartFile report,
+				HttpServletRequest request, ModelAndView mv) {
+			try {
+				
+				String userID = (String) request.getSession().getAttribute("userID");
+				System.out.println("userID:" + userID);
+				gallery.setM_id(userID);
+				gallery.setG_content(g.getG_content());
+				gadd.setG_img1(report.getOriginalFilename());
+				
+				// 첨부파일 저장
+				if (report != null && !report.equals("")) {
+					saveFile(report, request);
+				}
+			
+				report.getOriginalFilename(); // 저장된 파일명을 vo에 set
+				
+				
+				
+				g.getM_id();
+				int result = gService.insertGallery(gallery);
+				int result2 = gService.insertGadd(gadd);
+				if(result>0 && result2>0) {
+					mv.setViewName("redirect:gallery_list.do"); // insertBoard에 성공했다면 !!! View페이지로 이동하는 것이 아니라 컨트롤러 url 중 "게시글 리스트
+														// select로
+				}
+			} catch (Exception e) {
+				// 실패했다면
+				mv.setViewName("errorPage"); // errorPage 페이지로 이동
+				e.printStackTrace();
+			}
+			return mv;
+		}
+
+	private void saveFile(MultipartFile report, HttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = root + "/Gallery_uploadFiles";
+		File folder = new File(savePath);
+		if (!folder.exists()) {
+			folder.mkdirs(); // 폴더가 없다면 생성한다.
+		}
+		String filePath = null;
+		try {
+			// 파일 저장
+			System.out.println(report.getOriginalFilename() + "을 저장합니다.");
+			System.out.println("저장 경로 : " + savePath);
+
+			filePath = folder + "/" + report.getOriginalFilename();
+			report.transferTo(new File(filePath)); // 파일을 저장한다
+			System.out.println("파일 명 : " + report.getOriginalFilename());
+			System.out.println("파일 경로 : " + filePath);
+			System.out.println("파일 전송이 완료되었습니다.");
+		} catch (Exception e) {
+			System.out.println("파일 전송 에러 : " + e.getMessage());
+		}
 	}
 
 //	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);

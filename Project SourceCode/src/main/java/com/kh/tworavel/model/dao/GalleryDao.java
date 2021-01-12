@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.tworavel.model.domain.GAdd;
 import com.kh.tworavel.model.domain.Gallery;
 
 @Repository("gDao")
@@ -32,5 +33,18 @@ public class GalleryDao {
 
 		return sqlSession.selectList("Gallery.selectList", null, row);
 	}
+	
+	
+	public int insertGallery(Gallery gallery) { 
+		return sqlSession.insert("Gallery.insertGallery", gallery);
+	}
+	
+	public int insertGadd(GAdd gadd) { 
+		return sqlSession.insert("GAdd.insertGadd", gadd);
+	}
 
 }
+
+
+
+
