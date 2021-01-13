@@ -136,23 +136,19 @@ section {
 #kdy-companion-content {
 	color: #282828;
 	width: 828px;
-	border-top: 2px solid #00000017;
 	padding-top: 20px;
 	padding-bottom: 20px;
-	border-bottom: 2px solid #00000017;
 	margin-bottom: 10px;
 }
 
 #kdy-companion-content-tr {
-	border-bottom: 1px dotted #00000017;
+
 }
 
 #kdy-companion-description {
 	font-color: #282828;
 	margin-top: 10px;
-	border-top: 2px solid #00000017;
-	border-bottom: 2px solid #00000017;
-	margin-bottom: 10px;
+
 }
 
 #kdy-companion-description-p {
@@ -166,7 +162,7 @@ section {
 	font-size: 26px;
 	font-family: 'Hanna', fantasy;
 } */
-#kdy-blist-link {
+#kdy-clist-link {
 	color: rgb(0 166 255/ 68%);
 	background: #3d91ff00;
 	border: 2px solid #0ac5a866;
@@ -177,7 +173,7 @@ section {
 	font-family: BMHANNAAir;
 }
 
-#kdy-blist-update {
+#kdy-clist-update {
 	color: rgb(0 166 255/ 68%);
 	background: #3d91ff00;
 	border: 2px solid #0ac5a866;
@@ -187,7 +183,7 @@ section {
 	font-family: BMHANNAAir;
 }
 
-#kdy-blist-delete {
+#kdy-clist-delete {
 	color: rgb(0 166 255/ 68%);
 	background: #3d91ff00;
 	border: 2px solid #0ac5a866;
@@ -307,7 +303,7 @@ table>tr {
 										<input type="hidden" value="${clist.m_id}" name="m_id2">
 										<input type="hidden" value="${userID}" name="m_id"> <input
 											type="hidden" value="${clist.c_name}" name="c_name">
-										<input type="submit" value="동행신청" class="" id="csub_btn">
+										<input type ="button" id="csub_btn" value="동행신청"/>
 									</form>
 								</div>
 							</c:when>
@@ -315,7 +311,34 @@ table>tr {
 					</div>
 				</div>
 			</section>
-			<script>
+<script>
+//동행 신청
+$(function(){
+	$("#csub_btn").click(function(){
+		var user_id = "${userID}";
+		if (user_id == "null" || user_id == "") {
+			alert("동행 신청 하시려면 로그인을 해야됩니다");
+		} else {
+			alert("1성공")
+			$.ajax({
+				url : "companion_insertInfo_check.do",
+				data : {
+					m_id : "${userID}"
+				},
+				success : function(res) {
+					if (res >= 20) {
+						alert("성공")
+						submit = "companion_insertInfo.do"
+					} else {
+						alert("실패")
+						alert("포인트가 부족합니다. 앵벌이 스타트!");
+					}
+				}
+			});
+		}
+	});
+});
+
 		function xSize(e) {
 			var t;
 			e.onfocus = function() {
@@ -329,7 +352,7 @@ table>tr {
 			}
 		}
 			//수정부분
-		   $(function(){
+	$(function(){
          $("#kdy-c_like-btn").click(function(){
             var user_id = "${userID}";
             if(user_id=="null" || user_id == ""){
@@ -430,21 +453,18 @@ var polyline = new kakao.maps.Polyline({
 });
 // 지도에 선을 표시합니다 
 polyline.setMap(map);  
-
-// 동행 신청
-$(document).ready(function(){
-	$("#csub_btn").click(function() {
-		location.href = "./companion_list.do";
-	});
-});
 </script>
 		</div>
 		<div style="display: flex; justify-content: center;">
 			<div
 				style="width: 1000px; display: flex; justify-content: flex-end; margin-right: 10px; margin-top: 15px; margin-bottom: 15px;">
+				<c:choose>
+					<c:when test="${clist.m_id eq userID}">
 				<a href="companion_update.do?c_id=${clist.c_id }"
-					id="kdy-blist-update">글수정</a> <a
+					id="kdy-clist-update">글수정</a> <a
 					href="companiondelete.do?c_id=${clist.c_id }" id="kdy-clist-delete">글삭제</a>
+				</c:when>
+				</c:choose>
 				<a href="companion_list.do" id="kdy-clist-link">글목록</a>
 			</div>
 		</div>

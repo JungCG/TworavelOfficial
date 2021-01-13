@@ -64,6 +64,7 @@
 	font-weight: normal;
 	font-style: normal;
 }
+
 * {
 	padding: 0;
 	margin: 0;
@@ -94,16 +95,19 @@ KDY {
 	margin-top: 70px;
 	margin-bottom: 100px;
 }
+
 table {
 	padding-left: 6vh;
 	font-size: 16px;
 	font-family: 'Hanna', fantasy;
 	color: #282828;
 }
-table > tr > td {
+
+table>tr>td {
 	margin-top: 51px;
 	margin-bottom: 51px;
 }
+
 section {
 	width: 1000px;
 	display: flex;
@@ -121,11 +125,11 @@ section {
 }
 
 .mbutton {
-	border-bottom: 2px solid rgb(28	28 28/ 39%);
+	border-bottom: 2px solid rgb(28 28 28/ 39%);
 	font-size: 16px;
 	background-color: white;
 	border-radius: 15px;
- 	padding: 5px;
+	padding: 5px;
 	font-family: 'Hanna', fantasy;
 	margin: 20px;
 	width: 180px;
@@ -134,7 +138,7 @@ section {
 #kdy-name-input {
 	height: 30px;
 	width: 50%;
-	border-bottom: 2px solid rgb(48	28 28/ 39%);
+	border-bottom: 2px solid rgb(48 28 28/ 39%);
 	outline: none;
 	padding-left: 5px;
 }
@@ -142,7 +146,7 @@ section {
 #kdy-value-input {
 	height: 30px;
 	width: 30%;
-	border-bottom: 2px solid rgb(48	28 28/ 39%);
+	border-bottom: 2px solid rgb(48 28 28/ 39%);
 	outline: none;
 	padding-left: 5px;
 }
@@ -150,7 +154,7 @@ section {
 #kdy-startd-input {
 	height: 30px;
 	width: 30%;
-	border-bottom: 2px solid rgb(48	28 28/ 39%);
+	border-bottom: 2px solid rgb(48 28 28/ 39%);
 	outline: none;
 	padding-left: 5px;
 }
@@ -158,7 +162,7 @@ section {
 #kdy-endd-input {
 	height: 30px;
 	width: 30%;
-	border-bottom: 2px solid rgb(48	28 28/ 39%);
+	border-bottom: 2px solid rgb(48 28 28/ 39%);
 	outline: none;
 	padding-left: 5px;
 }
@@ -166,7 +170,7 @@ section {
 #kdy-many-input {
 	height: 30px;
 	width: 30%;
-	border-bottom: 2px solid rgb(48	28 28/ 39%);
+	border-bottom: 2px solid rgb(48 28 28/ 39%);
 	outline: none;
 	padding-left: 5px;
 }
@@ -205,7 +209,7 @@ input[type='radio']:checked:after {
 
 #submitModifyCompanionBtn {
 	font-family: 'Hanna', fantasy;
-	border-bottom: 3px solid rgb(78	28 28/ 39%);
+	border-bottom: 3px solid rgb(78 28 28/ 39%);
 	font-size: 16px;
 	background-color: white;
 	border-radius: 15px;
@@ -214,26 +218,27 @@ input[type='radio']:checked:after {
 }
 
 #kdy-serach-list {
-	border-bottom: 3px solid rgb(78	28 28/ 39%);
+	border-bottom: 3px solid rgb(78 28 28/ 39%);
 	font-size: 16px;
 	background-color: white;
 	border-radius: 15px;
 	margin-right: 100px;
- 	padding: 5px;
+	padding: 5px;
 }
 
 .categoryleft {
 	margin-right: 2px;
 	width: 90px;
 	height: 25px;
-	border-bottom: 2px solid rgb(48	28 28/ 39%);
+	border-bottom: 2px solid rgb(48 28 28/ 39%);
 	padding-left: 5px;
 }
+
 .categoryright {
 	margin-right: 10px;
 	width: 120px;
 	height: 25px;
-	border-bottom: 2px solid rgb(48	28 28/ 39%);
+	border-bottom: 2px solid rgb(48 28 28/ 39%);
 	padding-left: 5px;
 }
 </style>
@@ -250,12 +255,12 @@ input[type='radio']:checked:after {
 		<jsp:include page="header.jsp" />
 		<KDY>
 		<section>
-			<form name="frm" enctype="multipart/form-data">
-
+			<form name="frm" enctype="multipart/form-data" id="frm">
 				<table align="center" style="width: 100%;">
 					<tr style="height: 30px;">
 						<td>작성자</td>
-						<td colspan="3"><input type="text" name="m_id" value="${userID}"></td>
+						<td colspan="3"><input type="text" name="m_id"
+							value="${userID}"></td>
 					</tr>
 					<tr style="height: 30px">
 						<td>제목</td>
@@ -265,15 +270,15 @@ input[type='radio']:checked:after {
 					</tr>
 					<tr style="height: 30px">
 						<td>경비</td>
-						<td style="width: 85%;" colspan="3"><input type="text" onkeypress="doNumber();"
-							name="c_value" id="kdy-value-input"
+						<td style="width: 85%;" colspan="3"><input type="text"
+							onkeypress="doNumber();" name="c_value" id="kdy-value-input"
 							placeholder="1인당 여행경비를 입력해주세요(숫자만)" required="required"></td>
 					</tr>
 					<tr style="height: 30px">
 						<td>인원</td>
-						<td style="width: 85%;" colspan="3"><input type="text" onkeypress="doNumber();"
-							name="c_many" id="kdy-many-input" placeholder="총 인원을 입력해주세요(숫자만)"
-							required="required"></td>
+						<td style="width: 85%;" colspan="3"><input type="text"
+							onkeypress="doNumber();" name="c_many" id="kdy-many-input"
+							placeholder="총 인원을 입력해주세요(숫자만)" required="required"></td>
 					</tr>
 					<tr style="height: 30px">
 						<td>출발 날짜</td>
@@ -282,53 +287,32 @@ input[type='radio']:checked:after {
 							required="required"></td>
 					</tr>
 					<tr style="height: 30px">
-						<td style="1">도착 날짜</td>
+						<td style="">도착 날짜</td>
 						<td style="width: 85%;" colspan="3"><input type="date"
 							name="c_endd" id="kdy-endd-input" placeholder="도착 날짜를 입력해주세요"
 							required="required"></td>
 					</tr>
 					<tr>
 						<td>카테고리 분류</td>
-						<!-- <td>
-						<select name="c_lid" onchange="categoryChange1(this)" class="categoryleft" required="required">
-								<option style="display: none;">카테고리</option>
-								<option value="1">지역</option>
-						</select> <select name="c_sid" id="ICR_smallCategory1" class="categoryright">
+						<td><label> <input type="checkbox" name="c_lid1"
+								class="c_lida1" id="c_lid1" onchange="categoryChange1(this)"
+								class="categoryleft" value="1" required="required"> 지역
+						</label> <select name="c_sid1" id="ICR_smallCategory1" id="c_sid1"
+							class="categoryright" required="required">
 								<option style="display: none;">소분류</option>
-						</select>
-						<select name="c_lid" onchange="categoryChange2(this)" class="categoryleft" required="required">
-								<option style="display: none;">카테고리</option>
-								<option value="2">인원</option>
-						</select> <select name="c_sid" id="ICR_smallCategory2" class="categoryright">
+						</select> <label> <input type="checkbox" name="c_lid2" id="c_lid2"
+								class="c_lida2" onchange="categoryChange2(this)"
+								class="categoryleft" value="2" required="required"> 인원
+						</label> <select name="c_sid2" id="ICR_smallCategory2" id="c_sid2"
+							class="categoryright" required="required">
 								<option style="display: none;">소분류</option>
-						</select>
-						<select name="c_lid" onchange="categoryChange3(this)" class="categoryleft" required="required">
-								<option style="display: none;">카테고리</option>
-								<option value="3">성향</option>
-						</select> <select name="c_sid" id="ICR_smallCategory3" class="categoryright">
+						</select> <label> <input type="checkbox" name="c_lid3" id="c_lid3"
+								class="c_lida3" onchange="categoryChange3(this)"
+								class="categoryleft" value="3" required="required"> 성향
+						</label> <select name="c_sid3" id="ICR_smallCategory3" id="c_sid3"
+							class="categoryright" required="required">
 								<option style="display: none;">소분류</option>
-						</select>
-						</td> -->
-						<td>
-						<label>
-						<input type="checkbox" name="c_lid1" onchange="categoryChange1(this)" class="categoryleft" value="1" required="required">
-						지역</label>
-						<select name="c_sid1" id="ICR_smallCategory1" class="categoryright">
-								<option style="display: none;">소분류</option>
-						</select>
-						<label>
-						<input type="checkbox" name="c_lid2" onchange="categoryChange2(this)" class="categoryleft" value="2" required="required">
-								인원</label>
-								<select name="c_sid2" id="ICR_smallCategory2" class="categoryright">
-								<option style="display: none;">소분류</option>
-						</select>
-						<label>
-						<input type="checkbox" name="c_lid3" onchange="categoryChange3(this)" class="categoryleft" value="3" required="required">
-						성향</label>
-						<select name="c_sid3" id="ICR_smallCategory3" class="categoryright">
-								<option style="display: none;">소분류</option>
-						</select>
-						</td>
+						</select></td>
 					</tr>
 					<tr>
 						<td colspan="2">
@@ -338,27 +322,27 @@ input[type='radio']:checked:after {
 								<input type="button" id="meetbtn" class="mbutton"
 									value="미팅포인트 지정"> <input type="button" id="meetsubmit"
 									class="mbutton" value="미팅포인트 등록"> <input type="button"
-									id="meetdel" class="mbutton" value="미팅포인트 삭제">
-									<input type="hidden" id="meet" value="0">
-									<input type="hidden" value="0" name="c_meet" id="meetvalue">
-									<input type="hidden" value="0" name="c_id" />
-									<input type="hidden" value="0" name="c_view" /> 
-									<input type="hidden" value="0"name="c_like" />
-									<input type="button" id="se" class="mbutton"
+									id="meetdel" class="mbutton" value="미팅포인트 삭제"> <input
+									type="hidden" id="meet" value="0"> <input type="hidden"
+									value="0" name="c_meet" id="meetvalue"> <input
+									type="hidden" value="0" name="c_id" /> <input type="hidden"
+									value="0" name="c_view" /> <input type="hidden" value="0"
+									name="c_like" /> <input type="button" id="se" class="mbutton"
 									value="위치 확정 "> <input type="hidden" id="mapval0"
 									name="mapval1"> <input type="hidden" id="mapval1"
 									name="mapval2"> <input type="hidden" id="mapval2"
 									name="mapval3"> <input type="hidden" id="mapval3"
 									name="mapval4"> <input type="hidden" id="mapval4"
 									name="mapval5">
-							</div> 
-							<p style="margin-top: 10px; text-align">
+							</div>
+							<p style="margin-top: 10px; margin-left: 245px;">
 								<em>미팅 포인트를 지정하고 싶으시면 지정 버튼을 누르고 등록해주세요.</em>
 							</p>
-							<p style="margin-top: 10px;">
+							<p style="margin-top: 10px; margin-left: 245px;">
 								<em>지도를 클릭해서 마커를 표시하신후 '위치확정' 버튼을 눌러주세요.</em>
 							</p>
-							<div id="map2" style="width: 897px; height: 500px; z-index: 0; margin-top: 20px;"></div>
+							<div id="map2"
+								style="width: 897px; height: 500px; z-index: 0; margin-top: 20px;"></div>
 							<!-- 지도 끝 -->
 						</td>
 					</tr>
@@ -367,9 +351,9 @@ input[type='radio']:checked:after {
 								id="c_description" name="c_description"></textarea></td>
 					</tr>
 					<tr style="height: 50px">
-						<td colspan="4" align="end">
-						<input type="button" id="submitModifyCompanionBtn" value="등록하기">
-						<a href="companion_list.do" id="kdy-serach-list">목록으로</a></td>
+						<td colspan="4" align="end"><input type="button"
+							id="submitModifyCompanionBtn" value="등록하기"> <a
+							href="companion_list.do" id="kdy-serach-list">목록으로</a></td>
 					</tr>
 				</table>
 			</form>
@@ -393,26 +377,6 @@ input[type='radio']:checked:after {
 
 				});
 
-		$('#submitModifyCompanionBtn').click(
-				function() {
-					if ($("#kdy-name-input").val() == "") {
-						alert("글 제목을 입력해주세요")
-						$("#kdy-name-input").focus();
-						return false;
-					}
-					if ($("#yes").is(":checked")) {
-						if ($("#kdy-password-input").val() == "") {
-							alert("비밀번호를 입력해주세요");
-							$("#kdy-password-input").focus();
-							return false;
-						}
-					}
-					oEditors.getById["c_description"].exec(
-							"UPDATE_CONTENTS_FIELD", []);
-					document.frm.action = "companioninsert.do";
-					document.frm.method = "POST";
-					document.frm.submit();
-				});
 		$(function() {
 
 			if ($("#No").is(":checked")) {
@@ -654,15 +618,98 @@ input[type='radio']:checked:after {
 				target.appendChild(opt);
 			}
 		}
-
 	</script>
 	<script>
-		<!--자바스크립트를 불러오는 속성입력-->
-		function doNumber(){
-		          if(event.keyCode<48 || event.keyCode>57){
-		             event.returnValue=false;
-		          }
+	//인풋창에 숫자만 들어가게 
+		/* function doNumber() {
+			if (event.keyCode<48 || event.keyCode>57) {
+				event.returnValue = false;
+			}
+		} */
+		//섭밋버튼 클릭하면 각 엘레멘트 정규표현식 비교
+		$('#submitModifyCompanionBtn').click(
+				function() {
+					if ($("#kdy-name-input").val() == "") {
+						alert("글 제목을 입력해주세요")
+						$("#kdy-name-input").focus();
+						return false;
+					}
+					var cvi = $("#kdy-value-input").val().trim();
+					var reg = /^[0-9]*$/;
+					if (cvi != "" || cvi != null) {
+						if (!reg.test(cvi)) {
+							alert("경비 조건에 맞게 입력해주세요. [숫자만 입력 가능.]");
+							$("#kdy-value-input").val("").focus();
+							return false;
+						}
+					}
+					var cvi = $("#kdy-value-input").val().trim();
+					if (cvi == "" || cvi == null) {
+					alert("경비를 넣어주세요.").focus();
+					    return false;
+					}
+					var nvi = $("#kdy-many-input").val().trim();
+					var reg = /^[0-9]*$/;
+					if (nvi != "" || nvi != null) {
+						if (!reg.test(nvi)) {
+							alert("인원 조건에 맞게 입력해주세요. [숫자만 입력 가능.]");
+							$("#kdy-many-input").val("").focus();
+							return false;
+						}
+					} 
+					var nvi = $("#kdy-many-input").val().trim();
+					if (nvi == "" || nvi == null) {	
+					alert("인원를 넣어주세요.").focus();
+					    return false;
+					}
+					if($(".c_lida1").is(":checked") == false){
+						alert("카테고리 넣어주세요.");
+					    return false;
+					}
+					if($(".c_lida2").is(":checked") == false){
+						alert("카테고리 넣어주세요.");
+					    return false;
+					}
+					if($(".c_lida3").is(":checked") == false){
+						alert("카테고리 넣어주세요.");
+					    return false;
+					}
+					if($("#kdy-startd-input").val() == "") {
+						alert("시작 날짜를 입력해주세요")
+						$("#kdy-startd-input").focus();
+						return false;
+					}
+					if($("#kdy-endd-input").val() == "") {
+						alert("마지막 날짜를 입력해주세요")
+						$("#kdy-endd-input").focus();
+						return false;
+					}
+					oEditors.getById["c_description"].exec(
+							"UPDATE_CONTENTS_FIELD", []);
+					document.frm.action = "companioninsert.do";
+					document.frm.method = "POST";
+					document.frm.submit();
+				});
+	</script>
+	<script>
+		//날짜제한
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth() + 1; //January is 0!
+		var yyyy = today.getFullYear();
+		if (dd < 10) {
+			dd = '0' + dd
 		}
+		if (mm < 10) {
+			mm = '0' + mm
+		}
+
+		today = yyyy + '-' + mm + '-' + dd;
+		document.getElementById("kdy-startd-input").setAttribute("min", today);
+		document.getElementById("kdy-endd-input").setAttribute("min", today);
+
+		//지정날짜로 인풋에 입력
+		//document.getElementById('kdy-startd-input').value = new Date().toISOString().substring(0, 10);
 	</script>
 </body>
 </html>

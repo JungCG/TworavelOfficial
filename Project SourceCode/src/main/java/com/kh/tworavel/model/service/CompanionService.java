@@ -33,6 +33,8 @@ public interface CompanionService {
 	void deleteC(int c_id);
 	void deleteCMap(int c_id);
 	void deleteCTag(int c_id);
+	void deleteCChat(int c_id);
+	
 	
 	String selectMapC(CompanionMap vo);
 	List<CompanionTag> selectTagC(CompanionTag ct);
@@ -52,6 +54,8 @@ public interface CompanionService {
 //	 List<Companion>selectCHotViewList();
 //	 int selectCAllCount();
 
+	 // 동행 글쓰기 포인트 비교
+	 int companionlistwrite(String m_id);
 	 
 	 //	 동행 신청
 	 void insertCInfo(CompanionInfo vo);

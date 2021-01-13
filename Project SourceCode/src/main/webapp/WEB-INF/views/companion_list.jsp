@@ -272,10 +272,14 @@ a {
 						</c:forEach>
 					</c:if>
 					<tr>
-						<td colspan="6"
-							style="text-align: end; padding-top: 30px; padding-right: 30px; color: #0AC5A8;"><a
-							href="companion_write.do"
-							style="color: #0AC5A8; border: 3px solid #6495ed6b; border-radius: 10px; padding: 6px; font-family: 'Jal_Onuel';">글쓰기</a></td>
+						<c:choose>
+							<c:when test="${not empty userID}">
+								<td colspan="6"
+									style="text-align: end; padding-top: 30px; padding-right: 30px; color: #0AC5A8;"><button
+										type="button" id="clwrite"
+										style="color: #0AC5A8; border: 3px solid #6495ed6b; border-radius: 10px; padding: 6px; font-family: 'Jal_Onuel'; background-color: #ffffff;">글쓰기</button></td>
+							</c:when>
+						</c:choose>
 					</tr>
 					<tr>
 						<td colspan="6">
@@ -288,10 +292,10 @@ a {
 						<td>
 					</tr>
 					<tr align="center" height="20">
-						<td colspan="6" style="padding-top: 20px; color: #0AC5A8; font-family: 'Jal_Onuel';">
+						<td colspan="6"
+							style="padding-top: 20px; color: #0AC5A8; font-family: 'Jal_Onuel';">
 							<c:if test="${currentPage <= 1}">[이전]&nbsp;
-							</c:if>
-							<c:if test="${currentPage > 1}">
+							</c:if> <c:if test="${currentPage > 1}">
 								<c:url var="clistST" value="companion_list.do">
 									<c:param name="page" value="${currentPage-1}" />
 									<c:param name="type" value="${type}" />
@@ -299,10 +303,10 @@ a {
 										<c:param name="keyword" value="${keyword}"></c:param>
 									</c:if>
 								</c:url>
-								<a href="${clistST}" style="color: #0AC5A8; font-family: 'Jal_Onuel';">[이전]</a>
-							</c:if> 
-							<!-- 끝 페이지 번호 처리 -->
-							<c:forEach var="p" begin="${startPage}" end="${endPage}">
+								<a href="${clistST}"
+									style="color: #0AC5A8; font-family: 'Jal_Onuel';">[이전]</a>
+							</c:if> <!-- 끝 페이지 번호 처리 --> <c:forEach var="p" begin="${startPage}"
+								end="${endPage}">
 								<c:if test="${p <= maxPage}">
 									<c:if test="${p eq currentPage}">
 										<font color="cornflowerblue" size="4"><b>[${p}]</b></font>
@@ -318,10 +322,8 @@ a {
 										<a href="${clistchk}">${p}</a>
 									</c:if>
 								</c:if>
-							</c:forEach>
-							<c:if test="${currentPage >= maxPage}">[다음]
-	 						</c:if>
-	 						<c:if test="${currentPage < maxPage}">
+							</c:forEach> <c:if test="${currentPage >= maxPage}">[다음]
+	 						</c:if> <c:if test="${currentPage < maxPage}">
 								<c:url var="clistEND" value="companion_list.do">
 									<c:param name="page" value="${currentPage+1}" />
 									<c:param name="type" value="${type}" />
@@ -329,7 +331,8 @@ a {
 										<c:param name="keyword" value="${keyword }"></c:param>
 									</c:if>
 								</c:url>
-								<a href="${clistEND}" style="color: #0AC5A8; font-family: 'Jal_Onuel';">[다음]</a>
+								<a href="${clistEND}"
+									style="color: #0AC5A8; font-family: 'Jal_Onuel';">[다음]</a>
 							</c:if>
 						</td>
 					</tr>
@@ -345,8 +348,32 @@ a {
 						var c_id = $(this).next(".c_id").val();
 						location.href = "companion_detail.do?c_id=" + c_id
 								+ "&page=${currentPage}"
-					})
-		})
+					});
+		});
+		//수정부분
+		$(function() {
+			$("#clwrite").click(function() {
+				var user_id = "${userID}";
+				if (user_id == "null" || user_id == "") {
+					alert("동행글을 작성 하시려면 로그인을 해야됩니다");
+				} else {
+					$.ajax({
+						url : "companion_write.do",
+						data : {
+							m_id : "${userID}"
+						},
+						success : function(res) {
+							if (res >= 30) {
+								location.href = "companion_write_result.do"
+							} else {
+								alert("포인트가 부족합니다. 앵벌이 스타트!");
+							}
+
+						}
+					});
+				}
+			});
+		});
 	</script>
 </body>
 </html>

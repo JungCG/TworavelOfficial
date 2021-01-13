@@ -127,6 +127,11 @@ public class CompanionServiceImpl implements CompanionService {
 
 //	동행글 삭제
 	@Override
+	public void deleteCChat(int c_id) {
+		cDao.deleteC(c_id);
+	}
+	
+	@Override
 	public void deleteCMap(int c_id) {
 		cDao.deleteC(c_id);
 	}
@@ -191,7 +196,7 @@ public class CompanionServiceImpl implements CompanionService {
 	public List<Companion> selectCountpeople() {
 		return cDao.selectCountpeople();
 	}
-@Override
+	@Override
 	public List<Companion> selectCountarea() {
 		return cDao.selectCountarea();
 	}
@@ -200,4 +205,12 @@ public class CompanionServiceImpl implements CompanionService {
 		// TODO Auto-generated method stub
 		return cDao.selectCounttendency();
 	}
+	
+	// 동행 글쓰기 포인트 비교
+	@Override
+	public int companionlistwrite(String m_id) {
+		
+		return cDao.companionlistwrite(m_id);
+	}
+
 }

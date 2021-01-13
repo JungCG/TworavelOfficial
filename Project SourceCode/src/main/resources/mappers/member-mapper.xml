@@ -155,4 +155,15 @@ select m.*,o.o_status from member m join out o on(m.m_id=o.m_id) where m.m_id !=
 	<update id="adminminuspoint" parameterType="string" flushCache="true" statementType="PREPARED">
 	update member set m_point = 0 where m_id =#{m_id}
 	</update>
+	
+<!-- KDY -->
+	<update id="updatePointCompanionWrite" parameterType="string" flushCache="true" statementType="PREPARED">
+		update member set m_point = m_point-30 where m_id =#{m_id}
+	</update>
+	<update id="updatePointCompanionSubmit" parameterType="string" flushCache="true" statementType="PREPARED">
+		update member set m_point = m_point-20 where m_id =#{m_id}
+	</update>
+	<select id="companionlistwrite" parameterType="String" resultType="int">
+		select m_point from member where m_id=#{m_id}	
+	</select>
 </mapper>

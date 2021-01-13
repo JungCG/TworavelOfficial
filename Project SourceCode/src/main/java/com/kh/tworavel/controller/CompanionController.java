@@ -20,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -42,8 +43,14 @@ public class CompanionController {
 	public static final int LIMIT = 15;
 
 	// 동행글 등록 페이지
-	@RequestMapping(value = "companion_write.do", method = RequestMethod.GET)
-	public ModelAndView companion_write(ModelAndView mv) {
+	@RequestMapping(value = "companion_write.do")
+	@ResponseBody
+	public int companion_write(ModelAndView mv, @RequestParam(name = "m_id", required = true) String clwID) {
+		return cService.companionlistwrite(clwID);
+	}
+
+	@RequestMapping(value = "companion_write_result.do")
+	public ModelAndView companion_write_result(ModelAndView mv) {
 		mv.setViewName("companion_write");
 		return mv;
 	}
@@ -85,15 +92,12 @@ public class CompanionController {
 				cService.insertCTag(ct);
 			}
 			if (mapval1 != null) {
-				System.out.println(mapval1);
 				maplist.add(mapval1);
 			}
 			if (mapval2 != null) {
-				System.out.println(mapval2);
 				maplist.add(mapval2);
 			}
 			if (mapval3 != null) {
-				System.out.println(mapval3);
 				maplist.add(mapval3);
 			}
 			if (mapval4 != null) {
@@ -107,18 +111,18 @@ public class CompanionController {
 				vo.setC_id(c_id);
 				vo.setC_xy(maplist.get(i));
 				vo.setCm_id(i + 1);
-				System.out.println("값넣음" + maplist.get(i));
 				cService.insertCMap(vo);
 			}
 			mv.setViewName("redirect:/companion_list.do");
 		} catch (Exception e) {
-			mv.addObject("msg","글작성에 실패하셨습니다.");
-			mv.addObject("url","/companion_list.do");
+			e.printStackTrace();
+			mv.addObject("msg", "글작성에 실패하셨습니다.");
+			mv.addObject("url", "/companion_list.do");
 			mv.setViewName("alertMsg");
 			return mv;
 		}
-		mv.addObject("msg","글작성에 성공하였습니다. 30포인트가 감소되었습니다");
-		mv.addObject("url","/companion_list.do");
+		mv.addObject("msg", "글작성에 성공하였습니다. 30포인트가 감소되었습니다");
+		mv.addObject("url", "/companion_list.do");
 		mv.setViewName("alertMsg");
 		return mv;
 	}
@@ -177,7 +181,6 @@ public class CompanionController {
 		try {
 			int markercount = cService.selectCmapCount(c_id);
 
-			System.out.println(markercount);
 			List<CompanionMap> maplist = new ArrayList<CompanionMap>();
 			for (int i = 1; i <= markercount; i++) {
 				CompanionMap mvo = new CompanionMap();
@@ -282,15 +285,12 @@ public class CompanionController {
 
 			List<String> maplist = new ArrayList<String>();
 			if (mapval1 != null) {
-				System.out.println(mapval1);
 				maplist.add(mapval1);
 			}
 			if (mapval2 != null) {
-				System.out.println(mapval2);
 				maplist.add(mapval2);
 			}
 			if (mapval3 != null) {
-				System.out.println(mapval3);
 				maplist.add(mapval3);
 			}
 			if (mapval4 != null) {
@@ -307,8 +307,6 @@ public class CompanionController {
 				cService.updateCMap(vo);
 			}
 			cService.updateOneC(c);
-//		cService.updateTwoC(cm);
-//		cService.updateThrC(ct);
 			mv.setViewName("redirect:/companion_list.do");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -342,7 +340,6 @@ public class CompanionController {
 			vo.setC_id(c_id);
 			vo.setM_id(m_id);
 			if (chc == 1) {
-				System.out.println("실행");
 				cService.deleteCLike(vo);
 				cService.updateCLikeMinus(c_id);
 			} else {
@@ -380,6 +377,11 @@ public class CompanionController {
 	}
 
 //	동행 신청
+	@RequestMapping(value = "companion_insertInfo_check.do")
+	@ResponseBody
+	public int companion_insertInfo_check(ModelAndView mv, @RequestParam(name = "m_id", required = true) String clwID) {
+		return cService.companionlistwrite(clwID);
+	}
 	@RequestMapping(value = "companion_insertInfo.do")
 	public ModelAndView companioninsertInfoService(CompanionInfo io, ModelAndView mv, HttpServletRequest request,
 			HttpServletResponse response, @RequestParam(name = "c_id") int c_id,
@@ -396,11 +398,11 @@ public class CompanionController {
 			cService.insertCInfo(vo);
 		} catch (Exception e) {
 			e.printStackTrace();
+			mv.setViewName("redirect:companion_list.do");
 		}
-		mv.addObject("msg","동행 신청에 성공하였습니다. 20포인트가 감소되었습니다");
-		mv.addObject("url","/companion_list.do");
+		mv.addObject("msg", "동행 신청에 성공하였습니다. 20포인트가 감소되었습니다");
+		mv.addObject("url", "/companion_list.do");
 		mv.setViewName("alertMsg");
-		mv.setViewName("redirect:companion_list.do");
 		return mv;
 	}
 }

@@ -22,6 +22,7 @@ public class CompanionDao {
 	private SqlSession sqlSession;
 
 	public int companion(Companion c) { // 글 등록
+	 	sqlSession.update("Member.updatePointCompanionWrite",c.getM_id());
 		sqlSession.insert("Companion.insertC", c);
 		return sqlSession.selectOne("Companion.selectCmaxc_id");
 	}
@@ -80,6 +81,9 @@ public class CompanionDao {
 
 //	동행글 삭제
 	public void deleteC(int c_id) {
+		sqlSession.delete("Chatmessage.deleteCChat", c_id);
+		sqlSession.delete("Companion.deleteComLike", c_id);
+		sqlSession.delete("Companion.deleteCInfo", c_id);
 		sqlSession.delete("Companion.deleteCMap", c_id);
 		sqlSession.delete("Companion.deleteCTag", c_id);
 		sqlSession.delete("Companion.deleteC", c_id);
@@ -147,6 +151,7 @@ public class CompanionDao {
 
 //	동행 신청
 	public void insertCInfo(CompanionInfo vo) {
+	 	sqlSession.update("Member.updatePointCompanionSubmit", vo.getM_id());
 		sqlSession.insert("Companion.insertCInfo", vo);
 	}
 	    public List<Companion>selectCountarea(){
@@ -160,5 +165,9 @@ public class CompanionDao {
    public List<Companion>selectCounttendency(){
    	
    	return sqlSession.selectList("Companion.selectCounttendency");
+   }
+   // 동행 글쓰기 포인트 비교
+   public int companionlistwrite(String m_id) {
+	   return sqlSession.selectOne("Member.companionlistwrite", m_id);
    }
 }

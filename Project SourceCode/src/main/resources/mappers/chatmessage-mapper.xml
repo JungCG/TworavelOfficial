@@ -57,5 +57,8 @@
 		select count(*) from chatmessage where c_id = #{c_id} and m_receiver = #{m_receiver} and m_sender != #{m_receiver} and ch_read=0
 	</select>
 	
-	
+		<!-- KDY 채팅 메시지 삭제 -->
+	<delete id = "deleteCChat" parameterType="int" flushCache="true" statementType="PREPARED">
+		delete from chatmessage where c_id=#{c_id}
+	</delete>
 </mapper>

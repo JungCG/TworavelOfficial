@@ -108,6 +108,10 @@ section {
 	flex-direction: column;
 }
 
+table {
+	padding-left: 6vh;
+}
+
 #smart_editor2 {
 	width: 890px;
 }
@@ -273,28 +277,27 @@ input[type='radio']:checked:after {
 							value=<fmt:formatDate value="${Edate}" pattern="yyyy-MM-dd" />
 							required="required"></td>
 					</tr>
-					<tr>
+<tr>
 						<td>카테고리 분류</td>
-						<td>
-						<select name="c_lid" onchange="categoryChange1(this)" class="categoryleft" required="required">
-								<option style="display: none;">카테고리</option>
-								<option value="1">지역</option>
-						</select> <select name="c_sid" id="ICR_smallCategory1" class="categoryright">
+						<td><label> <input type="checkbox" name="c_lid1"
+								class="c_lida1" id="c_lid1" onchange="categoryChange1(this)"
+								class="categoryleft" value="1" required="required"> 지역
+						</label> <select name="c_sid1" id="ICR_smallCategory1" id="c_sid1"
+							class="categoryright" required="required">
 								<option style="display: none;">소분류</option>
-						</select>
-						<select name="c_lid" onchange="categoryChange2(this)" class="categoryleft" required="required">
-								<option style="display: none;">카테고리</option>
-								<option value="2">인원</option>
-						</select> <select name="c_sid" id="ICR_smallCategory2" class="categoryright">
+						</select> <label> <input type="checkbox" name="c_lid2" id="c_lid2"
+								class="c_lida2" onchange="categoryChange2(this)"
+								class="categoryleft" value="2" required="required"> 인원
+						</label> <select name="c_sid2" id="ICR_smallCategory2" id="c_sid2"
+							class="categoryright" required="required">
 								<option style="display: none;">소분류</option>
-						</select>
-						<select name="c_lid" onchange="categoryChange3(this)" class="categoryleft" required="required">
-								<option style="display: none;">카테고리</option>
-								<option value="3">성향</option>
-						</select> <select name="c_sid" id="ICR_smallCategory3" class="categoryright">
+						</select> <label> <input type="checkbox" name="c_lid3" id="c_lid3"
+								class="c_lida3" onchange="categoryChange3(this)"
+								class="categoryleft" value="3" required="required"> 성향
+						</label> <select name="c_sid3" id="ICR_smallCategory3" id="c_sid3"
+							class="categoryright" required="required">
 								<option style="display: none;">소분류</option>
-						</select>
-						</td>
+						</select></td>
 					</tr>
 					<!-- 지도 시작 -->
 					<tr>
@@ -359,23 +362,10 @@ nhn.husky.EZCreator.createInIFrame({
     sSkinURI: "${pageContext.request.contextPath}/resources/se/SmartEditor2Skin.html",  //skin경로
     fCreator: "createSEditor2",
 
-    
     fOnAppLoad:function(){
    oEditors.getById["c_description"].exec("PASTE_HTML", ["${fn:replace(clist.c_description, "\"", "'") }"]);
    }
 });
-$('#submitModifyCompanionBtn').click(function() {
-   if($("#kdy-name-input").val()==""){
-      alert("글 제목을 입력해주세요")
-   $("#kdy-name-input").focus();
-      return false;
-   }
-oEditors.getById["c_description"].exec("UPDATE_CONTENTS_FIELD", []);
-document.frm.action ="updatecompanion.do";
-document.frm.method ="POST";
-document.frm.submit();
- });
-
  </script>
 
 	<script type="text/javascript"
@@ -599,18 +589,47 @@ $("#meetdel").click(function(){
 		})
 	</script>
 	<script>
-		//카테고리 선택 스크립트
-		function categoryChange(e) {
-			var location = [ "강원도", "경기도", "경상남도", "경상북도", "전라남도", "전라북도", "충청남도", "충청북도" ];
-			var people = [ "~4명", "5~8명", "9명~" ];
-			var interest = [ "호캉스", "청춘", "자연", "유적지", "액티비티" ];
-			var target = document.getElementById("ICR_smallCategory");
+		//카테고리 선택 스크립트 value1
+		function categoryChange1(e) {
+			var location = [ "강원도", "경기도", "경상남도", "경상북도", "전라남도", "전라북도",
+					"충청남도", "충청북도" ];
+			var target = document.getElementById("ICR_smallCategory1");
 
 			if (e.value == "1")
 				var d = location;
-			else if (e.value == "2")
+			target.options.length = 0;
+
+			//소분류 value값
+			for (i = 0; i < d.length; i++) {
+				var opt = document.createElement("option");
+				opt.value = i + 1;
+				opt.innerHTML = d[i];
+				target.appendChild(opt);
+			}
+		}
+		//value2
+		function categoryChange2(e) {
+			var people = [ "~4명", "5~8명", "9명~" ];
+			var target = document.getElementById("ICR_smallCategory2");
+
+			if (e.value == "2")
 				var d = people;
-			else if (e.value == "3")
+			target.options.length = 0;
+
+			//소분류 value값
+			for (i = 0; i < d.length; i++) {
+				var opt = document.createElement("option");
+				opt.value = i + 1;
+				opt.innerHTML = d[i];
+				target.appendChild(opt);
+			}
+		}
+		//value3
+		function categoryChange3(e) {
+			var interest = [ "호캉스", "청춘", "자연", "유적지", "액티비티" ];
+			var target = document.getElementById("ICR_smallCategory3");
+
+			if (e.value == "3")
 				var d = interest;
 			target.options.length = 0;
 
@@ -622,6 +641,98 @@ $("#meetdel").click(function(){
 				target.appendChild(opt);
 			}
 		}
+	</script>
+	<script>
+	//인풋창에 숫자만 들어가게 
+		/* function doNumber() {
+			if (event.keyCode<48 || event.keyCode>57) {
+				event.returnValue = false;
+			}
+		} */
+		//섭밋버튼 클릭하면 각 엘레멘트 정규표현식 비교
+		$('#submitModifyCompanionBtn').click(
+				function() {
+					if ($("#kdy-name-input").val() == "") {
+						alert("글 제목을 입력해주세요")
+						$("#kdy-name-input").focus();
+						return false;
+					}
+					var cvi = $("#kdy-value-input").val().trim();
+					var reg = /^[0-9]*$/;
+					if (cvi != "" || cvi != null) {
+						if (!reg.test(cvi)) {
+							alert("경비 조건에 맞게 입력해주세요. [숫자만 입력 가능.]");
+							$("#kdy-value-input").val("").focus();
+							return false;
+						}
+					}
+					var cvi = $("#kdy-value-input").val().trim();
+					if (cvi == "" || cvi == null) {
+					alert("경비를 넣어주세요.").focus();
+					    return false;
+					}
+					var nvi = $("#kdy-many-input").val().trim();
+					var reg = /^[0-9]*$/;
+					if (nvi != "" || nvi != null) {
+						if (!reg.test(nvi)) {
+							alert("인원 조건에 맞게 입력해주세요. [숫자만 입력 가능.]");
+							$("#kdy-many-input").val("").focus();
+							return false;
+						}
+					} 
+					var nvi = $("#kdy-many-input").val().trim();
+					if (nvi == "" || nvi == null) {	
+					alert("인원를 넣어주세요.").focus();
+					    return false;
+					}
+					if($(".c_lida1").is(":checked") == false){
+						alert("카테고리 넣어주세요.");
+					    return false;
+					}
+					if($(".c_lida2").is(":checked") == false){
+						alert("카테고리 넣어주세요.");
+					    return false;
+					}
+					if($(".c_lida3").is(":checked") == false){
+						alert("카테고리 넣어주세요.");
+					    return false;
+					}
+					if($("#kdy-startd-input").val() == "") {
+						alert("시작 날짜를 입력해주세요")
+						$("#kdy-startd-input").focus();
+						return false;
+					}
+					if($("#kdy-endd-input").val() == "") {
+						alert("마지막 날짜를 입력해주세요")
+						$("#kdy-endd-input").focus();
+						return false;
+					}
+					oEditors.getById["c_description"].exec(
+							"UPDATE_CONTENTS_FIELD", []);
+					document.frm.action = "updatecompanion.do";
+					document.frm.method = "POST";
+					document.frm.submit();
+				});
+	</script>
+	<script>
+		//날짜제한
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth() + 1; //January is 0!
+		var yyyy = today.getFullYear();
+		if (dd < 10) {
+			dd = '0' + dd
+		}
+		if (mm < 10) {
+			mm = '0' + mm
+		}
+
+		today = yyyy + '-' + mm + '-' + dd;
+		document.getElementById("kdy-startd-input").setAttribute("min", today);
+		document.getElementById("kdy-endd-input").setAttribute("min", today);
+
+		//지정날짜로 인풋에 입력
+		//document.getElementById('kdy-startd-input').value = new Date().toISOString().substring(0, 10);
 	</script>
 </body>
 </html>
