@@ -91,8 +91,11 @@ public class BoardController {
 
 	// 게시글 상세페이지
 	@RequestMapping(value = "board_detail.do")
-	public ModelAndView boardDetailService(ModelAndView mv, @RequestParam(name = "b_id") int b_id, @RequestParam(name = "m_id") String m_id) {
+	public ModelAndView boardDetailService(ModelAndView mv, @RequestParam(name = "b_id") int b_id) {
 		try {
+			
+			String m_id =bService.selectWriterBoard(b_id);		
+		
 			mv.addObject("member", mypService.selectMember(m_id));
 			mv.addObject("blist", bService.selectBoard(b_id));
 			mv.addObject("clist", bService.selectComment(b_id));

@@ -51,6 +51,4 @@ public interface MemberService {
 
 	void adminminuspoint(String m_id);
 
-
-
 }
