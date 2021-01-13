@@ -1,15 +1,12 @@
 package com.kh.tworavel.controller;
 
 
-import java.sql.Timestamp;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -126,8 +123,8 @@ public class ChatController {
 		chatMsg.setM_receiver(userID);
 		chatMsg.setM_id(userID);
 		try {
-			mv.addObject("chatGrouplist", chService.selectChatGroup(userID));
 			mv.addObject("chatList", chService.selectBeforeChat(chatMsg));
+			mv.addObject("chatGrouplist", chService.selectChatGroup(userID));
 			mv.addObject("c_id", c_id);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -181,10 +178,11 @@ public class ChatController {
 
 		int result = 0;
 		try {
-			//result = chService.ChatUnreadServlet(userID);
+			result = chService.ChatUnreadServlet(userID);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
 		return result;
-	}	
+	}
+	
 }

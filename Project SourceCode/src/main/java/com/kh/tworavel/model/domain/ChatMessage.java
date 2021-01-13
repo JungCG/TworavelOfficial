@@ -14,8 +14,9 @@ public class ChatMessage {
 	private String ch_content;
 	private Timestamp ch_time;
 	private int ch_read;
-	
 	private String m_id;
+	private int ch_unread;
+	
 
 	
 	
@@ -24,7 +25,7 @@ public class ChatMessage {
 
 
 	public ChatMessage(int ch_id, int c_id, String m_sender, String m_receiver, String ch_content, Timestamp ch_time,
-			int ch_read, String m_id) {
+			int ch_read, String m_id, int ch_unread) {
 		super();
 		this.ch_id = ch_id;
 		this.c_id = c_id;
@@ -34,6 +35,7 @@ public class ChatMessage {
 		this.ch_time = ch_time;
 		this.ch_read = ch_read;
 		this.m_id = m_id;
+		this.ch_unread = ch_unread;
 	}
 
 
@@ -138,6 +140,15 @@ public class ChatMessage {
 		this.m_id = m_id;
 	}
 
+	public int getCh_unread() {
+		return ch_unread;
+	}
+	
+	
+	
+	public void setCh_unread(int ch_unread) {
+		this.ch_unread = ch_unread;
+	}
 	
 	
 	

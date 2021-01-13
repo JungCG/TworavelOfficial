@@ -94,7 +94,7 @@ a{
 			</c:if>
 			<div id="ICR_msg1">
 				<c:if test="${empty companioninfo_g}">
-				<div class="ICR_textDiv">동행 신청내역이 없습니다.<br><a href="#">☞동행신청 하러가기☜</a>
+				<div class="ICR_textDiv">동행 신청내역이 없습니다.<br><a style="text-decoration: none;" href="companion_list.do">☞동행신청 하러가기☜</a>
 				</div>
 				</c:if>
 			</div>
@@ -121,7 +121,12 @@ a{
 					<c:if test="${companioninfo_t.c_yn eq 'Y'}"></c:if>
 					</td>
 					<td id="ICR_inviteBtnTd">
+					<c:if test="${companioninfo_t.ch_inout eq 'I'}">
+						<font color="blue">초대완료</font>
+					</c:if>
+					<c:if test="${companioninfo_t.ch_inout ne 'I'}">
 						<button class="ICR_ChattingBtn btn btn-default">채팅초대하기</button>
+					</c:if>
 					</td>
 				</tr>
 				</c:forEach>

@@ -2,7 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jck_main.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/icr_mypage.css">
+<%
+    	String ctx = request.getContextPath();
+    	String userID = null;
+		if(session.getAttribute("userID") != null){
+			userID = (String) session.getAttribute("userID");
+		}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,10 +33,63 @@ body{
 	position : relative;
 	padding-bottom : 200px;
 }
-#ICR_myicon img{
+.ICR_myicon{
+	width: 130px;
+	height: 150px;
+	margin: 20px 40px 20px 40px;
+	display: inline-block;
+	text-align: center;
+}
+.ICR_myicon img{
 	width: 130px;
 	height: 130px;
-	margin: 30px 50px 30px 50px;
+}
+#ICR_MyPage{
+	margin: 0 auto;
+	width: 1000px;
+	text-align: center;
+	margin-bottom: 50px;
+	
+}
+#ICR_profile_img{
+	display: inline-block;
+	width: 50%;
+	height: 300px;
+	float: left;
+	text-align: right;
+	padding-right: 50px;
+}
+#ICR_info{
+	display: inline-block;
+	width: 50%;
+	height: 300px;
+	padding-left: 60px;
+	margin-top: 10px;
+}
+#ICR_hr{
+	border-top-color: #0AC5A8;
+	margin-top: 50px;
+}
+.ICR_my_img{
+	width: 180px;
+	height: 180px;
+	display: inline-block;
+	margin-bottom: 20px;
+}
+#ICR_modifyBtn{
+	background: #2C3C5B;
+	color: white;
+	float: right;
+}
+#unread2 {
+	line-height: 1;
+	float: right;
+	font-size: 15px;
+	font-weight: 700;
+	color: white;
+	padding : 4px;
+	border-radius : 4px;
+	background-color: rgba(255,0,0,0.7);
 }
 </style>
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.5.1.js"></script>
@@ -39,8 +98,36 @@ body{
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <script src="//code.jquery.com/jquery.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script>
+function getUnread2(){
+	$.ajax({
+		type:"POST",
+		url : "./ChatUnreadServlet",
+		data : {
+			userID : '<%=userID%>'
+		},
+		success : function(result){
+			if(result >= 1){
+				showUnread2(result);
+				$('#unread2').css('display','inline');
+			}else{
+				showUnread2('');
+				$('#unread2').css('display','none');
+			}
+		}
+	});
+}
 
+function getInfiniteUnread2(){
+	setInterval(function(){
+		getUnread2();
+	}, 5000);
+}
 
+function showUnread2(result){
+	$('#unread2').html(result);
+}
+</script>
 </head>
 <body>
 	<div class="jck_wrap">
@@ -121,14 +208,44 @@ body{
 			
 			
 		<hr id="ICR_hr">
-		<div id="ICR_myicon">
-			<div style="display: inline; cursor: pointer;" title="채팅방" onclick="ICR_ChatOpen();"><img class="ICR_my_img" src="${pageContext.request.contextPath}/resources/images/chatting.png"></div>
-			<a href="WritedList.do?m_id=${member.m_id}" title="작성한 게시글"><img class="ICR_my_img" src="${pageContext.request.contextPath}/resources/images/edit.png"></a>
-			<a href="CompanionStatus.do?m_id=${member.m_id}" title="동행신청내역"><img class="ICR_my_img" src="${pageContext.request.contextPath}/resources/images/friends.png"></a>
-			<a href="FavordPage.do?m_id=${member.m_id}" title="키워드 설정"><img class="ICR_my_img" src="${pageContext.request.contextPath}/resources/images/ring.png"></a><br>
-			<a href="LikeList.do?m_id=${member.m_id}" title="좋아요한 글"><img class="ICR_my_img" src="${pageContext.request.contextPath}/resources/images/heart.png"></a>
-			<a href="${pageContext.request.contextPath}" title="메인페이지"><img class="ICR_my_img" src="${pageContext.request.contextPath}/resources/images/home.png"></a>
-			<div style="display: inline; cursor: pointer;" title="회원탈퇴"><img data-toggle="modal" data-target=".bs-example-modal-sm" class="ICR_my_img" src="${pageContext.request.contextPath}/resources/images/logout.png"></div>
+		<div>
+			<div class="ICR_myicon">
+				<div style="display: inline; cursor: pointer;" title="채팅방" onclick="ICR_ChatOpen();">
+				<span id="unread2"></span>
+				<img class="ICR_my_img" src="${pageContext.request.contextPath}/resources/images/chatting.png">
+				<br><font size="3" color="gray">채팅방</font>
+				</div>
+			</div>
+			<div class="ICR_myicon">
+				<a href="WritedList.do?m_id=${member.m_id}" title="작성한 게시글">
+				<img class="ICR_my_img" src="${pageContext.request.contextPath}/resources/images/edit.png"></a>
+				<br><p>작성한 게시글</p>
+			</div>
+			<div class="ICR_myicon">
+				<a href="CompanionStatus.do?m_id=${member.m_id}" title="동행신청내역">
+				<img class="ICR_my_img" src="${pageContext.request.contextPath}/resources/images/friends.png"></a>
+				<br><p>동행신청내역</p>
+			</div>
+			<div class="ICR_myicon">
+				<a href="FavordPage.do?m_id=${member.m_id}" title="키워드 설정">
+				<img class="ICR_my_img" src="${pageContext.request.contextPath}/resources/images/ring.png"></a>
+				<br><p>키워드 설정</p>
+			</div><br><br>
+			<div class="ICR_myicon">
+				<a href="LikeList.do?m_id=${member.m_id}" title="좋아요한 글">
+				<img class="ICR_my_img" src="${pageContext.request.contextPath}/resources/images/heart.png"></a>
+				<br><p>좋아요한 글</p>
+			</div>
+			<div class="ICR_myicon">
+				<a href="${pageContext.request.contextPath}" title="메인페이지">
+				<img class="ICR_my_img" src="${pageContext.request.contextPath}/resources/images/home.png"></a>
+				<p>메인페이지</p>
+			</div>
+			<div class="ICR_myicon">
+				<div style="display: inline; cursor: pointer;" title="회원탈퇴">
+				<img data-toggle="modal" data-target=".bs-example-modal-sm" class="ICR_my_img" src="${pageContext.request.contextPath}/resources/images/logout.png"></div>
+				<br><p>회원탈퇴</p>
+			</div>
 		</div>
 		</div>
 		
@@ -185,7 +302,26 @@ function ICR_ChatOpen(){
  
 	window.open('Chat.do?m_id=${member.m_id}', 'TworavelChat', 'width='+ 800 +', height='+ 500 +', left=' + popupX + ', top='+ popupY);
 	}
+	
+	
+
+
+
 </script>
+	<script
+		src="${pageContext.request.contextPath }/resources/js/process.js"></script>
+	<%
+		if (userID != null) {
+	%>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			getUnread2();
+			getInfiniteUnread2();
+		});
+	</script>
+	<%
+		}
+	%>
 </body>
 
 </html>

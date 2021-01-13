@@ -11,14 +11,21 @@
 		<result property="ch_time" column="ch_time"/>
 		<result property="ch_read" column="ch_read"/>
 		<result property="m_id" column="m_id"/>
+		<result property="unread" column="unread"/>
 	</resultMap>
 	
 	
 	
 	<!-- 채팅방 목록 -->
 	<select id="selectChatGroup" parameterType="string" resultMap="resultChatmessage" flushCache="true" statementType="PREPARED">
-	select ch_id, c_id, m_sender, ch_content, ch_time from (select first_value(ch_id) over(partition by c_id order by ch_id desc) as ch_id_first,
-	ch_id, c_id, m_sender, ch_content, ch_time from chatmessage where c_id in(select c_id from chatjoin where m_id = #{m_id} and ch_inout = 'I')) where ch_id_first = ch_id order by ch_time desc
+	select a.*, b.ch_unread
+    from (select ch_id, c_id, m_sender, ch_content, ch_time 
+        from (select first_value(ch_id) over(partition by c_id order by ch_id desc) as ch_id_first,
+        ch_id, c_id, m_sender, ch_content, ch_time from chatmessage where c_id in(select c_id from chatjoin where m_id = #{m_id} and ch_inout = 'I')) 
+            where ch_id_first = ch_id order by ch_time desc) a
+                left join 
+                (select c_id,count(*) as ch_unread from chatmessage where m_receiver = #{m_id} and m_sender != #{m_id} and ch_read=0 group by c_id) b
+                    on a.c_id = b.c_id
 	</select>
 	<!-- 채팅 invite-->
 	<insert id="inviteChatMessage" parameterType="ChatMessage" flushCache="true" statementType="PREPARED">
@@ -43,6 +50,12 @@
 	<update id="updateReadChat2" parameterType="ChatMessage" flushCache="true" statementType="PREPARED">
 	update chatmessage set ch_read = 1 where c_id = #{c_id} and m_receiver = #{m_receiver} and m_sender = #{m_sender} and ch_content = #{ch_content}
 	</update>
+	<select id = "ChatUnreadServlet" parameterType="string" resultType="int">
+		select count(*) from chatmessage where m_receiver = #{m_receiver} and m_sender != #{m_receiver} and ch_read=0
+	</select>
+	<select id = "selectUnreadChat" parameterType="string" resultType="int">
+		select count(*) from chatmessage where c_id = #{c_id} and m_receiver = #{m_receiver} and m_sender != #{m_receiver} and ch_read=0
+	</select>
 	
 	
 </mapper>

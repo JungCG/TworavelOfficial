@@ -137,8 +137,10 @@ function getUnread(){
 		success : function(result){
 			if(result >= 1){
 				showUnread(result);
+				$('#unread').css('display','inline');
 			}else{
 				showUnread('');
+				$('#unread').css('display','none');
 			}
 		}
 	});

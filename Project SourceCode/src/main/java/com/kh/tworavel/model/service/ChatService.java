@@ -16,6 +16,8 @@ public interface ChatService {
 
 	public int insertChatMessage(ChatMessage chatmsg);
 
+	public int updateReadChat2(ChatMessage chatmsg);
+
 	public int checkChatJoin(ChatJoin chatJn);
 
 	public int checkInoutChatJoin(ChatJoin chatJn);
@@ -27,4 +29,8 @@ public interface ChatService {
 	public int updateChatOut(ChatJoin chatJn);
 
 	public int updateChatInTime(ChatJoin chatJn);
+	
+	public int ChatUnreadServlet(String m_receiver);
+
+	public int selectUnreadChat(ChatMessage chatmsg);
 }

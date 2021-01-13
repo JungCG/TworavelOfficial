@@ -767,7 +767,7 @@ $(document).on("click", "#ICR_likeBtn", function(event){
 	        		 return;
 	        	 }
 	         }else {
-				if(confirm("${blist.m_id}님을 추천하시겠습니까?.")==true){
+				if(confirm("${blist.m_id}님을 추천하시겠습니까?")==true){
 					ICRLikeInsert();
 				}else{
 					return;

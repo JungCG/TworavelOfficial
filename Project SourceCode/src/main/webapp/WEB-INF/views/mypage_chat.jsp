@@ -86,6 +86,14 @@ body{
 #ICR_othertext{
 	float: left;
 }
+#ICR_Unread{
+	padding: 3px;
+    border-radius: 4px;
+	background-color: rgba(255,0,0,0.7);
+	color: white;
+	font-size: 4px;
+	
+}
 a { text-decoration:none !important }
 </style>
 
@@ -108,7 +116,7 @@ a { text-decoration:none !important }
 
 <div class="profile">
     <div class="avatar"><p>T</p></div>
-    <div class="name2">Tworavel<p class="email">Tworavel@khteam4.com</p></div>
+    <div class="name2"><p class="email"></p></div>
 </div>
 <div class="messages"></div>
 
@@ -125,6 +133,7 @@ a { text-decoration:none !important }
 	  	<c:set var="RoomNum" value="${chat.c_id}" />
 		    <li class="person" id="ICR_Room${RoomNum}">
 		      <span class="title">${chat.c_id}번글 채팅방</span>
+		      <c:if test="${chat.ch_unread ne 0}"><span id="ICR_Unread">${chat.ch_unread}</span></c:if>
 		      <span class="time" style="right: 10%;"><fmt:formatDate var="time" value="${chat.ch_time}" pattern="yyyy-MM-dd HH:mm:ss" />${time}</span><br>
 		      <span class="preview">${chat.ch_content}</span>
 		    </li>
@@ -141,6 +150,11 @@ a { text-decoration:none !important }
 </c:if>
 
  <c:if test="${not empty chatGrouplist}">
+ <c:if test="${c_id eq null}">
+	  <div id="ICR_NoneChat">
+	  	<img id="ICR_noneimg" width="150" height="150" src="${pageContext.request.contextPath}/resources/images/send.png">
+	  </div>
+ </c:if>
   <div class="chatbox">
     <div class="top-bar">
       <div class="avatar"><p>T</p></div>
@@ -207,6 +221,7 @@ $(".person").on("click", function () {
     <script type="text/javascript">
     	
 	    window.onload = function openSocket(){
+	    	
 	    		
 		        //웹소켓 객체 만드는 코드
 		        if(ws !== undefined && ws.readyState !== WebSocket.CLOSED ){
@@ -224,6 +239,7 @@ $(".person").on("click", function () {
 		        
 		        ws.onmessage = function(event){
 		            writeResponse(event.data);
+		            
 		        };
 		        /* ws.onclose = function(event){
 		            writeResponse("대화 종료");
@@ -247,10 +263,10 @@ $(".person").on("click", function () {
         		return;
         	}else{
 	            var text = inputVal+"§"+document.getElementById("sender").value+"§"+c_id;
+	            
 	            ICR_insertFn();
 	            ws.send(text);
 	            text = "";
-	            ICR_insertFn();
 	            document.getElementById("messageinput").value = "";
         	}
         }
@@ -272,7 +288,8 @@ $(".person").on("click", function () {
             		sender = jbSplit[i];
             	else if(i==1)
             		massage = jbSplit[i];
-            }	
+            }
+            	
             	if(sender=="${sessionScope.userID}"){
 	            	//내가 보낸거면
 		            $('.incoming').append("<span class='ICR_br'></span> <span id='ICR_Myid'>" + sender + "</span> <br/> <div id='ICR_Mytext' class='bubble'> <span>" + massage + "</span> </div> <br/> <span class='ICR_br'></span>");
@@ -287,11 +304,11 @@ $(".person").on("click", function () {
 		      	//채팅방 목록에도 추가
 		      	$('#ICR_Room' + c_id).children().last().html(massage);
 		      	//시간구하기
-		      	
-		      	$('#ICR_Room' + c_id).children().eq(1).html(getTime());	//time
+		      	$('#ICR_Room' + c_id).children(".time").html(getTime());	//time
 		      	$('.people').prepend($('#ICR_Room' + c_id).parent()); // chlid 객체를 parent 객체 내 첫번째 요소로 붙인다.
-		      	$('#ICR_writing').css('display','none');
-        }
+		      	
+            	
+            }
         
         
         

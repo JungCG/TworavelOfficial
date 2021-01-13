@@ -355,9 +355,9 @@ public class MypageController {
 			int result = 0;
 			result = mypService.outMember(m_id);
 			HttpSession session = request.getSession();
-			session.removeAttribute("userID");
+			session.invalidate();
 			if (result > 0) {
-				System.out.println("회원탈퇴 완료!");
+				//System.out.println("회원탈퇴 완료!");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

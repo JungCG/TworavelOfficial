@@ -95,7 +95,7 @@ a{
 					<fmt:parseDate var="dateString" value="${board.b_timestamp}" pattern="yyyy-MM-dd HH:mm:ss" />
 					<fmt:formatDate value="${dateString}" pattern="yyyy-MM-dd " />
 					</td>
-					<td><a href="#">${board.b_title}</a></td>
+					<td><a style="text-decoration: none;" href="board_detail.do?b_id=${board.b_id}&m_id=${board.m_id}">${board.b_title}</a></td>
 					<td>
 						<label class="ICR_DeleteBtn_B">&times;</label>
 					</td>
@@ -139,7 +139,7 @@ a{
 			</c:if>
 			<div id="ICR_msg1">
 			<c:if test="${empty board}">
-			<div class="ICR_textDiv">찜한 게시글이 없습니다.<br><a href="#">☞게시글 찜하러가기☜</a>
+			<div class="ICR_textDiv">찜한 게시글이 없습니다.<br><a style="text-decoration: none;" href="board_list.do">☞게시글 찜하러가기☜</a>
 			</div></c:if>
 			</div>
 			
@@ -156,7 +156,7 @@ a{
 				<tr>
 					<td>${com.c_id}</td>
 					<td>${com.c_adddate}</td>
-					<td><a href="#">${com.c_name}</a></td>
+					<td><a style="text-decoration: none;" href="companion_detail.do?c_id=${com.c_id}">${com.c_name}</a></td>
 					<td><label class="ICR_DeleteBtn_C">&times;</label></td>
 				</tr>
 				</c:forEach>
@@ -203,7 +203,7 @@ a{
 			</c:if>
 			<div id="ICR_msg2">
 			<c:if test="${empty companion}">
-			<div class="ICR_textDiv">찜한 동행 게시글이 없습니다.<br><a href="#">☞동행 게시글 찜하러가기☜</a>
+			<div class="ICR_textDiv">찜한 동행 게시글이 없습니다.<br><a style="text-decoration: none;" href="companion_list.do">☞동행 게시글 찜하러가기☜</a>
 			</div></c:if>
 			</div>
 		</div>
