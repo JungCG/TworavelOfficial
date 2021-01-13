@@ -38,4 +38,5 @@ public interface BoardService {
 	 int selectRecommentCount(Board vo);
 	 void deleteCommentC(Board vo);
 	 String selectCommentContent(Board vo);
+	 String selectWriterBoard(int b_id);
 }

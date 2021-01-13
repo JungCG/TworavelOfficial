@@ -116,7 +116,7 @@ public class WeatherForecast {
 
     	if((sysdate.substring(0,1).equals("0"))) {
     		if((sysdate.substring(1,2).equals("0"))||(559>=Integer.parseInt(sysdate.substring(1,4)))) {
-    			System.out.println(sysdate);
+    			
     			cal.add(Calendar.DATE,-1);
     		}
     	}

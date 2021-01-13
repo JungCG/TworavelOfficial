@@ -63,7 +63,7 @@ public class WeatherForecastPasrsing {
     		if((sysdate.substring(1,2).equals("0"))||(559>=Integer.parseInt(sysdate.substring(1,4)))) {
     		
     			cal.add(Calendar.DATE,-1);
-    			today=String.valueOf(df.format(cal.getTime())+"0600");
+    			today=String.valueOf(df.format(cal.getTime())+"1800");
     		}else {
     		
     			today=String.valueOf(df.format(cal.getTime())+"0600");

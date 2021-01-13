@@ -27,6 +27,7 @@ import com.kh.tworavel.model.service.BoardService;
 import com.kh.tworavel.model.service.CompanionService;
 import com.kh.tworavel.model.service.MemberService;
 import com.kh.tworavel.model.service.OutService;
+import com.kh.tworavel.model.service.ReportService;
 
 @Controller
 public class AdminController {
@@ -42,6 +43,8 @@ public class AdminController {
 	@Autowired
 	private OutService oService;
 
+	@Autowired
+	private ReportService rService;
 	@RequestMapping(value = "adminpage.do")
 	public ModelAndView admin(ModelAndView mv, @RequestParam(name = "page", defaultValue = "1") int page,@RequestParam(name="type", defaultValue = "B",required = false) char b_type){
 		
@@ -71,6 +74,10 @@ public class AdminController {
 			else if(type.equals("M")) {
 				listCount = mService.selectMemberAllCount();
 			}
+			else if(type.equals("S")) {
+				
+				listCount = rService.selectReportAllCount();
+			}
 			int maxPage = (int) ((double) listCount / LIMIT + 0.9);
 			if(type.equals("B")) {
 				mv.addObject("blist",bService.selectBoardAll(currentPage,LIMIT));
@@ -80,8 +87,8 @@ public class AdminController {
 			}
 			else if(type.equals("M")) {
 				mv.addObject("mlist",mService.selectMemberAll(currentPage,LIMIT));
-			}else {
-				mv.addObject("blist",bService.selectBoardAll(currentPage,LIMIT));
+			}else if(type.equals("S")){
+				mv.addObject("rlist",rService.selectReportAll(currentPage,LIMIT));
 			}
 			mv.addObject("startPage",startPage);
 			mv.addObject("endPage", endPage);
@@ -129,7 +136,53 @@ public class AdminController {
 	public ModelAndView CompanionDeleteService(@RequestParam(name = "c_id") int c_id, ModelAndView mv,
 			HttpServletRequest request) {
 		cService.deleteC(c_id);
-		mv.setViewName("redirect:adminpage.do?type=C");
+		mv.setViewName("redirect:adminpage.do?type=S");
 		return mv;
 	}
+	@RequestMapping(value = "adminddeleteReport", method = RequestMethod.GET)
+	public ModelAndView adminddeleteReport(@RequestParam(name = "r_id") int r_id, ModelAndView mv,
+			HttpServletRequest request) {
+		
+		
+		try {
+			
+			rService.deleteReport(r_id);
+			
+		}catch(Exception e) {
+			
+			e.printStackTrace();
+			mv.addObject("msg", "신고내역 삭제가 실패하였습니다");
+			mv.addObject("url", "/adminpage.do?type=S");
+
+			mv.setViewName("alertMsg");
+		}
+
+		mv.addObject("msg", "해당 신고내역이 삭제되었습니다");
+		mv.addObject("url", "/adminpage.do?type=S");
+
+		mv.setViewName("alertMsg");
+		return mv;
+	}
+	
+	@RequestMapping(value = "adminminuspoint")
+	public ModelAndView adminminuspoint(@RequestParam(name = "m_id") String m_id, ModelAndView mv,
+			HttpServletRequest request) {
+		Member vo = new Member();
+		mService.adminminuspoint(m_id);
+		
+		try {
+			
+		}catch(Exception e) {
+			
+			e.printStackTrace();
+			mv.addObject("msg", "포인트 리셋 실패");
+			mv.addObject("url", "/adminpage.do?type=S");
+			mv.setViewName("alertMsg");
+		}
+		mv.addObject("msg", "해당 회원의 포인트가 리셋 되었습니다");
+		mv.addObject("url", "/adminpage.do?type=S");
+		mv.setViewName("alertMsg");
+		return mv;
+	}
+	
 }

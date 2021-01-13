@@ -197,4 +197,8 @@ delete board where b_ref = #{b_id} and b_re_step =#{b_re_step}
 	<update id="My_updateBoardLikeVal" parameterType="int" flushCache="true" statementType="PREPARED">
 	update board set b_like = b_like-1 where b_id = #{b_id}
 	</update>
+	<select id="selectWriterBoard" parameterType="int" resultType="string">
+	
+	select* from board where b_id =#{b_id}
+	</select>
 </mapper>

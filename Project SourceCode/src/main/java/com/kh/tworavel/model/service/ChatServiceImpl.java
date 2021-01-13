@@ -57,6 +57,7 @@ public class ChatServiceImpl implements ChatService {
 	public int updateChatInTime(ChatJoin chatJn) {
 		return chDao.updateChatInTime(chatJn);
 	}
+
 	
 	
 }

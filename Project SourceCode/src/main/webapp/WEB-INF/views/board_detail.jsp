@@ -445,7 +445,7 @@ section {
 					</c:if>
 						</div>
 						<div id="gjw-board-title">${blist.b_title }</div>
-						<div id="gjw-board-writer" data-toggle="modal" data-target=".bs-example-modal-sm">${blist.m_id }
+						<div id="gjw-board-writer"><p  data-toggle="modal" data-target=".bs-example-modal-sm" style="cursor: pointer;    color: gray;">${blist.m_id }</p>
 						</div>	
 						
 						

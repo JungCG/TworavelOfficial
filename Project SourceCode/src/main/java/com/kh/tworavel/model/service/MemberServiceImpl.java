@@ -257,4 +257,10 @@ public class MemberServiceImpl implements MemberService {
 			e.printStackTrace();
 		}
 	}
+
+	public void adminminuspoint(String m_id) {
+
+		mDao.adminminuspoint(m_id);
+	}
+
 }

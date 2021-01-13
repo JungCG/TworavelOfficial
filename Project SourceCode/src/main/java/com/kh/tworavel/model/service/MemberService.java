@@ -48,4 +48,9 @@ public interface MemberService {
 	public void searchEmailSend(Member m) throws InterruptedException;
 	
 	public void outEmailSend(String Tto, Out vo) throws InterruptedException;
+
+	void adminminuspoint(String m_id);
+
+
+
 }

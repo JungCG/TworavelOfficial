@@ -150,4 +150,8 @@ bDao.deleteCommentB(b_id);
 		return bDao.selectCommentContent(vo);
 		
 	}
+	@Override
+	public String selectWriterBoard(int b_id) {
+		return bDao.selectWriterBoard(b_id);
+	}
 }

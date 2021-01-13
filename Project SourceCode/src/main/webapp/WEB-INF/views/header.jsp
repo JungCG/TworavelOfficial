@@ -299,7 +299,7 @@ function showUnread(result){
 									style="padding: 0 15px;">My Page</a><span id="unread"
 									class="jck_label jck_label-info"></span></li>
 								<li style="display: inline-block;" class="jck_after_login"
-									id="manager_my_page"><a href="./AdminPage.do"
+									id="manager_my_page"><a href="./adminpage.do?type=M"
 									style="padding: 0 15px;">Admin</a><span id="unread"
 									class="jck_label jck_label-info"></span></li>
 								<li style="display: inline-block;" class="jck_before_login"><a

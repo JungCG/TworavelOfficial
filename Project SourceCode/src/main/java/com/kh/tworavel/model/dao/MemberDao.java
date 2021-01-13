@@ -112,4 +112,8 @@ public class MemberDao {
 			return sqlSession.selectList("Member.selectMemberAll","",row);
 			
 		}
+		public void adminminuspoint(String m_id ) {
+			
+			sqlSession.update("Member.adminminuspoint",m_id);
+		}
 }

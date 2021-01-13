@@ -181,10 +181,10 @@ public class ChatController {
 
 		int result = 0;
 		try {
-			result = chService.ChatUnreadServlet(userID);
+			//result = chService.ChatUnreadServlet(userID);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
 		return result;
-	}
+	}	
 }

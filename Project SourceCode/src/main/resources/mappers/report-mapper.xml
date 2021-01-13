@@ -21,5 +21,18 @@
 	<insert id="My_insertReport" parameterType="Report" flushCache="true" statementType="PREPARED">
 	insert into report values ((select nvl(max(r_id),0) from report)+1,#{m_id},#{m_id2},#{r_reason})
 	</insert>
+	<select id="selectReportAllCount" resultType="int">
 	
+	select count(*)from report
+	</select>
+	
+	<select id="selectReportAll" resultType="arraylist" resultMap="resultReport">
+	
+	select * from report
+	</select>
+	
+	<delete id="deleteReport" parameterType="int" flushCache="true" statementType="PREPARED">
+	
+	delete report where r_id =#{r_id}
+	</delete>
 </mapper>
