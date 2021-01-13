@@ -43,6 +43,14 @@ public class GalleryDao {
 		return sqlSession.insert("GAdd.insertGadd", gadd);
 	}
 
+	public GAdd selectGalleryAdd(int g_id) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("GAdd.selectGalleryAdd", g_id);
+	}
+	public Gallery selectGallery(int g_id) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("Gallery.selectGallery", g_id);
+	}
 }
 
 

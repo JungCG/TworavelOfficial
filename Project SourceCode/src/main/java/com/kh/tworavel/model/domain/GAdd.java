@@ -20,8 +20,9 @@ public class GAdd {
 				private String g_img1;
 				private String g_img2;
 				private String g_img3;
-				
-				
+				private String m_id;
+				public GAdd() {}
+
 				public GAdd(int g_id, String g_img1, String g_img2, String g_img3) {
 					super();
 					this.g_id = g_id;
@@ -30,7 +31,15 @@ public class GAdd {
 					this.g_img3 = g_img3;
 				}
 
-				public GAdd() {}
+				
+				public GAdd(int g_id, String g_img1, String g_img2, String g_img3, String m_id) {
+					super();
+					this.g_id = g_id;
+					this.g_img1 = g_img1;
+					this.g_img2 = g_img2;
+					this.g_img3 = g_img3;
+					this.m_id = m_id;
+				}
 
 				public int getG_id() {
 					return g_id;
@@ -62,6 +71,14 @@ public class GAdd {
 
 				public void setG_img3(String g_img3) {
 					this.g_img3 = g_img3;
+				}
+
+				public String getM_id() {
+					return m_id;
+				}
+
+				public void setM_id(String m_id) {
+					this.m_id = m_id;
 				}
 				
 				

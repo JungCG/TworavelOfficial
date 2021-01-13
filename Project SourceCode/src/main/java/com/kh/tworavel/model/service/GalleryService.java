@@ -13,5 +13,10 @@ public interface GalleryService {
 	public int insertGallery(Gallery gallery);
 	public int insertGadd(GAdd gadd);
 
+	public GAdd selectGalleryAdd(int gallery_num);
+
+	public Gallery selectGallery(int gallery_num);
+	
+
 	
 }

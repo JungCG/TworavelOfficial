@@ -7,21 +7,28 @@
 	<!-- property에 vo의 필드명 column에는 db테이블의 컬럼명 -->
 
 	<resultMap type="GAdd" id="resultGAdd">
-		<id property="g_id" column="g_id"/>
+		<id property="g_id" column="g_id" />
 		<result property="g_img1" column="g_img1" />
 		<result property="g_img2" column="g_img2" />
 		<result property="g_img3" column="g_img3" />
-		
+
 	</resultMap>
 	<!-- Final -->
 
-	
-	<!-- 사진  삽입  -->
-	<insert id="insertGadd" parameterType="GAdd" flushCache="true" statementType="PREPARED">
-		insert into gadd values ((select nvl(max(g_id),0) from gadd)+1, #{g_img1}, null, null)
+
+	<!-- 사진 삽입 -->
+	<insert id="insertGadd" parameterType="GAdd" flushCache="true"
+		statementType="PREPARED">
+		insert into gadd values ((select nvl(max(g_id),0) from
+		gadd)+1, #{g_img1}, null, null)
 	</insert>
-	
-	
+
+	<select id="selectGalleryAdd" parameterType="int"
+		resultMap="resultGAdd">
+		select * from gadd where g_id=#{g_id}
+	</select>
+
+
 
 </mapper>
 

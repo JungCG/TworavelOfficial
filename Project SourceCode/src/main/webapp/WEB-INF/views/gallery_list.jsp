@@ -57,7 +57,7 @@ body {
 								<table style="display: inline; width: 350px;">
 									
 									<tr>
-										<td colspan="3"><a href="./">
+										<td colspan="3"><a href="gallery_detail.do?page=${currentPage}&gallery_num=${pvo.g_id }">
 										<img
 												src="${pageContext.request.contextPath }/resources/gallery_uploadFiles/${pvo.g_img1}"
 												style="width: 300px; height: auto;"> 

@@ -39,4 +39,15 @@ public class GalleryServiceImpl implements GalleryService {
 		return gDao.insertGadd(gadd);
 	}
 
+	@Override
+	public GAdd selectGalleryAdd(int gallery_num) {
+		return gDao.selectGalleryAdd(gallery_num);
+	}
+
+	@Override
+	public Gallery selectGallery(int gallery_num) {
+		// TODO Auto-generated method stub
+		return gDao.selectGallery(gallery_num);
+	}
+
 }

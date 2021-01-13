@@ -59,15 +59,28 @@ public class GalleryController {
 		return mv;
 	}
 
-//	//*여기부터 게시글 작성//
-//	// 게시글 작성 페이지
-//		@RequestMapping(value = "/gallery_write.do", method = RequestMethod.GET)
-//		public String boardInsertForm(ModelAndView mv) { // 너가 입력할 게 있다면 여기 mv에 채워줘
-//			// DI
-//			gService.testFunc();
-//			return "gallery/gallery_write"; // View페이지에서 작성 후 form action = "bInsert.do" 로 들어오도록 함.
-//		}
-//	
+	// **게시글 상세페이지 
+	@RequestMapping(value = "/gallery_detail.do")
+	public ModelAndView galleryDetail(@RequestParam(name = "gallery_num") int gallery_num,
+			@RequestParam(name = "page", defaultValue = "1") int page, ModelAndView mv) {
+		mv.addObject("galleryAdd", gService.selectGalleryAdd(gallery_num));
+		mv.addObject("gallery", gService.selectGallery(gallery_num));
+		//mv.addObject("commentList", brService.selectList(board_num));
+		mv.setViewName("gallery_detail");
+		return mv;
+	}
+	
+	// ** 게시판 수정페이지 
+	@RequestMapping(value = "gallery_renew.do")
+	public ModelAndView galleryDetail(@RequestParam(name = "gallery_num") String gallery_num, ModelAndView mv) {
+		
+		mv.setViewName("gallery_renew");
+		return mv;
+	}
+
+	
+	
+	
 	// 작성된 글을 insert
 	@RequestMapping(value = "/gInsert.do", method = RequestMethod.POST)
 		public ModelAndView galleryInsert(Gallery g, @RequestParam(name = "upfile") MultipartFile report,
@@ -124,6 +137,7 @@ public class GalleryController {
 			System.out.println("파일 전송이 완료되었습니다.");
 		} catch (Exception e) {
 			System.out.println("파일 전송 에러 : " + e.getMessage());
+			e.printStackTrace();
 		}
 	}
 

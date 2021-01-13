@@ -27,7 +27,7 @@
 	
 	<select id="selectList" resultType="arraylist" resultMap="resultGallery">
 		select g.g_id as g_id, g.m_id as m_id, g.g_like as g_like, g.g_content as g_content, g.g_view as g_view, 
-		 d.g_img1 as g_img1, d.g_img2 as g_img2, d.g_img3 as g_img3 from gallery g join gadd d on g.g_id=d.g_id order by g.g_id
+		 d.g_img1 as g_img1, d.g_img2 as g_img2, d.g_img3 as g_img3 from gallery g join gadd d on g.g_id=d.g_id order by g.g_id desc
 	</select>
 	
 	
@@ -37,8 +37,10 @@
 	</insert>
 	
 	
-	
-	
+	<select id="selectGallery" parameterType="int"
+		resultMap="resultGallery">
+		select * from gallery where g_id=#{g_id}
+	</select>
 	
 
 </mapper>
