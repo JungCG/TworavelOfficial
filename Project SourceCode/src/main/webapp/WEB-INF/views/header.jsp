@@ -260,7 +260,7 @@ function showUnread(result){
 								<li class="jck_dropdown" style="display: inline-block;"><a
 									href="intro.do" style="padding: 0 15px;">사이트 소개</a>
 									<div class="jck_dropdown_content">
-										<a href="intro.do">사이트 소개</a> <a href="#">매거진</a>
+										<a href="intro.do">사이트 소개</a> <a href="Magazine.do">매거진</a>
 									</div></li>
 								<li style="display: inline-block;"><a
 									href="companion_list.do" style="padding: 0 15px;">동행 구하기</a></li>

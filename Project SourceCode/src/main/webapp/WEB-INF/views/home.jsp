@@ -22,10 +22,10 @@
 					</form>
 				</div>
 			</div>
-			<img style="width:1560px; height : 650px;" src = "${pageContext.request.contextPath }/resources/images/MainPage.jpg"/>
+			<img style="width:1300px; height : 700px;" src = "${pageContext.request.contextPath }/resources/images/MainPage.png"/>
 		</div>
 	</div>
-	<div style="text-align:center; padding-top : 40px; padding-bottom: 10px;">
+	<div style="text-align:center; padding-top : 60px; padding-bottom: 10px;">
 		<h1 style="color : #0AC5A8;">TwoRAVELER VLOG</h1>
 	</div>	
 	<div>

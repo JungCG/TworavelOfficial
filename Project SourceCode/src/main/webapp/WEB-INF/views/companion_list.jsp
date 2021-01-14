@@ -218,6 +218,7 @@ a {
 				<table id="KDY-companiontable">
 					<tr>
 						<td>글번호</td>
+						<td>글상태</td>
 						<td>글제목</td>
 						<td>작성자</td>
 						<td>작성일</td>
@@ -228,6 +229,7 @@ a {
 						<c:forEach var="hvo" items="${hotlist}" varStatus="status">
 							<tr class="kdy-hotlist-tr">
 								<td class="kdy-list-td">${hvo.c_id}</td>
+								<td class="kdy-list-td">${hvo.c_dealstatus}</td>
 								<td class="kdy-list-td"
 									style="display: flex; justify-content: center;">
 									<p class="kdy-companion-title"
@@ -258,11 +260,17 @@ a {
 						<c:forEach var="vo" items="${list}" varStatus="status">
 							<tr class="kdy-list-tr">
 								<td class="kdy-list-td">${vo.c_id}</td>
+								<td class="kdy-list-td"><c:if
+										test="${vo.c_dealstatus eq 'N'}">
+										<font style="color: #0072ffad;" color="blue" size="4">진행중</font>
+									</c:if>
+									<c:if test="${vo.c_dealstatus eq 'Y'}">
+										<font style="color: #ff5200bb;" color="red" size="4">완료</font>
+									</c:if></td>
 								<td class="kdy-list-td">
 									<p class="kdy-companion-title" style="display: inline;">${vo.c_name}</p>
 									<input type=hidden value="${vo.c_id}" name="c_id" class="c_id">
 								</td>
-
 								<td class="kdy-list-td">${vo.m_id}</td>
 								<td class="kdy-list-td"><fmt:formatDate var="date"
 										value="${vo.c_adddate}" pattern="yyyy-MM-dd HH:mm" /> ${date}</td>
