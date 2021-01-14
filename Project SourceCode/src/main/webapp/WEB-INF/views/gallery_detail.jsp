@@ -60,18 +60,24 @@ body {
 							<td><c:if test="${empty galleryAdd.g_img1 }">
 				첨부파일 없음
 			</c:if> <c:if test="${not empty galleryAdd.g_img1 }">
-			<img src = "${pageContext.request.contextPath }/resources/gallery_uploadFiles/${galleryAdd.g_img1}"/>
-									
+									<img
+										src="${pageContext.request.contextPath }/resources/gallery_uploadFiles/${galleryAdd.g_img1}" />
+
 								</c:if></td>
 						</tr>
 						<tr>
 							<td>내용</td>
 							<td>${gallery.g_content }</td>
 						</tr>
-						
+						<tr>
+							<td><a href="gallery_renew.do?gallery_num=${gallery.g_id }">수정페이지로
+									이동</a> &nbsp;&nbsp; <a href="gallery_delete.do?gallery_num=${gallery.g_id }">글 삭제</a>
+								&nbsp;&nbsp; <a href="gallery_list.do">목록으로</a></td>
+						</tr>
+
 					</table>
 					<br>
-					
+
 				</form>
 
 

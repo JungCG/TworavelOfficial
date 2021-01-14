@@ -41,7 +41,12 @@
 		resultMap="resultGallery">
 		select * from gallery where g_id=#{g_id}
 	</select>
-	
+	<update id="updateGallery" parameterType="Gallery" flushCache="true" statementType="PREPARED">
+	update gallery set g_content =#{g_content} where g_id =#{g_id}
+	</update>
+	<delete id="deleteGallery" parameterType="int" flushCache="true" statementType="PREPARED">
+	delete gallery where g_id =#{g_id}
+	</delete>
 
 </mapper>
 

@@ -50,4 +50,16 @@ public class GalleryServiceImpl implements GalleryService {
 		return gDao.selectGallery(gallery_num);
 	}
 
+	@Override
+	public void updateGallery(Gallery g,GAdd ga) {
+	
+		gDao.updateGallery(g,ga);
+	}
+
+	@Override
+	public void deleteGallery(int gallery_num) {
+	gDao.deleteGallery(gallery_num);
+		
+	}
+
 }

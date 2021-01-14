@@ -31,11 +31,12 @@ body {
 	padding-bottom: 200px;
 }
 </style>
+
 <script
 	src="${pageContext.request.contextPath }/resources/js/jquery-3.5.1.js"></script>
 </head>
 <body>
-
+	
 	<!-- private int g_id;
 	private String m_id;
 	private int g_like;
@@ -47,23 +48,23 @@ body {
 			<div class="jck_content_container_div2">
 
 
-				<form action="gInsert.do" method="post"
+				<form action="gUpdate.do" method="post"
 					enctype="multipart/form-data">
 					<table align="center">
-
-
-						<td>작성자</td>
-						<td><input type="text" name="board_writer"
-							value="${board.board_writer }"></td>
+						<tr>
+							<td>작성자</td>
+							<td><input type="text" name="board_writer"
+								value="${gallery.m_id}" readonly="readonly"> <input
+								type="hidden" name="g_id" value="${gallery.g_id}"></td>
 						</tr>
 						<tr>
-							<td>첨부파일</td>
-							<td><c:if test="${empty board.board_file }">
+							<td>기존 첨부파일</td>
+							<td><c:if test="${empty galleryAdd.g_img1 }">
 						첨부파일 없음
-					</c:if> <c:if test="${!empty board.board_file }">
-									<a
-										href="${pageContext.request.contextPath }/resources/uploadFiles/${board.board_file }"
-										download>${board.board_file }</a>
+					</c:if> <c:if test="${!empty galleryAdd.g_img1 }">
+									<img
+										src="${pageContext.request.contextPath }/resources/gallery_uploadFiles/${galleryAdd.g_img1}" />
+
 								</c:if></td>
 						</tr>
 						<tr>
@@ -73,11 +74,12 @@ body {
 
 						<tr>
 							<td>내용</td>
-							<td><input type="text" name="board_content"></td>
+							<td><input type="text" name="g_content"
+								value="${gallery.g_content }"></td>
 						</tr>
 						<tr>
 							<td colspan="2" align="center"><input type="submit"
-								value="수정하기 "> &nbsp;&nbsp; <a href="blist.do">목록으로</a></td>
+								value="수정하기 "> &nbsp;&nbsp; <a href="gallery_list.do">목록으로</a></td>
 						</tr>
 					</table>
 					<br>
@@ -96,5 +98,8 @@ body {
 		</div>
 		<jsp:include page="footer.jsp" />
 	</div>
+	<script>
+		
+	</script>
 </body>
 </html>

@@ -26,7 +26,7 @@ import com.kh.tworavel.model.service.GalleryService;
  * Handles requests for the application home page.
  */
 @Controller
-public class GalleryController {
+public class GalleryController{
 
 	@Autowired
 	private GalleryService gService;
@@ -59,64 +59,98 @@ public class GalleryController {
 		return mv;
 	}
 
-	// **게시글 상세페이지 
+	// **게시글 상세페이지
 	@RequestMapping(value = "/gallery_detail.do")
 	public ModelAndView galleryDetail(@RequestParam(name = "gallery_num") int gallery_num,
 			@RequestParam(name = "page", defaultValue = "1") int page, ModelAndView mv) {
 		mv.addObject("galleryAdd", gService.selectGalleryAdd(gallery_num));
 		mv.addObject("gallery", gService.selectGallery(gallery_num));
-		//mv.addObject("commentList", brService.selectList(board_num));
+		// mv.addObject("commentList", brService.selectList(board_num));
 		mv.setViewName("gallery_detail");
 		return mv;
 	}
-	
-	// ** 게시판 수정페이지 
-	@RequestMapping(value = "gallery_renew.do")
-	public ModelAndView galleryDetail(@RequestParam(name = "gallery_num") String gallery_num, ModelAndView mv) {
-		
+
+	// ** 게시판 수정페이지
+	@RequestMapping(value = "/gallery_renew.do")
+	public ModelAndView galleryDetail(@RequestParam(name = "gallery_num") int gallery_num, ModelAndView mv) {
+		mv.addObject("galleryAdd", gService.selectGalleryAdd(gallery_num));
+		mv.addObject("gallery", gService.selectGallery(gallery_num));
 		mv.setViewName("gallery_renew");
 		return mv;
 	}
 
-	
-	
-	
+	@RequestMapping(value = "/gUpdate.do", method = RequestMethod.POST)
+	public ModelAndView galleryUpdate(@RequestParam(name="g_content")String g_content,@RequestParam(name="g_id")int g_id, @RequestParam(name = "upfile") MultipartFile report,
+			HttpServletRequest request, ModelAndView mv) {
+		try {
+
+			gadd.setG_img1(report.getOriginalFilename());
+
+			// 첨부파일 저장
+			if (report != null && !report.equals("")) {
+				saveFile(report, request);
+			}
+			gallery.setG_content(g_content);
+			gallery.setG_id(g_id);
+			gadd.setG_id(g_id);
+			System.out.println(gadd.getG_id());
+			System.out.println(gadd.getG_img1());
+			gService.updateGallery(gallery,gadd);
+		} catch (Exception e) {
+			// 실패했다면
+			mv.setViewName("errorPage"); // errorPage 페이지로 이동
+			e.printStackTrace();
+		}
+		mv.setViewName("redirect:gallery_list.do");
+		return mv;
+
+	}
+
 	// 작성된 글을 insert
 	@RequestMapping(value = "/gInsert.do", method = RequestMethod.POST)
-		public ModelAndView galleryInsert(Gallery g, @RequestParam(name = "upfile") MultipartFile report,
-				HttpServletRequest request, ModelAndView mv) {
-			try {
-				
-				String userID = (String) request.getSession().getAttribute("userID");
-				System.out.println("userID:" + userID);
-				gallery.setM_id(userID);
-				gallery.setG_content(g.getG_content());
-				gadd.setG_img1(report.getOriginalFilename());
-				
-				// 첨부파일 저장
-				if (report != null && !report.equals("")) {
-					saveFile(report, request);
-				}
-			
-				report.getOriginalFilename(); // 저장된 파일명을 vo에 set
-				
-				
-				
-				g.getM_id();
-				int result = gService.insertGallery(gallery);
-				int result2 = gService.insertGadd(gadd);
-				if(result>0 && result2>0) {
-					mv.setViewName("redirect:gallery_list.do"); // insertBoard에 성공했다면 !!! View페이지로 이동하는 것이 아니라 컨트롤러 url 중 "게시글 리스트
-														// select로
-				}
-			} catch (Exception e) {
-				// 실패했다면
-				mv.setViewName("errorPage"); // errorPage 페이지로 이동
-				e.printStackTrace();
-			}
-			return mv;
-		}
+	public ModelAndView galleryInsert(Gallery g, @RequestParam(name = "upfile") MultipartFile report,
+			HttpServletRequest request, ModelAndView mv) {
+		try {
 
+			String userID = (String) request.getSession().getAttribute("userID");
+			System.out.println("userID:" + userID);
+			gallery.setM_id(userID);
+			gallery.setG_content(g.getG_content());
+			gadd.setG_img1(report.getOriginalFilename());
+
+			// 첨부파일 저장
+			if (report != null && !report.equals("")) {
+				saveFile(report, request);
+			}
+
+			report.getOriginalFilename(); // 저장된 파일명을 vo에 set
+
+			g.getM_id();
+			int result = gService.insertGallery(gallery);
+			int result2 = gService.insertGadd(gadd);
+			if (result > 0 && result2 > 0) {
+				mv.setViewName("redirect:gallery_list.do"); // insertBoard에 성공했다면 !!! View페이지로 이동하는 것이 아니라 컨트롤러 url 중
+															// "게시글 리스트
+				// select로
+			}
+		} catch (Exception e) {
+			// 실패했다면
+			mv.setViewName("errorPage"); // errorPage 페이지로 이동
+			e.printStackTrace();
+		}
+		return mv;
+	}
+	// ** 게시판 삭제페이지  
+	@RequestMapping(value = "/gallery_delete.do")
+	public ModelAndView galleryDelete(@RequestParam(name = "gallery_num") int gallery_num, ModelAndView mv) {
+	
+		gService.deleteGallery(gallery_num);
+		
+		
+		
+		mv.setViewName("redirect:gallery_list.do"); 
+		return mv;
+	}
 	private void saveFile(MultipartFile report, HttpServletRequest request) {
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = root + "/Gallery_uploadFiles";

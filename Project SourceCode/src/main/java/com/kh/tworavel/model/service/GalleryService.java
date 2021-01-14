@@ -16,7 +16,7 @@ public interface GalleryService {
 	public GAdd selectGalleryAdd(int gallery_num);
 
 	public Gallery selectGallery(int gallery_num);
-	
-
+	void updateGallery(Gallery g,GAdd gadd);
+	void deleteGallery(int gallery_num);
 	
 }
