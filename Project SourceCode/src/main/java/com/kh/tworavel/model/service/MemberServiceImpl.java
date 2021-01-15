@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import com.kh.tworavel.common.Gmail;
 import com.kh.tworavel.common.SHA256;
 import com.kh.tworavel.model.dao.MemberDao;
+import com.kh.tworavel.model.domain.Companion;
 import com.kh.tworavel.model.domain.Member;
 import com.kh.tworavel.model.domain.Out;
 
@@ -108,7 +109,8 @@ public class MemberServiceImpl implements MemberService {
 	public int minusLoginPoint(String m_id) {
 		return mDao.minusLoginPoint(m_id);
 	}
-	//±ÝÁö¿îºÎºÐ(°ü¸®ÀÚ)
+
+	// ±ÝÁö¿îºÎºÐ(°ü¸®ÀÚ)
 	@Override
 	public int selectMemberAllCount() {
 		return mDao.selectMemberAllCount();
@@ -262,6 +264,56 @@ public class MemberServiceImpl implements MemberService {
 	public void adminminuspoint(String m_id) {
 
 		mDao.adminminuspoint(m_id);
+	}
+
+	@Override
+	@Async
+	public void deleteCompanionEmailSend(Companion comp, Member m) throws InterruptedException {
+		String host = "http://localhost:8090/tworavel/";
+		// 개인 이메일 작성
+		String from = "nothing1360@gmail.com";
+
+		String to = m.getM_email();
+		String subject = "[TwoRavel] 회원님의 동행 게시글이 관리자에 의해 삭제되었습니다.";
+		String content = "삭제된 게시글은 아래와 같습니다.<br>";
+		content += "글 제목 : " + comp.getC_name() + "<br>";
+		content += "글 등록날짜 : " + comp.getC_adddate() + "<br>";
+		content += "희망 인원 : " + comp.getC_many() + "<br>";
+		content += "예산 : " + comp.getC_value() + "<br>";
+		content += "시작하는 날 : " + comp.getC_startd() + "<br>";
+		content += "끝나는 날 : " + comp.getC_endd() + "<br>";
+		content += "이상이 있을 시, 관리자에게 문의해주세요.";
+
+		Properties p = new Properties();
+		p.put("mail.smtp.user", from);
+		p.put("mail.smtp.host", "smtp.googlemail.com");
+		p.put("mail.smtp.port", "456");
+		p.put("mail.smtp.starttls.enable", "true");
+		p.put("mail.smtp.auth", "true");
+		p.put("mail.smtp.debug", "true");
+		p.put("mail.smtp.socketFactory.port", "465");
+		p.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+		p.put("mail.smtp.socketFactory.fallback", "false");
+
+		Authenticator auth = new Gmail();
+		Session ses = Session.getInstance(p, auth);
+
+		ses.setDebug(true);
+		MimeMessage msg = new MimeMessage(ses);
+		try {
+			msg.setSubject(subject);
+
+			Address fromAddr = new InternetAddress(from);
+			msg.setFrom(fromAddr);
+
+			Address toAddr = new InternetAddress(to);
+			msg.addRecipient(Message.RecipientType.TO, toAddr);
+
+			msg.setContent(content, "text/html;charset=UTF-8");
+			Transport.send(msg);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

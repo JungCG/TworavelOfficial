@@ -1,11 +1,24 @@
 package com.kh.tworavel.model.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Properties;
+
+import javax.mail.Address;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import com.kh.tworavel.common.Gmail;
+import com.kh.tworavel.common.SHA256;
 import com.kh.tworavel.model.dao.CompanionDao;
 import com.kh.tworavel.model.domain.Board;
 import com.kh.tworavel.model.domain.Companion;
@@ -213,4 +226,65 @@ public class CompanionServiceImpl implements CompanionService {
 		return cDao.companionlistwrite(m_id);
 	}
 
+	@Override
+	public Companion selectOneCBy(String m_id) {
+		return cDao.selectOneCBy(m_id);
+	}
+
+	@Override
+	public List<Companion> selectFavorML(HashMap<String, Integer> paramMap) {
+		return cDao.selectFavorML(paramMap);
+	}
+
+	@Override
+	@Async
+	public void favorEmailSend(String m_id, String m_email, Companion comp) {
+		String host = "http://localhost:8090/tworavel/";
+		// 개인 이메일 작성
+		String from = "nothing1360@gmail.com";
+
+		String to = m_email;
+		String subject = "[TwoRavel] 회원님의 여행 성향과 일치하는 동행 글이 올라왔습니다.";
+		String content = "동행 게시글은 아래와 같습니다.<br>";
+		content += "글 제목 : " + comp.getC_name() + "<br>";
+		content += "글 등록날짜 : " + comp.getC_adddate() + "<br>";
+		content += "희망 인원 : " + comp.getC_many() + "<br>";
+		content += "예산 : " + comp.getC_value() + "<br>";
+		content += "시작하는 날 : " + comp.getC_startd() + "<br>";
+		content += "끝나는 날 : " + comp.getC_endd() + "<br>";
+		content += "<a href='" + host + "companion_detail.do?c_id="
+				+ comp.getC_id() + "&page=" + 1 + "'>게시글 링크</a>";
+
+		Properties p = new Properties();
+		p.put("mail.smtp.user", from);
+		p.put("mail.smtp.host", "smtp.googlemail.com");
+		p.put("mail.smtp.port", "456");
+		p.put("mail.smtp.starttls.enable", "true");
+		p.put("mail.smtp.auth", "true");
+		p.put("mail.smtp.debug", "true");
+		p.put("mail.smtp.socketFactory.port", "465");
+		p.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+		p.put("mail.smtp.socketFactory.fallback", "false");
+
+		Authenticator auth = new Gmail();
+		Session ses = Session.getInstance(p, auth);
+
+		ses.setDebug(true);
+		MimeMessage msg = new MimeMessage(ses);
+		try {
+			msg.setSubject(subject);
+
+			Address fromAddr = new InternetAddress(from);
+			msg.setFrom(fromAddr);
+
+			Address toAddr = new InternetAddress(to);
+			msg.addRecipient(Message.RecipientType.TO, toAddr);
+
+			msg.setContent(content, "text/html;charset=UTF-8");
+			Transport.send(msg);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 }

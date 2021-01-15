@@ -242,7 +242,7 @@ p {
 						</div>
 
 						<img style="width: 1000px; height: 650px; opacity: 0.5;"
-							src="${pageContext.request.contextPath }/resources/images/MainPage.jpg" />
+							src="${pageContext.request.contextPath }/resources/images/MainPage.png" />
 					</div>
 					<br>
 

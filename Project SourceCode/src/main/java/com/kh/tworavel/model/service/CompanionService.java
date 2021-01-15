@@ -1,5 +1,6 @@
 package com.kh.tworavel.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.kh.tworavel.model.domain.Board;
@@ -64,4 +65,9 @@ public interface CompanionService {
 	 List<Companion>selectCountpeople();
 	 List<Companion>selectCounttendency();
 	 
+	 Companion selectOneCBy(String m_id);
+	 
+	 List<Companion> selectFavorML(HashMap<String, Integer> paramMap);
+	 
+	 void favorEmailSend(String m_id, String m_email, Companion comp);
 }

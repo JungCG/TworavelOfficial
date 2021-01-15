@@ -1,5 +1,6 @@
 package com.kh.tworavel.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
@@ -169,5 +170,13 @@ public class CompanionDao {
    // 동행 글쓰기 포인트 비교
    public int companionlistwrite(String m_id) {
 	   return sqlSession.selectOne("Member.companionlistwrite", m_id);
+   }
+   
+   public Companion selectOneCBy(String m_id) {
+	   return sqlSession.selectOne("Companion.selectOneCBy", m_id);
+   }
+   
+   public List<Companion> selectFavorML(HashMap<String, Integer> paramMap){
+	   return sqlSession.selectList("Companion.selectFavorML", paramMap);
    }
 }

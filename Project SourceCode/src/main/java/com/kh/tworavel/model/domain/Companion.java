@@ -22,7 +22,8 @@ public class Companion implements java.io.Serializable{
 	private String c_description;
 	private String c_meet;
 	private String c_address;
-
+	private String m_email;
+	
 	public Companion() {
 		super();
 	}
@@ -45,6 +46,14 @@ public class Companion implements java.io.Serializable{
 		this.c_description = c_description;
 		this.c_meet = c_meet;
 		this.c_address = c_address;
+	}
+	
+	
+	
+	public Companion(String m_id, String m_email) {
+		super();
+		this.m_id = m_id;
+		this.m_email = m_email;
 	}
 
 	@Override
@@ -169,6 +178,14 @@ public class Companion implements java.io.Serializable{
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public String getM_email() {
+		return m_email;
+	}
+
+	public void setM_email(String m_email) {
+		this.m_email = m_email;
 	}
 
 	/*

@@ -26,7 +26,7 @@ import com.kh.tworavel.model.service.GalleryService;
  * Handles requests for the application home page.
  */
 @Controller
-public class GalleryController{
+public class GalleryController {
 
 	@Autowired
 	private GalleryService gService;
@@ -59,13 +59,13 @@ public class GalleryController{
 		return mv;
 	}
 
-	// **게시글 상세페이지
+	// **게시글 상세페이지 
 	@RequestMapping(value = "/gallery_detail.do")
 	public ModelAndView galleryDetail(@RequestParam(name = "gallery_num") int gallery_num,
 			@RequestParam(name = "page", defaultValue = "1") int page, ModelAndView mv) {
 		mv.addObject("galleryAdd", gService.selectGalleryAdd(gallery_num));
 		mv.addObject("gallery", gService.selectGallery(gallery_num));
-		// mv.addObject("commentList", brService.selectList(board_num));
+		//mv.addObject("commentList", brService.selectList(board_num));
 		mv.setViewName("gallery_detail");
 		return mv;
 	}

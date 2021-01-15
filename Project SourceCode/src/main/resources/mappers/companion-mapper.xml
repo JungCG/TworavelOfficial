@@ -51,7 +51,11 @@
 		<result property="c_lid" column="c_lid" />
 		<result property="c_sid" column="c_sid" />
 	</resultMap>
-
+	
+	<resultMap type="Companion" id="resultFavorM">
+		<id property="m_id" column="m_id" />
+		<result property="m_email" column="m_email"/>
+	</resultMap>
 
 	<resultMap type="Companion" id="resultCountArea">
 		<id property="c_id" column="c" />
@@ -146,7 +150,7 @@
 		resultType="Companion">
 		select * from companion where c_id=#{c_id}
 	</select>
-
+	
 	<select id="selectTagC" parameterType="int"
 		resultType="arraylist" resultMap="resultCompanionTag">
 		select * from ctag where c_id=#{c_id}
@@ -343,5 +347,13 @@
 		flushCache="true" statementType="PREPARED">
 		update companion set c_like = c_like-1 where c_id = #{c_id}
 	</update>
-
+	
+	<select id="selectOneCBy" parameterType="string"
+		resultType="Companion">
+		select a.* from (select * from companion where m_id=#{m_id} order by c_id desc) a where rownum = 1
+	</select>
+	
+	<select id = "selectFavorML" parameterType="hashmap" resultType="arraylist" resultMap="resultFavorM">
+		select m.m_id m_id, m.m_email m_email from member m inner join (select distinct m_id from favor where (c_lid = #{c_lid1} and c_sid = #{c_sid1}) or (c_lid = #{c_lid2} and c_sid = #{c_sid2}) or (c_lid = #{c_lid3} and c_sid = #{c_sid3})) m2 on m.m_id=m2.m_id
+	</select>
 </mapper>

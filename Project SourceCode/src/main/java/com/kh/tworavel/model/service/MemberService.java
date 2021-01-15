@@ -3,6 +3,7 @@ package com.kh.tworavel.model.service;
 import java.util.HashMap;
 import java.util.List;
 
+import com.kh.tworavel.model.domain.Companion;
 import com.kh.tworavel.model.domain.Member;
 import com.kh.tworavel.model.domain.Out;
 
@@ -43,12 +44,14 @@ public interface MemberService {
 	
 	List<Member>selectMemberAll(int startPage,int limit);
 	
-	public void joinEmailSend(String m_id, String to) throws InterruptedException;
+	void joinEmailSend(String m_id, String to) throws InterruptedException;
 	
-	public void searchEmailSend(Member m) throws InterruptedException;
+	void searchEmailSend(Member m) throws InterruptedException;
 	
-	public void outEmailSend(String Tto, Out vo) throws InterruptedException;
+	void outEmailSend(String Tto, Out vo) throws InterruptedException;
 
+	void deleteCompanionEmailSend(Companion comp, Member m) throws InterruptedException;
+	
 	void adminminuspoint(String m_id);
 
 }

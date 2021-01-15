@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.tworavel.common.Gmail;
 import com.kh.tworavel.common.SHA256;
+import com.kh.tworavel.model.domain.Companion;
 import com.kh.tworavel.model.domain.Member;
 import com.kh.tworavel.model.domain.Out;
 import com.kh.tworavel.model.service.BoardService;
@@ -101,8 +102,6 @@ public class AdminController {
 			e.printStackTrace();
 			mv.addObject("msg", e.getMessage());
 			mv.setViewName("errorPage");
-			return mv;
-
 		}
 		return mv;
 	}
@@ -154,14 +153,15 @@ public class AdminController {
 	@RequestMapping(value = "admincompaniondelete.do", method = RequestMethod.GET)
 	public ModelAndView CompanionDeleteService(@RequestParam(name = "c_id") int c_id, ModelAndView mv,
 			HttpServletRequest request) {
-		
+		Companion comp = cService.selectOneC(c_id);
+		Member m = mService.selectOne(comp.getM_id());
 		try {
-			
+			mService.deleteCompanionEmailSend(comp, m);
 			cService.deleteC(c_id);
-		}catch(Exception e) {
 			
+		} catch (InterruptedException e) {
 			e.printStackTrace();
-			mv.addObject("msg", "동행글 삭제 실패");
+			mv.addObject("msg", "동행 게시글 삭제에 실패하였습니다.");
 			mv.addObject("url", "/adminpage.do?type=C");
 			mv.setViewName("alertMsg");
 			return mv;
@@ -187,8 +187,6 @@ public class AdminController {
 			mv.addObject("url", "/adminpage.do?type=S");
 
 			mv.setViewName("alertMsg");
-			return mv;
-
 		}
 
 		mv.addObject("msg", "해당 신고내역이 삭제되었습니다");
@@ -212,7 +210,6 @@ public class AdminController {
 			mv.addObject("msg", "포인트 리셋 실패");
 			mv.addObject("url", "/adminpage.do?type=S");
 			mv.setViewName("alertMsg");
-			return mv;
 		}
 		mv.addObject("msg", "해당 회원의 포인트가 리셋 되었습니다");
 		mv.addObject("url", "/adminpage.do?type=S");

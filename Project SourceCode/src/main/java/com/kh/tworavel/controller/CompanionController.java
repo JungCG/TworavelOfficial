@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,6 +39,7 @@ import com.kh.tworavel.model.service.CompanionService;
 @Controller
 @RequestMapping
 public class CompanionController {
+	
 	@Autowired
 	private CompanionService cService;
 	public static final int LIMIT = 15;
@@ -113,6 +115,37 @@ public class CompanionController {
 				vo.setCm_id(i + 1);
 				cService.insertCMap(vo);
 			}
+			
+			System.out.println("jck:"+c.toString());
+			Companion insertComp = cService.selectOneCBy(c.getM_id());
+			if (c_lid1.equals("") || c_lid1 == null) {
+				c_lid1 = "0";
+				c_sid1 = "0";
+			}
+			if (c_lid2.equals("") || c_lid2 == null) {
+				c_lid2 = "0";
+				c_sid2 = "0";
+			}
+			if (c_lid3.equals("") || c_lid3 == null) {
+				c_lid3 = "0";
+				c_sid3 = "0";
+			}
+			HashMap<String,Integer> paramMap = new HashMap<String, Integer>();
+			paramMap.put("c_lid1", Integer.parseInt(c_lid1));
+			paramMap.put("c_lid2", Integer.parseInt(c_lid2));
+			paramMap.put("c_lid3", Integer.parseInt(c_lid3));
+			paramMap.put("c_sid1", Integer.parseInt(c_sid1));
+			paramMap.put("c_sid2", Integer.parseInt(c_sid2));
+			paramMap.put("c_sid3", Integer.parseInt(c_sid3));
+			
+			List<Companion> favorMList = cService.selectFavorML(paramMap);
+			if(favorMList.size() > 0) {
+				for(int i = 0 ; i<favorMList.size();i++) {
+					Companion tempComp = favorMList.get(i);
+					cService.favorEmailSend(tempComp.getM_id(), tempComp.getM_email(), insertComp);
+				}
+			}
+			
 			mv.setViewName("redirect:/companion_list.do");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -237,7 +270,7 @@ public class CompanionController {
 			}
 
 			mv.addObject("clist", list);
-			mv.addObject("meetpoint",list.getC_meet());
+			mv.addObject("meetpoint", list.getC_meet());
 			mv.addObject("maplist", maplist);
 			mv.addObject("tlist1", CTname1);
 			mv.addObject("tlist2", CTname2);
