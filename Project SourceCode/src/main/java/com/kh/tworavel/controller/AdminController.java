@@ -101,14 +101,27 @@ public class AdminController {
 			e.printStackTrace();
 			mv.addObject("msg", e.getMessage());
 			mv.setViewName("errorPage");
+			return mv;
+
 		}
 		return mv;
 	}
 	@RequestMapping(value = "Adminboarddelete.do", method = RequestMethod.GET)
 	public ModelAndView BoardDeleteService(@RequestParam(name = "b_id") int b_id, ModelAndView mv,
-			HttpServletRequest request) {
-		bService.deleteBoard(b_id);
-		mv.setViewName("redirect:adminpage.do?type=B");
+		HttpServletRequest request) {
+		
+		try {
+			bService.deleteBoard(b_id);
+		}catch(Exception e) {
+			mv.addObject("msg","게시글 삭제 실패");
+			mv.addObject("url", "/adminpage.do?type=B");
+			mv.setViewName("alertMsg");
+			return mv;
+
+		}
+		mv.addObject("msg","해당 게시글 삭제 성공");
+		mv.addObject("url", "/adminpage.do?type=B");
+		mv.setViewName("alertMsg");		
 		return mv;
 	}
 
@@ -125,18 +138,37 @@ public class AdminController {
 			mService.outEmailSend(mService.selectOne(m_id).getM_email(), vo);
 		} catch (Exception e) {
 			e.printStackTrace();
+			mv.addObject("msg", " 회원 삭제가 실패하였습니다");
+			mv.addObject("url", "/adminpage.do?type=M");
+			mv.setViewName("alertMsg");
+			return mv;
+
 		}
 		/////////////////////////////////////
-
-		mv.setViewName("redirect:adminpage.do?type=M");
+		mv.addObject("msg", "회원을 삭제 성공하였습니다");
+		mv.addObject("url", "/adminpage.do?type=M");
+		mv.setViewName("alertMsg");
 		return mv;
 	}
 
 	@RequestMapping(value = "admincompaniondelete.do", method = RequestMethod.GET)
 	public ModelAndView CompanionDeleteService(@RequestParam(name = "c_id") int c_id, ModelAndView mv,
 			HttpServletRequest request) {
-		cService.deleteC(c_id);
-		mv.setViewName("redirect:adminpage.do?type=S");
+		
+		try {
+			
+			cService.deleteC(c_id);
+		}catch(Exception e) {
+			
+			e.printStackTrace();
+			mv.addObject("msg", "동행글 삭제 실패");
+			mv.addObject("url", "/adminpage.do?type=C");
+			mv.setViewName("alertMsg");
+			return mv;
+		}
+		mv.addObject("msg", "동행글 삭제 성공");
+		mv.addObject("url", "/adminpage.do?type=C");
+		mv.setViewName("alertMsg");
 		return mv;
 	}
 	@RequestMapping(value = "adminddeleteReport", method = RequestMethod.GET)
@@ -155,6 +187,8 @@ public class AdminController {
 			mv.addObject("url", "/adminpage.do?type=S");
 
 			mv.setViewName("alertMsg");
+			return mv;
+
 		}
 
 		mv.addObject("msg", "해당 신고내역이 삭제되었습니다");
@@ -178,6 +212,7 @@ public class AdminController {
 			mv.addObject("msg", "포인트 리셋 실패");
 			mv.addObject("url", "/adminpage.do?type=S");
 			mv.setViewName("alertMsg");
+			return mv;
 		}
 		mv.addObject("msg", "해당 회원의 포인트가 리셋 되었습니다");
 		mv.addObject("url", "/adminpage.do?type=S");

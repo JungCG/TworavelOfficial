@@ -100,7 +100,11 @@ body {
 	justify-content: center;
 	margin-top: 30px;
 }
-
+.customoverlay {position:relative;bottom:85px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;}
+.customoverlay:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}
+.customoverlay a {display:block;text-decoration:none;color:#000;text-align:center;border-radius:6px;font-size:14px;font-weight:bold;overflow:hidden;background: #d95050;background: #d95050 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;}
+.customoverlay .title {display:block;text-align:center;background:#fff;margin-right:35px;padding:10px 15px;font-size:14px;font-weight:bold;width: 100%;}
+.customoverlay:after {content:'';position:absolute;margin-left:-12px;left:50%;bottom:-12px;width:22px;height:12px;background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
 section {
 	width: 1000px;
 	display: flex;
@@ -274,8 +278,9 @@ table>tr {
 
 							</tr>
 						</table>
+						<c:if test="${(meetpoint ne '0')||(not empty maplist) }">
 						<div id="map"
-							style="width: 897px; height: 500px; z-index: 0; border: 1px gray;"></div>
+							style="width: 897px; height: 500px; z-index: 0; border: 1px gray;"></div></c:if>
 						<div id="kdy-companion-description">
 							<p id="kdy-companion-description-p">세부 내용</p>
 							&nbsp; ${clist.c_description}
@@ -402,25 +407,52 @@ $(function(){
 			<script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+	<c:if test="${meetpoint ne '0'}">
+      center: new kakao.maps.LatLng${meetpoint}, 
+     </c:if>
+      <c:if test="${meetpoint eq '0'}">
+      center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+      </c:if>
         level: 3 // 지도의 확대 레벨
     };  
 
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
 // 지도에 표시할 원을 생성합니다
-<c:if test="${not empty meetpoint}">
+<c:if test="${meetpoint ne '0'}">
+var imageSrc = '${pageContext.request.contextPath}/resources/images/meeting.png', // 마커이미지의 주소입니다    
+imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
+imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
 var marker1 = new kakao.maps.Marker({
     position: new kakao.maps.LatLng${meetpoint},
     zIndex:10000,
-    opacity:1
+    opacity:1,
+    image: markerImage
+
 });
 marker1.setMap(map);
+var content = '<div class="customoverlay">' +
+'    <span class="title">MeetingPoint</span>' +
+'  </a>' +
+'</div>';
+
+//커스텀 오버레이가 표시될 위치입니다 
+var position44 = new kakao.maps.LatLng${meetpoint};  
+
+//커스텀 오버레이를 생성합니다
+var customOverlay = new kakao.maps.CustomOverlay({
+map: map,
+position: position44,
+content: content,
+yAnchor: 1 
+});
 </c:if>
 
 
 <c:if test="${not empty maplist}">
 <c:forEach var="mvo" items="${maplist }">
+//마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
 var marker = new kakao.maps.Marker({
     position: new kakao.maps.LatLng${mvo.c_xy},
     zIndex:3,

@@ -8,6 +8,9 @@
 <head>
 <meta charset="UTF-8">
 <title>사이트 소개</title>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <style>
 * {
 	padding: 0;
@@ -94,9 +97,79 @@ p {
 .part_dropdown:hover .part_dropdown_content {
 	display: block;
 }
+
 </style>
 <script
 	src="${pageContext.request.contextPath }/resources/js/jquery-3.5.1.js"></script>
+<script type="text/javascript"
+	src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+   
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart1);
+    google.charts.setOnLoadCallback(drawChart2);    
+    google.charts.setOnLoadCallback(drawChart3);    
+
+       
+    function drawChart1() {
+    
+        // Create the data table.
+        var data1 = new google.visualization.DataTable();
+        data1.addColumn('string', 'Topping');
+        data1.addColumn('number', 'Slices');
+        data1.addRows([
+        ["강원도",${m1}],["경기도",${m2}],["경상남도",${m3}],["경상북도",${m4}],["전라남도",${m5}],["전라북도",${m6}],["충청남도",${m7}],["충청북도",${m8}],
+        ]);
+        
+        // Set chart options
+        var options1 = {'title':'지역',
+                       'width':480,
+                       'height':450,'pieHole': 0.4,};
+        
+        // Instantiate and draw our chart, passing in some options.
+        
+        var chart1 = new google.visualization.PieChart(document.getElementById('areacount'));
+        chart1.draw(data1, options1);
+    } 
+                
+    function drawChart2() {
+    
+        // Create the data table.
+        var data2 = new google.visualization.DataTable();
+        data2.addColumn('string', 'Topping');
+        data2.addColumn('number', 'Slices');
+        data2.addRows([
+        ["호캉스",${t1}],["청춘",${t2}],["자연",${t3}],["유적지",${t4}],["액티비티",${t5}],
+        ]);
+        // Set chart options
+        var options2 = {'title':'여행성향',
+                       'width':480,
+                       'height':450,
+                       'pieHole': 0.4,};
+        // Instantiate and draw our chart, passing in some options.
+        var chart2 = new google.visualization.PieChart(document.getElementById('tendencycount'));
+        chart2.draw(data2, options2);
+    }          
+    
+    function drawChart3() {
+    
+        // Create the data table.
+        var data3 = new google.visualization.DataTable();
+        data3.addColumn('string', 'Topping');
+        data3.addColumn('number', 'Slices');
+        data3.addRows([
+        ["4명이내",${p1}],["5~8명",${p2}],["9명이상",${p3}],
+        ]);
+        // Set chart options
+        var options3 = {'title':'인원수',
+                       'width':480,
+                       'height':450,
+                       'pieHole': 0.4,};
+        // Instantiate and draw our chart, passing in some options.
+        var chart3 = new google.visualization.PieChart(document.getElementById('peoplecount'));
+        chart3.draw(data3, options3);
+    }                          
+</script>
 </head>
 <body>
 	<div class="jck_wrap">
@@ -172,6 +245,12 @@ p {
 							src="${pageContext.request.contextPath }/resources/images/MainPage.jpg" />
 					</div>
 					<br>
+
+					<div style="display: flex; justify-content: center;width: 100%">
+						<div id="areacount" style="margin-left: 30px;"></div>
+						<div id="peoplecount" style="margin-left: -110px;"></div>
+						<div id="tendencycount" style="margin-left: -125px;"></div>
+					</div>
 				</div>
 				<br> <br>
 				<div style="width: 100%; margin : 20px 0px;">
@@ -222,18 +301,19 @@ p {
 										&nbsp;</div>
 								</div>
 								<div style="text-align: center;">
-									<p class="dName">정창균</p>
+									<p class="dName">금지운</p>
 									<p class="d">Developer</p>
-									<p class="dEmail">1360cat@hanmail.net</p>
+									<p class="dEmail">the_ykk@naver.com</p>
 									<p class="dGit">
-										<a href="https://github.com/JungCG" target="_blank">github.com/JungCG</a>
+										<a href="https://github.com/GJWoon" target="_blank">github.com/GJWoon</a>
 									</p>
 									<div class="part_dropdown">
 										View Details
 										<div class="part_dropdown_content">
-											<span class="dPart">#Member_Func #Scheduling #Network</span>
-											<span class="dPart">#CoronaMap #Server #공공_API</span> <span
-												class="dPart">#Point #E-mailing</span>
+											<span class="dPart">#Board #AdminPage</span> <span
+												class="dPart">#WeatherForecast</span> <span class="dPart">#SmartEditor2.0</span>
+											<span class="dPart"> #ChatBot Api </span> <span class="dPart">#KaKaoMap
+												Api </span> <span class="dPart">#Chart api #IamPort Api</span>
 										</div>
 									</div>
 								</div>

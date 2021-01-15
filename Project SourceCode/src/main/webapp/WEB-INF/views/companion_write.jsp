@@ -317,7 +317,6 @@ input[type='radio']:checked:after {
 					<tr>
 						<td colspan="2">
 							<!-- 지도 시작 -->
-							<div id="clickLatlng"></div>
 							<div class="mbuttonwrap">
 								<input type="button" id="meetbtn" class="mbutton"
 									value="미팅포인트 지정"> <input type="button" id="meetsubmit"
@@ -450,7 +449,13 @@ input[type='radio']:checked:after {
 		 */
 		// 지도에 클릭 이벤트를 등록합니다
 		// 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
+					var imageSrc = '${pageContext.request.contextPath}/resources/images/meeting.png', // 마커이미지의 주소입니다    
+			imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
+			imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+			var markerImage5 = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
 		var meetmarker = new kakao.maps.Marker({
+		    image: markerImage5
+
 		// 지도 중심좌표에 마커를 생성합니다 
 		});
 		var linePath = [];
@@ -500,10 +505,7 @@ input[type='radio']:checked:after {
 				// 클릭한 위도, 경도 정보를 가져옵니다 
 				var latlng = mouseEvent.latLng;
 				// 마커 위치를 클릭한 위치로 옮깁니다
-				var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
-				message += '경도는 ' + latlng.getLng() + ' 입니다' + markers1.length;
-				var resultDiv = document.getElementById('clickLatlng');
-				resultDiv.innerHTML = message;
+			
 				kakao.maps.event.addListener(marker, 'click', function() {
 					console.log("6. marker click event");
 					console.log(marker.getPosition());
@@ -541,10 +543,11 @@ input[type='radio']:checked:after {
 				// 지도에 표시할 선을 생성합니다
 				var polyline = new kakao.maps.Polyline({
 					path : linePath, // 선을 구성하는 좌표배열 입니다
-					strokeWeight : 5, // 선의 두께 입니다
+					strokeWeight :10, // 선의 두께 입니다
 					strokeColor : '#FFAE00', // 선의 색깔입니다
 					strokeOpacity : 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
-					strokeStyle : 'solid' // 선의 스타일입니다
+					strokeStyle : 'solid', // 선의 스타일입니다
+					endArrow:true
 				});
 
 				allpolyline.push(polyline);

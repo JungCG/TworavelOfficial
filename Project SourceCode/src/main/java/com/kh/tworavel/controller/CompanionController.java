@@ -237,7 +237,7 @@ public class CompanionController {
 			}
 
 			mv.addObject("clist", list);
-			mv.addObject("meetpoint", list.getC_meet());
+			mv.addObject("meetpoint",list.getC_meet());
 			mv.addObject("maplist", maplist);
 			mv.addObject("tlist1", CTname1);
 			mv.addObject("tlist2", CTname2);

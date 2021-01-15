@@ -303,12 +303,12 @@ td {
 	display: none;
 }
 
-#typelink:link {
+.typelink:link {
 	text-decoration: none;
 	color: #009688;;
 }
 
-#typelink:visited {
+.typelink:visited {
 	text-decoration: none;
 	color: #009688;;
 }
@@ -342,17 +342,17 @@ a:link {
 					<div class="boardtype" style="font-family: 'Hanna', serif;">
 						<div class="boardtype-1">
 
-							<a href="adminpage.do?type=B" id="typelink">게시판</a>
+							<a href="adminpage.do?type=B" class="typelink" id="typeB">게시판</a>
 
 						</div>
 						<div class="boardtype-1">
-							<a href="adminpage.do?type=C" id="typelink">동행게시판</a>
+							<a href="adminpage.do?type=C" class="typelink" id="typeC">동행게시판</a>
 						</div>
 						<div class="boardtype-1">
-							<a href="adminpage.do?type=M" id="typelink">회원관리</a>
+							<a href="adminpage.do?type=M" class="typelink" id="typeM">회원관리</a>
 						</div>
 						<div class="boardtype-1">
-							<a href="adminpage.do?type=S" id="typelink">신고내역</a>
+							<a href="adminpage.do?type=S" class="typelink" id="typeS">신고내역</a>
 
 						</div>
 					</div>
@@ -612,6 +612,23 @@ a:link {
 				$(this).parent('form').css("display", "none");
 				$(this).parent('form').prev().css("display", "inline-block");
 			})
+		})
+		$(function(){
+			
+			if("${type}"=="B"){
+			
+			$("#typeB").css("color","#FF5722");
+		}else if("${type}"=="C"){
+			$("#typeC").css("color","#FF5722");
+			
+		}else if("${type}"=="S"){
+			$("#typeS").css("color","#FF5722");
+			
+		}else if("${type}"=="M"){
+			$("#typeM").css("color","#FF5722");
+			
+		}
+			
 		})
 	</script>
 </body>

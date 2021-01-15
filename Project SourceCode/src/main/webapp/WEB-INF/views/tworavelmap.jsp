@@ -52,13 +52,13 @@ z-index: 988;
     font-weight: bold;
     padding: 3px;
 }
-
-
+#keyword{
+border:2px solid #009688}
     .bg_white {background:#fff;}
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
 .map_wrap {position:relative;width:80%;height:1000px;}
-#menu_wrap {border: 1px solid #009688;position:absolute;top:0;left:0;bottom:0;width:265px;margin:10px 0 0px 0px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.5);z-index: 1;font-size:12px;border-radius: 10px;}
+#menu_wrap {border: 4px solid #009688;position:absolute;top:0;left:0;bottom:0;width:265px;margin:10px 0 0px 0px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.5);z-index: 1;font-size:12px;border-radius: 10px;}
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
 #menu_wrap .option{text-align: center;}
@@ -91,8 +91,8 @@ z-index: 988;
 #pagination {margin:10px auto;text-align: center;}
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}#category {position:absolute;top:10px;left:10px;border-radius: 5px; border:1px solid #909090;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);background: #fff;overflow: hidden;z-index: 2;}
-#category{left: 267px;border: 1px solid #009688; color:#009688}
-#category li {float:left;list-style: none;width:50px;px;border-right:1px solid #acacac;padding:6px 0;text-align: center; cursor: pointer;}
+#category{left: 267px;border: 4px solid #009688; color:#009688;box-shadow: 5px 5px 5px grey;}
+#category li {float:left;list-style: none;width:50px;px;border-right:1px solid #acacac;padding:6px 0;text-align: center; cursor: pointer;font-weight: bolder;}
 #category li.own {background: #eee;}
 #category li:hover {background: #ffe6e6;border-left:1px solid #acacac;margin-left: -1px; color:orange;}
 #category li:last-child{margin-right:0;border-right:0;}
