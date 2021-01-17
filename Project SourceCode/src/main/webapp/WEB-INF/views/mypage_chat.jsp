@@ -86,7 +86,7 @@ body{
 #ICR_othertext{
 	float: left;
 }
-#ICR_Unread{
+.ICR_Unread{
 	padding: 3px;
     border-radius: 4px;
 	background-color: rgba(255,0,0,0.7);
@@ -133,7 +133,9 @@ a { text-decoration:none !important }
 	  	<c:set var="RoomNum" value="${chat.c_id}" />
 		    <li class="person" id="ICR_Room${RoomNum}">
 		      <span class="title">${chat.c_id}번글 채팅방</span>
-		      <c:if test="${chat.ch_unread ne 0}"><span id="ICR_Unread">${chat.ch_unread}</span></c:if>
+		      <span class="ICR_Unread" style="<c:if test="${chat.ch_unread eq 0}">background-color: rgba( 255, 255, 255, 0 );</c:if>">
+		      	<c:if test="${chat.ch_unread ne 0}">${chat.ch_unread}</c:if>
+		      </span>
 		      <span class="time" style="right: 10%;"><fmt:formatDate var="time" value="${chat.ch_time}" pattern="yyyy-MM-dd HH:mm:ss" />${time}</span><br>
 		      <span class="preview">${chat.ch_content}</span>
 		    </li>
@@ -238,8 +240,14 @@ $(".person").on("click", function () {
 		        };
 		        
 		        ws.onmessage = function(event){
-		            writeResponse(event.data);
-		            
+		        	var textVal = event.data;
+		        	
+		        	var jbSplit = textVal.split('§');
+		        	if(jbSplit[0]=="®"){
+		        		AlramFN(event.data);
+		        	}else{
+			            writeResponse(event.data);
+		        	}
 		        };
 		        /* ws.onclose = function(event){
 		            writeResponse("대화 종료");
@@ -281,6 +289,7 @@ $(".person").on("click", function () {
         }
        	var sender = "";
        	var massage = "";
+       	
         function writeResponse(text){
         	var jbSplit = text.split('§');
             for ( var i in jbSplit ) {	//jbSplit[i]
@@ -289,6 +298,24 @@ $(".person").on("click", function () {
             	else if(i==1)
             		massage = jbSplit[i];
             }
+            
+            
+          //읽음처리
+			$.ajax({
+					url : "updateReadChat.do",
+					async : false,
+					data : {
+						c_id : c_id,
+						m_sender : sender,
+						m_receiver : "${sessionScope.userID}",
+						ch_content : massage
+					},
+					success : function() {
+					},
+					error : function() {
+					}
+				});
+            
             	
             	if(sender=="${sessionScope.userID}"){
 	            	//내가 보낸거면
@@ -301,14 +328,71 @@ $(".person").on("click", function () {
 	            //스크롤 맨아래
 	            var objDiv = document.getElementsByClassName("incoming")[0];
 		        objDiv.scrollTop = objDiv.scrollHeight;
-		      	//채팅방 목록에도 추가
-		      	$('#ICR_Room' + c_id).children().last().html(massage);
-		      	//시간구하기
-		      	$('#ICR_Room' + c_id).children(".time").html(getTime());	//time
-		      	$('.people').prepend($('#ICR_Room' + c_id).parent()); // chlid 객체를 parent 객체 내 첫번째 요소로 붙인다.
 		      	
-            	
             }
+        
+        
+        function AlramFN(text){
+        	var c_id = ${c_id};
+        	var Al_c_id = 0;
+        	var unreadCnt = 0;
+        	
+        	var jbSplit = text.split('§');
+            for ( var i in jbSplit ) {	//jbSplit[i]
+            	if(i==1)
+            		sender = jbSplit[i];
+            	else if(i==2)
+            		massage = jbSplit[i];
+            	else if(i==3)
+            		Al_c_id = jbSplit[i];
+            }
+        	
+        	//방에 들어가있는지?
+			$.ajax({
+					url : "checkChatJoin2.do",
+					async : false,
+					data : {
+						c_id : Al_c_id
+					},
+					dataType : "text",
+					success : function(result) {
+						//방에 있음
+						if(result>0){
+							if("${sessionScope.userID}"!=sender && c_id!=Al_c_id){
+								
+								$.ajax({
+									url : "selectUnreadChat.do",
+									async : false,
+									data : {
+										c_id : Al_c_id
+									},
+									success : function(result) {
+										if(result>0){
+											unreadCnt = result;
+											$('#ICR_Room' + Al_c_id).children(".ICR_Unread").html(unreadCnt);
+											$('#ICR_Room' + Al_c_id).children(".ICR_Unread").css('background-color','rgba(255,0,0,0.7)');
+										}
+									},
+									error : function() {
+									}
+								});
+							}
+							
+							//채팅방 목록에도 추가
+					      	$('#ICR_Room' + Al_c_id).children().last().html(massage);
+					      	$('#ICR_Room' + Al_c_id).children().first().html(Al_c_id+"번글 채팅방");
+					      	
+					      	//시간구하기
+					      	$('#ICR_Room' + Al_c_id).children(".time").html(getTime());	//time
+					      	$('.people').prepend($('#ICR_Room' + Al_c_id).parent()); // chlid 객체를 parent 객체 내 첫번째 요소로 붙인다.
+						}else{//방에 없음
+							console.log("방에 없음");
+						}
+					},
+					error : function() {
+					}
+				});
+        }
         
         
         
@@ -341,53 +425,14 @@ $(".person").on("click", function () {
 	      	var roomTime = year + "-" + month + "-" + date + "\t\t\t" + hours + ':' + minutes + ":" + seconds;
 	      	return roomTime;
         }
-					//클릭읽음
-					$('.chatbox').on({
-						'click': function(e) {
-							var c_id = ${c_id};
-							$.ajax({
-									url : "updateReadChat.do",
-									async : false,
-									data : {
-										c_id : c_id,
-										m_sender : sender,
-										m_receiver : "${sessionScope.userID}",
-										ch_content : massage
-									},
-									success : function() {
-									},
-									error : function() {
-									}
-								});
-						}
-					});
-					
-					//포커스읽음
-					$(".chatbox").attr("tabindex",-1).focus(function() {
-						var c_id = ${c_id};
-						$.ajax({
-								url : "updateReadChat.do",
-								async : false,
-								data : {
-									c_id : c_id,
-									m_sender : sender,
-									m_receiver : "${sessionScope.userID}",
-									ch_content : massage
-								},
-								success : function() {
-								},
-								error : function() {
-								}
-							});
-						});
 				</script>
 	  <script>
 	  function ICR_insertFn(){
 		  var c_id = ${c_id};
 		  var ch_content = document.getElementById("messageinput").value;
-		  
 		  $.ajax({
 			  url : "insertChat.do?c_id=" + c_id + "&ch_content=" + ch_content,
+			  async : false,
 			  success : function(){
 			  },
 			  error : function(){

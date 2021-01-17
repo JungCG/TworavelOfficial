@@ -296,11 +296,11 @@ $('#ICR_exBtn').on('click',function(){
 	
 });
 function ICR_ChatOpen(){
-	var popupX = (window.screen.width / 2) - 400;
+	var popupX = (window.screen.width / 2) - 350;
 
 	var popupY= (window.screen.height / 2) - 250;
  
-	window.open('Chat.do?m_id=${member.m_id}', 'TworavelChat', 'width='+ 800 +', height='+ 500 +', left=' + popupX + ', top='+ popupY);
+	window.open('Chat.do?m_id=${member.m_id}', 'TworavelChat', 'width='+ 700 +', height='+ 500 +', left=' + popupX + ', top='+ popupY);
 	}
 	
 	

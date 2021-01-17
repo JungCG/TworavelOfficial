@@ -69,12 +69,30 @@ public class WebSocketController{
 				}else {
 //					System.out.println("메세지 전송 실패");
 				}
+				sendAllSessionToRoom(self,sender,message,c_id);
 			}
     	}catch (Exception e) {
             e.printStackTrace();
         }
-    	
     }
+    
+    
+    private void sendAllSessionToRoom(Session self, String sender, String message, String c_id) {
+    	try {
+	    	for (int i = 0; i < sessList.size(); i++) {
+				Map<String, Object> mapSessionList = sessList.get(i);
+				String list_c_id = (String) mapSessionList.get("c_id");
+				Session list_sess = (Session) mapSessionList.get("session");
+
+				list_sess.getBasicRemote().sendText("®" + "§" + sender + "§" + message + "§" + c_id);
+				
+			}
+    	}catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
     /*
      * 내가 입력하는 메세지
      * @param message

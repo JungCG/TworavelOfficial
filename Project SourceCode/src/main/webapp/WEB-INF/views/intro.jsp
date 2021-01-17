@@ -389,18 +389,18 @@ p {
 										&nbsp;</div>
 								</div>
 								<div style="text-align: center;">
-									<p class="dName">정창균</p>
+									<p class="dName">임채린</p>
 									<p class="d">Developer</p>
-									<p class="dEmail">1360cat@hanmail.net</p>
+									<p class="dEmail">ewuuu1112@gmail.com</p>
 									<p class="dGit">
-										<a href="https://github.com/JungCG" target="_blank">github.com/JungCG</a>
+										<a href="https://github.com/JungCG" target="_blank">github.com/ChaeRin-Im</a>
 									</p>
 									<div class="part_dropdown">
 										View Details
 										<div class="part_dropdown_content">
-											<span class="dPart">#Member_Func #Scheduling #Network</span>
-											<span class="dPart">#CoronaMap #Server #공공_API</span> <span
-												class="dPart">#Point #E-mailing</span>
+											<span class="dPart">#TodayWeather #MyPage</span>
+											<span class="dPart">#MemberProfile <br> #Report #Like</span> <span
+												class="dPart">#Chatting</span>
 										</div>
 									</div>
 								</div>
@@ -422,6 +422,12 @@ p {
 								href="https://notefolio.net/vacaskingdom">- https://notefolio.net/vacaskingdom</a></li>
 							<li><a style="color: grey;" target="_blank"
 								href="https://brunch.co.kr/@hotelscomkr/466">- https://brunch.co.kr/@hotelscomkr/466</a></li>
+							<li><a style="color: grey;" target="_blank"
+								href="https://www.flaticon.com/packs/weather-161?k=1608556847505">- https://www.flaticon.com/packs/weather-161?k=1608556847505</a></li>
+							<li><a style="color: grey;" target="_blank"
+								href="https://www.flaticon.com/">- https://www.flaticon.com/</a></li>
+							<li><a style="color: grey;" target="_blank"
+								href="https://codepen.io/juliepark/pen/QxWVPv">- https://codepen.io/juliepark/pen/QxWVPv</a></li>
 							<li><a style="color: grey;" target="_blank"
 								href="https://kr.freepik.com/free-photo/tropical-beach_3501168.htm#page=5&query=travel&position=24">- https://kr.freepik.com/free-photo/tropical-beach_3501168.htm#page=5&query=travel&position=24</a></li>
 							<li><a style="color: grey;" target="_blank"

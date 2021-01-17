@@ -173,6 +173,35 @@ public class ChatController {
 	}
 	
 	@ResponseBody
+	@RequestMapping(value = "/checkChatJoin2.do", method = RequestMethod.GET)
+	public int checkChatJoin2(HttpServletRequest request, @RequestParam int c_id) {
+		String userID = (String) request.getSession().getAttribute("userID");
+		chatJn.setM_id(userID);
+		chatJn.setC_id(c_id);
+		int result = 0;
+		try {
+			result = chService.checkChatJoin(chatJn);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		return result;
+	}
+	@ResponseBody
+	@RequestMapping(value = "/selectUnreadChat.do", method = RequestMethod.GET)
+	public int selectUnreadChat(HttpServletRequest request, @RequestParam int c_id) {
+		String userID = (String) request.getSession().getAttribute("userID");
+		chatMsg.setM_id(userID);
+		chatMsg.setC_id(c_id);
+		int result = 0;
+		try {
+			result = chService.selectUnreadChat(chatMsg);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		return result;
+	}
+	
+	@ResponseBody
 	@RequestMapping(value = "/ChatUnreadServlet", method = RequestMethod.POST)
 	public int ChatUnreadServlet(HttpServletRequest request) {
 		String userID = (String) request.getSession().getAttribute("userID");

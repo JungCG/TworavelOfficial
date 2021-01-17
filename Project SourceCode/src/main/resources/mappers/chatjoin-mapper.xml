@@ -16,7 +16,7 @@
 	</insert>
 	<!-- 채팅방 입장 유무 확인 -->
 	<select id="checkChatJoin" parameterType="ChatJoin" resultType="int" flushCache="true" statementType="PREPARED">
-	select count(*) from chatjoin where c_id = #{c_id} and m_id = #{m_id}
+	select count(*) from chatjoin where c_id = #{c_id} and m_id = #{m_id} and ch_inout = 'I'
 	</select>
 	<!-- 채팅방 I.O 유무 확인 -->
 	<select id="checkInoutChatJoin" parameterType="ChatJoin" resultType="ChatJoin" flushCache="true" statementType="PREPARED">
