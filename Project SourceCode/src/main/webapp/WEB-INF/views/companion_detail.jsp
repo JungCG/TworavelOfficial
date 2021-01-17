@@ -113,6 +113,16 @@ section {
 	border: 1px solid #0000001a;
 }
 
+table>tr>td {
+	margin-top: 51px;
+	margin-bottom: 51px;
+}
+
+td {
+	padding: 2px;
+	height: 30px;
+}
+
 #kdy-companion-title {
 	display: flex;
 	justify-content: center;
@@ -124,7 +134,6 @@ section {
 #kdy-companion-writer {
 	display: flex;
 	justify-content: flex-end;
-	margin-bottom: 10px;
 	margin-top: 5px;
 	margin-right: 10px;
 	color: gray;
@@ -230,6 +239,30 @@ table>tr {
 	color: gray;
 	font-size: 12px;
 }
+.hrinout {
+	height: 1px;
+	background: #bbb;
+	background-image: -webkit-linear-gradient(left, #eee, #777, #eee);
+	background-image: -moz-linear-gradient(left, #eee, #777, #eee);
+	background-image: -ms-linear-gradient(left, #eee, #777, #eee);
+	background-image: -o-linear-gradient(left, #eee, #777, #eee);
+}
+
+.hrnline {
+	border-top: 1px solid #bbb;
+}
+
+#csub_btn {
+	color: rgb(0 166 255/ 68%);
+	background: #3d91ff00;
+	border: 2px solid #0ac5a866;
+	border-radius: 10px;
+	padding: 5px;
+	font-weight: bold;
+	font-family: BMHANNAAir;
+	margin-bottom: 20px;
+	margin-left: 90%;
+}
 </style>
 <script
 	src="${pageContext.request.contextPath }/resources/js/jquery-3.5.1.js"></script>
@@ -241,7 +274,7 @@ table>tr {
 			<section>
 				<div style="width: 100vh; padding-left: 10vh;">
 					<div id="kdy-companion-wrap">
-						<div id="kdy-companion-title">${clist.c_name}</div>
+						<div id="kdy-companion-title" style="padding-top: 20px;">${clist.c_name}</div>
 						<div id="kdy-companion-writer">${clist.m_id}
 							<div id="kdy-companion-date">
 								<fmt:formatDate var="date" value="${clist.c_adddate}"
@@ -249,45 +282,52 @@ table>tr {
 								${date}
 							</div>
 						</div>
+						<hr class="hrnline">
+						<br>
 						<table id="kdy-companion-content">
 							<tr id="kdy-companion-content-tr">
-								<td>1인당 경비</td>
+								<td>&nbsp;&nbsp;1인당 경비</td>
 								<td colspan="3">${clist.c_value}</td>
 							</tr>
 							<tr id="kdy-companion-content-tr">
-								<td>총인원</td>
+								<td>&nbsp;&nbsp;총인원</td>
 								<td colspan="3">${clist.c_many}</td>
 							</tr>
 							<tr id="kdy-companion-content-tr">
-								<td>여행 시작일</td>
+								<td>&nbsp;&nbsp;여행 시작일</td>
 								<td colspan="3"><fmt:parseDate var="Sdate"
 										value="${clist.c_startd}" pattern="yyyy-MM-dd HH:mm:ss" /> <fmt:formatDate
 										value="${Sdate}" pattern="yyyy-MM-dd" /></td>
 							</tr>
 							<tr>
-								<td>여행 마감일</td>
+								<td>&nbsp;&nbsp;여행 마감일</td>
 								<td colspan="3"><fmt:parseDate var="Edate"
 										value="${clist.c_endd}" pattern="yyyy-MM-dd HH:mm:ss" /> <fmt:formatDate
 										value="${Edate}" pattern="yyyy-MM-dd" /></td>
 							</tr>
 							<tr>
-								<td>카테고리</td>
-								<td>지역&nbsp;&nbsp;${tlist1}</td>
-								<td>인원&nbsp;&nbsp;${tlist2}</td>
-								<td>성향&nbsp;&nbsp;${tlist3}</td>
+								<td>&nbsp;&nbsp;카테고리</td>
+								<td>지역&nbsp;&nbsp;&nbsp;&nbsp;${tlist1}</td>
+								<td>인원&nbsp;&nbsp;&nbsp;&nbsp;${tlist2}</td>
+								<td>성향&nbsp;&nbsp;&nbsp;&nbsp;${tlist3}</td>
 
 							</tr>
 						</table>
-						<c:if test="${(meetpoint ne '0')||(not empty maplist) }">
+						<hr class="hrinout">
 						<div id="map"
-							style="width: 897px; height: 500px; z-index: 0; border: 1px gray;"></div></c:if>
-						<div id="kdy-companion-description">
-							<p id="kdy-companion-description-p">세부 내용</p>
-							&nbsp; ${clist.c_description}
+							style="width: 820px; height: 500px; z-index: 0; border: 1px gray;"></div>
+						<hr class="hrinout">
+						<div id="kdy-companion-description" style="margin-top: 60px;">
+							<p id="kdy-companion-description-p" style="margin-top: 20px;">세부
+								내용</p>
+							<br>
+							<hr class="hrnline">
+							<br> &nbsp; ${clist.c_description}
 						</div>
 
+
 						<div id="kdy-like-div"
-							style="display: flex; justify-content: center; margin-top: 100px;">
+							style="display: flex; justify-content: center; margin-top: 100px; margin-bottom: 20px;">
 							<div
 								style="background-color: #3d91ff0f; width: 130px; height: 130px; border-radius: 50%;">
 								<div id="kdy-like-count"
@@ -308,7 +348,7 @@ table>tr {
 										<input type="hidden" value="${clist.m_id}" name="m_id2">
 										<input type="hidden" value="${userID}" name="m_id"> <input
 											type="hidden" value="${clist.c_name}" name="c_name">
-										<input type ="button" id="csub_btn" value="동행신청"/>
+										<button type="submit" id="csub_btn" value="동행신청">동행신청</button>
 									</form>
 								</div>
 							</c:when>
@@ -332,10 +372,21 @@ $(function(){
 				},
 				success : function(res) {
 					if (res >= 20) {
-						alert("성공")
-						submit = "companion_insertInfo.do"
+						alert("성공");
+							$(document).ready(function()
+									{
+									    var f = $('#csub_form');
+									    var action = f.attr('action');
+									    var serializedForm = f.serialize();
+									    $.post
+									    (
+									        action,
+									        serializedForm,
+									        function(){}
+									    );
+									});
 					} else {
-						alert("실패")
+						alert("실패");
 						alert("포인트가 부족합니다. 앵벌이 스타트!");
 					}
 				}
@@ -493,8 +544,9 @@ polyline.setMap(map);
 				<c:choose>
 					<c:when test="${clist.m_id eq userID}">
 				<a href="companion_update.do?c_id=${clist.c_id }"
-					id="kdy-clist-update">글수정</a> <a
-					href="companiondelete.do?c_id=${clist.c_id }" id="kdy-clist-delete">글삭제</a>
+							id="kdy-clist-update">글수정</a>
+						<a href="companiondelete.do?c_id=${clist.c_id }"
+							id="kdy-clist-delete">글삭제</a>
 				</c:when>
 				</c:choose>
 				<a href="companion_list.do" id="kdy-clist-link">글목록</a>

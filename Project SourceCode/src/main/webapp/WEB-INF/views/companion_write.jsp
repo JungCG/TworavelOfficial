@@ -108,6 +108,10 @@ table>tr>td {
 	margin-bottom: 51px;
 }
 
+td {
+	padding: 2px;
+	height: 30px;
+}
 section {
 	width: 1000px;
 	display: flex;
@@ -241,6 +245,9 @@ input[type='radio']:checked:after {
 	border-bottom: 2px solid rgb(48 28 28/ 39%);
 	padding-left: 5px;
 }
+.hrnline {
+	border-top: 2px solid #bbb;
+}
 </style>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/se/js/HuskyEZCreator.js"></script>
@@ -256,37 +263,40 @@ input[type='radio']:checked:after {
 		<KDY>
 		<section>
 			<form name="frm" enctype="multipart/form-data" id="frm">
+				<hr class="hrnline">
+				<br>
 				<table align="center" style="width: 100%;">
-					<tr style="height: 30px;">
+					<tr>
 						<td>작성자</td>
 						<td colspan="3"><input type="text" name="m_id"
 							value="${userID}"></td>
 					</tr>
-					<tr style="height: 30px">
+					<tr>
 						<td>제목</td>
 						<td style="width: 55%;"><input type="text" name="c_name"
 							id="kdy-name-input" placeholder="글 제목을 입력해주세요"
 							required="required"></td>
 					</tr>
-					<tr style="height: 30px">
+					<tr>
 						<td>경비</td>
 						<td style="width: 85%;" colspan="3"><input type="text"
 							onkeypress="doNumber();" name="c_value" id="kdy-value-input"
 							placeholder="1인당 여행경비를 입력해주세요(숫자만)" required="required"></td>
 					</tr>
-					<tr style="height: 30px">
+					<tr>
 						<td>인원</td>
 						<td style="width: 85%;" colspan="3"><input type="text"
 							onkeypress="doNumber();" name="c_many" id="kdy-many-input"
 							placeholder="총 인원을 입력해주세요(숫자만)" required="required"></td>
 					</tr>
-					<tr style="height: 30px">
+					<tr>
 						<td>출발 날짜</td>
 						<td style="width: 85%;" colspan="3"><input type="date"
 							name="c_startd" id="kdy-startd-input" placeholder="출발 날짜를 입력해주세요"
 							required="required"></td>
 					</tr>
-					<tr style="height: 30px">
+					<tr>
+
 						<td style="">도착 날짜</td>
 						<td style="width: 85%;" colspan="3"><input type="date"
 							name="c_endd" id="kdy-endd-input" placeholder="도착 날짜를 입력해주세요"
@@ -317,6 +327,7 @@ input[type='radio']:checked:after {
 					<tr>
 						<td colspan="2">
 							<!-- 지도 시작 -->
+							<div id="clickLatlng"></div>
 							<div class="mbuttonwrap">
 								<input type="button" id="meetbtn" class="mbutton"
 									value="미팅포인트 지정"> <input type="button" id="meetsubmit"
@@ -340,16 +351,19 @@ input[type='radio']:checked:after {
 							<p style="margin-top: 10px; margin-left: 245px;">
 								<em>지도를 클릭해서 마커를 표시하신후 '위치확정' 버튼을 눌러주세요.</em>
 							</p>
+							<hr class="hrinout">
 							<div id="map2"
-								style="width: 897px; height: 500px; z-index: 0; margin-top: 20px;"></div>
+								style="width: 820px; height: 500px; z-index: 0; margin-top: 20px;"></div>
+
 							<!-- 지도 끝 -->
+							<hr class="hrinout">
 						</td>
 					</tr>
 					<tr>
 						<td colspan="4" style="padding-top: 20px;"><textarea
 								id="c_description" name="c_description"></textarea></td>
 					</tr>
-					<tr style="height: 50px">
+					<tr>
 						<td colspan="4" align="end"><input type="button"
 							id="submitModifyCompanionBtn" value="등록하기"> <a
 							href="companion_list.do" id="kdy-serach-list">목록으로</a></td>
