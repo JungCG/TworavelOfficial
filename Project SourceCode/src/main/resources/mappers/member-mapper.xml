@@ -105,7 +105,7 @@
 	
 	<!-- 프로필 수정 -->
 	<update id="My_updateProfile" parameterType="Member" flushCache="true" statementType="PREPARED">
-	update member set m_nick = #{m_nick}, m_birth = #{m_birth},
+	update member set m_nick = #{m_nick}, m_birth = #{m_birth}, m_pw = #{m_pw},
 	 m_gender = #{m_gender}, m_address = #{m_address}, m_address_detail = #{m_address_detail}, m_intro = #{m_intro},
 	 m_image = #{m_image}, m_phone = #{m_phone} where m_id = #{m_id}
 	</update>

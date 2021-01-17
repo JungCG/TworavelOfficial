@@ -56,6 +56,9 @@ body{
 #ICR_textDiv{
 	margin-top:30px; 
 }
+table{
+    text-align: center;
+}
 </style>
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.5.1.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

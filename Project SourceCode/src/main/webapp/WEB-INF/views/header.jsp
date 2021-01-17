@@ -126,7 +126,7 @@ header * {
 	border-radius: 4px;
 }
 
-.modal {
+#JckModal {
 	display: none; /* Hidden by default */
 	z-index: 10000; /* Sit on top */
 	position: fixed; /* Stay in place */
@@ -136,7 +136,7 @@ header * {
 	right : 0px;
 }
 
-.modal-content {
+#jck_New {
 	position: fixed; /* Stay in place */
 	background-color: rgba(255, 0, 0, 0.7);
 	border: 1px solid #888;
@@ -150,7 +150,7 @@ header * {
 	line-height:20px;
 }
 
-.modal-content p{
+#jck_New #jck_New_p{
 	color : white;
 }
 </style>
@@ -351,8 +351,8 @@ function showUnread(result){
 	</div>
 	<div id="JckModal" class="modal">
 		<!-- Modal content -->
-		<div class="modal-content">
-			<p>
+		<div class="modal-content" id="jck_New">
+			<p id="jck_New_p">
 				새로운 메시지가<br>도착했습니다.
 			</p>
 		</div>

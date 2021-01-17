@@ -27,6 +27,9 @@ body{
 	position : relative;
 	padding-bottom : 200px;
 }
+table{
+	text-align: center;
+}
 </style>
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.5.1.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -157,16 +160,18 @@ a{
 				<c:forEach items="${companion}" var="com">
 				<tr>
 					<td>${com.c_id}</td>
-					<td>${com.c_adddate}</td>
+					<td>
+					<fmt:formatDate var="date" value="${com.c_adddate}" pattern="yyyy-MM-dd" />${date}
+					</td>
 					<td><a style="text-decoration: none;" href="companion_detail.do?c_id=${com.c_id}">${com.c_name}</a></td>
 					<td>${com.c_like}</td>
 					<td>
 						<c:if test="${com.c_dealstatus eq 'N'}">
-						진행중&nbsp;&nbsp;&nbsp;
+						<font style="color: blue;" color="blue" size="4">진행중&nbsp;&nbsp;&nbsp;</font>
 						<button class="ICR_endBtn btn btn-default">마감하기</button>
 						</c:if>
 						<c:if test="${com.c_dealstatus eq 'Y'}">
-						&nbsp;&nbsp;&nbsp;<font color="red" size="4">완료</font>&nbsp;&nbsp;&nbsp;
+						&nbsp;&nbsp;&nbsp;<font style="color: red;" color="red" size="4">완료</font>&nbsp;&nbsp;&nbsp;
 						<button class="ICR_ReBtn btn btn-default">취소하기</button>
 						</c:if>
 					</td>

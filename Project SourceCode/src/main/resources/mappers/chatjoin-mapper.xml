@@ -24,7 +24,7 @@
 	</select>
 	<!-- 같은 채팅방 사람들 조회 -->
 	<select id="selectSameRoom" parameterType="int" resultType="ChatJoin" flushCache="true" statementType="PREPARED">
-	select m_id from chatjoin where c_id = #{c_id}
+	select m_id from chatjoin where c_id = #{c_id} and ch_inout = 'I'
 	</select>
 	<!-- 채팅방 나가기 -->
 	<update id="updateChatOut" parameterType="ChatJoin" flushCache="true" statementType="PREPARED">

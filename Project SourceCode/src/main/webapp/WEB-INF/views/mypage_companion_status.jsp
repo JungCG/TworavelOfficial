@@ -27,6 +27,9 @@ body{
 	position : relative;
 	padding-bottom : 200px;
 }
+table{
+    text-align: center;
+}
 </style>
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.5.1.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -114,18 +117,20 @@ a{
 					<td>${companioninfo_t.c_id}</td>
 					<td>${companioninfo_t.c_name}</td>
 					<td>${companioninfo_t.m_id}</td>
-					<td>${companioninfo_t.c_yn}&nbsp;&nbsp;&nbsp;
+					<td>
 					<c:if test="${companioninfo_t.c_yn eq 'N'}">
-						<button class="ICR_OkBtn btn btn-default">수락하기</button>
+						<button class="ICR_OkBtn btn btn-default">수락하기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
 					</c:if>
-					<c:if test="${companioninfo_t.c_yn eq 'Y'}"></c:if>
+					<c:if test="${companioninfo_t.c_yn eq 'Y'}">
+					${companioninfo_t.c_yn}&nbsp;&nbsp;&nbsp;
+					</c:if>
 					</td>
 					<td id="ICR_inviteBtnTd">
 					<c:if test="${companioninfo_t.ch_inout eq 'I'}">
 						<font color="blue">초대완료</font>
 					</c:if>
 					<c:if test="${companioninfo_t.ch_inout ne 'I'}">
-						<button class="ICR_ChattingBtn btn btn-default">채팅초대하기</button>
+						<button class="ICR_ChattingBtn btn btn-default">채팅초대하기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
 					</c:if>
 					</td>
 				</tr>
