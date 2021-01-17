@@ -83,4 +83,12 @@ public class ChatDao {
 	public int selectUnreadChat(ChatMessage chatMsg) {
 		return sqlSession.selectOne("Chatmessage.selectUnreadChat", chatMsg);
 	}
+	
+	public int totalChat(String m_id) {
+		return sqlSession.selectOne("Chatmessage.totalChat", m_id);
+	}
+	
+	public int totalUnreadChat(String m_id) {
+		return sqlSession.selectOne("Chatmessage.totalUnreadChat", m_id);
+	}
 }

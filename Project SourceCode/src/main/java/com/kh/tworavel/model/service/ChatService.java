@@ -33,4 +33,8 @@ public interface ChatService {
 	public int ChatUnreadServlet(String m_receiver);
 
 	public int selectUnreadChat(ChatMessage chatmsg);
+	
+	public int totalChat(String m_id);
+	
+	public int totalUnreadChat(String m_id);
 }

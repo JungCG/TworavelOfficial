@@ -61,4 +61,12 @@
 	<delete id = "deleteCChat" parameterType="int" flushCache="true" statementType="PREPARED">
 		delete from chatmessage where c_id=#{c_id}
 	</delete>
+	
+	<select id = "totalChat" parameterType="string" resultType="int">
+		select count(*) from chatmessage where m_receiver = #{m_id} and m_sender != #{m_id}
+	</select>
+	
+	<select id = "totalUnreadChat" parameterType="string" resultType="int">
+		select count(*) from chatmessage where m_receiver = #{m_id} and m_sender != #{m_id} and ch_read = 0
+	</select>
 </mapper>

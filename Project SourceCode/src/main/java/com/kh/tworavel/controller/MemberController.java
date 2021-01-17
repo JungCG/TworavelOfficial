@@ -32,6 +32,7 @@ import com.kh.tworavel.common.RandomPassword;
 import com.kh.tworavel.common.SHA256;
 import com.kh.tworavel.common.VillageWeatherParsing;
 import com.kh.tworavel.model.domain.Member;
+import com.kh.tworavel.model.service.ChatServiceImpl;
 import com.kh.tworavel.model.service.MemberService;
 import com.kh.tworavel.model.service.OutService;
 
@@ -45,7 +46,10 @@ public class MemberController {
 
 	@Autowired
 	private VillageWeatherParsing weatherparsing;
-
+	
+	@Autowired
+	private ChatServiceImpl chService;
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView MainPage(HttpServletRequest request, HttpServletResponse response, Model model, ModelAndView mv) {
 		//날씨
@@ -105,6 +109,9 @@ public class MemberController {
 						model.addAttribute("msg", "로그인 성공에 성공하였으나 출석체크와 포인트 적립에 실해하였습니다. 관리자에게 문의해주세요.");
 						model.addAttribute("url", "/");
 					}
+					
+					session.setAttribute("totalChat", chService.totalChat(m_id));
+					session.setAttribute("totalUnreadChat", chService.totalUnreadChat(m_id));
 				} else if (check2 == 0) {
 					String reason = "";
 

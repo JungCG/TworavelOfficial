@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -185,4 +186,43 @@ public class ChatController {
 		return result;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/totalChat", method = RequestMethod.POST)
+	public int totalChat(HttpServletRequest request) {
+		String userID = (String) request.getSession().getAttribute("userID");
+
+		int result = 0;
+		try {
+			result = chService.totalChat(userID);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/totalUnreadChat", method = RequestMethod.POST)
+	public int totalUnreadChat(HttpServletRequest request) {
+		String userID = (String) request.getSession().getAttribute("userID");
+
+		int result = 0;
+		try {
+			result = chService.totalUnreadChat(userID);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/updateTotal", method = RequestMethod.POST)
+	public void updateTotal(HttpServletRequest request) {
+		int totalChat = Integer.parseInt(request.getParameter("totalChat"));
+		int totalUnreadChat = Integer.parseInt(request.getParameter("totalUnreadChat"));
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("totalChat", totalChat);
+		session.setAttribute("totalUnreadChat", totalUnreadChat);
+		
+	}
 }

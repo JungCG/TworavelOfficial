@@ -13,13 +13,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style>
-*{
-	color : #333;
+* {
+	color: #333;
 }
-	header * {
-		font-size : 15px;
-	}
-	
+
+header * {
+	font-size: 15px;
+}
+
 .pre-loader {
 	background: #fff;
 	background-position: center center;
@@ -106,10 +107,10 @@
 }
 
 .jck_label-info {
-	background-color: rgba(255,0,0,0.7);
-	position : absolute;
-	top : 5px;
-	right : 80px;
+	background-color: rgba(255, 0, 0, 0.7);
+	position: absolute;
+	top: 5px;
+	right: 80px;
 }
 
 .jck_label {
@@ -121,8 +122,36 @@
 	text-align: center;
 	white-space: nowrap;
 	vertical-align: baseline;
-	padding : 3px;
-	border-radius : 4px;
+	padding: 3px;
+	border-radius: 4px;
+}
+
+.modal {
+	display: none; /* Hidden by default */
+	z-index: 10000; /* Sit on top */
+	position: fixed; /* Stay in place */
+	padding: 0px 20px;
+	width: 200px;
+	text-align: center;
+	right : 0px;
+}
+
+.modal-content {
+	position: fixed; /* Stay in place */
+	background-color: rgba(255, 0, 0, 0.7);
+	border: 1px solid #888;
+	width: 200px;
+	text-align: center;
+	top : 25px;
+	right : 50px;
+	height : 43px;
+	font-weight : bolder;
+	font-size : 15px;
+	line-height:20px;
+}
+
+.modal-content p{
+	color : white;
 }
 </style>
 
@@ -318,9 +347,17 @@ function showUnread(result){
 	<div class="jck_up"
 		style="position: fixed; width: 100px; height: 100px; right: 50px; bottom: 50px; border-radius: 100%; cursor: pointer; outline: none; z-index: 999;">
 		<button
-			style="font-weight:bolder;position: relative; width: 100%; height: 100%; background-color: #0AC5A8; border-radius: 100%; cursor : pointer; outline:none;">TOP</button>
+			style="font-weight: bolder; position: relative; width: 100%; height: 100%; background-color: #0AC5A8; border-radius: 100%; cursor: pointer; outline: none;">TOP</button>
 	</div>
-	
+	<div id="JckModal" class="modal">
+		<!-- Modal content -->
+		<div class="modal-content">
+			<p>
+				새로운 메시지가<br>도착했습니다.
+			</p>
+		</div>
+	</div>
+
 	<script>
 		(function() {
 			var w = window;
@@ -358,11 +395,10 @@ function showUnread(result){
 				window.addEventListener('load', l, false);
 			}
 		})();
-		
+
 		ChannelIO('boot', {
 			"pluginKey" : "f1f8e46a-2c26-4d02-ac37-3e5c504751ac"
 		});
-		
 	</script>
 	<script
 		src="${pageContext.request.contextPath }/resources/js/process.js"></script>
@@ -373,7 +409,68 @@ function showUnread(result){
 		$(document).ready(function() {
 			getUnread();
 			getInfiniteUnread();
+			IntervalNewMessage();
 		});
+
+		var modal = document.getElementById("JckModal");
+		
+		function IntervalNewMessage(){
+			setInterval(function(){
+				getNewMessage();
+			}, 5000);
+		}
+		function getNewMessage() {
+			ShowMessageModal();
+		}
+		function ShowMessageModal() {
+			var total = <%=session.getAttribute("totalChat")%>;
+			var unreadm = <%=session.getAttribute("totalUnreadChat")%>;
+			
+			$.ajax({
+				type:"POST",
+				url : "./totalChat",
+				data : {
+					userID : '<%=userID%>'
+				},
+				success : function(result){
+					var temptotal = result;
+					$.ajax({
+						type:"POST",
+						url : "./totalUnreadChat",
+						data : {
+							userID : '<%=userID%>'
+						},
+						success : function(result){
+							var tempunreadm = result;
+							if((tempunreadm > unreadm)&&(temptotal > total)){
+									modal.style.display = "block";
+									setTimeout(function() {
+										modal.style.display = "none";
+									}, 2000);
+							}
+							
+							$.ajax({
+								type:"POST",
+								url : "./updateTotal",
+								data : {
+									"totalChat" : temptotal,
+									"totalUnreadChat" : tempunreadm
+								},
+								success : function(result){
+								}
+							});
+						}
+					});
+				}
+			});
+			
+		}
+		
+		window.onclick = function(event) {
+			if (event.target == modal) {
+				modal.style.display = "none";
+			}
+		}
 	</script>
 	<%
 		}

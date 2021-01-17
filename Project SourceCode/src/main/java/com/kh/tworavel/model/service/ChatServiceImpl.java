@@ -75,6 +75,14 @@ public class ChatServiceImpl implements ChatService {
 	public int selectUnreadChat(ChatMessage chatMsg) {
 		return chDao.selectUnreadChat(chatMsg);
 	}
+	@Override
+	public int totalChat(String m_id) {
+		return chDao.totalChat(m_id);
+	}
+	@Override
+	public int totalUnreadChat(String m_id) {
+		return chDao.totalUnreadChat(m_id);
+	}
 
 	
 	
