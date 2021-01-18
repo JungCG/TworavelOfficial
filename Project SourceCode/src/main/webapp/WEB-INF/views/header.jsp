@@ -126,7 +126,7 @@ header * {
 	border-radius: 4px;
 }
 
-#JckModal {
+.jckModal {
 	display: none; /* Hidden by default */
 	z-index: 10000; /* Sit on top */
 	position: fixed; /* Stay in place */
@@ -136,7 +136,7 @@ header * {
 	right : 0px;
 }
 
-#jck_New {
+.jckModal-content {
 	position: fixed; /* Stay in place */
 	background-color: rgba(255, 0, 0, 0.7);
 	border: 1px solid #888;
@@ -150,7 +150,7 @@ header * {
 	line-height:20px;
 }
 
-#jck_New #jck_New_p{
+.jckModal-content p{
 	color : white;
 }
 </style>
@@ -349,10 +349,10 @@ function showUnread(result){
 		<button
 			style="font-weight: bolder; position: relative; width: 100%; height: 100%; background-color: #0AC5A8; border-radius: 100%; cursor: pointer; outline: none;">TOP</button>
 	</div>
-	<div id="JckModal" class="modal">
+	<div id="JckModal" class="jckModal">
 		<!-- Modal content -->
-		<div class="modal-content" id="jck_New">
-			<p id="jck_New_p">
+		<div class="jckModal-content">
+			<p>
 				새로운 메시지가<br>도착했습니다.
 			</p>
 		</div>
@@ -412,7 +412,7 @@ function showUnread(result){
 			IntervalNewMessage();
 		});
 
-		var modal = document.getElementById("JckModal");
+		var jckModal = document.getElementById("JckModal");
 		
 		function IntervalNewMessage(){
 			setInterval(function(){
@@ -443,9 +443,9 @@ function showUnread(result){
 						success : function(result){
 							var tempunreadm = result;
 							if((tempunreadm > unreadm)&&(temptotal > total)){
-									modal.style.display = "block";
+									jckModal.style.display = "block";
 									setTimeout(function() {
-										modal.style.display = "none";
+										jckModal.style.display = "none";
 									}, 2000);
 							}
 							
@@ -467,8 +467,8 @@ function showUnread(result){
 		}
 		
 		window.onclick = function(event) {
-			if (event.target == modal) {
-				modal.style.display = "none";
+			if (event.target == jckModal) {
+				jckModal.style.display = "none";
 			}
 		}
 	</script>

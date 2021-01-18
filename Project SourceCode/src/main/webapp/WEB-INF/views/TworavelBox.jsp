@@ -227,7 +227,15 @@ body {
 				alert("옵션을 선택해주세요!");
 				return;
 			}
-
+			
+			<%
+				if(request.getParameter("userID") == null){
+			%>
+					alert("로그인이 필요한 서비스입니다.");
+					return;
+			<%					
+				}
+			%>
 			// getter
 			var IMP = window.IMP;
 			IMP.init('imp65132807');

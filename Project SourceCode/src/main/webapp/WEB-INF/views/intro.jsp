@@ -124,7 +124,7 @@ p {
         // Set chart options
         var options1 = {'title':'지역',
                        'width':480,
-                       'height':450,'pieHole': 0.4,};
+                       'height':300,'pieHole': 0.4,};
         
         // Instantiate and draw our chart, passing in some options.
         
@@ -144,7 +144,7 @@ p {
         // Set chart options
         var options2 = {'title':'여행성향',
                        'width':480,
-                       'height':450,
+                       'height':300,
                        'pieHole': 0.4,};
         // Instantiate and draw our chart, passing in some options.
         var chart2 = new google.visualization.PieChart(document.getElementById('tendencycount'));
@@ -163,7 +163,7 @@ p {
         // Set chart options
         var options3 = {'title':'인원수',
                        'width':480,
-                       'height':450,
+                       'height':300,
                        'pieHole': 0.4,};
         // Instantiate and draw our chart, passing in some options.
         var chart3 = new google.visualization.PieChart(document.getElementById('peoplecount'));
