@@ -30,8 +30,6 @@ import com.kh.tworavel.model.service.MypageService;
 public class MypageController {
 
 	@Autowired
-	private VillageWeatherParsing weatherparsing;
-	@Autowired
 	private MypageService mypService;
 	@Autowired
 	private Favor favor;
@@ -47,7 +45,20 @@ public class MypageController {
 	private Report report;
 
 	public static final int LIMIT = 10;
-
+	
+	
+	//select member
+	@ResponseBody
+	@RequestMapping(value = "/selectMemberProfile.do", method = RequestMethod.GET)
+	public Member selectMemberProfile(HttpServletRequest request, @RequestParam(name = "m_id") String m_id) {
+		Member member = null;
+		try {
+			member = mypService.selectMember(m_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return member;
+	}
 
 	// 마이페이지
 	@RequestMapping(value = "/MyPage.do", method = { RequestMethod.GET, RequestMethod.POST })

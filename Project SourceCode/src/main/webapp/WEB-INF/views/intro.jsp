@@ -393,7 +393,7 @@ p {
 									<p class="d">Developer</p>
 									<p class="dEmail">ewuuu1112@gmail.com</p>
 									<p class="dGit">
-										<a href="https://github.com/JungCG" target="_blank">github.com/ChaeRin-Im</a>
+										<a href="https://github.com/ChaeRin-Im" target="_blank">github.com/ChaeRin-Im</a>
 									</p>
 									<div class="part_dropdown">
 										View Details

@@ -229,7 +229,7 @@ body {
 			}
 			
 			<%
-				if(request.getParameter("userID") == null){
+				if(session.getAttribute("userID") == null){
 			%>
 					alert("로그인이 필요한 서비스입니다.");
 					return;

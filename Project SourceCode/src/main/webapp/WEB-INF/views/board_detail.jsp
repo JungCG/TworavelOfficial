@@ -683,41 +683,31 @@ section {
 				<table id="ICR_info_table" style="margin: 0 auto;">
 					<tr>
 						<td rowspan="7" style="text-align: center;line-height: normal;">
-							<c:if test="${not empty member.m_image}">
-							<img src="${pageContext.request.contextPath}/resources/uploadFiles/${member.m_image}" style="width: 150px; height: 150px; display: inline;">
-							</c:if>
-							<c:if test="${empty member.m_image}">
-							<img src="${pageContext.request.contextPath}/resources/images/none_img.JPG" style="width: 150px; height: 150px; display: inline;">
-							</c:if>
+							<img id="ICR_pro_m_img" src="${pageContext.request.contextPath}/resources/images/none_img.JPG" style="width: 150px; height: 150px; display: inline;">
 						</td>
 					</tr>
 					<tr>
 						<td>
-							&nbsp;<font color="#0AC5A8" style="font-weight: bold;">회원 아이디 : </font>&nbsp;&nbsp;${member.m_id}
+							&nbsp;<font color="#0AC5A8" style="font-weight: bold;" id="ICR_pro_m_id"></font>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							&nbsp;<font color="#0AC5A8" style="font-weight: bold;">회원 이름 : </font>&nbsp;&nbsp;${member.m_name}
+							&nbsp;<font color="#0AC5A8" style="font-weight: bold;" id="ICR_pro_m_name"></font>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							&nbsp;<font color="#0AC5A8" style="font-weight: bold;">추천수 : </font>&nbsp;&nbsp;${member.m_like}
+							&nbsp;<font color="#0AC5A8" style="font-weight: bold;" id="ICR_pro_m_like"></font>
 						</td>
 					</tr>
 					<tr>
 						<td id="ICR_ReportCnt">
-							&nbsp;<font color="#0AC5A8" style="font-weight: bold;">신고당한 수 : </font>&nbsp;&nbsp;${member.m_reportcount}
+							&nbsp;<font color="#0AC5A8" style="font-weight: bold;" id="ICR_pro_m_reportcount"></font>
 						</td>
 					</tr>
-					<%-- <tr>
-						<td>
-							&nbsp;<font color="#0AC5A8" style="font-weight: bold;">이메일 : </font>&nbsp;&nbsp;${member.m_email}
-						</td>
-					</tr> --%>
 					<tr>
-						<td>&nbsp;<font color="#0AC5A8" style="font-weight: bold;">소개글 : </font>&nbsp;&nbsp;${member.m_intro}</td>
+						<td>&nbsp;<font color="#0AC5A8" style="font-weight: bold;" id="ICR_pro_m_intro"></font></td>
 					</tr>
 				</table><br>
 				<c:if test="${sessionScope.userID ne null}">
@@ -788,11 +778,9 @@ function ICRLikeInsert(){
 		success : function(data){
 			 if(data.result == 1){
 				 alert("추천되었습니다.");
-				 window.location="board_detail.do?b_id=${blist.b_id}&m_id=${blist.m_id}";
 				 return;
 			 }else{
 				alert("회원 추천에 실패했습니다. 관리자에게 문의하세요!");
-				window.location="board_detail.do?b_id=${blist.b_id}&m_id=${blist.m_id}";
 				return;
 			 }
 		},
@@ -810,11 +798,9 @@ function ICRLikeDelete(){
 		success : function(data){
 			 if(data.result == 1){
 				 alert("추천이 취소되었습니다.");
-				 window.location="board_detail.do?b_id=${blist.b_id}&m_id=${blist.m_id}";
 				 return;
 			 }else{
-				alert("추천 취소에 실패했습니다. 관리자에게 문의하세요!ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ");
-				window.location="board_detail.do?b_id=${blist.b_id}&m_id=${blist.m_id}";
+				alert("추천 취소에 실패했습니다. 관리자에게 문의하세요!");
 				return;
 			 }
 		},
@@ -826,6 +812,29 @@ function ICRLikeDelete(){
 
 
 $('#gjw-board-writer').on('click',function(){
+	$.ajax({
+		url : "selectMemberProfile.do",
+		dataType : "json",
+		data : {
+			m_id : "${blist.m_id}"
+		},
+		success : function(member){
+			console.log(member);
+			$('#ICR_pro_m_id').html("회원 아이디 : " + member.m_id);
+			$('#ICR_pro_m_name').html("회원 이름 : " + member.m_name);
+			$('#ICR_pro_m_like').html("추천수 : " + member.m_like);
+			$('#ICR_pro_m_reportcount').html("신고당한 수 : " + member.m_reportcount);
+			$('#ICR_pro_m_intro').html("소개글 : " + member.m_intro);
+			$('#ICR_pro_m_img').attr("src", "${pageContext.request.contextPath}/resources/uploadFiles/" + member.m_image);
+		},
+		error : function(){
+		}
+		
+	});
+	
+	
+	
+	
 	$('#ICR_reasonBox').val("");
 	$('#ICR_reasonBox').css('display','none');
 	$('#ICR_ReportBtn1').css('display','inline-block');
@@ -870,14 +879,12 @@ $(document).on("click", "#ICR_ReportBtn2", function(event){
 					$('#ICR_reasonBox').css('display','none');
 					$('#ICR_ReportBtn1').css('display','inline-block');
 					$('#ICR_ReportBtn2').css('display','none');
-					window.location="board_detail.do?b_id=${blist.b_id}&m_id=${blist.m_id}";
 				}else{
 					alert("회원 신고에 실패했습니다. 관리자에게 문의하세요!");
 					$('#ICR_reasonBox').val("");
 					$('#ICR_reasonBox').css('display','none');
 					$('#ICR_ReportBtn1').css('display','inline-block');
 					$('#ICR_ReportBtn2').css('display','none');
-					window.location="board_detail.do?b_id=${blist.b_id}&m_id=${blist.m_id}";
 				}
 			},
 			error : function(data){
