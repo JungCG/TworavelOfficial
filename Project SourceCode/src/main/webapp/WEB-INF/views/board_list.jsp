@@ -15,7 +15,6 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.js"></script>
 <style>
-@import url(//fonts.googleapis.com/earlyaccess/hanna.css);
 
 @font-face {
 	font-family: 'Jal_Onuel';
