@@ -13,6 +13,27 @@
 <meta charset="UTF-8">
 <title>TwoRAVEL</title>
 <style>
+@font-face {
+    font-family: 'Jal_Onuel';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/Jal_Onuel.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+   font-family: 'BMHANNAAir';
+   src:
+      url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/BMHANNAAir.woff')
+      format('woff');
+   font-weight: normal;
+   font-style: normal;
+}
+
+* {
+   color: #333;
+   font-family : 'Jal_Onuel';
+}
+
 * {
 	outline:none;
 	padding: 0;
@@ -132,7 +153,7 @@ body{
 
 
 
-		<div id="day1" style="display: nonedisplay: flex;background: #f5f5dc85;/* margin-top: 20; */padding-top: 65px;padding-bottom: 65px;margin-top: 0px;">
+		<div id="day1" style="display: nonedisplay: flex;background: #f5f5dc85;/* margin-top: 20; */padding-top: 65px;padding-bottom: 65px;margin-top: 0px;width: 1000px;">
 
 			<div class="weatherbox" style="text-align: center;">
 				<div id="date36" class="date">날짜</div>

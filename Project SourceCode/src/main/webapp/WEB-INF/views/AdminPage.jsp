@@ -10,8 +10,28 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>제목 수정해주세요.</title>
+<title>AdminPage</title>
 <style>
+@font-face {
+    font-family: 'Jal_Onuel';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/Jal_Onuel.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+   font-family: 'BMHANNAAir';
+   src:
+      url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/BMHANNAAir.woff')
+      format('woff');
+   font-weight: normal;
+   font-style: normal;
+}
+
+* {
+   color: #333;
+   font-family : 'Jal_Onuel';
+}
 * {
 	outline: none;
 	padding: 0;
@@ -36,38 +56,25 @@ body {
 	padding-bottom: 200px;
 }
 
-@import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
 
-@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
-
-@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
-
-@import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
-
-@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
 
 .boardtype {
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
-	font-family: 'Noto Sans KR', sans-serif;
 	font-size: 20px;
 }
 
 #gela {
-	font-family: 'Noto Sans KR', sans-serif;
 }
 
 #prola {
-	font-family: 'Noto Sans KR', sans-serif;
 }
 
 #qnala {
-	font-family: 'Noto Sans KR', sans-serif;
 }
 
 #newsla {
-	font-family: 'Noto Sans KR', sans-serif;
 }
 
 .imgtextbox {
@@ -83,7 +90,6 @@ body {
 }
 
 .GJW-boardlisttr {
-	font-family: 'Nanum Gothic';
 }
 
 .rd {
@@ -96,7 +102,6 @@ body {
 }
 
 .GJW-boardlisttr {
-	font-family: 'Nanum Gothic';
 }
 
 section {
@@ -107,7 +112,6 @@ section {
 .boardtype-1 {
 	display: flex;
 	font-weight: bolder;
-	font-family: 'Noto Sans KR', sans-serif;
 }
 
 .typeimg {
@@ -214,7 +218,6 @@ td {
 	background-color: white;
 	font-weight: bolder;
 	font-size: 18px;
-	font-family: 'Noto Sans KR', sans-serif;
 }
 
 .check {
@@ -339,7 +342,7 @@ a:link {
 			</div>
 			<div id="GJW-menuwrap">
 				<div class="GJW-Board">
-					<div class="boardtype" style="font-family: 'Hanna', serif;">
+					<div class="boardtype">
 						<div class="boardtype-1">
 
 							<a href="adminpage.do?type=B" class="typelink" id="typeB">게시판</a>
@@ -548,7 +551,7 @@ a:link {
 					<table>
 						<tr align="center" height="20">
 							<td colspan="6"
-								style="padding-top: 20px; color: #0AC5A8; font-family: 'Jal_Onuel';"><c:if
+								style="padding-top: 20px; color: #0AC5A8;"><c:if
 									test="${currentPage <= 1}"> [이전]&nbsp;
  </c:if> <c:if test="${currentPage > 1}">
 									<c:url var="blistST" value="adminpage.do">
@@ -559,7 +562,7 @@ a:link {
 										</c:if>
 									</c:url>
 									<a href="${blistST}"
-										style="color: #0AC5A8; font-family: 'Jal_Onuel';">[이전]</a>
+										style="color: #0AC5A8;">[이전]</a>
 								</c:if> <!-- 끝 페이지 번호 처리 --> <c:forEach var="p" begin="${startPage}"
 									end="${endPage }">
 									<c:if test="${p <= maxPage}">
@@ -588,7 +591,7 @@ a:link {
 										</c:if>
 									</c:url>
 									<a href="${blistEND}"
-										style="color: #0AC5A8; font-family: 'Jal_Onuel';">[다음]</a>
+										style="color: #0AC5A8;">[다음]</a>
 								</c:if></td>
 						</tr>
 					</table>

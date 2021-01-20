@@ -57,7 +57,6 @@ public interface CompanionService {
 
 	 // 동행 글쓰기 포인트 비교
 	 int companionlistwrite(String m_id);
-	 
 	 //	 동행 신청
 	 void insertCInfo(CompanionInfo vo);
 

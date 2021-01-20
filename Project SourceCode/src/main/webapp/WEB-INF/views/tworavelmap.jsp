@@ -7,10 +7,29 @@
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <meta charset="utf-8">
-    <title>카테고리별 장소 검색하기</title>
+    <title>Tworavel Map</title>
     
     <style>
-    
+    @font-face {
+    font-family: 'Jal_Onuel';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/Jal_Onuel.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+   font-family: 'BMHANNAAir';
+   src:
+      url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/BMHANNAAir.woff')
+      format('woff');
+   font-weight: normal;
+   font-style: normal;
+}
+
+* {
+   color: #333;
+   font-family : 'Jal_Onuel';
+}
     #placesList li {list-style: none;}
 * {
 	outline:none;
@@ -55,7 +74,8 @@ z-index: 988;
 
 
     .bg_white {background:#fff;}
-.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
+.map_wrap, .map_wrap * {margin:0;padding:0;
+font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
 .map_wrap {position:relative;width:80%;height:1000px;}
 #menu_wrap {border: 1px solid #009688;position:absolute;top:0;left:0;bottom:0;width:260px;margin:10px 0px 0px 4px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.85);z-index: 1;font-size:12px;border-radius: 10px;}
@@ -92,18 +112,32 @@ z-index: 988;
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}#category {position:absolute;top:10px;left:10px;border-radius: 5px; border:1px solid #909090;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);background: #fff;overflow: hidden;z-index: 2;}
 #category{left: 267px;border: 1px solid #009688; color:#009688}
-#category li {float:left;list-style: none;width:50px;px;border-right:1px solid #acacac;padding:6px 0;text-align: center; cursor: pointer;}
+#category li {float:left;list-style: none;width:50px;px;border-right:1px solid #acacac;padding:6px 0;text-align: center; cursor: pointer;    width: 80px;}
 #category li.own {background: #eee;}
 #category li:hover {background: #ffe6e6;border-left:1px solid #acacac;margin-left: -1px; color:orange;}
 #category li:last-child{margin-right:0;border-right:0;}
 #category li span {display: block;margin:0 auto 3px;width:27px;height: 28px;}
-#category li .category_bg {background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png) no-repeat;}
-#category li .bank {background-position: -10px 0;background:url(${pageContext.request.contextPath}/resources/images/2icon_metro.png) no-repeat;background-size:27px;}
-#category li .mart {background-position: -10px -36px;background:url(${pageContext.request.contextPath}/resources/images/2icon_map.png) no-repeat;background-size:27px;}
-#category li .pharmacy {background-position: -10px -72px;background:url(${pageContext.request.contextPath}/resources/images/2icon_sleeping.png) no-repeat;background-size:27px;}
-#category li .oil {background-position: -10px -108px;background:url(${pageContext.request.contextPath}/resources/images/2icon_bistro.png) no-repeat;background-size:27px;}
-#category li .cafe {background-position: -10px -144px;background:url(${pageContext.request.contextPath}/resources/images/2icon_coffee-cup.png) no-repeat;background-size:27px;}
-#category li .store {background-position: -10px -180px;background:url(${pageContext.request.contextPath}/resources/images/2icon_party.png) no-repeat;background-size:27px;}
+#category li .category_bg {background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png) no-repeat;background-size: 50px;
+    height: 50px;
+    width: 50px;}
+#category li .bank {background-position: -10px 0;background:url(${pageContext.request.contextPath}/resources/images/2icon_metro.png) no-repeat;background-size:27px;background-size: 50px;
+    height: 50px;
+    width: 50px;}
+#category li .mart {background-position: -10px -36px;background:url(${pageContext.request.contextPath}/resources/images/2icon_map.png) no-repeat;background-size:27px;background-size: 50px;
+    height: 50px;
+    width: 50px;}
+#category li .pharmacy {background-position: -10px -72px;background:url(${pageContext.request.contextPath}/resources/images/2icon_sleeping.png) no-repeat;background-size:27px;background-size: 50px;
+    height: 50px;
+    width: 50px;}
+#category li .oil {background-position: -10px -108px;background:url(${pageContext.request.contextPath}/resources/images/2icon_bistro.png) no-repeat;background-size:27px;background-size: 50px;
+    height: 50px;
+    width: 50px;}
+#category li .cafe {background-position: -10px -144px;background:url(${pageContext.request.contextPath}/resources/images/2icon_coffee-cup.png) no-repeat;background-size:27px;background-size: 50px;
+    height: 50px;
+    width: 50px;}
+#category li .store {background-position: -10px -180px;background:url(${pageContext.request.contextPath}/resources/images/2icon_party.png) no-repeat;background-size:27px;background-size: 50px;
+    height: 50px;
+    width: 50px;}
 #category li.on .category_bg {background-position-x:-46px;}
 .placeinfo_wrap {position:absolute;bottom:28px;left:-150px;width:300px;}
 .placeinfo {position:relative;width:100%;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;padding-bottom: 10px;background: #fff;}
@@ -120,7 +154,7 @@ z-index: 988;
 <body>
 <div class="jck_wrap">
 		<jsp:include page="header.jsp"/>
-		<div style="display:flex;justify-content: center;">
+		<div style="display:flex;justify-content: center;margin-top: 10px;margin-bottom: 10px">
 <div class="map_wrap">
     <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
 
@@ -128,7 +162,7 @@ z-index: 988;
         <div class="option">
             <div>
                 <form onsubmit="searchPlaces(); return false;">
-                  <v style="font-weight:bold;color:#042b27; font-size : 14px;"> 키워드 :</v> <input type="text" value="" id="keyword" size="15"> 
+                  <input type="text" value="" id="keyword" size="15" style="background:none;border-bottom: 1px solid #333" placeholder="검색어를 입력해주세요"> 
                     <button type="submit" id="btnb" style="font-weight:bold;color:#042b27; font-size : 14px;">검색하기</button> 
                 </form>
             </div>

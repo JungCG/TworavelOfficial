@@ -11,38 +11,11 @@
 <head>
 <meta charset="UTF-8">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<title>Insert title here</title>
+<title>게시판 리스트</title>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.js"></script>
 <style>
 @import url(//fonts.googleapis.com/earlyaccess/hanna.css);
-
-@font-face {
-	font-family: 'MaplestoryOTFBold';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'MaplestoryOTFLight';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFLight.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'NEXONFootballGothicLA1';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXONFootballGothicLA1.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
 
 @font-face {
 	font-family: 'Jal_Onuel';
@@ -62,17 +35,13 @@
 	font-style: normal;
 }
 
-@font-face {
-	font-family: 'BBTreeGB';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/BBTreeGB.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
+* {
+	color: #333;
+	font-family: 'Jal_Onuel';
 }
 
 * {
-	outline:none;
+	outline: none;
 	padding: 0;
 	margin: 0;
 	border: 0;
@@ -120,7 +89,6 @@ section {
 	background-color: #0000ff00;
 	text-shadow: 1px 1px 1px #3d91ff70;
 	box-shadow: 1px 1px 1px #3d91ff59;
-	font-family: 'Hanna', fantasy;
 }
 
 .GJW-menu {
@@ -139,7 +107,6 @@ section {
 tr:first-of-type>td {
 	padding-bottom: 20px;
 	font-size: 18px;
-	font-family: 'MaplestoryOTFBold';
 }
 
 a {
@@ -180,11 +147,14 @@ a {
 	font-size: 15px;
 	padding-top: 11px;
 	padding-bottom: 8px;
-	font-family: 'Jal_Onuel';
 }
-g{
-font-size: 13px;
-    color: #00000066;
+
+g {
+	font-size: 13px;
+	color: #00000066;
+}
+.gjw-board-title{
+cursor: pointer;
 }
 </style>
 </head>
@@ -237,11 +207,11 @@ font-size: 13px;
 									style="display: flex; justify-content: center;">
 									<p class="gjw-board-title"
 										style="display: inline; padding: 7px; padding-right: 0px; cursor: pointer;">${hvo.b_title}
-										
-																	<c:if test="${not empty hvo.b_commentCount}">
-										<g>(${hvo.b_commentCount })</g>
+
+										<c:if test="${not empty hvo.b_commentCount}">
+											<g>(${hvo.b_commentCount })</g>
 										</c:if>
-										</p>
+									</p>
 									<div>
 										<img
 											src="${pageContext.request.contextPath}/resources/images/hotview.png">
@@ -253,10 +223,9 @@ font-size: 13px;
 											type="password" style="display: none;"
 											class="gjw-secretnumber"> <input type="hidden"
 											value="${hvo.b_secretnumber }" class="gjw-secretnumber-text">
-											<input type="hidden" value="${hvo.m_id }"
-											class="gjw-board-m_id">
-										<input type="button" style="display: none;"
-											class="gjw-secretsubmit" value="확인">
+										<input type="hidden" value="${hvo.m_id }"
+											class="gjw-board-m_id"> <input type="button"
+											style="display: none;" class="gjw-secretsubmit" value="확인">
 									</div>
 								</td>
 								<td class="gjw-list-td">${hvo.m_id}</td>
@@ -285,10 +254,12 @@ font-size: 13px;
 										<td class="gjw-list-td"
 											style="display: flex; justify-content: center;">
 											<p class="gjw-board-title"
-												style="display: inline; padding: 7px; padding-right: 0px;">${vo.b_title}<c:if test="${not empty vo.b_commentCount}">
-										
-										<g>(${vo.b_commentCount })</g>
-										</c:if></p>
+												style="display: inline; padding: 7px; padding-right: 0px;">${vo.b_title}<c:if
+													test="${not empty vo.b_commentCount}">
+
+													<g>(${vo.b_commentCount })</g>
+												</c:if>
+											</p>
 											<div>
 												<img
 													src="${pageContext.request.contextPath}/resources/images/lock1.png">
@@ -296,21 +267,23 @@ font-size: 13px;
 									</c:when>
 									<c:otherwise>
 										<td class="gjw-list-td">
-											<p class="gjw-board-title" style="display: inline;">${vo.b_title}<c:if test="${not empty vo.b_commentCount}">
-										
-										<g>(${vo.b_commentCount })</g>
-										</c:if></p>
+											<p class="gjw-board-title" style="display: inline;">${vo.b_title}<c:if
+													test="${not empty vo.b_commentCount}">
+
+													<g>(${vo.b_commentCount })</g>
+												</c:if>
+											</p>
 									</c:otherwise>
 								</c:choose>
 								<div class="gjw-pass-div">
 									<input type="hidden" value="${vo.b_secret }"
 										class="gjw-board-secret"> <input type="hidden"
-										value="${vo.b_id }" class="gjw-board-b_id"> <input
+										value="${vo.b_id }" class="gjw-board-b_id" name="b_id"> <input
 										type="password"
 										style="display: none; margin-bottom: 5px; width: 60%;"
 										class="gjw-secretnumber"> <input type="hidden"
 										value="${vo.b_secretnumber }" class="gjw-secretnumber-text">
-										<input type="hidden" value="${vo.m_id }"  class="gjw-board-m_id"> 
+									<input type="hidden" value="${vo.m_id }" class="gjw-board-m_id">
 									<input type="button" style="display: none; margin-bottom: 5px"
 										class="gjw-secretsubmit" value="확인">
 								</div>
@@ -332,56 +305,52 @@ font-size: 13px;
 								<td colspan="6"
 									style="text-align: end; padding-top: 30px; padding-right: 30px; color: #0AC5A8;"><a
 									href="board_write.do"
-									style="color: #0AC5A8; border: 3px solid #6495ed6b; border-radius: 10px; padding: 6px; font-family: 'Jal_Onuel';">글쓰기</a></td>
+									style="color: #0AC5A8; border: 3px solid #6495ed6b; border-radius: 10px; padding: 6px;">글쓰기</a></td>
 							</c:when>
 						</c:choose>
 					</tr>
 
 					<tr>
 						<td colspan="6">
-							<form action="board_list.do" method="get" style="padding-top:20px;">
+							<form action="board_list.do" method="get"
+								style="padding-top: 20px;">
 								<input type="text" placeholder="검색어를 입력해주세요"
 									style="width: 250px; height: 20px; border-radius: 10px; border: 3px solid #6495ed6b; padding: 10px;"
 									name="keyword"> <input type="submit" value="검색"
-									style="background-color: white; border-radius: 10px; height: 100%; border: 3px solid #6495ed6b; padding: 5px; color: #0AC5A8; font-family: 'Jal_Onuel';">
+									style="background-color: white; border-radius: 10px; height: 100%; border: 3px solid #6495ed6b; padding: 5px; color: #0AC5A8;">
 							</form>
 						<td>
 					</tr>
 					<tr align="center" height="20">
-						<td colspan="6"
-							style="padding-top: 20px; color: #0AC5A8; font-family: 'Jal_Onuel';"><c:if
+						<td colspan="6" style="padding-top: 20px; color: #0AC5A8;"><c:if
 								test="${currentPage <= 1}"> [이전]&nbsp;
- </c:if>
- 							 	 <c:if test="${currentPage > 1}">
+ </c:if> <c:if test="${currentPage > 1}">
 								<c:url var="blistST" value="board_list.do">
 									<c:param name="page" value="${currentPage-1}" />
 									<c:param name="type" value="${type}" />
 									<c:if test="${not empty keyword}">
 										<c:param name="keyword" value="${keyword }"></c:param>
-										</c:if>
-									
+									</c:if>
+
 								</c:url>
-								<a href="${blistST}"
-									style="color: #0AC5A8; font-family: 'Jal_Onuel';">[이전]</a>
-							</c:if> <!-- 끝 페이지 번호 처리 --> 
-							
-		
-							<c:forEach var="p" begin="${startPage}" end="${endPage }">
-								<c:if test="${p <= maxPage}"> 
-								<c:if test="${p eq currentPage}">
-									<font color="cornflowerblue" size="4"><b>[${p}]</b></font>
+								<a href="${blistST}" style="color: #0AC5A8;">[이전]</a>
+							</c:if> <!-- 끝 페이지 번호 처리 --> <c:forEach var="p" begin="${startPage}"
+								end="${endPage }">
+								<c:if test="${p <= maxPage}">
+									<c:if test="${p eq currentPage}">
+										<font color="cornflowerblue" size="4"><b>[${p}]</b></font>
+									</c:if>
+									<c:if test="${p ne currentPage}">
+										<c:url var="blistchk" value="board_list.do">
+											<c:param name="page" value="${p}" />
+											<c:param name="type" value="${type}" />
+											<c:if test="${not empty keyword}">
+												<c:param name="keyword" value="${keyword }"></c:param>
+											</c:if>
+										</c:url>
+										<a href="${blistchk}">${p}</a>
+									</c:if>
 								</c:if>
-								<c:if test="${p ne currentPage}">
-									<c:url var="blistchk" value="board_list.do">
-										<c:param name="page" value="${p}" />
-										<c:param name="type" value="${type}" />
-										<c:if test="${not empty keyword}">
-										<c:param name="keyword" value="${keyword }"></c:param>
-										</c:if>
-									</c:url>
-									<a href="${blistchk}">${p}</a>
-								</c:if>
-								</c:if> 
 							</c:forEach> <c:if test="${currentPage >= maxPage}">
  [다음]
  </c:if> <c:if test="${currentPage < maxPage}">
@@ -390,11 +359,10 @@ font-size: 13px;
 									<c:param name="type" value="${type}" />
 									<c:if test="${not empty keyword}">
 										<c:param name="keyword" value="${keyword }"></c:param>
-										</c:if>
-									
+									</c:if>
+
 								</c:url>
-								<a href="${blistEND}"
-									style="color: #0AC5A8; font-family: 'Jal_Onuel';">[다음]</a>
+								<a href="${blistEND}" style="color: #0AC5A8;">[다음]</a>
 							</c:if></td>
 					</tr>
 				</table>
@@ -440,17 +408,18 @@ font-size: 13px;
 		$(function() {
 			$(".gjw-secretsubmit").click(
 					function() {
-						var b_secretnumber = $(this).prev(
+						var b_secretnumber = $(this).prevAll(
 								".gjw-secretnumber-text").val();
-						var b_secretnumber1 = $(this).prev().prev(
+						var b_secretnumber1 = $(this).prevAll(
 								".gjw-secretnumber").val()
-						var b_id = $(this).prev().prev()
-								.prev(".gjw-board-b_id").val();
+						var b_id = $(this)
+								.prevAll(".gjw-board-b_id").val();
 						var passReg = /^[0-9]{4}$/;
 						if (b_secretnumber == "") {
 							alert("비밀번호를 입력해주세요");
 							return;
 						} else if (!passReg.test(b_secretnumber)) {
+							alert( b_secretnumber);
 							alert("숫자 4자리를 입력해주세요");
 							return;
 						} else {

@@ -47,7 +47,15 @@ public class AdminController {
 	@Autowired
 	private ReportService rService;
 	@RequestMapping(value = "adminpage.do")
-	public ModelAndView admin(ModelAndView mv, @RequestParam(name = "page", defaultValue = "1") int page,@RequestParam(name="type", defaultValue = "B",required = false) char b_type){
+	public ModelAndView admin(ModelAndView mv, @RequestParam(name = "page", defaultValue = "1") int page,@RequestParam(name="type", defaultValue = "B",required = false) char b_type,HttpSession session){
+		String id =(String)session.getAttribute("userID");
+		if(!id.equals("potatotravel")) {
+			
+			mv.addObject("msg","관리자페이지는 관리자만 접근가능합니다");
+			mv.addObject("url","/MainPage.do");
+			mv.setViewName("alertMsg");				
+			return mv;
+		}
 		
 		int startPage =0;
 		int endPage=0;

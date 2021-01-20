@@ -11,10 +11,29 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>게시판 상세 페이지</title>
 <style>
-@import url(//fonts.googleapis.com/earlyaccess/hanna.css);
+/* @import url(//fonts.googleapis.com/earlyaccess/hanna.css);
+ */@font-face {
+    font-family: 'Jal_Onuel';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/Jal_Onuel.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
+@font-face {
+   font-family: 'BMHANNAAir';
+   src:
+      url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/BMHANNAAir.woff')
+      format('woff');
+   font-weight: normal;
+   font-style: normal;
+}
+
+* {
+   color: #333;
+   font-family : 'Jal_Onuel';
+}
 * {
 	outline:none;
 	padding: 0;
@@ -26,59 +45,7 @@
 	outline: none;
 }
 
-@font-face {
-	font-family: 'MaplestoryOTFBold';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
 
-@font-face {
-	font-family: 'CookieRun-Regular';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/CookieRun-Regular.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'BMHANNAAir';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/BMHANNAAir.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'Jal_Onuel';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/Jal_Onuel.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'BBTreeGB';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/BBTreeGB.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'NEXON Lv2 Gothic Bold';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv2 Gothic Bold.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
 
 html {
 	height: 100%;
@@ -193,7 +160,6 @@ section {
 	margin-top: 40px;
 	color: #3d91ffc4;
 	font-size: 26px;
-	font-family: 'Hanna', fantasy;
 }
 
 #gjw-blist-link {
@@ -204,7 +170,6 @@ section {
 	padding: 5px;
 	font-weight: bold;
 	margin-left: 10px;
-	font-family: BMHANNAAir;
 }
 
 #gjw-blist-update {
@@ -214,7 +179,6 @@ section {
 	border-radius: 10px;
 	padding: 5px;
 	font-weight: bold;
-	font-family: BMHANNAAir;
 }
 
 #gjw-blist-delete {
@@ -225,7 +189,6 @@ section {
 	padding: 5px;
 	font-weight: bold;
 	margin-left: 10px;
-	font-family: BMHANNAAir;
 }
 
 #gjw-nonecomment-wrap {
@@ -403,7 +366,6 @@ section {
 }
 
 #gjw-like-count {
-	font-family: 'MaplestoryOTFBold';
 }
 #ICR_PFmodal {
     width: 400px;
@@ -484,7 +446,7 @@ section {
 											src="${pageContext.request.contextPath }/resources/images/chat.png"
 											style="width: 100px; height: 100px; display: flex;">
 									</div>
-									<div style="font-family: BMHANNAAir;">
+									<div>
 										등록된 댓글이 없습니다. <br> 댓글을 남겨보세요.
 									</div>
 								</div>
@@ -606,7 +568,7 @@ section {
 												</form>
 												<a
 													href="deleteRecomment.do?b_id=${cvo.b_id }&rb_id=${blist.b_id}&b_re_step=${cvo.b_re_step}"
-													class="">X</a>
+													class=""style="margin-top: 10px;font-size: 12px;">X</a>
 													</c:when>
 													</c:choose>
 											</div>
@@ -623,7 +585,7 @@ section {
 							<form action="commentInsert.do" method="post">
 								<div id="gjw-cwriter-wrap">
 									<input type="text" value="${userID }" name="m_id"
-										readonly="readonly" style="font-family: 'Jal_Onuel';">
+										readonly="readonly">
 									<input type="hidden" value="${blist.b_id }" name="b_id">
 								</div>
 								<div id="gjw-ccontent-wrap">

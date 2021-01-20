@@ -6,16 +6,27 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>게시판 글작성</title>
 <style>
-@import url(//fonts.googleapis.com/earlyaccess/hanna.css);
 @font-face {
-    font-family: 'NEXON Lv2 Gothic';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv2 Gothic.woff') format('woff');
+    font-family: 'Jal_Onuel';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/Jal_Onuel.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
+
+@font-face {
+   font-family: 'BMHANNAAir';
+   src:
+      url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/BMHANNAAir.woff')
+      format('woff');
+   font-weight: normal;
+   font-style: normal;
+}
+
 * {
+   color: #333;
+   font-family : 'Jal_Onuel';
 	outline:none;
 	padding: 0;
 	margin: 0;
@@ -146,33 +157,36 @@ padding-top: 20px;
 <div style="
     width: 90%;
 ">
-<div style=" font-family: 'Hanna', fantasy;font-size:30px;margin-bottom: 30px;">
+<div style="font-size:30px;margin-bottom: 30px;    font-weight: bold;
+">
 게시판 글쓰기
 </div>
 	<form name ="frm" enctype="multipart/form-data">
 		<table align="center" style="width: 100%;">
 			<tr class="gjw-table-tr">
-				 <td style="color:#black;    font-family: 'NEXON Lv2 Gothic';
+				 <td style="color:#black;;
 				 ">제목</td>
 				 <td style="width:85%;">
 				<input type="text" name="b_title" id="gjw-title-input" placeholder="글 제목을 입력해주세요" required="required"></td>
 			<tr class="gjw-table-tr">
-				<td style="color:#black; font-family: 'NEXON Lv2 Gothic';">작성자</td>
+				<td style="color:#black;">작성자</td>
 				<td><input type="text" name="m_id" value="${userID }" readonly="readonly"></td>
 			</tr>
 			
 			<tr class="gjw-table-tr">
-			<td style="color:#black;    font-family: 'NEXON Lv2 Gothic';
+			<td style="color:#black;
 			">게시판 선택</td>
 			<td style="width:90%;"><select name="b_type" id="gjw-type-select">
-                              <option value="N">공지사항</option>
+                              <c:if test="${userID eq'potatotravel' }">
+									<option value="N">공지사항</option>
+									</c:if>
                               <option value="G">여행정보</option>
                               <option value="R">리뷰</option>
                         </select></td>
 			</tr>
 			
 			 <tr class="gjw-table-tr">
-                        <td style="color:#black;    font-family: 'NEXON Lv2 Gothic';
+                        <td style="color:#black;;
                         ">비밀글</td>
                         <td>&nbsp;&nbsp;<label for="yes" style="color:rgb(78 102 255 / 90%);">Yes&nbsp;&nbsp;</label><input type="radio"
                            name="b_secret" id="yes" value="Y" />&nbsp;&nbsp;<label for="No" style="color:rgb(78 102 255 / 90%);">No</label>
@@ -180,7 +194,7 @@ padding-top: 20px;
                            checked="checked" value="N" /></td>
                      </tr>
 			<tr id="gjw-secret-tr" class="gjw-table-tr">
-				<td style="color:#black;    font-family: 'NEXON Lv2 Gothic';
+				<td style="color:#black;
 				">비밀번호</td>
 				<td><input type="password" name="b_secretnumber" id="gjw-password-input"></td>
 			</tr>
