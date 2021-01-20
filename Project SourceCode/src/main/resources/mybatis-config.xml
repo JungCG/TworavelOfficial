@@ -48,7 +48,8 @@
 			type="com.kh.tworavel.model.domain.Report" />
 		<typeAlias alias="Mlike"
 			type="com.kh.tworavel.model.domain.Mlike" />
-			
+			<typeAlias alias="GLike"
+			type="com.kh.tworavel.model.domain.GLike" />
 			
 	</typeAliases>
 	<mappers>
@@ -68,5 +69,6 @@
 		<mapper resource="mappers/chatmessage-mapper.xml" />
 		<mapper resource="mappers/report-mapper.xml" />
 		<mapper resource="mappers/mlike-mapper.xml" />
+		<mapper resource="mappers/glike-mapper.xml" />
 	</mappers>
 </configuration>

@@ -8,7 +8,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <style>
+
 * {
 	padding: 0;
 	margin: 0;
@@ -16,7 +18,8 @@
 	box-sizing: border-box;
 	text-decoration: none;
 }
-/*  border-collapse: collapse; */
+/*  border-collapse: collapse;
+    color: #0AC5A8; */
 html {
 	height: 100%;
 }
@@ -31,9 +34,9 @@ body {
 	padding-bottom: 200px;
 }
 
-
-
-
+#yjh_writeBtn {
+	text-align: right;
+}
 </style>
 <script
 	src="${pageContext.request.contextPath }/resources/js/jquery-3.5.1.js"></script>
@@ -46,56 +49,86 @@ body {
 			<div class="jck_content_container_div2">
 
 
-				<div id="ICR_writeBtn">
+				<div id="yjh_writeBtn">
 					<a href="gallery_write.do">글쓰기</a>
 				</div>
 
 				<div id="ICR_Product_main">
-					<div>
+					<div style="display:flex; flex-wrap:wrap; justify-content:space-between;">
 						<c:if test="${not empty list }">
 							<c:forEach items="${list }" var="pvo" varStatus="i">
-								<table style="display: inline; width: 350px;">
-									
+								<table style="width: 300px;">
+
 									<tr>
-										<td colspan="3"><a href="gallery_detail.do?page=${currentPage}&gallery_num=${pvo.g_id }">
-										<img
+										<td colspan="3"><a
+											href="gallery_detail.do?page=${currentPage}&gallery_num=${pvo.g_id }">
+												<img
 												src="${pageContext.request.contextPath }/resources/gallery_uploadFiles/${pvo.g_img1}"
-												style="width: 300px; height: auto;"> 
-										
-												</a></td>
+												style="width: 300px; height: 350px;">
+
+										</a></td>
 									</tr>
-									
+
 									<tr>
 										<td>${pvo.g_content}</td>
-										<td>${pvo.g_like}</td>
-										<td>${pvo.g_view}</td>
+
+										<td colspan="2" id="ICR_p_like_N" style="text-align: right"><img 
+											style="width: 30px; height: 30px;"
+											src="${pageContext.request.contextPath }/resources/images/p_like.png">
+											${pvo.g_like}</td>
+
+										<!--  <td>${pvo.g_view}</td> -->
 									</tr>
-									
-
-
-
-
-
-
 
 								</table>
 							</c:forEach>
+						</c:if>
+<!--  -->
+<!-- <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="..." class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="..." class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="..." class="d-block w-100" alt="...">
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div> -->
+<!--  -->
 
 
-
- 
-
-							<!-- 앞 페이지 번호 처리 -->
-							<div id="YJH_paging">
+							
+							
+						<c:if test="${not empty list }">
+						<!-- 앞 페이지 번호 처리 -->
+							<div id="YJH_paging" style="text-align: center; margin:0 auto;">
+								<table>
 								<tr align="center" height="20">
-									<td colspan="5" style="padding-top: 20px; color: #0AC5A8; font-family: 'Jal_Onuel';"><c:if test="${currentPage <= 1}">
+									<td colspan="5"
+										style="padding-top: 20px; font-family: 'Jal_Onuel';"><c:if
+											test="${currentPage <= 1}">
 [이전]&nbsp;
 </c:if> <c:if test="${currentPage > 1}">
 											<c:url var="blistST" value="gallery_list.do">
 												<c:param name="page" value="${currentPage-1}" />
 											</c:url>
-											<a href="${blistST}"
-												style="color: #0AC5A8;  font-family: 'Jal_Onuel';">[이전]</a>
+											<a href="${blistST}" style="font-family: 'Jal_Onuel';">[이전]</a>
 
 
 
@@ -117,15 +150,11 @@ body {
 											<c:url var="blistEND" value="gallery_list.do">
 												<c:param name="page" value="${currentPage+1}" />
 											</c:url>
-											<a href="${blistEND}"
-												style="color: #0AC5A8; font-family: 'Jal_Onuel';">[다음]</a>
+											<a href="${blistEND}" style="font-family: 'Jal_Onuel';">[다음]</a>
 										</c:if></td>
 								</tr>
+								</table>
 							</div>
-							<c:if test="${i.count%3 eq 0}">
-								<br>
-							</c:if>
-
 						</c:if>
 						<c:if test="${empty list }">
 							<div id="ICR_Product">
@@ -145,49 +174,6 @@ body {
 
 
 
-
-				<%-- <div id="ICR_Product">
-									<table style="width: 250px; table-layout: fixed;">
-										<tr>
-											<td colspan="2"><a
-												href="ProductContentCtl.do?p_id=${pvo.p_id}&c_lid=${pvo.c_lid}&m_id=${pvo.m_id}&Likeresult=0">
-													<img
-													style="width: 240px; height: 180px; border-radius: 15px;"
-													src="./upload/${pvo.pa_img3}">
-											</a></td>
-										</tr>
-										<tr>
-											<td colspan="2"
-												style="text-align: left; text-overflow: ellipsis; overflow: hidden;"><nobr>
-													<a
-														href="ProductContentCtl.do?p_id=${pvo.p_id}&c_lid=${pvo.c_lid}&m_id=${pvo.m_id}&Likeresult=0">${pvo.p_name}</a>
-												</nobr></td>
-										</tr>
-										<tr>
-											<td colspan="2"
-												style="text-align: left; font-size: small; width: 40px;">${pvo.l_name}&nbsp;&nbsp;|&nbsp;
-												<fmt:parseDate var="dateString" value="${pvo.p_adddate }"
-													pattern="yyyy-MM-dd HH:mm:ss" /> <fmt:formatDate
-													value="${dateString}" pattern="yy년 MM월 dd일 " />
-										</tr>
-										<tr>
-											<td style="font-weight: bold; text-align: left;">${pvo.p_value}원</td>
-											<td style="text-align: right;"><img
-												src="./images/p_view.png" style="width: 20px; height: 20px;">${pvo.p_view }&nbsp;
-												<img src="./images/p_like.png"
-												style="width: 18px; height: 18px;">${pvo.p_like }</td>
-										</tr>
-									</table>
-								</div>
-								<c:if test="${i.count%3 eq 0}">
-									<br>
-								</c:if> --%>
-
-
-
-
-
-
 			</div>
 
 
@@ -196,5 +182,15 @@ body {
 		</div>
 		<jsp:include page="footer.jsp" />
 	</div>
+
+	<!-- 글쓰기 버튼 유무  -->
+	<script>
+		if ("${sessionScope.userID}" != "") {
+			$('#yjh_writeBtn').css('display', 'block');
+		} else {
+			$('#yjh_writeBtn').css('display', 'none');
+			$('#YJH_Glike_Y').css('display', 'none');
+		}
+	</script>
 </body>
 </html>

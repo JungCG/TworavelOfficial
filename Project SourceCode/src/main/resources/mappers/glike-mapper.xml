@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="GLike">
+	<resultMap type="GLike" id="resultGLike">
+		<id property="g_id" column="g_id" />
+		<result property="m_id" column="m_id" />
+	</resultMap>
+	
+	<insert id="inserGLike" parameterType="GLike" flushCache="true"
+		statementType="PREPARED">
+		insert into glike values(#{g_id}, #{m_id})
+	</insert>
+	
+	<delete id ="deleteGLike" parameterType="GLike" flushCache="true"
+		statementType="PREPARED">
+		delete from glike where g_id = #{g_id} and m_id=#{m_id}
+	</delete>
+	
+	<select id = "selectGLike" parameterType="GLike" resultType="int" statementType="PREPARED">
+		select count(*) from glike where g_id=#{g_id} and m_id=#{m_id}
+	</select>
+</mapper>

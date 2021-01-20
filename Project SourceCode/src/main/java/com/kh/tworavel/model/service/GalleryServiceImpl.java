@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.tworavel.model.dao.GalleryDao;
 import com.kh.tworavel.model.domain.GAdd;
+import com.kh.tworavel.model.domain.GLike;
 import com.kh.tworavel.model.domain.Gallery;
 
 @Service
@@ -58,8 +59,35 @@ public class GalleryServiceImpl implements GalleryService {
 
 	@Override
 	public void deleteGallery(int gallery_num) {
-	gDao.deleteGallery(gallery_num);
+		gDao.deleteGallery(gallery_num);
+
+	}
+
+	@Override
+	public void likeGallery(int gallery_num) {
+		gDao.likeGallery(gallery_num);
+	}
+
+	@Override
+	public void unlikeGallery(int gallery_num) {
+		gDao.unlikeGallery(gallery_num);
 		
+	}
+
+	@Override
+	public int deleteGLike(GLike glike) {
+		return gDao.deleteGLike(glike);
+	}
+
+	@Override
+	public int insertGLike(GLike glike) {
+		return gDao.inserGLike(glike);
+	}
+
+	@Override
+	public int selectGLike(GLike glike) {
+		// TODO Auto-generated method stub
+		return gDao.selectGLike(glike);
 	}
 
 }

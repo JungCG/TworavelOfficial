@@ -30,13 +30,27 @@ body {
 	position: relative;
 	padding-bottom: 200px;
 }
+
+yjh_table {
+	margin: 0 auto;
+}
+
+#yjh_edit_btn {
+	background-color: white;
+	cursor: pointer;
+	font-size: medium;
+}
+
+#yjh_btn {
+	text-align: right;
+}
 </style>
 <script
 	src="${pageContext.request.contextPath }/resources/js/jquery-3.5.1.js"></script>
 </head>
 <body>
 
-<!-- private int g_id;
+	<!-- private int g_id;
 	private String m_id;
 	private int g_like;
 	private String g_content;
@@ -47,28 +61,33 @@ body {
 			<div class="jck_content_container_div2">
 
 
+
 				<form action="gInsert.do" method="post"
 					enctype="multipart/form-data">
-					<table align="center">
-						
+				<div id="yjh_btn">
+					<input type="submit" value="등록하기" id="yjh_edit_btn">
+					&nbsp;&nbsp; <a href="gallery_list.do">목록으로</a>
+				</div>
+					<table id="yjh_table">
+
 						<tr>
 							<td>작성자</td>
-							<td><input type="text" name="m_id"></td>
+							<td><input type="text" name="m_id" value="${userID }" readonly="readonly"></td>
 						</tr>
 						<tr>
 							<td>첨부파일</td>
 							<!-- 원래 vo에 있는 이름 board_file 을 사용하게 되면 String 형태여야 함. file 형태로 가져가야 하므로 name을 vo의 field명과 다르게 지정함. -->
-							<td><input type="file" name="upfile"></td>
+							<td><input type="file" name="upfile1" required="required">
+							<input type="file" name="upfile2" required="required">
+							<input type="file" name="upfile3" required="required">
+							</td>
 						</tr>
 
 						<tr>
 							<td>내용</td>
-							<td><input type="text" name="g_content"></td>
+							<td><input type="text" name="g_content" required="required"></td>
 						</tr>
-						<tr>
-							<td colspan="2" align="center"><input type="submit"
-								value="등록하기"> &nbsp;&nbsp; <a href="gallery_list.do">목록으로</a></td>
-						</tr>
+
 					</table>
 				</form>
 

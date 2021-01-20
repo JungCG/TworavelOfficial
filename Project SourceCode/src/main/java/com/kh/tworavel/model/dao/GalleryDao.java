@@ -1,6 +1,5 @@
 package com.kh.tworavel.model.dao;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
@@ -9,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.tworavel.model.domain.GAdd;
+import com.kh.tworavel.model.domain.GLike;
 import com.kh.tworavel.model.domain.Gallery;
 
 @Repository("gDao")
@@ -61,8 +61,24 @@ public class GalleryDao {
 		sqlSession.delete("Gallery.deleteGallery",gallery_num);
 		
 	}
+	public void likeGallery(int gallery_num) {
+		sqlSession.update("Gallery.likeGallery",gallery_num);
+		
+	}
+	public void unlikeGallery(int gallery_num) {
+		sqlSession.update("Gallery.unlikeGallery",gallery_num);
+		
+	}
 	
-	
+	public int deleteGLike(GLike glike) {
+		return sqlSession.insert("GLike.deleteGLike", glike);
+	}
+	public int inserGLike(GLike glike) {
+		return sqlSession.insert("GLike.inserGLike", glike);
+	}
+	public int selectGLike(GLike glike) {
+		return sqlSession.selectOne("GLike.selectGLike", glike);
+	}
 }
 
 

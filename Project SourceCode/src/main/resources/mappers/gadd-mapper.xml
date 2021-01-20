@@ -19,8 +19,7 @@
 	<!-- 사진 삽입 -->
 	<insert id="insertGadd" parameterType="GAdd" flushCache="true"
 		statementType="PREPARED">
-		insert into gadd values ((select nvl(max(g_id),0) from
-		gadd)+1, #{g_img1}, null, null)
+		insert into gadd values ((select nvl(max(g_id),0) from gadd)+1, #{g_img1},#{g_img2},#{g_img3})
 	</insert>
 
 	<select id="selectGalleryAdd" parameterType="int"

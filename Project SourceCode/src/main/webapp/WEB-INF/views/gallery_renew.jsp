@@ -30,13 +30,27 @@ body {
 	position: relative;
 	padding-bottom: 200px;
 }
+
+#yjh_table {
+	margin: 0 auto;
+}
+
+#yjh_edit_btn {
+	background-color: white;
+	cursor: pointer;
+	font-size: medium
+}
+
+#yjh_btn {
+	text-align: right;
+}
 </style>
 
 <script
 	src="${pageContext.request.contextPath }/resources/js/jquery-3.5.1.js"></script>
 </head>
 <body>
-	
+
 	<!-- private int g_id;
 	private String m_id;
 	private int g_like;
@@ -47,10 +61,14 @@ body {
 		<div id="common" style="width: 1000px; padding: 80px 0px;">
 			<div class="jck_content_container_div2">
 
+				<div id="yjh_btn">
+					<input type="submit" value="수정하기 " id="yjh_edit_btn">
+					&nbsp;&nbsp; <a href="gallery_list.do">목록으로</a>
+				</div>
 
 				<form action="gUpdate.do" method="post"
 					enctype="multipart/form-data">
-					<table align="center">
+					<table id="yjh_table">
 						<tr>
 							<td>작성자</td>
 							<td><input type="text" name="board_writer"
@@ -77,10 +95,8 @@ body {
 							<td><input type="text" name="g_content"
 								value="${gallery.g_content }"></td>
 						</tr>
-						<tr>
-							<td colspan="2" align="center"><input type="submit"
-								value="수정하기 "> &nbsp;&nbsp; <a href="gallery_list.do">목록으로</a></td>
-						</tr>
+
+
 					</table>
 					<br>
 					</table>
