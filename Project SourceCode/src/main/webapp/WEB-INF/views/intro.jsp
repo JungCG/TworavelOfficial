@@ -352,8 +352,8 @@ p {
 									style="width: 200px; height: 200px; margin: 0 auto; position: relative;">
 									<div
 										style="z-index: 5; width: 200px; height: 200px; position: absolute; padding: 5px;">
-										<img style="width: 100%; height: 100%;"
-											src="${pageContext.request.contextPath }/resources/images/JungCG.png">
+										<img style="width: 95%;height: 95%;float: right;"
+											src="${pageContext.request.contextPath }/resources/images/JH.png">
 									</div>
 									<div
 										style="border:5px solid #64a2ad; width: 200px; height: 200px; opacity: 0.5; border-radius: 100%; bottom: 0px;">
@@ -381,8 +381,8 @@ p {
 									style="width: 200px; height: 200px; margin: 0 auto; position: relative;">
 									<div
 										style="z-index: 5; width: 200px; height: 200px; position: absolute; padding: 5px;">
-										<img style="width: 100%; height: 100%;"
-											src="${pageContext.request.contextPath }/resources/images/JungCG.png">
+										<img style="width: 96%;height: 96%;"
+											src="${pageContext.request.contextPath }/resources/images/CR.png">
 									</div>
 									<div
 										style="border:5px solid #64a2ad; width: 200px; height: 200px; opacity: 0.5; border-radius: 100%; bottom: 0px;">
@@ -392,7 +392,7 @@ p {
 									<p class="dName">임채린</p>
 									<p class="d">Developer</p>
 									<p class="dEmail">ewuuu1112@gmail.com</p>
-									<p class="dGit">
+									<p class="dGit" style="font-size:0.9em">
 										<a href="https://github.com/ChaeRin-Im" target="_blank">github.com/ChaeRin-Im</a>
 									</p>
 									<div class="part_dropdown">

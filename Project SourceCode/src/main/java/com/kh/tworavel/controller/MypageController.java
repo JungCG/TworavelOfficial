@@ -1,6 +1,7 @@
 package com.kh.tworavel.controller;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.tworavel.common.VillageWeatherParsing;
 import com.kh.tworavel.model.domain.Blike;
 import com.kh.tworavel.model.domain.Clike;
 import com.kh.tworavel.model.domain.CompanionInfo;
@@ -24,13 +24,13 @@ import com.kh.tworavel.model.domain.Favor;
 import com.kh.tworavel.model.domain.Member;
 import com.kh.tworavel.model.domain.Mlike;
 import com.kh.tworavel.model.domain.Report;
-import com.kh.tworavel.model.service.MypageService;
+import com.kh.tworavel.model.service.MypageServiceImpl;
 
 @Controller
 public class MypageController {
 
 	@Autowired
-	private MypageService mypService;
+	private MypageServiceImpl mypService;
 	@Autowired
 	private Favor favor;
 	@Autowired
@@ -503,23 +503,35 @@ public class MypageController {
 	 
 
 	// 키워드 삭제 페이지
+	@ResponseBody
 	@RequestMapping(value = "/FavorDelete.do", method = RequestMethod.GET)
-	public ModelAndView getFavorPage(HttpServletRequest request, @RequestParam(name = "c_lid") int c_lid,
-			@RequestParam(name = "c_sid") int c_sid, ModelAndView mv) {
+	public int getFavorPage(HttpServletRequest request, @RequestParam Map<String, String> param, ModelAndView mv) {
 		favor.setM_id((String) request.getSession().getAttribute("userID"));
-		favor.setC_lid(c_lid);
-		favor.setC_sid(c_sid);
+		favor.setC_lid(Integer.parseInt(param.get("c_lid")));
+		favor.setC_sid(Integer.parseInt(param.get("c_sid")));
+		int result = 0;
 		try {
+			result = mypService.deleteFavordlist(favor);
 
-			mypService.deleteFavordlist(favor);
-
-			mv.addObject("m_id", favor.getM_id());
-			mv.addObject("delMsg", "삭제되었습니다.");
-			mv.setViewName("redirect:FavordPage.do");
+			favor.getM_id();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return mv;
+		return result;
+	}
+	
+	
+	// 키워드 수정 페이지 (ajax)
+	@ResponseBody
+	@RequestMapping(value = "/FavordPageReload.do", method = RequestMethod.GET)
+	public List<Favor> FavordPageReload(@RequestParam(name = "m_id") String m_id) {
+		List<Favor> favorlist = null;
+		try {
+			favorlist = mypService.selectFavordlist(m_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return favorlist;
 	}
 
 	// 파일저장 메소드

@@ -34,15 +34,20 @@ body{
 	padding-bottom : 200px;
 }
 .ICR_myicon{
-	width: 130px;
-	height: 150px;
-	margin: 20px 40px 20px 40px;
-	display: inline-block;
-	text-align: center;
+	width: 160px;
+    height: 180px;
+    margin: 0px 20px 0px 20px;
+    display: inline-block;
+    text-align: center;
+    padding: 20px 20px 20px 20px;
+    border-radius: 15px;
+}
+.ICR_myicon:hover{
+	background: #fdf8e0;
 }
 .ICR_myicon img{
-	width: 130px;
-	height: 130px;
+	width: 115px;
+	height: 115px;
 }
 #ICR_MyPage{
 	margin: 0 auto;
@@ -53,18 +58,17 @@ body{
 }
 #ICR_profile_img{
 	display: inline-block;
-	width: 50%;
+	width: 40%;
 	height: 300px;
 	float: left;
 	text-align: right;
-	padding-right: 50px;
+	padding-right: 10px 50px 10px 50px;
 }
 #ICR_info{
 	display: inline-block;
 	width: 50%;
 	height: 300px;
-	padding-left: 60px;
-	margin-top: 10px;
+	padding: 30px 0px 30px 60px;
 }
 #ICR_hr{
 	border-top-color: #0AC5A8;
@@ -74,7 +78,7 @@ body{
 	width: 180px;
 	height: 180px;
 	display: inline-block;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 }
 #ICR_modifyBtn{
 	background: #2C3C5B;
@@ -90,6 +94,21 @@ body{
 	padding : 4px;
 	border-radius : 4px;
 	background-color: rgba(255,0,0,0.7);
+}
+#ICR_infobox{
+	background: #f5f5f5a6;
+    width: 800px;
+    height: 300px;
+    margin: 0 auto;
+    border-radius: 25px;
+    box-shadow: 5px 5px 5px lightgrey;
+}
+#ICR_modifyBtn{
+	margin-top: 220px;
+}
+td h5{
+	margin-top: 7px;
+    margin-bottom: 7px;
 }
 </style>
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.5.1.js"></script>
@@ -136,17 +155,19 @@ function showUnread2(result){
 	
 		<div id="ICR_MyPage">
 			<h3 style="margin-bottom: 50px;">마이페이지</h3>
+			<div id="ICR_infobox">
+			
 			<div id="ICR_profile_img">
 				<c:if test="${not empty member.m_image}">
-				<img src="${pageContext.request.contextPath}/resources/uploadFiles/${member.m_image}" style="width: 300px; height: 300px; display: inline;">
+				<img src="${pageContext.request.contextPath}/resources/uploadFiles/${member.m_image}" style="width: 275px; height: 275px; display: inline; padding: 20px;margin-top: 15px;">
 				</c:if>
 				<c:if test="${empty member.m_image}">
-				<img src="${pageContext.request.contextPath}/resources/images/none_img.JPG" style="width: 300px; height: 300px; display: inline;">
+				<img src="${pageContext.request.contextPath}/resources/images/none_img.JPG" style="width: 300px; height: 300px; display: inline; padding: 20px;margin-top: 15px;">
 				</c:if>
 			</div>
 			
 			<div id="ICR_info">
-				<table id="ICR_info_table">
+				<table id="ICR_info_table" style="float: left;">
 					<tr>
 						<td>
 							<h5><font color="#0AC5A8" style="font-weight: bold;">회원 아이디 : </font>&nbsp;&nbsp;${member.m_id}</h5>
@@ -203,11 +224,10 @@ function showUnread2(result){
 				<button type="button" id="ICR_modifyBtn" class="btn btn-default" onclick="location.href='${ProfileUpdateForm}'">수정하기</button>
 			</div>
 			
+			</div>
 			
 			
-			
-			
-		<hr id="ICR_hr">
+		<br><br><br><br>
 		<div>
 			<div class="ICR_myicon">
 				<div style="display: inline; cursor: pointer;" title="채팅방" onclick="ICR_ChatOpen();">

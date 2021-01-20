@@ -170,6 +170,11 @@ header * {
 .jckModal-content p{
 	color : white;
 }
+#ICR_weatherBox2 p{
+	margin : 8px 0 8px 0;
+}
+
+
 </style>
 
 <script>

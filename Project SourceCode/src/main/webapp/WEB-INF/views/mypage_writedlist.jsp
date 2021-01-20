@@ -88,7 +88,7 @@ a{
 			<!-- 통합게시판 -->
 			<c:if test="${not empty board}">
 			<table id="ICR_Boardlist" class="table">
-				<tr style="background: #eee;">
+				<tr style="background: #d9edf7;">
 					<td>글번호</td>
 					<td>등록일자</td>
 					<td>글제목</td>
@@ -150,7 +150,7 @@ a{
 			<!-- 동행게시판 -->
 			<c:if test="${not empty companion}">
 			<table id="ICR_Companionlist" class="table">
-				<tr style="background: #eee;">
+				<tr style="background: #d9edf7;">
 					<td>글번호</td>
 					<td>등록일자</td>
 					<td>글제목</td>

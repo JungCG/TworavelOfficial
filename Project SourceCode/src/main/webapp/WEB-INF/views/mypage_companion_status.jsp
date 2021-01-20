@@ -79,7 +79,7 @@ a{
 			<!-- 보낸 동행 신청 -->
 			<c:if test="${not empty companioninfo_g}">
 			<table id="companioninfo_g" class="table">
-				<tr style="background: #eee;">
+				<tr style="background: #dfd9f7;">
 					<td>글번호</td>
 					<td>동행글 제목</td>
 					<td>작성자</td>
@@ -105,7 +105,7 @@ a{
 			<!-- 받은 동행 신청 -->
 			<c:if test="${not empty companioninfo_t}">
 			<table id="companioninfo_t" class="table">
-				<tr style="background: #eee;">
+				<tr style="background: #dfd9f7;">
 					<td>글번호</td>
 					<td>동행글 제목</td>
 					<td>신청자</td>
@@ -119,7 +119,7 @@ a{
 					<td>${companioninfo_t.m_id}</td>
 					<td>
 					<c:if test="${companioninfo_t.c_yn eq 'N'}">
-						<button class="ICR_OkBtn btn btn-default">수락하기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+						<button class="ICR_OkBtn btn btn-default">수락하기&nbsp;&nbsp;</button>
 					</c:if>
 					<c:if test="${companioninfo_t.c_yn eq 'Y'}">
 					${companioninfo_t.c_yn}&nbsp;&nbsp;&nbsp;
@@ -127,10 +127,10 @@ a{
 					</td>
 					<td id="ICR_inviteBtnTd">
 					<c:if test="${companioninfo_t.ch_inout eq 'I'}">
-						<font color="blue">초대완료</font>
+						<font style="color:blue;" color="blue">초대완료</font>
 					</c:if>
 					<c:if test="${companioninfo_t.ch_inout ne 'I'}">
-						<button class="ICR_ChattingBtn btn btn-default">채팅초대하기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+						<button class="ICR_ChattingBtn btn btn-default">채팅초대하기&nbsp;&nbsp;</button>
 					</c:if>
 					</td>
 				</tr>
