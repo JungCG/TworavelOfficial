@@ -13,8 +13,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-@import url(//fonts.googleapis.com/earlyaccess/hanna.css);
-
 * {
 	padding: 0;
 	margin: 0;
@@ -22,61 +20,6 @@
 	border-collapse: collapse;
 	box-sizing: border-box;
 	text-decoration: none;
-	outline: none;
-}
-
-@font-face {
-	font-family: 'MaplestoryOTFBold';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'CookieRun-Regular';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/CookieRun-Regular.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'BMHANNAAir';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/BMHANNAAir.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'Jal_Onuel';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/Jal_Onuel.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'BBTreeGB';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/BBTreeGB.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'NEXON Lv2 Gothic Bold';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv2 Gothic Bold.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
 }
 
 html {
@@ -84,8 +27,6 @@ html {
 }
 
 body {
-	font-family: 'Hanna', fantasy;
-	color: #282828;
 	height: 100%;
 }
 
@@ -100,11 +41,59 @@ body {
 	justify-content: center;
 	margin-top: 30px;
 }
-.customoverlay {position:relative;bottom:85px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;}
-.customoverlay:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}
-.customoverlay a {display:block;text-decoration:none;color:#000;text-align:center;border-radius:6px;font-size:14px;font-weight:bold;overflow:hidden;background: #d95050;background: #d95050 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;}
-.customoverlay .title {display:block;text-align:center;background:#fff;margin-right:35px;padding:10px 15px;font-size:14px;font-weight:bold;width: 100%;}
-.customoverlay:after {content:'';position:absolute;margin-left:-12px;left:50%;bottom:-12px;width:22px;height:12px;background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
+
+.customoverlay {
+	position: relative;
+	bottom: 85px;
+	border-radius: 6px;
+	border: 1px solid #ccc;
+	border-bottom: 2px solid #ddd;
+	float: left;
+}
+
+.customoverlay:nth-of-type(n) {
+	border: 0;
+	box-shadow: 0px 1px 2px #888;
+}
+
+.customoverlay a {
+	display: block;
+	text-decoration: none;
+	color: #000;
+	text-align: center;
+	border-radius: 6px;
+	font-size: 14px;
+	font-weight: bold;
+	overflow: hidden;
+	background: #d95050;
+	background: #d95050
+		url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png)
+		no-repeat right 14px center;
+}
+
+.customoverlay .title {
+	display: block;
+	text-align: center;
+	background: #fff;
+	margin-right: 35px;
+	padding: 10px 15px;
+	font-size: 14px;
+	font-weight: bold;
+	width: 100%;
+}
+
+.customoverlay:after {
+	content: '';
+	position: absolute;
+	margin-left: -12px;
+	left: 50%;
+	bottom: -12px;
+	width: 22px;
+	height: 12px;
+	background:
+		url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
+}
+
 section {
 	width: 1000px;
 	display: flex;
@@ -132,6 +121,7 @@ td {
 }
 
 #kdy-companion-writer {
+	width: 820px;
 	display: flex;
 	justify-content: flex-end;
 	margin-top: 5px;
@@ -144,24 +134,22 @@ td {
 	font-size: 5px;
 	display: flex;
 	color: gray;
+	justify-content: flex-end;
 }
 
 #kdy-companion-content {
-	color: #282828;
-	width: 828px;
+	width: 820px;
 	padding-top: 20px;
 	padding-bottom: 20px;
 	margin-bottom: 10px;
 }
 
 #kdy-companion-content-tr {
-
+	
 }
 
 #kdy-companion-description {
-	font-color: #282828;
 	margin-top: 10px;
-
 }
 
 #kdy-companion-description-p {
@@ -169,12 +157,6 @@ td {
 	font-weight: bold;
 }
 
-/* #kdy-companion-type {
-	margin-top: 40px;
-	color: #3d91ffc4;
-	font-size: 26px;
-	font-family: 'Hanna', fantasy;
-} */
 #kdy-clist-link {
 	color: rgb(0 166 255/ 68%);
 	background: #3d91ff00;
@@ -183,7 +165,6 @@ td {
 	padding: 5px;
 	font-weight: bold;
 	margin-left: 10px;
-	font-family: BMHANNAAir;
 }
 
 #kdy-clist-update {
@@ -193,7 +174,6 @@ td {
 	border-radius: 10px;
 	padding: 5px;
 	font-weight: bold;
-	font-family: BMHANNAAir;
 }
 
 #kdy-clist-delete {
@@ -204,7 +184,6 @@ td {
 	padding: 5px;
 	font-weight: bold;
 	margin-left: 10px;
-	font-family: BMHANNAAir;
 }
 
 #Ad {
@@ -222,7 +201,7 @@ td {
 }
 
 #kdy-like-count {
-	font-family: 'MaplestoryOTFBold';
+	
 }
 
 table>tr {
@@ -234,12 +213,15 @@ table>tr {
 }
 
 .csub_btn {
+	width: 820px;
 	cursor: pointer;
 	background: none;
 	color: gray;
 	font-size: 12px;
 }
+
 .hrinout {
+	width: 820px;
 	height: 1px;
 	background: #bbb;
 	background-image: -webkit-linear-gradient(left, #eee, #777, #eee);
@@ -249,38 +231,43 @@ table>tr {
 }
 
 .hrnline {
+	width: 820px;
 	border-top: 1px solid #bbb;
 }
 
 #csub_btn {
-	color: rgb(0 166 255/ 68%);
-	background: #3d91ff00;
-	border: 2px solid #0ac5a866;
+	color: rgb(234 119 19/ 68%);
+	background: #ffffff;
+	border: 2px solid #b1c50a66;
 	border-radius: 10px;
 	padding: 5px;
 	font-weight: bold;
-	font-family: BMHANNAAir;
+	font-size: 16px;
 	margin-bottom: 20px;
 	margin-left: 90%;
 }
 
 #ICR_PFmodal {
-    width: 400px;
-    height: 325px;
+	width: 400px;
+	height: 325px;
 }
-@media (min-width: 768px){
+
+@media ( min-width : 768px) {
 	.modal-sm {
-	   	 width: 375px;
+		width: 375px;
 	}
 }
 </style>
 <script
 	src="${pageContext.request.contextPath }/resources/js/jquery-3.5.1.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <script src="//code.jquery.com/jquery.min.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<div class="jck_wrap">
@@ -290,12 +277,21 @@ table>tr {
 				<div style="width: 100vh; padding-left: 10vh;">
 					<div id="kdy-companion-wrap">
 						<div id="kdy-companion-title" style="padding-top: 20px;">${clist.c_name}</div>
-						<div id="kdy-companion-writer" ><span id="ICR_C_writer" data-toggle="modal" data-target=".bs-example-modal-sm" style="cursor: pointer;">${clist.m_id}</span><br>
-							<div id="kdy-companion-date">
-								<fmt:formatDate var="date" value="${clist.c_adddate}"
-									pattern="yyyy-MM-dd HH:mm" />
-								${date}
+
+						<div id="kdy-companion-writer">
+							<div id="kdy-co_prous-img">
+								<img class="ICR_C_writer" data-toggle="modal"
+								data-target=".bs-example-modal-sm"
+									src="${pageContext.request.contextPath }/resources/images/co_prous.png"
+									style="height: 30px; cursor: pointer;">
 							</div>
+							&nbsp;<span class="ICR_C_writer" data-toggle="modal"
+								data-target=".bs-example-modal-sm" style="cursor: pointer;">${clist.m_id}</span>
+						</div>
+						<div id="kdy-companion-date">
+							<fmt:formatDate var="date" value="${clist.c_adddate}"
+								pattern="yyyy-MM-dd HH:mm" />
+							${date}
 						</div>
 						<hr class="hrnline">
 						<br>
@@ -363,7 +359,8 @@ table>tr {
 										<input type="hidden" value="${clist.m_id}" name="m_id2">
 										<input type="hidden" value="${userID}" name="m_id"> <input
 											type="hidden" value="${clist.c_name}" name="c_name">
-										<button type="submit" id="csub_btn" value="동행신청">동행신청</button>
+										<input type="button" id="csub_btn" value="동행신청"
+											style="cursor: pointer;"></input>
 									</form>
 								</div>
 							</c:when>
@@ -371,88 +368,88 @@ table>tr {
 					</div>
 				</div>
 			</section>
-			
-			
-			
-			
-			
 			<!-- 프로필 모달 -->
-		<form>
-		<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-		  <div class="modal-dialog modal-sm">
-		    <div id="ICR_PFmodal" class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						<h4 class="modal-title">${blist.m_id }님의 프로필</h4>
-					</div>
-					<div class="modal-body">
-			
-			
-			<div id="ICR_info" style="text-align: center;">
-				<table id="ICR_info_table" style="margin: 0 auto;">
-					<tr>
-						<td rowspan="7" style="text-align: center;line-height: normal;">
-							<img id="ICR_pro_m_img" src="${pageContext.request.contextPath}/resources/images/none_img.JPG" style="width: 150px; height: 150px; display: inline;">
-						</td>
-					</tr>
-					<tr>
-						<td>
-							&nbsp;<font color="#0AC5A8" style="font-weight: bold;" id="ICR_pro_m_id"></font>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							&nbsp;<font color="#0AC5A8" style="font-weight: bold;" id="ICR_pro_m_name"></font>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							&nbsp;<font color="#0AC5A8" style="font-weight: bold;" id="ICR_pro_m_like"></font>
-						</td>
-					</tr>
-					<tr>
-						<td id="ICR_ReportCnt">
-							&nbsp;<font color="#0AC5A8" style="font-weight: bold;" id="ICR_pro_m_reportcount"></font>
-						</td>
-					</tr>
-					<tr>
-						<td>&nbsp;<font color="#0AC5A8" style="font-weight: bold;" id="ICR_pro_m_intro"></font></td>
-					</tr>
-				</table><br>
-				<c:if test="${sessionScope.userID ne null}">
-					<div style="text-align: center;">
-						<div>
-						<input type="text" id="ICR_reasonBox" name="r_reason" style="display: none;margin: 0 auto;" placeholder="신고 사유를 입력해주세요.">
-						<br>
-						<button id="ICR_likeBtn" type="button" class="btn btn-primary">추천하기</button>
-						<button id="ICR_ReportBtn1" type="button" class="btn btn-primary">신고하기</button>
-						<button id="ICR_ReportBtn2" type="button" class="btn btn-primary" style="display: none;">신고하기</button>
+			<form>
+				<div class="modal fade bs-example-modal-sm" tabindex="-1"
+					role="dialog" aria-labelledby="mySmallModalLabel"
+					aria-hidden="true">
+					<div class="modal-dialog modal-sm">
+						<div id="ICR_PFmodal" class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<h4 class="modal-title">${blist.m_id }님의프로필</h4>
+							</div>
+							<div class="modal-body">
+
+
+								<div id="ICR_info" style="text-align: center;">
+									<table id="ICR_info_table" style="margin: 0 auto;">
+										<tr>
+											<td rowspan="7"
+												style="text-align: center; line-height: normal;"><img
+												id="ICR_pro_m_img"
+												src="${pageContext.request.contextPath}/resources/images/none_img.JPG"
+												style="width: 150px; height: 150px; display: inline;">
+											</td>
+										</tr>
+										<tr>
+											<td>&nbsp;<font color="#0AC5A8"
+												style="font-weight: bold;" id="ICR_pro_m_id"></font>
+											</td>
+										</tr>
+										<tr>
+											<td>&nbsp;<font color="#0AC5A8"
+												style="font-weight: bold;" id="ICR_pro_m_name"></font>
+											</td>
+										</tr>
+										<tr>
+											<td>&nbsp;<font color="#0AC5A8"
+												style="font-weight: bold;" id="ICR_pro_m_like"></font>
+											</td>
+										</tr>
+										<tr>
+											<td id="ICR_ReportCnt">&nbsp;<font color="#0AC5A8"
+												style="font-weight: bold;" id="ICR_pro_m_reportcount"></font>
+											</td>
+										</tr>
+										<tr>
+											<td>&nbsp;<font color="#0AC5A8"
+												style="font-weight: bold;" id="ICR_pro_m_intro"></font></td>
+										</tr>
+									</table>
+									<br>
+									<c:if test="${sessionScope.userID ne null}">
+										<div style="text-align: center;">
+											<div>
+												<input type="text" id="ICR_reasonBox" name="r_reason"
+													style="display: none; margin: 0 auto;"
+													placeholder="신고 사유를 입력해주세요."> <br>
+												<button id="ICR_likeBtn" type="button"
+													class="btn btn-primary">추천하기</button>
+												<button id="ICR_ReportBtn1" type="button"
+													class="btn btn-primary">신고하기</button>
+												<button id="ICR_ReportBtn2" type="button"
+													class="btn btn-primary" style="display: none;">신고하기</button>
+											</div>
+										</div>
+									</c:if>
+									<c:if test="${sessionScope.userID eq null}">
+										<div style="text-align: center;">
+											<button type="button" class="btn btn-default"
+												data-dismiss="modal">취소</button>
+										</div>
+									</c:if>
+								</div>
+							</div>
 						</div>
 					</div>
-				</c:if>
-				<c:if test="${sessionScope.userID eq null}">
-					<div style="text-align: center;">
-						<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-					</div>
-				</c:if>
 				</div>
-					</div>
-				</div>
-		  </div>
-		</div>
-		</form>
-			
-			
-			
-			
-			
-		
-		
-		
-<!-- 프로필 스트립트 -->
-<script>
+			</form>
+			<!-- 프로필 스트립트 -->
+			<script>
 //추천
 $(document).on("click", "#ICR_likeBtn", function(event){
 	$.ajax({
@@ -520,9 +517,7 @@ function ICRLikeDelete(){
 		}
 	});
 }
-
-
-$('#ICR_C_writer').on('click',function(){
+$('.ICR_C_writer').on('click',function(){
 	$.ajax({
 		url : "selectMemberProfile.do",
 		dataType : "json",
@@ -608,10 +603,7 @@ $(document).on("click", "#ICR_ReportBtn2", function(event){
 });
 
 </script>
-		
-		
-			
-<script>
+			<script>
 //동행 신청
 $(function(){
 	$("#csub_btn").click(function(){
@@ -619,7 +611,6 @@ $(function(){
 		if (user_id == "null" || user_id == "") {
 			alert("동행 신청 하시려면 로그인을 해야됩니다");
 		} else {
-			alert("1성공")
 			$.ajax({
 				url : "companion_insertInfo_check.do",
 				data : {
@@ -627,7 +618,8 @@ $(function(){
 				},
 				success : function(res) {
 					if (res >= 20) {
-						alert("성공");
+						alert("동행신청에 성공하셨습니다.");
+							//$("#csub_form").submit(); 이거 한줄로 됨 그걸 이리 길게 쓴 나는 bbddg다.
 							$(document).ready(function()
 									{
 									    var f = $('#csub_form');
@@ -641,8 +633,7 @@ $(function(){
 									    );
 									});
 					} else {
-						alert("실패");
-						alert("포인트가 부족합니다. 앵벌이 스타트!");
+						alert("동행신청에 실패 하셨습니다. 포인트가 부족합니다.");
 					}
 				}
 			});
@@ -798,11 +789,11 @@ polyline.setMap(map);
 				style="width: 1000px; display: flex; justify-content: flex-end; margin-right: 10px; margin-top: 15px; margin-bottom: 15px;">
 				<c:choose>
 					<c:when test="${clist.m_id eq userID}">
-				<a href="companion_update.do?c_id=${clist.c_id }"
+						<a href="companion_update.do?c_id=${clist.c_id }"
 							id="kdy-clist-update">글수정</a>
 						<a href="companiondelete.do?c_id=${clist.c_id }"
 							id="kdy-clist-delete">글삭제</a>
-				</c:when>
+					</c:when>
 				</c:choose>
 				<a href="companion_list.do" id="kdy-clist-link">글목록</a>
 			</div>

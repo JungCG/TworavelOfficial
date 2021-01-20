@@ -12,62 +12,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-@import url(//fonts.googleapis.com/earlyaccess/hanna.css);
-
-@font-face {
-	font-family: 'MaplestoryOTFBold';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'MaplestoryOTFLight';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFLight.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'NEXONFootballGothicLA1';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXONFootballGothicLA1.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'Jal_Onuel';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/Jal_Onuel.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'BMHANNAAir';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/BMHANNAAir.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'BBTreeGB';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/BBTreeGB.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
 * {
 	padding: 0;
 	margin: 0;
@@ -82,7 +26,6 @@ html {
 }
 
 body {
-	font-family: 'Hanna', fantasy;
 	color: #282828;
 	height: 100%;
 }
@@ -127,7 +70,6 @@ table {
 	background-color: white;
 	border-radius: 15px;
  	padding: 5px;
-	font-family: 'Hanna', fantasy;
 	margin: 20px;
 	width: 180px;
 }
@@ -205,7 +147,6 @@ input[type='radio']:checked:after {
 }
 
 #submitModifyCompanionBtn {
-	font-family: 'Hanna', fantasy;
 	border-bottom: 3px solid rgb(78	28 28/ 39%);
 	font-size: 16px;
 	background-color: white;

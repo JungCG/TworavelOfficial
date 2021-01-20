@@ -39,23 +39,23 @@ body {
 	<div class="jck_wrap">
 		<jsp:include page="header.jsp" />
 		<div id="common"
-			style="width: 1000px; padding: 2px; height: auto; border: 4px solid #608a7eba;">
-			<div class="jck_content_container_div2">
-				<div>
+			style="width: 1000px; padding: 2px; height: auto; background-color: #FAFAFA;">
+				<div style="padding : 10px;">
 					<img style="width: 100%; height: auto;"
 						src="${pageContext.request.contextPath }/resources/images/2magazinemain.png">
 				</div>
-				<div style="width: 100%;">
-					<div style="padding: 20px 0px;">
+			<div class="jck_content_container_div2" style="padding: 30px;">
+				<div style="width: 100%; padding-left: 10px;">
+					<div style="padding: 20px 0px; margin-top: 100px;">
 						<h1 style="color: #0AC5A8;">1. 자기 소개</h1>
 					</div>
 					<div style="display: flex;">
-						<div style="width: 300px; height: auto;">
+						<div style="width: 300px; height: auto; padding: 10px;">
 							<p style="font-size: 30px;">
 								<b>2&nbsp;+&nbsp;RAVEL </b>
 							</p>
 						</div>
-						<div style="width: 700px; height: auto;">
+						<div style="width: 700px; height: auto; padding: 10px;">
 							<div style="color: gray;">
 								<b style="font-size: 24px;">안녕 나는 2Ravel이야</b> <br>
 								<p style="font-size: 18px;">
@@ -65,16 +65,16 @@ body {
 							</div>
 						</div>
 					</div>
-					<div style="padding: 20px 0px;">
+					<div style="padding: 20px 0px; margin-top: 60px;">
 						<h1 style="color: #0AC5A8;">2. 여행 주제</h1>
 					</div>
 					<div style="display: flex;">
-						<div style="width: 300px; height: auto;">
+						<div style="width: 300px; height: auto; padding: 10px;">
 							<p style="font-size: 30px;">
 								<b>여행, 길과 사람</b>
 							</p>
 						</div>
-						<div style="width: 700px; height: auto;">
+						<div style="width: 700px; height: auto; padding: 10px;">
 							<div style="color: gray;">
 								<b style="font-size: 24px;">이번 호의 여행 주제는 길</b> <br>
 								<p style="font-size: 18px;">
@@ -85,16 +85,16 @@ body {
 							</div>
 						</div>
 					</div>
-					<div style="padding: 20px 0px;">
+					<div style="padding: 20px 0px; margin-top: 60px;">
 						<h1 style="color: #0AC5A8;">3. 여행지</h1>
 					</div>
 					<div style="display: flex;">
-						<div style="width: 300px; height: auto;">
+						<div style="width: 300px; height: auto; padding: 10px;">
 							<p style="font-size: 30px;">
 								<b>여행, 길과 사람</b>
 							</p>
 						</div>
-						<div style="width: 700px; height: auto;">
+						<div style="width: 700px; height: auto; padding: 10px;">
 							<div style="color: gray;">
 								<b style="font-size: 24px;">첫 여행지는 바로!!</b> <br>
 								<p style="font-size: 18px;">
@@ -108,10 +108,11 @@ body {
 						</div>
 					</div>
 					<br>
-					<div>
-						<b>익선동 한옥마을 골목길 지도</b> <br> <img
-							style="width: 100%; height: auto;"
-							src="${pageContext.request.contextPath }/resources/images/2magazinemap.png">
+					<div style="padding: 10px; margin-top: 20px;">
+						<img style="width: 100%; height: auto;"
+							src="${pageContext.request.contextPath }/resources/images/2magazinemap.png"><br>
+						<b style="justify-content: flex-end; display: flex;">익선동 한옥마을
+							골목길 지도</b>
 					</div>
 					<br>
 					<div style="width: 100%;">
@@ -126,65 +127,73 @@ body {
 						</div>
 					</div>
 				</div>
-				<div style="display: flex; margin-top: 20px;">
-					<div style="width: 200px; height: 200px;">
+				<div style="display: flex; margin-top: 100px; padding-left: 10px;">
+					<div style="width: 1000px; height: auto;">
 						<p>
-							<b style="font-size: 24px;">경양식 1920</b> <br>
+							<b style="font-size: 24px; padding-left: 10px;">경양식 1920</b> <br>
 						<p style="font-size: 18px; padding: 4px;">
 							&nbsp;돈까스가 맛있는 집으로 유명한 경양식 1920!<br> &nbsp;혹시... 가면 1920년에
 							열었는지 한 번 물어봐줄래? ㅋㅋ
 						</p>
-						</p>
 					</div>
-					<div style="width: 800px; height: 200px;">
-						<img style="width: 255px; height: auto; margin-right: 5px;"
+				</div>
+				<br>
+				<div style="display: flex; padding-left: 20px;">
+					<div style="width: 1000px; height: 200px;">
+						<img style="width: 255px; height: auto; margin-right: 60px;"
 							src="${pageContext.request.contextPath }/resources/images/light Western meal.jpg">
-						<img style="width: 255px; height: auto; margin-right: 5px;"
+						<img style="width: 255px; height: auto; margin-right: 60px;"
 							src="${pageContext.request.contextPath }/resources/images/light Western meal2.jpg">
 						<img style="width: 255px; height: auto;"
 							src="${pageContext.request.contextPath }/resources/images/light Western meal3.jpg">
 					</div>
 				</div>
-				<div style="display: flex;">
-					<div style="width: 200px; height: 200px;">
+				<div style="display: flex; margin-top: 60px; padding-left: 10px;">
+					<div style="width: 1000px; height: auto;">
 						<p>
-							<b style="font-size: 24px;">PROUST</b> <br>
+							<b style="font-size: 24px; padding-left: 10px;">PROUST</b> <br>
 						<p style="font-size: 18px; padding: 4px;">
 							&nbsp;익선동 홍차전문카페<br> &nbsp;그날그날 만든 밀크티를 전문적으로 판매하기도 해 밀크티가
 							일품!
 						</p>
-						</p>
-					</div>
-					<div style="width: 800px; height: 200px;">
-						<img style="width: 255px; height: auto; margin-right: 5px;"
-							src="${pageContext.request.contextPath }/resources/images/proust.png">
-						<img style="width: 255px; height: auto; margin-right: 5px;"
-							src="${pageContext.request.contextPath }/resources/images/proust2.png">
-						<img style="width: 255px; height: auto;"
-							src="${pageContext.request.contextPath }/resources/images/proust3.png">
 					</div>
 				</div>
-				<div style="display: flex;">
-					<div style="width: 200px; height: 200px;">
+				<br>
+				<div style="display: flex; padding-left: 20px;">
+					<div style="width: 1000px; height: 200px;">
+						<img style="width: 255px; height: auto; margin-right: 60px;"
+							src="${pageContext.request.contextPath }/resources/images/proust11.png">
+						<img style="width: 255px; height: auto; margin-right: 60px;"
+							src="${pageContext.request.contextPath }/resources/images/proust22.png">
+						<img style="width: 255px; height: auto;"
+							src="${pageContext.request.contextPath }/resources/images/proust33.png">
+					</div>
+				</div>
+				<div style="display: flex; margin-top: 60px; padding-left: 10px;">
+					<div style="width: 1000px; height: auto;">
 						<p>
-							<b style="font-size: 24px;">뜰안</b> <br>
+							<b style="font-size: 24px; padding-left: 10px;">뜰안</b> <br>
 						<p style="font-size: 18px; padding: 4px;">
-							&nbsp;한옥마을의 분위기 그대로의 전통카페<br> &nbsp;입구부터 뜰안으로 들어서는 길에선 한국의 냄새가 물신
-							뿜어져와!&nbsp;외국인 친구들 드루와!드루와!!
+							&nbsp;한옥마을의 분위기 그대로의 전통카페<br> &nbsp;입구부터 뜰안으로 들어서는 길에선 한국의
+							냄새가 물신 뿜어져와!&nbsp;외국인 친구들 드루와!드루와!!
 						</p>
-						</p>
-					</div>
-					<div style="width: 800px; height: 200px;">
-						<img style="width: 255px; height: auto; margin-right: 5px;"
-							src="${pageContext.request.contextPath }/resources/images/ddeulahn1.jpg">
-						<img style="width: 255px; height: auto; margin-right: 5px;"
-							src="${pageContext.request.contextPath }/resources/images/ddeulahn2.jpg">
-						<img style="width: 255px; height: auto;"
-							src="${pageContext.request.contextPath }/resources/images/ddeulahn3.jpg">
 					</div>
 				</div>
-				<div style="width: 100%;">
-					<div style="text-align: center; padding-top: 80px; padding-bottom: 20px;">
+				<br>
+				<div style="display: flex;padding-left: 20px;">
+					<div style="width: 1000px; height: 200px;">
+						<img style="width: 255px; height: auto; margin-right: 60px;"
+							src="${pageContext.request.contextPath }/resources/images/ddeulahn1.png">
+						<img style="width: 255px; height: auto; margin-right: 60px;"
+							src="${pageContext.request.contextPath }/resources/images/ddeulahn2.png">
+						<img style="width: 255px; height: auto;"
+							src="${pageContext.request.contextPath }/resources/images/ddeulahn3.png">
+					</div>
+				</div>
+				<div
+					style="width: 100%; margin-top: 100px; margin-bottom: 120px; padding-left: 10px;">
+					<div
+						style="text-align: center; padding-top: 80px; padding-bottom: 20px;">
 						<p style="font-size: 30px; color: #34666f; font-weight: bolder;">
 							Together Travel 우리가 함께한 첫 시간!</p>
 						<p style="font-size: 18px; padding-top: 10px;">

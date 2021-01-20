@@ -9,62 +9,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-@import url(//fonts.googleapis.com/earlyaccess/hanna.css);
-
-@font-face {
-	font-family: 'MaplestoryOTFBold';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'MaplestoryOTFLight';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFLight.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'NEXONFootballGothicLA1';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXONFootballGothicLA1.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'Jal_Onuel';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/Jal_Onuel.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'BMHANNAAir';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/BMHANNAAir.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'BBTreeGB';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/BBTreeGB.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
 * {
 	padding: 0;
 	margin: 0;
@@ -99,7 +43,6 @@ KDY {
 table {
 	padding-left: 6vh;
 	font-size: 16px;
-	font-family: 'Hanna', fantasy;
 	color: #282828;
 }
 
@@ -134,7 +77,6 @@ section {
 	background-color: white;
 	border-radius: 15px;
 	padding: 5px;
-	font-family: 'Hanna', fantasy;
 	margin: 20px;
 	width: 180px;
 }
@@ -212,7 +154,6 @@ input[type='radio']:checked:after {
 }
 
 #submitModifyCompanionBtn {
-	font-family: 'Hanna', fantasy;
 	border-bottom: 3px solid rgb(78 28 28/ 39%);
 	font-size: 16px;
 	background-color: white;
@@ -246,6 +187,8 @@ input[type='radio']:checked:after {
 	padding-left: 5px;
 }
 .hrnline {
+	width: 895px;
+	margin-left : 6vh;
 	border-top: 2px solid #bbb;
 }
 </style>
@@ -353,7 +296,7 @@ input[type='radio']:checked:after {
 							</p>
 							<hr class="hrinout">
 							<div id="map2"
-								style="width: 820px; height: 500px; z-index: 0; margin-top: 20px;"></div>
+								style="width: 895px; height: 500px; z-index: 0; margin-top: 20px;"></div>
 
 							<!-- 지도 끝 -->
 							<hr class="hrinout">

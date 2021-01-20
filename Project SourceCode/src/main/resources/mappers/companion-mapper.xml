@@ -298,6 +298,7 @@
 		select nvl(count(*),0)as c from ctag group by c_sid,c_lid having c_lid=3 order by
 		c_lid
 	</select>
+
 	
 	
 

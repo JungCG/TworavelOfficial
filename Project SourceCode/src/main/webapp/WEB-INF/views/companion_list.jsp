@@ -15,62 +15,6 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.js"></script>
 <style>
-@import url(//fonts.googleapis.com/earlyaccess/hanna.css);
-
-@font-face {
-	font-family: 'MaplestoryOTFBold';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'MaplestoryOTFLight';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFLight.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'NEXONFootballGothicLA1';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXONFootballGothicLA1.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'Jal_Onuel';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/Jal_Onuel.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'BMHANNAAir';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/BMHANNAAir.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'BBTreeGB';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/BBTreeGB.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
 * {
 	padding: 0;
 	margin: 0;
@@ -121,7 +65,6 @@ section {
 	font-size: 50px;
 	padding: 10px;
 	text-shadow: 2px 2px 2px #FBE8D9;
-	font-family: 'Hanna', fantasy;
 }
 
 .KDY-notice {
@@ -134,7 +77,6 @@ section {
 	font-size: 20px;
 	padding: 10px;
 	text-shadow: 1px 1px 1px #FBE8D9;
-	font-family: 'Hanna', fantasy;
 }
 
 .KDY-noticetext {
@@ -142,7 +84,6 @@ section {
 	font-size: 16px;
 	padding: 10px;
 	padding-left: 40px;
-	font-family: 'Hanna', fantasy;
 }
 
 #KDY-companiontable {
@@ -161,7 +102,6 @@ section {
 tr:first-of-type>td {
 	padding-bottom: 20px;
 	font-size: 18px;
-	font-family: 'MaplestoryOTFBold';
 }
 
 tr>td {
@@ -192,7 +132,6 @@ a {
 	font-size: 15px;
 	padding-top: 11px;
 	padding-bottom: 8px;
-	font-family: 'Jal_Onuel';
 }
 </style>
 </head>
@@ -285,7 +224,7 @@ a {
 								<td colspan="6"
 									style="text-align: end; padding-top: 30px; padding-right: 30px; color: #0AC5A8;"><button
 										type="button" id="clwrite"
-										style="color: #0AC5A8; border: 3px solid #6495ed6b; border-radius: 10px; padding: 6px; font-family: 'Jal_Onuel'; background-color: #ffffff;">글쓰기</button></td>
+										style="color: #0AC5A8; border: 3px solid #6495ed6b; border-radius: 10px; padding: 6px; background-color: #ffffff;">글쓰기</button></td>
 							</c:when>
 						</c:choose>
 					</tr>
@@ -293,15 +232,15 @@ a {
 						<td colspan="6">
 							<form action="companion_list.do" method="get">
 								<input type="text" placeholder="검색어를 입력해주세요"
-									style="width: 250px; height: 20px; border-radius: 10px; border: 3px solid #6495ed6b; padding: 10px;"
+									style="width: 250px; height: 20px; border-radius: 10px; border: 3px solid #6495ed6b; padding: 10px; margin-top: 30px; margin-left: 100px;"
 									name="keyword"> <input type="submit" value="검색"
-									style="background-color: white; border-radius: 10px; height: 100%; border: 3px solid #6495ed6b; padding: 5px; color: #0AC5A8; font-family: 'Jal_Onuel';">
+									style="background-color: white; border-radius: 10px; height: 100%; border: 3px solid #6495ed6b; padding: 5px; color: #0AC5A8;">
 							</form>
 						<td>
 					</tr>
 					<tr align="center" height="20">
 						<td colspan="6"
-							style="padding-top: 20px; color: #0AC5A8; font-family: 'Jal_Onuel';">
+							style="padding-top: 20px; color: #0AC5A8;padding-left: 100px;">
 							<c:if test="${currentPage <= 1}">[이전]&nbsp;
 							</c:if> <c:if test="${currentPage > 1}">
 								<c:url var="clistST" value="companion_list.do">
@@ -312,7 +251,7 @@ a {
 									</c:if>
 								</c:url>
 								<a href="${clistST}"
-									style="color: #0AC5A8; font-family: 'Jal_Onuel';">[이전]</a>
+									style="color: #0AC5A8;">[이전]</a>
 							</c:if> <!-- 끝 페이지 번호 처리 --> <c:forEach var="p" begin="${startPage}"
 								end="${endPage}">
 								<c:if test="${p <= maxPage}">
@@ -340,7 +279,7 @@ a {
 									</c:if>
 								</c:url>
 								<a href="${clistEND}"
-									style="color: #0AC5A8; font-family: 'Jal_Onuel';">[다음]</a>
+									style="color: #0AC5A8;">[다음]</a>
 							</c:if>
 						</td>
 					</tr>
