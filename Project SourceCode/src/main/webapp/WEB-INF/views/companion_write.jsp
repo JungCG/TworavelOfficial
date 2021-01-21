@@ -41,7 +41,7 @@ KDY {
 }
 
 table {
-	padding-left: 6vh;
+	padding-left: 50px;
 	font-size: 16px;
 	color: #282828;
 }
@@ -188,7 +188,7 @@ input[type='radio']:checked:after {
 }
 .hrnline {
 	width: 895px;
-	margin-left : 6vh;
+	margin-left : 50px;
 	border-top: 2px solid #bbb;
 }
 </style>
@@ -208,7 +208,7 @@ input[type='radio']:checked:after {
 			<form name="frm" enctype="multipart/form-data" id="frm">
 				<hr class="hrnline">
 				<br>
-				<table align="center" style="width: 100%;">
+				<table align="center" style="width: 1000px;">
 					<tr>
 						<td>작성자</td>
 						<td colspan="3"><input type="text" name="m_id"

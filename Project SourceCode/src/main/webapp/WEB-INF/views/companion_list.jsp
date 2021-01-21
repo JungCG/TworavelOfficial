@@ -87,6 +87,7 @@ section {
 }
 
 #KDY-companiontable {
+	width : 1000px;
 	text-align: center;
 	border-collapse: collapse;
 	margin-bottom: 30px;
@@ -212,7 +213,7 @@ a {
 								</td>
 								<td class="kdy-list-td">${vo.m_id}</td>
 								<td class="kdy-list-td"><fmt:formatDate var="date"
-										value="${vo.c_adddate}" pattern="yyyy-MM-dd HH:mm" /> ${date}</td>
+										value="${vo.c_adddate}" pattern="yyyy-MM-dd" /> ${date}</td>
 								<td class="kdy-list-td">${vo.c_like}</td>
 								<td class="kdy-list-td">${vo.c_view}</td>
 							</tr>

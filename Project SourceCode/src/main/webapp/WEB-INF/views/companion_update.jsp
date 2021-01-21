@@ -52,7 +52,7 @@ section {
 }
 
 table {
-	padding-left: 6vh;
+	padding-left: 50px;
 }
 
 #smart_editor2 {
@@ -178,7 +178,7 @@ input[type='radio']:checked:after {
 		<section>
 			<form name="frm" enctype="multipart/form-data">
 				<input type="hidden" value="${clist.c_id }" name="c_id">
-				<table align="center" style="width: 100%;">
+				<table align="center" style="width: 1000px;">
 					<tr style="height: 80px">
 						<td>작성자</td>
 						<td><input type="text" name="m_id" value="${userID }"

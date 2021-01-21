@@ -191,12 +191,6 @@ td {
 	overflow: hidden;
 }
 
-.kdy-recomment-textarea {
-	resize: none;
-	height: auto;
-	width: 100%;
-}
-
 #kdy-c_like-btn {
 	cursor: pointer;
 }
@@ -275,7 +269,7 @@ table>tr {
 		<jsp:include page="header.jsp" />
 		<div id="kdy-wrap">
 			<section>
-				<div style="width: 100vh; padding-left: 10vh;">
+				<div style="width: 1000px; padding-left: 90px;">
 					<div id="kdy-companion-wrap">
 						<div id="kdy-companion-title" style="padding-top: 20px;">${clist.c_name}</div>
 
