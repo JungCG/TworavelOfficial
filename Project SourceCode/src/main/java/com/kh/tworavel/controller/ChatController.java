@@ -74,7 +74,8 @@ public class ChatController {
 			//신청자 (채팅방 table insert)
 			chatJn.setM_id(m_id2);
 			int result03 = chService.checkChatJoin(chatJn);
-			if(result01>0) {
+			System.out.println("checkChatJoin실행");
+			if(result03>0) {
 //				System.out.println("글 작성자가 이미 채팅방에 있음");
 			}else {
 				int result04 = chService.insertChatJoin(chatJn);

@@ -18,10 +18,11 @@
 	
 	<!-- 동행 받은 내역-->
 	<select id="My_selectCompanioninfo2" parameterType="string" resultMap="resultCompanioninfo" flushCache="true" statementType="PREPARED">
-	select distinct c.*,h.ch_inout
+	select c.*, h.ch_inout
 	    from companioninfo c left join chatjoin h
-	        on c.c_id = h.c_id
-	            where c.m_id2 = #{m_id} order by c.c_id
+	        on c.m_id = h.m_id and c.c_id = h.c_id
+                where c.m_id2 = #{m_id}
+                    order by c.c_id
 	</select>
 	
 	<!-- 동행 수락 -->
