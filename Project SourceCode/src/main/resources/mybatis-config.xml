@@ -48,7 +48,7 @@
 			type="com.kh.tworavel.model.domain.Report" />
 		<typeAlias alias="Mlike"
 			type="com.kh.tworavel.model.domain.Mlike" />
-			<typeAlias alias="GLike"
+		<typeAlias alias="GLike"
 			type="com.kh.tworavel.model.domain.GLike" />
 			
 	</typeAliases>

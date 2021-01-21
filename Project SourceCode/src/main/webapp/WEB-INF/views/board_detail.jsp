@@ -92,7 +92,7 @@ section {
 	outline: none;
 	margin-top: 30px;
 	margin-bottom: 20px;
-	width: 80%;
+	width: 800px;
 	border-radius: 9px;
 }
 
@@ -372,7 +372,7 @@ section {
 
 		<div id="gjw-wrap">
 			<section>
-				<div style="width: 100vh; padding-left: 10vh;">
+				<div style="width: 1000px; padding-left: 40px; padding-right: 40px;">
 					<div id="gjw-board-wrap">
 						<div id="gjw-board-type">
 							<c:if test="${blist.b_type eq 'N' }">
@@ -386,7 +386,16 @@ section {
 					</c:if>
 						</div>
 						<div id="gjw-board-title">${blist.b_title }</div>
-						<div id="gjw-board-writer"><p  data-toggle="modal" data-target=".bs-example-modal-sm" style="cursor: pointer;    color: gray;">${blist.m_id }</p>
+<div id="gjw-board-writer">
+							<div id="kdy-co_prous-img">
+								<img class="ICR_C_writer" data-toggle="modal"
+									data-target=".bs-example-modal-sm"
+									src="${pageContext.request.contextPath }/resources/images/co_prous.png"
+									style="height: 30px; cursor: pointer;">
+							</div>
+							&nbsp;<span class="ICR_C_writer" data-toggle="modal"
+								data-target=".bs-example-modal-sm" style="cursor: pointer;">${blist.m_id}</span>
+
 						</div>	
 						
 						

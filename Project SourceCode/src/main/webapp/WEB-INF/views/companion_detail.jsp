@@ -130,6 +130,7 @@ td {
 }
 
 #kdy-companion-date {
+	width: 820px;
 	padding: 5px;
 	font-size: 5px;
 	display: flex;
@@ -284,9 +285,9 @@ table>tr {
 								data-target=".bs-example-modal-sm"
 									src="${pageContext.request.contextPath }/resources/images/co_prous.png"
 									style="height: 30px; cursor: pointer;">
-							</div>
 							&nbsp;<span class="ICR_C_writer" data-toggle="modal"
 								data-target=".bs-example-modal-sm" style="cursor: pointer;">${clist.m_id}</span>
+							</div>
 						</div>
 						<div id="kdy-companion-date">
 							<fmt:formatDate var="date" value="${clist.c_adddate}"
