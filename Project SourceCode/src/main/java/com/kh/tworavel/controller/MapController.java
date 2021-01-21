@@ -172,9 +172,8 @@ public class MapController {
 					c_qurRate = 0;
 				else
 					c_qurRate = Double.parseDouble(cmap.get("c_qurRate"));
-				String c_createDt = cmap.get("c_createDt");
 				CoronaMap cm = new CoronaMap(gubun, c_defCnt, c_isolIngCnt, c_isolClearCnt, c_incDec, c_deathCnt,
-						c_qurRate, c_createDt);
+						c_qurRate);
 
 				int temp = cmService.updateUsingName(cm);
 				cnt += temp;

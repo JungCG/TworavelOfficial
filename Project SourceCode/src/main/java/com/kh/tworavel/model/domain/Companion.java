@@ -1,6 +1,6 @@
 package com.kh.tworavel.model.domain;
 
-import java.util.Date;
+import java.sql.Date;
 
 import org.springframework.stereotype.Component;
 
@@ -14,8 +14,8 @@ public class Companion implements java.io.Serializable{
 	private int c_view;
 	private int c_like;
 	private Date c_adddate;
-	private String c_startd;
-	private String c_endd;
+	private Date c_startd;
+	private Date c_endd;
 	private String m_id;
 	private String c_dealstatus;
 	private String c_name;
@@ -28,8 +28,8 @@ public class Companion implements java.io.Serializable{
 		super();
 	}
 
-	public Companion(int c_id, int c_value, int c_many, int c_view, int c_like, Date c_adddate, String c_startd,
-			String c_endd, String m_id, String c_dealstatus, String c_name, String c_description, String c_meet,
+	public Companion(int c_id, int c_value, int c_many, int c_view, int c_like, Date c_adddate, Date c_startd,
+			Date c_endd, String m_id, String c_dealstatus, String c_name, String c_description, String c_meet,
 			String c_address) {
 		super();
 		this.c_id = c_id;
@@ -120,19 +120,19 @@ public class Companion implements java.io.Serializable{
 		this.c_adddate = c_adddate;
 	}
 
-	public String getC_startd() {
+	public Date getC_startd() {
 		return c_startd;
 	}
 
-	public void setC_startd(String c_startd) {
+	public void setC_startd(Date c_startd) {
 		this.c_startd = c_startd;
 	}
 
-	public String getC_endd() {
+	public Date getC_endd() {
 		return c_endd;
 	}
 
-	public void setC_endd(String c_endd) {
+	public void setC_endd(Date c_endd) {
 		this.c_endd = c_endd;
 	}
 

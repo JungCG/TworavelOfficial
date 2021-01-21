@@ -56,7 +56,7 @@ input {
 	height : 50px;
 	background-color: white;
 	font-weight: bolder;
-	border: 3px solid #2C3C5B;
+	border: 3px solid #0AC5A8;
 	border-radius: 25px;
 	box-sizing: border-box;
 	text-align: center;
@@ -71,6 +71,7 @@ input {
 	box-sizing: border-box;
 	text-align: center;
 	font-weight : bolder;
+	font-size : 18px;
 }
 
 .jck_login_item {
@@ -107,7 +108,7 @@ input {
 										<td colspan="3">&nbsp;</td>
 									</tr>
 									<tr id="table_tr_id">
-										<td class="font_change">이름&nbsp;&nbsp;&nbsp;</td>
+										<td class="font_change" style="font-size:18px;">이름&nbsp;&nbsp;&nbsp;</td>
 										<td colspan="2"><input type="text" name="search_name"
 											id="search_name" class="jck_login_input" required></td>
 									</tr>
@@ -115,7 +116,7 @@ input {
 										<td colspan="3">&nbsp;</td>
 									</tr>
 									<tr id="table_tr_pw">
-										<td class="font_change">이메일&nbsp;&nbsp;&nbsp;</td>
+										<td class="font_change" style="font-size:18px;">이메일&nbsp;&nbsp;&nbsp;</td>
 										<td colspan="2"><input type="text" name="search_email"
 											id="search_email" class="jck_login_input" required></td>
 									</tr>
@@ -145,7 +146,7 @@ input {
 										<td colspan="3">&nbsp;</td>
 									</tr>
 									<tr id="table_tr_id">
-										<td class="font_change">아이디&nbsp;&nbsp;&nbsp;</td>
+										<td class="font_change" style="font-size:18px;">아이디&nbsp;&nbsp;&nbsp;</td>
 										<td colspan="2"><input type="text" name="search_id"
 											id="search_id" class="jck_login_input" required></td>
 									</tr>
@@ -153,7 +154,7 @@ input {
 										<td colspan="3">&nbsp;</td>
 									</tr>
 									<tr id="table_tr_pw">
-										<td class="font_change">이메일&nbsp;&nbsp;&nbsp;</td>
+										<td class="font_change" style="font-size:18px;">이메일&nbsp;&nbsp;&nbsp;</td>
 										<td colspan="2"><input type="text" name="search_email"
 											id="search_email" class="jck_login_input" required></td>
 									</tr>

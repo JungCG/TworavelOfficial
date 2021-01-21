@@ -20,19 +20,10 @@
     font-style: normal;
 }
 
-@font-face {
-   font-family: 'BMHANNAAir';
-   src:
-      url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/BMHANNAAir.woff')
-      format('woff');
-   font-weight: normal;
-   font-style: normal;
-}
-
 * {
-   color: #333;
-   font-family : 'Jal_Onuel';
-   }
+	color: #333;
+	font-family : 'Jal_Onuel';
+}
 
 header * {
 	font-size: 15px;
@@ -103,7 +94,7 @@ header * {
 	display: none;
 	position: absolute;
 	background-color: #f9f9f9;
-	min-width: 120px;
+	min-width: 110px;
 	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 	z-index: 1;
 	text-align: center;
@@ -499,4 +490,3 @@ function showUnread(result){
 	%>
 </body>
 </html>
-

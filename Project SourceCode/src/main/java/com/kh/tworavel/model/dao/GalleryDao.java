@@ -36,6 +36,7 @@ public class GalleryDao {
 	
 	
 	public int insertGallery(Gallery gallery) { 
+		sqlSession.update("Member.updatePointGalleryWrite",gallery.getM_id());
 		return sqlSession.insert("Gallery.insertGallery", gallery);
 	}
 	

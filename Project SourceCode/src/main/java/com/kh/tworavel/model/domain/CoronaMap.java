@@ -66,7 +66,7 @@ public class CoronaMap {
 	}
 	
 	public CoronaMap(String c_name, int c_defcnt, int c_isolingcnt, int c_isolclearcnt, int c_incdec, int c_deathcnt,
-			double c_qurrate, String c_createdt) {
+			double c_qurrate) {
 		super();
 		this.c_name = c_name;
 		this.c_defcnt = c_defcnt;
@@ -75,7 +75,6 @@ public class CoronaMap {
 		this.c_incdec = c_incdec;
 		this.c_deathcnt = c_deathcnt;
 		this.c_qurrate = c_qurrate;
-		this.c_createdt = c_createdt;
 	}
 
 	@Override

@@ -15,7 +15,7 @@
 		<result property="g_img1" column="g_img1" />
 		<result property="g_img2" column="g_img2" />
 		<result property="g_img3" column="g_img3" />
-		
+		<result property="m_point" column="m_point" />
 		
 		
 		
@@ -29,8 +29,10 @@
 		resultMap="resultGallery">
 		select g.g_id as g_id, g.m_id as m_id, g.g_like as g_like,
 		g.g_content as g_content, g.g_view as g_view,
-		d.g_img1 as g_img1, d.g_img2 as g_img2, d.g_img3 as g_img3 from gallery g join
-		gadd d on g.g_id=d.g_id order by g.g_id desc
+		d.g_img1 as g_img1,
+		d.g_img2 as g_img2, d.g_img3 as g_img3 from gallery g join
+		gadd d on
+		g.g_id=d.g_id order by g.g_id desc
 	</select>
 
 
@@ -48,7 +50,8 @@
 	</select>
 	<update id="updateGallery" parameterType="Gallery"
 		flushCache="true" statementType="PREPARED">
-		update gallery set g_content =#{g_content} where g_id =#{g_id}
+		update gallery set g_content
+		=#{g_content} where g_id =#{g_id}
 	</update>
 	<delete id="deleteGallery" parameterType="int" flushCache="true"
 		statementType="PREPARED">
@@ -56,14 +59,14 @@
 	</delete>
 
 
-	<update id="likeGallery" parameterType="int"
-		flushCache="true" statementType="PREPARED">
-		update gallery set g_like = g_like+1  where g_id =#{g_id}
+	<update id="likeGallery" parameterType="int" flushCache="true"
+		statementType="PREPARED">
+		update gallery set g_like = g_like+1 where g_id =#{g_id}
 	</update>
-	
-	<update id="unlikeGallery" parameterType="int"
-		flushCache="true" statementType="PREPARED">
-		update gallery set g_like = g_like-1  where g_id =#{g_id}
+
+	<update id="unlikeGallery" parameterType="int" flushCache="true"
+		statementType="PREPARED">
+		update gallery set g_like = g_like-1 where g_id =#{g_id}
 	</update>
 	
 </mapper>

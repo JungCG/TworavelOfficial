@@ -55,6 +55,18 @@ body {
 	color: white;
 	text-align: center;
 }
+
+.jck_transform {
+	-webkit-transform: rotate(16deg);
+	-ms-transform: rotate(16deg);
+	transform: rotate(16deg);
+}
+.jck_opacity_l{
+	opacity : 0.6;
+}
+.jck_opacity{
+	opacity : 0.9;
+}
 </style>
 <script
 	src="${pageContext.request.contextPath }/resources/js/jquery-3.5.1.js"></script>
@@ -70,9 +82,43 @@ body {
 			<div>
 				<div id="jck_top_contents"
 					style="display: flex; flex-wrap: nowrap; justify-content: space-between; border-bottom: 3px solid gray; padding: 3px; padding-bottom: 15px;">
-					<div style="width: 480px; height: auto;">
+					<div style="width: 480px; height: auto; position: relative;">
+
+						<div class="jck_transform"
+							style="z-index: 5; position: absolute; top: 259px; left: 170px; text-align: center;">
+							<span class="jck_opacity_l"
+								style="font-weight: bold; font-family: 'Montserrat', sans-serif;">T&nbsp;W&nbsp;O&nbsp;&nbsp;</span>
+							<span class="jck_opacity_l"
+								style="color: #0AC5A8; font-weight: bold; font-family: 'Montserrat', sans-serif;">R&nbsp;A&nbsp;V&nbsp;E&nbsp;L</span><br>
+							<br>
+							<br>
+							<br>
+							<br> <span class="jck_opacity_l"
+								style="color: #0AC5A8; font-weight: bold; font-family: 'Montserrat', sans-serif;">T&nbsp;R&nbsp;A&nbsp;V&nbsp;E&nbsp;L</span><br>
+							<br> <span class="jck_opacity_l"
+								style="font-weight: bold; font-family: 'Montserrat', sans-serif;">T&nbsp;O&nbsp;G&nbsp;E&nbsp;T&nbsp;H&nbsp;E&nbsp;R</span>
+						</div>
+
+						<div class="jck_transform"
+							style="z-index: 5; position: absolute; top: 259px; left: 170px; text-align: center;">
+							<span class="jck_opacity_l"
+								style="font-weight: bold; font-family: 'Montserrat', sans-serif;">T&nbsp;W&nbsp;O&nbsp;&nbsp;</span>
+							<span class="jck_opacity_l"
+								style="color: #0AC5A8; font-weight: bold; font-family: 'Montserrat', sans-serif;">R&nbsp;A&nbsp;V&nbsp;</span><span class="jck_opacity"
+								style="color: #0AC5A8; font-weight: bold; font-family: 'Montserrat', sans-serif;">E&nbsp;L</span><br>
+							<br>
+							<br>
+							<br>
+							<br> <span class="jck_opacity_l"
+								style="color: #0AC5A8; font-weight: bold; font-family: 'Montserrat', sans-serif;">T&nbsp;R&nbsp;A&nbsp;V&nbsp;E&nbsp;</span><span class="jck_opacity"
+								style="color: #0AC5A8; font-weight: bold; font-family: 'Montserrat', sans-serif;">L</span><br>
+							<br> <span class="jck_opacity_l"
+								style="font-weight: bold; font-family: 'Montserrat', sans-serif;">T&nbsp;O&nbsp;G&nbsp;E&nbsp;T&nbsp;H&nbsp;</span><span class="jck_opacity"
+								style="font-weight: bold; font-family: 'Montserrat', sans-serif;">E&nbsp;R</span>
+						</div>
+
 						<img
-							src="${pageContext.request.contextPath }/resources/images/tworavelbox1.jpg"
+							src="${pageContext.request.contextPath }/resources/images/tworavelbox2.jpg"
 							style="width: 100%; height: 100%;">
 					</div>
 					<div style="width: 480px; height: auto; padding-left: 10px;">
@@ -81,8 +127,7 @@ body {
 								박스</span>
 							<button
 								style="float: right; border: 0; outline: 0; background: none;">
-								<a href="#"
-									onclick="copy_trackback(); return false;"> <img
+								<a href="#" onclick="copy_trackback(); return false;"> <img
 									style="width: 48xp; height: 48px;"
 									src="${pageContext.request.contextPath }/resources/images/shareIcon.png"></a>
 							</button>
@@ -227,16 +272,11 @@ body {
 				alert("옵션을 선택해주세요!");
 				return;
 			}
-			
-			<%
-				if(session.getAttribute("userID") == null){
-			%>
-					alert("로그인이 필요한 서비스입니다.");
-					return;
-			<%					
-				}
-			%>
-			// getter
+	<%if (session.getAttribute("userID") == null) {%>
+		alert("로그인이 필요한 서비스입니다.");
+			return;
+	<%}%>
+		// getter
 			var IMP = window.IMP;
 			IMP.init('imp65132807');
 			var money = bill;

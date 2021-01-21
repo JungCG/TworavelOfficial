@@ -221,10 +221,10 @@ body{
 	</div>
 
 	<div id="coronaMap"
-		style="position: fixed; width: 100px; height: 170px; right: 50px; bottom: 180px; outline: none; z-index: 1;">
+		style="position: fixed; width: 100px; height: 150px; right: 50px; bottom: 180px; outline: none; z-index: 1;">
 		<div
-			style="color: red; font-weight: bolder; position: relative; width: 100%; height: 120px; background-color: rgba(255, 255, 255, 0); outline: none;">
-			<img width="100%" height="120px;"
+			style="color: red; font-weight: bolder; position: relative; width: 100%; height: 100px; background-color: rgba(255, 255, 255, 0); outline: none;">
+			<img width="100%" height="100px;"
 				src="${pageContext.request.contextPath}/resources/images/coronaIcon2.png">
 		</div>
 		<button

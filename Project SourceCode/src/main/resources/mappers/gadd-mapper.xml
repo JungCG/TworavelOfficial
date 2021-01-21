@@ -28,7 +28,7 @@
 	</select>
 	<update id="updategadd" parameterType="GAdd" flushCache="true"
 		statementType="PREPARED">
-		update gadd set g_img1= #{g_img1} where g_id =#{g_id}
+		update gadd set g_img1= #{g_img1},g_img2= #{g_img2},g_img3= #{g_img3} where g_id =#{g_id}
 	</update>
 	<delete id="deleteGadd" parameterType="int" flushCache="true"
 		statementType="PREPARED">

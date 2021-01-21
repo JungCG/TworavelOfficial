@@ -43,7 +43,7 @@ body {
 }
 
 #JWJmainsection table input {
-	border-bottom: 2px solid black;
+	border-bottom: 1px solid #333;
 	padding: 2px 5px;
 }
 

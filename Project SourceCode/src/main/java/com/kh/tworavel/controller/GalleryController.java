@@ -86,36 +86,47 @@ public class GalleryController {
 
 	@RequestMapping(value = "/gUpdate.do", method = RequestMethod.POST)
 	public ModelAndView galleryUpdate(@RequestParam(name = "g_content") String g_content,
-			@RequestParam(name = "g_id") int g_id, @RequestParam(name = "upfile") MultipartFile report,
-			HttpServletRequest request, ModelAndView mv) {
-		try {
-
-			gadd.setG_img1(report.getOriginalFilename());
-
-			// 첨부파일 저장
-			if (report != null && !report.equals("")) {
-				saveFile(report, request);
-			}
-			gallery.setG_content(g_content);
-			gallery.setG_id(g_id);
-			gadd.setG_id(g_id);
-			System.out.println(gadd.getG_id());
-			System.out.println(gadd.getG_img1());
-			gService.updateGallery(gallery,gadd);
-		} catch (Exception e) {
-			// 실패했다면
-			mv.setViewName("errorPage"); // errorPage 페이지로 이동
-			e.printStackTrace();
+			@RequestParam(name = "g_id") int g_id, @RequestParam(name = "upfile1") MultipartFile report1,
+			@RequestParam(name = "upfile2") MultipartFile report2,
+			@RequestParam(name = "upfile3") MultipartFile report3, HttpServletRequest request, ModelAndView mv) {
+		
+try {
+		gadd.setG_img1(report1.getOriginalFilename());
+		gadd.setG_img2(report2.getOriginalFilename());
+		gadd.setG_img3(report3.getOriginalFilename());
+		// 첨부파일 저장
+		if (report1 != null && !report1.equals("")) {
+			saveFile(report1, request);
 		}
-		mv.setViewName("redirect:gallery_list.do");
-		return mv;
+		if (report2 != null && !report2.equals("")) {
+			saveFile(report2, request);
+		}
+		if (report3 != null && !report3.equals("")) {
+			saveFile(report3, request);
+		}
+		gallery.setG_content(g_content);
+		gallery.setG_id(g_id);
+		gadd.setG_id(g_id);
+		System.out.println(gadd.getG_id());
+		System.out.println(gadd.getG_img1());
+		gService.updateGallery(gallery, gadd);
+
+	}catch(
+
+	Exception e)
+	{
+		// 실패했다면
+		mv.setViewName("errorPage"); // errorPage 페이지로 이동
+		e.printStackTrace();
+	}mv.setViewName("redirect:gallery_list.do");return mv;
 
 	}
 
 	// 작성된 글을 insert
 	@RequestMapping(value = "/gInsert.do", method = RequestMethod.POST)
-	public ModelAndView galleryInsert(Gallery g, @RequestParam(name = "upfile1") MultipartFile report1,@RequestParam(name = "upfile2") MultipartFile report2,@RequestParam(name = "upfile3") MultipartFile report3
-			,HttpServletRequest request, ModelAndView mv) {
+	public ModelAndView galleryInsert(Gallery g, @RequestParam(name = "upfile1") MultipartFile report1,
+			@RequestParam(name = "upfile2") MultipartFile report2,
+			@RequestParam(name = "upfile3") MultipartFile report3, HttpServletRequest request, ModelAndView mv) {
 		try {
 
 			String userID = (String) request.getSession().getAttribute("userID");
@@ -190,7 +201,8 @@ public class GalleryController {
 
 	// ** 게시판 좋아요 누르기 
 	@RequestMapping(value = "/gallery_like.do")
-	public ModelAndView galleryLike(@RequestParam(name = "g_id") int gallery_num, ModelAndView mv, HttpServletRequest request) {
+	public ModelAndView galleryLike(@RequestParam(name = "g_id") int gallery_num, ModelAndView mv,
+			HttpServletRequest request) {
 		GLike glike = new GLike();
 		HttpSession session = request.getSession();
 		
@@ -206,7 +218,8 @@ public class GalleryController {
 	
 	// ** 게시판 좋아요 해제 하기 
 	@RequestMapping(value = "/gallery_unlike.do")
-	public ModelAndView galleryUnlike(@RequestParam(name = "g_id") int gallery_num, ModelAndView mv, HttpServletRequest request) {
+	public ModelAndView galleryUnlike(@RequestParam(name = "g_id") int gallery_num, ModelAndView mv,
+			HttpServletRequest request) {
 
 		GLike glike = new GLike();
 		gService.unlikeGallery(gallery_num);

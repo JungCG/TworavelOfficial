@@ -8,6 +8,9 @@
 <title>알림창</title>
 </head>
 <body>
+${er}
+<br>
+${er2 }
 	<script>
 		alert('${msg}');
 		location.href='<c:out value="${pageContext.request.contextPath}"/>${url}'

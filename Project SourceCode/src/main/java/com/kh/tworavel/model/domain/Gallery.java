@@ -55,8 +55,9 @@ public class Gallery implements java.io.Serializable {
 		this.g_img3 = g_img3;
 	}
 
-	public Gallery() {}
-	
+	public Gallery() {
+	}
+
 	public Gallery(int g_id, String m_id, int g_like, String g_content, int g_view) {
 		super();
 		this.g_id = g_id;

@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
 <link rel="stylesheet"
@@ -284,9 +283,7 @@ table>tr {
 							</div>
 						</div>
 						<div id="kdy-companion-date">
-							<fmt:formatDate var="date" value="${clist.c_adddate}"
-								pattern="yyyy-MM-dd HH:mm" />
-							${date}
+							${clist.c_adddate}
 						</div>
 						<hr class="hrnline">
 						<br>
@@ -301,15 +298,11 @@ table>tr {
 							</tr>
 							<tr id="kdy-companion-content-tr">
 								<td>&nbsp;&nbsp;여행 시작일</td>
-								<td colspan="3"><fmt:parseDate var="Sdate"
-										value="${clist.c_startd}" pattern="yyyy-MM-dd HH:mm:ss" /> <fmt:formatDate
-										value="${Sdate}" pattern="yyyy-MM-dd" /></td>
+								<td colspan="3">${clist.c_startd}</td>
 							</tr>
 							<tr>
 								<td>&nbsp;&nbsp;여행 마감일</td>
-								<td colspan="3"><fmt:parseDate var="Edate"
-										value="${clist.c_endd}" pattern="yyyy-MM-dd HH:mm:ss" /> <fmt:formatDate
-										value="${Edate}" pattern="yyyy-MM-dd" /></td>
+								<td colspan="3">${clist.c_endd}</td>
 							</tr>
 							<tr>
 								<td>&nbsp;&nbsp;카테고리</td>

@@ -26,7 +26,7 @@
 		c_incdec=#{c_incdec},
 		c_deathcnt=#{c_deathcnt},
 		c_qurrate=#{c_qurrate},
-		c_createdt=#{c_createdt}
+		c_createdt = current_timestamp
 		 where c_name=#{c_name}
 	</update>
 </mapper>

@@ -59,8 +59,8 @@ input {
 }
 
 .jck_login_container .topImg {
-	width : 312px;
-	height : auto;
+	width : auto;
+	height : 400px;
 }
 
 .jck_login_container .snsImg {
@@ -153,7 +153,7 @@ input {
 						</div>
 					</div>
 					<div class="jck_login_item jck_login_item2">
-						<div style="padding-top:100px; text-align : center;">
+						<div style="padding-top:65px; text-align : center; height:465px;">
 							<form action="LoginCtl.do" method="post">
 								<table id="table_tr">
 									<tr id="table_tr_id">
