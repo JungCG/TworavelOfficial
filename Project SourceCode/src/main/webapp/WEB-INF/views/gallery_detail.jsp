@@ -207,7 +207,7 @@ body {
 						<img class="ICR_C_writer" data-toggle="modal"
 							data-target=".bs-example-modal-sm"
 							src="${pageContext.request.contextPath }/resources/images/co_prous.png"
-							style="height: 30px; cursor: pointer;">
+							style="height: 30px; cursor: pointer;line-height: 1.7;">
 					</div>
 					&nbsp;
 					<div style="display:inline-block;position: relative;left:30px;padding-top: 5px;">

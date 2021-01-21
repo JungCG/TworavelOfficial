@@ -393,7 +393,7 @@ section {
 									style="height: 30px; cursor: pointer;">
 							</div>
 							&nbsp;<span class="ICR_C_writer" data-toggle="modal"
-								data-target=".bs-example-modal-sm" style="cursor: pointer;">${blist.m_id}</span>
+								data-target=".bs-example-modal-sm" style="cursor: pointer;line-height: 2.5;color: #777676;">${blist.m_id}</span>
 
 						</div>	
 						
