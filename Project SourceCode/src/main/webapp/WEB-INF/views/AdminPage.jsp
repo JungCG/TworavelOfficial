@@ -12,21 +12,6 @@
 <meta charset="UTF-8">
 <title>AdminPage</title>
 <style>
-@font-face {
-    font-family: 'Jal_Onuel';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/Jal_Onuel.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-   font-family: 'BMHANNAAir';
-   src:
-      url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/BMHANNAAir.woff')
-      format('woff');
-   font-weight: normal;
-   font-style: normal;
-}
 
 * {
    color: #333;
@@ -107,6 +92,7 @@ body {
 section {
 	display: flex;
 	flex-direction: column;
+	width: 1800px;
 }
 
 .boardtype-1 {
@@ -121,7 +107,7 @@ section {
 }
 
 .gjw-board-wrap {
-	width: 80%;
+	width: 1500px;
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
@@ -142,7 +128,6 @@ section {
 .GJW-Board {
 	display: flex;
 	border-bottom: 2px solid #a52a2a26;
-	width: 80%;
 	display: flex;
 	justify-content: space-around;
 }
@@ -164,7 +149,7 @@ label {
 }
 
 #GJW-maintable {
-	width: 100%;
+	width: 1500px;
 }
 
 #GJW-serchbar {
@@ -176,6 +161,7 @@ label {
 table {
 	border-collapse: collapse;
 	border: 1px solid #0000003b;
+	width: 1500px;
 }
 
 .kdy_board_wrap {
@@ -185,7 +171,7 @@ table {
 
 table {
 	text-align: center;
-	width: 100%;
+	width: 1500px;
 }
 
 td {
@@ -334,6 +320,7 @@ a:link {
 <body>
 	<div class="jck_wrap">
 		<jsp:include page="header.jsp" />
+		<div style="display:flex;justify-content: center;">
 		<section>
 			<div
 				style="display: flex; justify-content: center; margin-top: 50px;">
@@ -341,7 +328,7 @@ a:link {
 					Admin</h1>
 			</div>
 			<div id="GJW-menuwrap">
-				<div class="GJW-Board">
+				<div class="GJW-Board" style="width: 1500px;">
 					<div class="boardtype">
 						<div class="boardtype-1">
 
@@ -596,6 +583,7 @@ a:link {
 						</tr>
 					</table>
 		</section>
+		</div>
 		<jsp:include page="footer.jsp" />
 	</div>
 

@@ -165,7 +165,7 @@ cursor: pointer;
 						<a href="board_list.do?type=R" id="R">리뷰</a>
 					</div>
 				</div>
-				<table id="GJW-boardtable">
+				<table id="GJW-boardtable" style="width: 1000px">
 					<tr style="border-bottom: 1px solid #00000026;">
 						<td>글번호</td>
 						<td>글제목</td>

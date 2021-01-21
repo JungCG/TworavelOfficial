@@ -32,7 +32,6 @@ body{
 
 
 GJW {
-	width: 100%;
 	display: flex;
 	justify-content: center;
 	margin-top: 70px;	
@@ -144,7 +143,7 @@ padding-top: 20px;
 게시판 글쓰기
 </div>
 	<form name ="frm" enctype="multipart/form-data">
-		<table align="center" style="width: 100%;">
+		<table align="center" style="width: 900px;">
 			<tr class="gjw-table-tr">
 				 <td style="color:#black;;
 				 ">제목</td>

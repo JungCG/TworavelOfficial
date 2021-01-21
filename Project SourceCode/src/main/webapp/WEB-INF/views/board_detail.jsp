@@ -50,7 +50,6 @@ section {
 	width: 1000px;
 	display: flex;
 	justify-content: center;
-	flex-direction: column;
 	border: 1px solid #0000001a;
 }
 
@@ -92,7 +91,7 @@ section {
 	outline: none;
 	margin-top: 30px;
 	margin-bottom: 20px;
-	width: 800px;
+	width: 80%;
 	border-radius: 9px;
 }
 
@@ -371,8 +370,8 @@ section {
 		<jsp:include page="header.jsp" />
 
 		<div id="gjw-wrap">
-			<section>
-				<div style="width: 1000px; padding-left: 40px; padding-right: 40px;">
+			<section style="display:flex;width: 1000px">
+				<div style="width: 800px;">
 					<div id="gjw-board-wrap">
 						<div id="gjw-board-type">
 							<c:if test="${blist.b_type eq 'N' }">

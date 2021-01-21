@@ -36,7 +36,6 @@ body {
 }
 
 GJW {
-	width: 100%;
 	display: flex;
 	justify-content: center;
 	margin-top: 70px;
@@ -51,7 +50,6 @@ section {
 }
 
 #smart_editor2 {
-	width: 100%;
 }
 
 #gjw-title-input {
@@ -134,7 +132,7 @@ input[type='radio']:checked:after {
 		<jsp:include page="header.jsp" />
 		<GJW>
 		<section>
-			<div style="width: 90%;">
+			<div style="width: 900px;">
 				<div style="font-size: 30px; margin-bottom: 30px; margin-top: 30px;">
 					게시판 글수정</div>
 				<form name="frm" enctype="multipart/form-data">
