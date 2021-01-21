@@ -1,6 +1,7 @@
 package com.kh.tworavel.controller;
 
 import java.io.File;
+
 import java.util.List;
 import java.util.Map;
 
@@ -24,13 +25,13 @@ import com.kh.tworavel.model.domain.Favor;
 import com.kh.tworavel.model.domain.Member;
 import com.kh.tworavel.model.domain.Mlike;
 import com.kh.tworavel.model.domain.Report;
-import com.kh.tworavel.model.service.MypageServiceImpl;
+import com.kh.tworavel.model.service.MypageService;
 
 @Controller
 public class MypageController {
 
 	@Autowired
-	private MypageServiceImpl mypService;
+	private MypageService mypService;
 	@Autowired
 	private Favor favor;
 	@Autowired

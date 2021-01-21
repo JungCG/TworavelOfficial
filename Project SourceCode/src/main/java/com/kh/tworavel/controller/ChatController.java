@@ -3,6 +3,7 @@ package com.kh.tworavel.controller;
 
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.tworavel.model.domain.ChatJoin;
 import com.kh.tworavel.model.domain.ChatMessage;
-import com.kh.tworavel.model.service.ChatServiceImpl;
+import com.kh.tworavel.model.service.ChatService;
 
 @Controller
 public class ChatController {
@@ -31,7 +32,7 @@ public class ChatController {
 	@Autowired
 	private ChatMessage chatMsg;
 	@Autowired
-	private ChatServiceImpl chService;
+	private ChatService chService;
 	
 	// 채팅방 목록 페이지
 	@RequestMapping(value = "/Chat.do", method = { RequestMethod.GET})

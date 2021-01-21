@@ -3,7 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jck_main.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/icr_chat12.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/icr_chat01.css">
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"qnimate
 "http://www.w3.org/TR/html4/loose.dtd"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
