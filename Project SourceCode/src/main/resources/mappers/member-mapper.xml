@@ -138,7 +138,11 @@
 
 
 	<!-- 금지운 -->
-	
+	<update id="updatePointGalleryWrite" parameterType="string"
+		flushCache="true" statementType="PREPARED">
+		update member set m_point = m_point+20
+		where m_id =#{m_id}
+	</update>
 		<update id="updatePointBoardWrite" parameterType="string" flushCache="true" statementType="PREPARED">
 		update member set m_point = m_point+10 where m_id =#{m_id}
 	</update>

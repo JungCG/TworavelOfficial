@@ -44,6 +44,12 @@ yjh_table {
 #yjh_btn {
 	text-align: right;
 }
+
+.first_td {
+	width: 200px;
+	text-align: center;
+}
+
 </style>
 <script
 	src="${pageContext.request.contextPath }/resources/js/jquery-3.5.1.js"></script>
@@ -64,31 +70,61 @@ yjh_table {
 
 				<form action="gInsert.do" method="post"
 					enctype="multipart/form-data">
-				<div id="yjh_btn">
-					<input type="submit" value="등록하기" id="yjh_edit_btn">
-					&nbsp;&nbsp; <a href="gallery_list.do">목록으로</a>
-				</div>
+
+					
+					<div id="yjh_btn" style="display: flex; justify-content: flex-end;">
+						<div
+							style="margin-left: 10px; border-radius: 10px; border: 3px solid #6495ed6b;">
+							<input type="button" id="bbt1"
+								style="border: 0; border-radius: 10px; width: 100%; height: 100%; padding: 6px; color: #0ac5a8; background-color: #ffffff; cursor: pointer;" value="목록">
+						</div>
+					</div>
+
+
 					<table id="yjh_table">
 
 						<tr>
-							<td>작성자</td>
-							<td><input type="text" name="m_id" value="${userID }" readonly="readonly"></td>
+							<td class="first_td">작성자</td>
+							<td><input type="text" name="m_id" value="${userID }"
+								readonly="readonly"></td>
 						</tr>
 						<tr>
-							<td>첨부파일</td>
+							<td colspan="2">&nbsp;</td>
+						</tr>
+						<tr>
+							<td class="first_td">첨부파일</td>
 							<!-- 원래 vo에 있는 이름 board_file 을 사용하게 되면 String 형태여야 함. file 형태로 가져가야 하므로 name을 vo의 field명과 다르게 지정함. -->
-							<td><input type="file" name="upfile1" required="required">
-							<input type="file" name="upfile2" required="required">
-							<input type="file" name="upfile3" required="required">
+							<td><input style="width:250px" type="file" name="upfile1" required="required">
+								<input style="width:250px" type="file" name="upfile2" required="required"> <input style="width:250px"
+								type="file" name="upfile3" required="required"></td>
+						</tr>
+						<tr>
+							<td colspan="2">&nbsp;</td>
+						</tr>
+						<tr>
+							<td class="first_td">내용</td>
+							<td style="border: 1px solid #333;">
+								<!-- <input type="text" name="g_content" required="required"></td> -->
+								<textarea style="width: 100%;" rows="10" cols=""
+									name="g_content" required="required" placeholder="글을 작성해주세요"></textarea>
 							</td>
+
 						</tr>
 
 						<tr>
-							<td>내용</td>
-							<td><input type="text" name="g_content" required="required"></td>
+							<td colspan="2">&nbsp;</td>
 						</tr>
-
 					</table>
+
+					<div id="yjh_btn" style="display: flex; justify-content: flex-end;">
+						<div
+							style="margin-left: 10px; border-radius: 10px; border: 3px solid #6495ed6b;">
+							<input type ="submit" id="bbt2"
+								style="border: 0; border-radius: 10px; width: 100%; height: 100%; padding: 6px; color: #0ac5a8; background-color: #ffffff; cursor: pointer;" value="등록">
+
+
+						</div>
+					</div>
 				</form>
 
 
@@ -97,7 +133,14 @@ yjh_table {
 
 			</div>
 
-
+			<script>
+				$('#bbt1').click(function() {
+					location.href = "gallery_list.do";
+				});
+				/* $('#bbt2').click(function(){
+					location.href="gallery_renew.do?gallery_num=${gallery.g_id }";
+				}); */
+			</script>
 
 
 		</div>

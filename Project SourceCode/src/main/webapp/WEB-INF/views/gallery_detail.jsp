@@ -43,60 +43,59 @@ body {
 	margin: 0 auto;
 }
 
+.slide-button {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 5%;
+	text-align: center;
+}
 
-  .slide-button {
-     position: absolute;
-     top: 0;
-     bottom: 0;
-     width: 5%;
-     text-align: center;
-  }
-  .carousel-images{
-     width: 1000px;
-     height: 500px;
-  }
-  
-  .slide-button img {
-     position: absolute;
-     top: 50%;
-     transform: translateY(-50%);
-     font-size: 35px;
-     font-weight: bold;
-     background: rgba(255,255,255,0.4);
-     border-radius: 50%;
-     height: 25px;
-     width: 25px;
-     color: white;
-  }
-  
-  .button-prev {
-     left: 0;
-  }
-  
-  .button-next {
-     right: 15px;
-  }
-  
-  .slider ul {
-     list-style: none;
-     width: 500px;
-     position: relative;
-     left: 0;
-     padding: 0;
-     margin: 0;
-  }
-  
-  .slider ul li {
-     float: left;
-  }
-  
-  .slider {
-     position: relative;
-     width: 1000px;
-     overflow: hidden;
-     margin: 0 auto;
-  }
-  
+.carousel-images {
+	width: 1000px;
+	height: 500px;
+}
+
+.slide-button img {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 35px;
+	font-weight: bold;
+	background: rgba(255, 255, 255, 0.4);
+	border-radius: 50%;
+	height: 25px;
+	width: 25px;
+	color: white;
+}
+
+.button-prev {
+	left: 0;
+}
+
+.button-next {
+	right: 15px;
+}
+
+.slider ul {
+	list-style: none;
+	width: 500px;
+	position: relative;
+	left: 0;
+	padding: 0;
+	margin: 0;
+}
+
+.slider ul li {
+	float: left;
+}
+
+.slider {
+	position: relative;
+	width: 1000px;
+	overflow: hidden;
+	margin: 0 auto;
+}
 #ICR_PFmodal {
 	width: 400px;
 	height: 325px;
@@ -106,6 +105,13 @@ body {
 	.modal-sm {
 		width: 375px;
 	}
+#kdy-companion-writer {
+	width: 820px;
+	display: flex;
+	justify-content: flex-start;
+	margin-top: 5px;
+	color: gray;
+	margin-bottom: 10px;
 }
 </style>
 <script
@@ -193,59 +199,50 @@ body {
 
 </head>
 <body>
+	<!-- 아래 코드는 바디 바로 아래 작성해야함 * 공유 명령어  -->
+	<input id='clip_tmp' type='text'
+		style='position: absolute; top: -2000px;' />
 
 	<div class="jck_wrap">
 		<jsp:include page="header.jsp" />
-		<div id="common" style="width: 1000px; padding: 80px 0px;">
-			<div class="jck_content_container_div2">
+		<div style="display: flex; justify-content: center;">
+			<div id="common" style="width: 1000px; padding-top: 80px;">
+				<div class="jck_content_container_div2" style="width: 100%;">
 
-
-
-
-				<div id="kdy-companion-writer" style="width: 1000px;height: 30px;margin-bottom: 20px;">
-					<div id="kdy-co_prous-img" style="display:inline-block;position: absolute;float: left;">
-						<img class="ICR_C_writer" data-toggle="modal"
+					<div id="kdy-companion-writer">
+						<div id="kdy-co_prous-img" style="display: inline-block ;">
+							<img class="ICR_C_writer" data-toggle="modal"
+								data-target=".bs-example-modal-sm"
+								src="${pageContext.request.contextPath }/resources/images/co_prous.png"
+								style="height: 30px; cursor: pointer;">
+						</div>
+						&nbsp;<span class="ICR_C_writer" data-toggle="modal"
 							data-target=".bs-example-modal-sm"
-							src="${pageContext.request.contextPath }/resources/images/co_prous.png"
-							style="height: 30px; cursor: pointer;line-height: 1.7;">
+							style="cursor: pointer; font-size: x-large; ">${gallery.m_id}</span>
 					</div>
-					&nbsp;
-					<div style="display:inline-block;position: relative;left:30px;padding-top: 5px;">
-					<span class="ICR_C_writer" data-toggle="modal"
-						data-target=".bs-example-modal-sm" style="cursor: pointer;">${gallery.m_id}</span>
+					<div class="slider">
+						<ul>
+							<li><img class="carousel-images"
+								src="${pageContext.request.contextPath }/resources/gallery_uploadFiles/${galleryAdd.g_img1}"
+								alt="" width="1000" height="500" /></li>
+							<li><img class="carousel-images"
+								src="${pageContext.request.contextPath }/resources/gallery_uploadFiles/${galleryAdd.g_img2}"
+								alt="" width="1000" height="500"></li>
+							<li><img class="carousel-images"
+								src="${pageContext.request.contextPath }/resources/gallery_uploadFiles/${galleryAdd.g_img3}"
+								alt="" width="1000" height="500" /></li>
+
+						</ul>
+						<a class="slide-button button-prev" data-nav="prev"><img
+							src="https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-left-01-256.png" />
+						</a> <a class="slide-button button-next" data-nav="next"><img
+							src="https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-right-01-512.png" /></a>
+
 					</div>
-				</div>
-				<div class="slider">
-					<ul>
-						<li><img class="carousel-images"
-							src="${pageContext.request.contextPath }/resources/gallery_uploadFiles/${galleryAdd.g_img1}"
-							alt="" width="1000" height="500" /></li>
-						<li><img class="carousel-images"
-							src="${pageContext.request.contextPath }/resources/gallery_uploadFiles/${galleryAdd.g_img2}"
-							alt="" width="1000" height="500"></li>
-						<li><img class="carousel-images"
-							src="${pageContext.request.contextPath }/resources/gallery_uploadFiles/${galleryAdd.g_img3}"
-							alt="" width="1000" height="500" /></li>
 
-					</ul>
-					<a class="slide-button button-prev" data-nav="prev"><img
-						src="https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-left-01-256.png" />
-					</a> <a class="slide-button button-next" data-nav="next"><img
-						src="https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-right-01-512.png" /></a>
-
-				</div>
-				<form action="gInsert.do" method="post"
-					enctype="multipart/form-data">
-
-					<table id="yjh_table">
-						<%-- <tr>
-							<td class="jh_td">작성자</td>
-							<td class="jh_td">${gallery.m_id }</td>
-						</tr> --%>
-
-						<tr>
-							<td></td>
-							<td style="text-align: right;">
+					<div style="width: 100%; height: 80px;">
+						<div style="display: flex; width: 1000px;">
+							<div style="width: 500px; display: flex;">
 								<div id="YJH_Glike_Y">
 									<img style="width: 30px; height: 30px;"
 										src="${pageContext.request.contextPath }/resources/images/p_like2.png"
@@ -258,45 +255,55 @@ body {
 										onclick="window.location='gallery_unlike.do?g_id=${gallery.g_id}'">
 									${gallery.g_like }
 								</div>
+								<div style="margin-left: 10px;">
+									<button style="border: 0; outline: 0; background: none;">
+										<a href="#" onclick="copy_trackback(); return false;"> <img
+											style="width: 35px; height: 35px;"
+											src="${pageContext.request.contextPath }/resources/images/share.png"></a>
+									</button>
+								</div>
+							</div>
+							<div style="width: 500px;">
+								<div id="yjh_btn"
+									style="display: flex; justify-content: flex-end;">
+									<div
+										style="margin-left: 10px; border-radius: 10px; border: 3px solid #6495ed6b;">
+										<button id="bbt1"
+											style="border: 0; border-radius: 10px; width: 100%; height: 100%; padding: 6px; color: #0ac5a8; background-color: #ffffff; cursor: pointer;">목록</button>
+										<!-- <a href="gallery_list.do" style="width:100%;height:100%;">목록으로</a> -->
+									</div>
 
-							</td>
 
-						</tr>
+									<div
+										style="margin-left: 10px; border-radius: 10px; border: 3px solid #6495ed6b;">
+										<button id="bbt2"
+											style="border: 0; border-radius: 10px; width: 100%; height: 100%; padding: 6px; color: #0ac5a8; background-color: #ffffff; cursor: pointer;">수정</button>
 
+										<%-- <a class="yjh_btn_useronly"
+											href="gallery_renew.do?gallery_num=${gallery.g_id }">수정</a> --%>
+									</div>
+									<div
+										style="margin-left: 10px; border-radius: 10px; border: 3px solid #6495ed6b;">
+										<button id="bbt3"
+											style="border: 0; border-radius: 10px; width: 100%; height: 100%; padding: 6px; color: #0ac5a8; background-color: #ffffff; cursor: pointer;">삭제</button>
 
+										<%-- <a class="yjh_btn_useronly"
+											href="gallery_delete.do?gallery_num=${gallery.g_id }">글삭제</a> --%>
+									</div>
 
-
-
-						<tr>
-							<td class="jh_td">내용</td>
-							<td class="jh_td">${gallery.g_content }</td>
-						</tr>
-
-					</table>
-					<div id="yjh_btn">
-						<a class="yjh_btn_useronly"
-							href="gallery_renew.do?gallery_num=${gallery.g_id }">수정페이지로이동</a>
-						&nbsp;&nbsp; <a class="yjh_btn_useronly"
-							href="gallery_delete.do?gallery_num=${gallery.g_id }">글삭제</a>
-						&nbsp;&nbsp; <a href="gallery_list.do">목록으로</a>
+								</div>
+							</div>
+						</div>
 
 					</div>
-					<br>
-
-				</form>
-
-
-
-
-
+				</div>
 			</div>
 
-
-
-
 		</div>
-		
-		
+		<div
+			style="margin: 0 auto; margin-bottom: 80px; width: 1000px; height: auto; overflow: scroll;">
+			<span style="width: 100%; height: auto; word-break: break-all;">${gallery.g_content }</span>
+		</div>
 		<!-- 프로필 모달 -->
 			<form>
 				<div class="modal fade bs-example-modal-sm" tabindex="-1"
@@ -377,18 +384,23 @@ body {
 					</div>
 				</div>
 			</form>
-		
-		
-		
 		<jsp:include page="footer.jsp" />
 	</div>
 
 
 
 
-<!-- 프로필 스트립트 -->
-<script>
-//추천
+	<script>
+		$('#bbt1').click(function(){
+			location.href="gallery_list.do";
+		});
+		$('#bbt2').click(function(){
+			location.href="gallery_renew.do?gallery_num=${gallery.g_id }";
+		});
+		$('#bbt3').click(function(){
+			location.href="gallery_delete.do?gallery_num=${gallery.g_id }";
+		});
+		//추천
 $(document).on("click", "#ICR_likeBtn", function(event){
 	$.ajax({
 		url : "MemberLikeCh.do?writer=${gallery.m_id}",
@@ -539,42 +551,47 @@ $(document).on("click", "#ICR_ReportBtn2", function(event){
 	}
 	
 });
+		
+		
+	/*<!-- 글쓰기 버튼 유무  -->/  */
+			if ("${sessionScope.userID}" != "") {
+				if ("${sessionScope.userID}" == "${gallery.m_id }") {
+					$('#yjh_writeBtn').css('display', 'block');
+					$('.yjh_btn_useronly').css('display', 'block');
+				} else {
+					$('#yjh_writeBtn').css('display', 'none');
+					$('.yjh_btn_useronly').css('display', 'none');
+				}
 
-</script>
-
-
-
-
-
-
-
-
-
-	<script>
-	<!-- 글쓰기 버튼 유무  -->
-		if ("${sessionScope.userID}" != "") {
-			if ("${sessionScope.userID}" == "${gallery.m_id }") {
-				$('#yjh_writeBtn').css('display', 'block');
-				$('.yjh_btn_useronly').css('display', 'block');
+				if ("${glikeCount}" != "0") {
+					$('#YJH_Glike_Y').css('display', 'none');
+					$('#YJH_Glike_N').css('display', 'block');
+				} else {
+					$('#YJH_Glike_Y').css('display', 'block');
+					$('#YJH_Glike_N').css('display', 'none');
+				}
 			} else {
 				$('#yjh_writeBtn').css('display', 'none');
 				$('.yjh_btn_useronly').css('display', 'none');
-			}
-
-			if ("${glikeCount}" != "0") {
 				$('#YJH_Glike_Y').css('display', 'none');
-				$('#YJH_Glike_N').css('display', 'block');
-			} else {
-				$('#YJH_Glike_Y').css('display', 'block');
 				$('#YJH_Glike_N').css('display', 'none');
-			}
-		} else {
-			$('#yjh_writeBtn').css('display', 'none');
-			$('.yjh_btn_useronly').css('display', 'none');
-			$('#YJH_Glike_Y').css('display', 'none');
-			$('#YJH_Glike_N').css('display', 'none');
 
-		}
-	</script>
+			}
+		</script>
+
+	<script>
+			//상품 페이지 공유 버튼 
+			function copy_trackback() {
+				var address = window.document.location.href;
+				$('#clip_tmp').val(address);
+				$('#clip_tmp').select();
+				var successful = document.execCommand('copy');
+				if (successful) {
+					alert('url 주소가 복사되었습니다.');
+				} else {
+					alert('url 주소가 복사되지 않았습니다.');
+				}
+			}
+		</script>
 </body>
 </html>

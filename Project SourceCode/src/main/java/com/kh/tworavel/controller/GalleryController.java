@@ -212,7 +212,7 @@ try {
 		
 		gService.insertGLike(glike);
 
-		mv.setViewName("redirect:gallery_list.do");
+		mv.setViewName("redirect:gallery_detail.do?gallery_num="+gallery_num);
 		return mv;
 	}
 	
@@ -228,7 +228,7 @@ try {
 		glike.setG_id(gallery_num);
 		glike.setM_id(String.valueOf(session.getAttribute("userID")));
 		gService.deleteGLike(glike);
-		mv.setViewName("redirect:gallery_list.do");
+		mv.setViewName("redirect:gallery_detail.do?gallery_num="+gallery_num);
 		return mv;
 	}
 	

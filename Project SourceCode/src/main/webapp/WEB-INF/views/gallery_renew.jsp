@@ -44,6 +44,11 @@ body {
 #yjh_btn {
 	text-align: right;
 }
+
+.first_td {
+	width: 200px;
+	text-align: center;
+}
 </style>
 
 <script
@@ -61,45 +66,97 @@ body {
 		<div id="common" style="width: 1000px; padding: 80px 0px;">
 			<div class="jck_content_container_div2">
 
-				<div id="yjh_btn">
-					<input type="submit" value="수정하기 " id="yjh_edit_btn">
-					&nbsp;&nbsp; <a href="gallery_list.do">목록으로</a>
+
+				<div id="yjh_btn" style="display: flex; justify-content: flex-end;">
+					<div
+						style="margin-left: 10px; border-radius: 10px; border: 3px solid #6495ed6b;">
+						<input type="button" id="bbt1"
+							style="border: 0; border-radius: 10px; width: 100%; height: 100%; padding: 6px; color: #0ac5a8; background-color: #ffffff; cursor: pointer;" value="목록">
+					</div>
 				</div>
+
 
 				<form action="gUpdate.do" method="post"
 					enctype="multipart/form-data">
 					<table id="yjh_table">
 						<tr>
-							<td>작성자</td>
-							<td><input type="text" name="board_writer"
+							<td class="first_td">작성자</td>
+							<td colspan="3"><input type="text" name="board_writer"
 								value="${gallery.m_id}" readonly="readonly"> <input
 								type="hidden" name="g_id" value="${gallery.g_id}"></td>
 						</tr>
 						<tr>
-							<td>기존 첨부파일</td>
-							<td><c:if test="${empty galleryAdd.g_img1 }">
-						첨부파일 없음
-					</c:if> <c:if test="${!empty galleryAdd.g_img1 }">
-									<img
-										src="${pageContext.request.contextPath }/resources/gallery_uploadFiles/${galleryAdd.g_img1}" />
-
-								</c:if></td>
+							<td colspan="4">&nbsp;</td>
 						</tr>
 						<tr>
-							<td>변경할 첨부파일</td>
-							<td><input type="file" name="upfile" multiple></td>
+							<td class="first_td">기존 첨부파일</td>
+							<td style="width: 250px;"><img
+								src="${pageContext.request.contextPath }/resources/gallery_uploadFiles/${galleryAdd.g_img1}"
+								style="height: 200px; width: 250px; margin-right: 5px;" /></td>
+							<td style="width: 250px;"><img
+								src="${pageContext.request.contextPath }/resources/gallery_uploadFiles/${galleryAdd.g_img2}"
+								style="height: 200px; width: 250px; margin: 0 5px;" /></td>
+							<td style="width: 250px;"><img
+								src="${pageContext.request.contextPath }/resources/gallery_uploadFiles/${galleryAdd.g_img3}"
+								style="height: 200px; width: 250px; margin: 0 5px;" /></td>
+						</tr>
+						<tr>
+							<td colspan="4">&nbsp;</td>
+						</tr>
+						<tr>
+							<td class="first_td">변경할 첨부파일</td>
+							<td style="width: 250px; overflow-x: hidden;"><input
+								style="width: 250px;" type="file" name="upfile1"
+								required="required"></td>
+							<td style="width: 250px; overflow-x: hidden;"><input
+								style="width: 250px;" type="file" name="upfile2"
+								required="required"></td>
+							<td style="width: 250px; overflow-x: hidden;"><input
+								style="width: 250px;" type="file" name="upfile3"
+								required="required"></td>
+
+						</tr>
+						<tr>
+							<td colspan="4">&nbsp;</td>
+						</tr>
+						<tr>
+							<td class="first_td">내용</td>
+
+							<%--  <td><input type="text" name="g_content"
+								value="${gallery.g_content }"></td>   --%>
+
+
+							<td colspan="3" style="border: 1px solid #333;"><textarea
+									style="width: 100%;" rows="10" cols="" name="g_content"
+									required="required" placeholder="글을 작성해주세요">${gallery.g_content }</textarea>
+							</td>
+						<tr>
+							<td colspan="4">&nbsp;</td>
 						</tr>
 
-						<tr>
-							<td>내용</td>
-							<td><input type="text" name="g_content"
-								value="${gallery.g_content }"></td>
-						</tr>
+
 
 
 					</table>
+
+					<!--  <div style="width: 100%; text-align: right;">
+						<input type="submit" value="수정" id="yjh_edit_btn">
+					</div> -->
+
+
+					<div id="yjh_btn" style="display: flex; justify-content: flex-end;">
+						<div
+							style="margin-left: 10px; border-radius: 10px; border: 3px solid #6495ed6b;">
+							<input type ="submit"  id="bbt2"
+								style="border: 0; border-radius: 10px; width: 100%; height: 100%; padding: 6px; color: #0ac5a8; background-color: #ffffff; cursor: pointer;" value="수정">
+
+
+						</div>
+					</div>
+
+
 					<br>
-					</table>
+
 				</form>
 
 
@@ -113,9 +170,15 @@ body {
 
 		</div>
 		<jsp:include page="footer.jsp" />
-	</div>
-	<script>
-		
-	</script>
+
+		<script>
+			$('#bbt1').click(function() {
+				location.href = "gallery_list.do";
+			});
+			/* $('#bbt2').click(function(){
+				location.href="/gInsert.do?gallery_num=${gallery.g_id }";
+			}); */
+		</script>
+
 </body>
 </html>
