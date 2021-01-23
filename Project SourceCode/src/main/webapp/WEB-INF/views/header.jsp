@@ -277,7 +277,7 @@ function showUnread(result){
 	<div id="header_container"
 		style="width: 100%; border-bottom: 1px solid black;">
 		<header
-			style="position: relative; width: 1280px; padding: 0 10px; height: 70px; display: flex; justify-content: space-between; align-items: center; z-index: 999; border-radius: 0 0 10px 10px;">
+			style="position: relative; width: 1280px; height: 70px; display: flex; justify-content: space-between; align-items: center; z-index: 999; border-radius: 0 0 10px 10px;">
 			<div id="header_inside"
 				style="position: fixed; width: 1280px; border-radius: 0 0 10px 10px;">
 				<div id="header_inside_section"
