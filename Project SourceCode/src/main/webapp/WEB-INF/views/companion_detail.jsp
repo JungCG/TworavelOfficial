@@ -519,7 +519,7 @@ $('.ICR_C_writer').on('click',function(){
 			$('#ICR_pro_m_like').html("추천수 : " + member.m_like);
 			$('#ICR_pro_m_reportcount').html("신고당한 수 : " + member.m_reportcount);
 			$('#ICR_pro_m_intro').html("소개글 : " + member.m_intro);
-			$('#ICR_pro_m_img').attr("src", "${pageContext.request.contextPath}/resources/uploadFiles/" + member.m_image);
+			$('#ICR_pro_m_img').attr("src", "/uploadFiles/" + member.m_image);
 		},
 		error : function(){
 		}

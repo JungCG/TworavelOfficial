@@ -538,7 +538,7 @@ public class MypageController {
 	// 파일저장 메소드
 	private void saveFile(MultipartFile report, HttpServletRequest request) {
 		String root = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = root + "\\uploadFiles";
+		String savePath = root.split("ROOT")[0] + "uploadFiles";
 		File folder = new File(savePath);
 		if (!folder.exists()) {
 			folder.mkdir(); // 폴더가 없다면 생성한다.
@@ -548,7 +548,7 @@ public class MypageController {
 			// 파일 저장
 			System.out.println(report.getOriginalFilename() + "을 저장합니다.");
 			System.out.println("저장 경로 : " + savePath);
-			filePath = folder + "\\" + report.getOriginalFilename();
+			filePath = folder + "/" + report.getOriginalFilename();
 			report.transferTo(new File(filePath)); // 파일을 저장한다
 			System.out.println("파일 명 : " + report.getOriginalFilename());
 			System.out.println("파일 경로 : " + filePath);

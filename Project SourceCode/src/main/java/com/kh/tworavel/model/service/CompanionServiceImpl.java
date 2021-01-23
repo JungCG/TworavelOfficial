@@ -239,7 +239,7 @@ public class CompanionServiceImpl implements CompanionService {
 	@Override
 	@Async
 	public void favorEmailSend(String m_id, String m_email, Companion comp) {
-		String host = "http://localhost:8090/tworavel/";
+		String host = "http://54.180.223.230:8090/";
 		// 개인 이메일 작성
 		String from = "nothing1360@gmail.com";
 

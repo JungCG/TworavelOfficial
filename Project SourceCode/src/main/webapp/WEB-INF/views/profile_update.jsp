@@ -192,7 +192,7 @@ $(document).ready(function() {
 									<input type="file" name="upfile" id="userimg" style="display: none;">
 									<label id = "imgDeleteBtn" class="btn btn-default" >&times;</label><br>
 									
-									<img id="showimg" src="${pageContext.request.contextPath}/resources/uploadFiles/${member.m_image}" style="width: 200px; height: 200px;"></td>
+									<img id="showimg" src="/uploadFiles/${member.m_image}" style="width: 200px; height: 200px;"></td>
 								</tr>
 								<tr>
 									<td colspan="3">&nbsp;</td>

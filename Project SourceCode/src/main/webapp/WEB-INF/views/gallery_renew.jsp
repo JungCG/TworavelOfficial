@@ -91,13 +91,13 @@ body {
 						<tr>
 							<td class="first_td">기존 첨부파일</td>
 							<td style="width: 250px;"><img
-								src="${pageContext.request.contextPath }/resources/gallery_uploadFiles/${galleryAdd.g_img1}"
+								src="/gallery_uploadFiles/${galleryAdd.g_img1}"
 								style="height: 200px; width: 250px; margin-right: 5px;" /></td>
 							<td style="width: 250px;"><img
-								src="${pageContext.request.contextPath }/resources/gallery_uploadFiles/${galleryAdd.g_img2}"
+								src="/gallery_uploadFiles/${galleryAdd.g_img2}"
 								style="height: 200px; width: 250px; margin: 0 5px;" /></td>
 							<td style="width: 250px;"><img
-								src="${pageContext.request.contextPath }/resources/gallery_uploadFiles/${galleryAdd.g_img3}"
+								src="/gallery_uploadFiles/${galleryAdd.g_img3}"
 								style="height: 200px; width: 250px; margin: 0 5px;" /></td>
 						</tr>
 						<tr>

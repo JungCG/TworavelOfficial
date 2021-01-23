@@ -159,7 +159,7 @@ function showUnread2(result){
 			
 			<div id="ICR_profile_img">
 				<c:if test="${not empty member.m_image}">
-				<img src="${pageContext.request.contextPath}/resources/uploadFiles/${member.m_image}" style="width: 275px; height: 275px; display: inline; padding: 20px;margin-top: 15px;">
+				<img src="/uploadFiles/${member.m_image}" style="width: 275px; height: 275px; display: inline; padding: 20px;margin-top: 15px;">
 				</c:if>
 				<c:if test="${empty member.m_image}">
 				<img src="${pageContext.request.contextPath}/resources/images/none_img.JPG" style="width: 300px; height: 300px; display: inline; padding: 20px;margin-top: 15px;">

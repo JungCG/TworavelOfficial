@@ -76,11 +76,11 @@ body {
 												<div class="imgswap"
 													style="width: 300px; height: 350px; margin: 0 auto; position: relative; padding-top: 10px;">
 													<img class="img1111"
-														src="${pageContext.request.contextPath }/resources/gallery_uploadFiles/${pvo.g_img1}"
+														src="/gallery_uploadFiles/${pvo.g_img1}"
 														style="width: 300px; left: 10px; height: 350px;"> <img
 														class="img2222"
 														style="z-index: 5; width: 300px; height: 350px; position: absolute; text-align: center; background-color: black; opacity: 0.5;"
-														src="${pageContext.request.contextPath }/resources/gallery_uploadFiles/${pvo.g_img1}">
+														src="/gallery_uploadFiles/${pvo.g_img1}">
 													<div class="img2222"
 														style="font-size: 20px; font-weight: bold; width: 350px; padding-left: 20px;">
 														<%--  <div class="img2222" style="position: absolute; top: 300px;">${pvo.g_content}</div> --%>

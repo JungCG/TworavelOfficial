@@ -177,7 +177,7 @@ try {
 	}
 	private void saveFile(MultipartFile report, HttpServletRequest request) {
 		String root = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = root + "/Gallery_uploadFiles";
+		String savePath = root.split("ROOT")[0] + "gallery_uploadFiles";
 		File folder = new File(savePath);
 		if (!folder.exists()) {
 			folder.mkdirs(); // 폴더가 없다면 생성한다.

@@ -402,7 +402,7 @@ public class MemberController {
 
 	private void saveFile(MultipartFile report, HttpServletRequest request) {
 		String root = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = root + "\\uploadFiles";
+		String savePath = root.split("ROOT")[0] + "uploadFiles";
 		File folder = new File(savePath);
 
 		if (!folder.exists()) {
@@ -412,7 +412,7 @@ public class MemberController {
 		String filePath = null;
 
 		try { // 파일 저장
-			filePath = folder + "\\" + report.getOriginalFilename();
+			filePath = folder + "/" + report.getOriginalFilename();
 			report.transferTo(new File(filePath)); // 파일을 저장한다
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -392,8 +392,7 @@ public class BoardController {
 		}
 	}
 
-	
-	@RequestMapping("/fileupload.do")
+	@RequestMapping(value = "fileupload.do")
 	public void multiplePhotoUpload(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			// 파일정보
@@ -412,12 +411,12 @@ public class BoardController {
 
 			// 파일 기본경로
 
-			String dftFilePath = request.getSession().getServletContext().getRealPath("/");
+			String dftFilePath = request.getSession().getServletContext().getRealPath("resources");
 
 			// 파일 기본경로 _ 상세경로
 
-			String filePath = dftFilePath + "resources" + File.separator + "board_photo_upload" + File.separator;
-
+			String filePath = dftFilePath.split("ROOT")[0]+"board_photo_upload";
+			
 
 			File file = new File(filePath);
 
@@ -433,7 +432,7 @@ public class BoardController {
 
 			realFileNm = today + UUID.randomUUID().toString() + filename.substring(filename.lastIndexOf("."));
 
-			String rlFileNm = filePath + realFileNm;
+			String rlFileNm = filePath + "/"+realFileNm;
 
 			///////////////// 서버에 파일쓰기 /////////////////
 
@@ -472,7 +471,7 @@ public class BoardController {
 			sFileInfo += "&sFileName=" + filename;
 			;
 
-			sFileInfo += "&sFileURL=" + "/tworavel/resources/board_photo_upload/" + realFileNm;
+			sFileInfo += "&sFileURL=" + "/board_photo_upload/" + realFileNm;
 
 			PrintWriter print = response.getWriter();
 

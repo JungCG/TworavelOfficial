@@ -52,7 +52,8 @@ body {
 }
 
 .carousel-images {
-	width: 1000px;
+	max-width : 900px;
+	width: auto;
 	height: 500px;
 }
 
@@ -79,20 +80,22 @@ body {
 
 .slider ul {
 	list-style: none;
-	width: 500px;
+	width: 3000px;
 	position: relative;
 	left: 0;
 	padding: 0;
 	margin: 0;
+	height : 500px;
 }
 
 .slider ul li {
-	float: left;
+width : 1000px;
+text-align : center;
+height : 500px;
 }
 
 .slider {
 	position: relative;
-	width: 1000px;
 	overflow: hidden;
 	margin: 0 auto;
 }
@@ -223,14 +226,14 @@ body {
 					<div class="slider">
 						<ul>
 							<li><img class="carousel-images"
-								src="${pageContext.request.contextPath }/resources/gallery_uploadFiles/${galleryAdd.g_img1}"
-								alt="" width="1000" height="500" /></li>
+								src="/gallery_uploadFiles/${galleryAdd.g_img1}"
+								alt=""/></li>
 							<li><img class="carousel-images"
-								src="${pageContext.request.contextPath }/resources/gallery_uploadFiles/${galleryAdd.g_img2}"
-								alt="" width="1000" height="500"></li>
+								src="/gallery_uploadFiles/${galleryAdd.g_img2}"
+								alt=""/></li>
 							<li><img class="carousel-images"
-								src="${pageContext.request.contextPath }/resources/gallery_uploadFiles/${galleryAdd.g_img3}"
-								alt="" width="1000" height="500" /></li>
+								src="/gallery_uploadFiles/${galleryAdd.g_img3}"
+								alt=""/></li>
 
 						</ul>
 						<a class="slide-button button-prev" data-nav="prev"><img
@@ -240,7 +243,7 @@ body {
 
 					</div>
 
-					<div style="width: 100%; height: 80px;">
+					<div style="width: 100%; height: 80px; margin-top:20px;">
 						<div style="display: flex; width: 1000px;">
 							<div style="width: 500px; display: flex;">
 								<div id="YJH_Glike_Y">
@@ -301,7 +304,7 @@ body {
 
 		</div>
 		<div
-			style="margin: 0 auto; margin-bottom: 80px; width: 1000px; height: auto; overflow: scroll;">
+			style="margin: 0 auto; padding : 10px;margin-bottom: 80px; width: 1000px; height: auto; border : 1px solid #ffffff; border-color: rgba(10,197,168,0.2)">
 			<span style="width: 100%; height: auto; word-break: break-all;">${gallery.g_content }</span>
 		</div>
 		<!-- 프로필 모달 -->
@@ -481,7 +484,7 @@ $('.ICR_C_writer').on('click',function(){
 			$('#ICR_pro_m_like').html("추천수 : " + member.m_like);
 			$('#ICR_pro_m_reportcount').html("신고당한 수 : " + member.m_reportcount);
 			$('#ICR_pro_m_intro').html("소개글 : " + member.m_intro);
-			$('#ICR_pro_m_img').attr("src", "${pageContext.request.contextPath}/resources/uploadFiles/" + member.m_image);
+			$('#ICR_pro_m_img').attr("src", "/uploadFiles/" + member.m_image);
 		},
 		error : function(){
 		}
