@@ -1,4 +1,4 @@
-# <p style="color:#34666f; font-weight:bolder;">국내여행 동행 사이트 TwoRavel</p>
+# 국내여행 동행 사이트 TwoRavel
 
 -----------------
 
@@ -71,73 +71,73 @@
 1. **카카오맵과 공공데이터를 이용한 여행 지도, 코로나 지도**
 <p align="center">
     <img src = "ForREADME/MF11.png", width="100%">
-    <span style="color:#0AC5A8; font-weight:bolder;">- 여행 테마 지도 -</span>
+    <sup style="color:#0AC5A8; font-weight:bolder;">- 여행 테마 지도 -</sup>
 </p>
 <p align="center">
     <img src = "ForREADME/MF12.png", width="100%">
-    <span style="color:#0AC5A8; font-weight:bolder;">- 코로나 지도 -</span>
+    <sup style="color:#0AC5A8; font-weight:bolder;">- 코로나 지도 -</sup>
 </p>
 
 2. **웹소켓을 이용한 다대다 채팅**
 <p align="center">
     <img src = "ForREADME/MF21.png", width="100%">
-    <span style="color:#0AC5A8; font-weight:bolder;">- 채팅 리스트 -</span>
+    <sup style="color:#0AC5A8; font-weight:bolder;">- 채팅 리스트 -</sup>
 </p>
 <p align="center">
     <img src = "ForREADME/MF22.png", width="100%">
-    <span style="color:#0AC5A8; font-weight:bolder;">- 채팅방 -</span>
+    <sup style="color:#0AC5A8; font-weight:bolder;">- 채팅방 -</sup>
 </p>
 
 3. **회원, 동행 게시판, 통합게시판, 갤러리 조회/등록/수정/삭제/추천**
 <p align="center">
     <img src = "ForREADME/MF31.png", width="100%">
-    <span style="color:#0AC5A8; font-weight:bolder;">- 개인 프로필 -</span>
+    <sup style="color:#0AC5A8; font-weight:bolder;">- 개인 프로필 -</sup>
 </p>
 <p align="center">
     <img src = "ForREADME/MF32.png", width="100%">
-    <span style="color:#0AC5A8; font-weight:bolder;">- 상대방 프로필 -</span>
+    <sup style="color:#0AC5A8; font-weight:bolder;">- 상대방 프로필 -</sup>
 </p>
 <p align="center">
     <img src = "ForREADME/MF33.png", width="100%">
-    <span style="color:#0AC5A8; font-weight:bolder;">- 동행 게시판 리스트 -</span>
+    <sup style="color:#0AC5A8; font-weight:bolder;">- 동행 게시판 리스트 -</sup>
 </p>
 <p align="center">
     <img src = "ForREADME/MF34.png", width="100%">
-    <span style="color:#0AC5A8; font-weight:bolder;">- 통합 게시판 리스트 -</span>
+    <sup style="color:#0AC5A8; font-weight:bolder;">- 통합 게시판 리스트 -</sup>
 </p>
 <p align="center">
     <img src = "ForREADME/MF35.png", width="100%">
-    <span style="color:#0AC5A8; font-weight:bolder;">- 갤러리 리스트 -</span>
+    <sup style="color:#0AC5A8; font-weight:bolder;">- 갤러리 리스트 -</sup>
 </p>
 
 4. **SmartEditor를 이용한 게시판**
 <p align="center">
     <img src = "ForREADME/MF41.png", width="100%">
-    <span style="color:#0AC5A8; font-weight:bolder;">- 스마트 에디터를 이용한 게시글 작성 -</span>
+    <sup style="color:#0AC5A8; font-weight:bolder;">- 스마트 에디터를 이용한 게시글 작성 -</sup>
 </p>
 
 5. **Iamport를 이용한 결제 구현**
 <p align="center">
     <img src = "ForREADME/MF51.png", width="100%">
-    <span style="color:#0AC5A8; font-weight:bolder;">- Iamport를 이용한 결제 페이지 -</span>
+    <sup style="color:#0AC5A8; font-weight:bolder;">- Iamport를 이용한 결제 페이지 -</sup>
 </p>
 
 6. **구글 차트를 이용한 통계 구현**
 <p align="center">
     <img src = "ForREADME/MF61.png", width="100%">
-    <span style="color:#0AC5A8; font-weight:bolder;">- 구글 차트를 이용한 통계 -</span>
+    <sup style="color:#0AC5A8; font-weight:bolder;">- 구글 차트를 이용한 통계 -</sup>
 </p>
 
 7. **공공 API를 이용한 오늘날씨 + 일기 예보**
 <p align="center">
     <img src = "ForREADME/MF71.png", width="100%">
-    <span style="color:#0AC5A8; font-weight:bolder;">- 공공 API를 이용한 일기예보 -</span>
+    <sup style="color:#0AC5A8; font-weight:bolder;">- 공공 API를 이용한 일기예보 -</sup>
 </p>
 
 8. **마이페이지 (채팅, 작성한 게시글, 동행 신청, 키워드, 좋아요)**
 <p align="center">
     <img src = "ForREADME/MF81.png", width="100%">
-    <span style="color:#0AC5A8; font-weight:bolder;">- 마이 페이지 -</span>
+    <sup style="color:#0AC5A8; font-weight:bolder;">- 마이 페이지 -</sup>
 </p>
 
 9. **비동기로 구현한 이메일 알림 전송**
@@ -151,7 +151,7 @@
 - **Detailed Document** : can be found in each directory.
 <p align="center">
     <img src = "ForREADME/Schedule.png", width="100%">
-    <span style="color:#0AC5A8; font-weight:bolder;">- Schedule -</span>
+    <sup style="color:#0AC5A8; font-weight:bolder;">- Schedule -</sup>
 </p>
 
 -----------------
@@ -163,51 +163,51 @@
 **1. 기능정의서**
 <p align="center">
     <img src = "ForREADME/Function.png", width="100%">
-    <span style="color:#0AC5A8; font-weight:bolder;">- Function_Def -</span>
+    <sup style="color:#0AC5A8; font-weight:bolder;">- Function_Def -</sup>
 </p>
 
 
 **2. 유스케이스**
 <p align="center">
     <img src = "ForREADME/UseCase.png", width="100%">
-    <span style="color:#0AC5A8; font-weight:bolder;">- UseCase Diagram -</span>
+    <sup style="color:#0AC5A8; font-weight:bolder;">- UseCase Diagram -</sup>
 </p>
 
 
 **3. UI 설계서**
 <p align="center">
     <img src = "ForREADME/UI.png", width="100%">
-    <span style="color:#0AC5A8; font-weight:bolder;">- UI Design (Chat) -</span>
+    <sup style="color:#0AC5A8; font-weight:bolder;">- UI Design (Chat) -</sup>
 </p>
 
 
 **4. ERD**
 <p align="center">
     <img src = "ForREADME/ERD.png", width="100%">
-    <span style="color:#0AC5A8; font-weight:bolder;">- ERD -</span>
+    <sup style="color:#0AC5A8; font-weight:bolder;">- ERD -</sup>
 </p>
 
 
 **5. 테이블 정의서**
 <p align="center">
     <img src = "ForREADME/Table.png", width="100%">
-    <span style="color:#0AC5A8; font-weight:bolder;">- DB Table Def -</span>
+    <sup style="color:#0AC5A8; font-weight:bolder;">- DB Table Def -</sup>
 </p>
 
 
 **6. 클래스 다이어그램**
 <p align="center">
     <img src = "ForREADME/Class.png", width="100%">
-    <span style="color:#0AC5A8; font-weight:bolder;">- Class Diagram (MyPage) -</span>
+    <sup style="color:#0AC5A8; font-weight:bolder;">- Class Diagram (MyPage) -</sup>
 </p>
 
 
 **7. 시퀀스 다이어그램**
 <p align="center">
     <img src = "ForREADME/Sequence1.png", width="100%">
-    <span style="color:#0AC5A8; font-weight:bolder;">- Sequence Diagram 1 (ChatRoom) -</span>
+    <sup style="color:#0AC5A8; font-weight:bolder;">- Sequence Diagram 1 (ChatRoom) -</sup>
 </p>
 <p align="center">
     <img src = "ForREADME/Sequence2.png", width="100%">
-    <span style="color:#0AC5A8; font-weight:bolder;">- Sequence Diagram 2 (MemberLikeCheck) -</span>
+    <sup style="color:#0AC5A8; font-weight:bolder;">- Sequence Diagram 2 (MemberLikeCheck) -</sup>
 </p>
