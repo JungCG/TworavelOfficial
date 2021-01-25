@@ -1,14 +1,5 @@
 package com.kh.tworavel.controller;
 
-import java.util.Properties;
-
-import javax.mail.Address;
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -19,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.tworavel.common.Gmail;
-import com.kh.tworavel.common.SHA256;
 import com.kh.tworavel.model.domain.Companion;
 import com.kh.tworavel.model.domain.Member;
 import com.kh.tworavel.model.domain.Out;

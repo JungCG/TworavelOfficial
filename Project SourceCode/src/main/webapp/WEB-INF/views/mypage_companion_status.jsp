@@ -45,7 +45,7 @@ table{
 	margin: 0 auto;
 	text-align: center;
 }
-.btn-default{
+.btn-default2{
 	width: 49%;
 }
 #ICR_cominfoBtn_G{
@@ -71,8 +71,8 @@ a{
 		
 		<div id="ICR_writedlist">
 			<h3 style="margin-bottom: 50px;">동행 신청 내역</h3>
-			<button id="ICR_cominfoBtn_G" class="btn btn-default">보낸 동행신청 내역</button>
-			<button id="ICR_cominfoBtn_T" class="btn btn-default">받은 동행신청 내역</button><br><br>
+			<button id="ICR_cominfoBtn_G" class="btn btn-default btn-default2">보낸 동행신청 내역</button>
+			<button id="ICR_cominfoBtn_T" class="btn btn-default btn-default2">받은 동행신청 내역</button><br><br>
 			
 			
 			
@@ -119,7 +119,7 @@ a{
 					<td>${companioninfo_t.m_id}</td>
 					<td>
 					<c:if test="${companioninfo_t.c_yn eq 'N'}">
-						<button class="ICR_OkBtn btn btn-default">수락하기&nbsp;&nbsp;</button>
+						<button class="ICR_OkBtn btn btn-default">수락하기</button>
 					</c:if>
 					<c:if test="${companioninfo_t.c_yn eq 'Y'}">
 					${companioninfo_t.c_yn}&nbsp;&nbsp;&nbsp;
@@ -130,7 +130,7 @@ a{
 						<font style="color:blue;" color="blue">초대완료</font>
 					</c:if>
 					<c:if test="${companioninfo_t.ch_inout ne 'I'}">
-						<button class="ICR_ChattingBtn btn btn-default">채팅초대하기&nbsp;&nbsp;</button>
+						<button class="ICR_ChattingBtn btn btn-default">채팅초대하기</button>
 					</c:if>
 					</td>
 				</tr>

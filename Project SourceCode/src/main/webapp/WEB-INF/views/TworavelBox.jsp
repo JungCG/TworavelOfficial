@@ -119,7 +119,7 @@ body {
 
 						<img
 							src="${pageContext.request.contextPath }/resources/images/tworavelbox2.jpg"
-							style="width: 100%; height: 100%;">
+							style="width: 100%;">
 					</div>
 					<div style="width: 480px; height: auto; padding-left: 10px;">
 						<div style="border-bottom: 1px solid gray;">

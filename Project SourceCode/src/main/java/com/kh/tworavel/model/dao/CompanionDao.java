@@ -8,14 +8,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.kh.tworavel.model.domain.Board;
 import com.kh.tworavel.model.domain.Companion;
-import com.kh.tworavel.model.domain.CompanionAdd;
 import com.kh.tworavel.model.domain.CompanionInfo;
-import com.kh.tworavel.model.domain.CompanionLike;
 import com.kh.tworavel.model.domain.CompanionMap;
 import com.kh.tworavel.model.domain.CompanionTag;
-import com.kh.tworavel.model.domain.Map;
 
 @Repository("cDao")
 public class CompanionDao {

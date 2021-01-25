@@ -28,7 +28,7 @@
 	
 	<select id="selectReportAll" resultType="arraylist" resultMap="resultReport">
 	
-	select * from report
+	select * from report order by r_id
 	</select>
 	
 	<delete id="deleteReport" parameterType="int" flushCache="true" statementType="PREPARED">

@@ -5,17 +5,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class GAdd {
 
-	
-//	Name   Null?    Type           
-//			------ -------- -------------- 
-//			G_ID   NOT NULL NUMBER         
-//			G_IMG1          VARCHAR2(4000) 
-//			G_IMG2          VARCHAR2(4000) 
-//			G_IMG3          VARCHAR2(4000) 
-			
-			
-
-
 				private int g_id;
 				private String g_img1;
 				private String g_img2;

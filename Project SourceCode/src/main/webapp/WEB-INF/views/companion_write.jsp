@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>동행 구하기</title>
 <style>
 * {
 	padding: 0;
@@ -667,7 +667,12 @@ input[type='radio']:checked:after {
 		today = yyyy + '-' + mm + '-' + dd;
 		document.getElementById("kdy-startd-input").setAttribute("min", today);
 		document.getElementById("kdy-endd-input").setAttribute("min", today);
-
+		
+		$('#kdy-startd-input').change(function(){
+			document.getElementById("kdy-endd-input").value=document.getElementById("kdy-startd-input").value; 
+			document.getElementById("kdy-endd-input").setAttribute("min", document.getElementById("kdy-startd-input").value);
+		});
+		
 		//지정날짜로 인풋에 입력
 		//document.getElementById('kdy-startd-input').value = new Date().toISOString().substring(0, 10);
 	</script>

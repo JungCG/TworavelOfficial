@@ -11,7 +11,7 @@
 <head>
 <meta charset="UTF-8">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<title>Insert title here</title>
+<title>동행 구하기</title>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.js"></script>
 <style>
@@ -225,7 +225,7 @@ a {
 								<td colspan="6"
 									style="text-align: end; padding-top: 30px; padding-right: 30px; color: #0AC5A8;"><button
 										type="button" id="clwrite"
-										style="color: #0AC5A8; border: 3px solid #6495ed6b; border-radius: 10px; padding: 6px; background-color: #ffffff;">글쓰기</button></td>
+										style="color: #0AC5A8; border: 3px solid #6495ed6b; border-radius: 10px; padding: 6px; background-color: #ffffff; cursor:pointer;">글쓰기</button></td>
 							</c:when>
 						</c:choose>
 					</tr>
@@ -235,7 +235,7 @@ a {
 								<input type="text" placeholder="검색어를 입력해주세요"
 									style="width: 250px; height: 20px; border-radius: 10px; border: 3px solid #6495ed6b; padding: 10px; margin-top: 30px; margin-left: 100px;"
 									name="keyword"> <input type="submit" value="검색"
-									style="background-color: white; border-radius: 10px; height: 100%; border: 3px solid #6495ed6b; padding: 5px; color: #0AC5A8;">
+									style="background-color: white; border-radius: 10px; height: 100%; border: 3px solid #6495ed6b; padding: 5px; color: #0AC5A8; cursor:pointer;">
 							</form>
 						<td>
 					</tr>

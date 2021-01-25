@@ -2,17 +2,13 @@ package com.kh.tworavel.scheduler;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import com.kh.tworavel.common.CoronaParsing;
-import com.kh.tworavel.model.domain.CoronaMap;
 import com.kh.tworavel.model.domain.Member;
-import com.kh.tworavel.model.service.CoronaMapService;
 import com.kh.tworavel.model.service.MemberService;
 
 @Component

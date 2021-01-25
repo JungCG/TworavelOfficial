@@ -1,19 +1,14 @@
 package com.kh.tworavel.controller;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -22,19 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.tworavel.model.domain.Board;
 import com.kh.tworavel.model.domain.Companion;
-import com.kh.tworavel.model.domain.Companion;
-import com.kh.tworavel.model.domain.Companion;
-import com.kh.tworavel.model.domain.CompanionAdd;
 import com.kh.tworavel.model.domain.CompanionInfo;
-import com.kh.tworavel.model.domain.CompanionLike;
 import com.kh.tworavel.model.domain.CompanionMap;
 import com.kh.tworavel.model.domain.CompanionTag;
 import com.kh.tworavel.model.service.CompanionService;
+import com.kh.tworavel.model.service.MypageService;
 
 @Controller
 @RequestMapping
@@ -42,6 +32,9 @@ public class CompanionController {
 	
 	@Autowired
 	private CompanionService cService;
+	@Autowired
+	private MypageService mypService;
+	
 	public static final int LIMIT = 15;
 
 	// 동행글 등록 페이지
@@ -209,7 +202,7 @@ public class CompanionController {
 
 	// 동행글 상세페이지
 	@RequestMapping(value = "companion_detail.do")
-	public ModelAndView companionDetailService(ModelAndView mv, @RequestParam(name = "c_id") int c_id,
+	public ModelAndView companionDetailService(HttpServletRequest request, ModelAndView mv, @RequestParam(name = "c_id") int c_id,
 			CompanionTag ct) {
 		try {
 			int markercount = cService.selectCmapCount(c_id);
@@ -275,6 +268,15 @@ public class CompanionController {
 			mv.addObject("tlist1", CTname1);
 			mv.addObject("tlist2", CTname2);
 			mv.addObject("tlist3", CTname3);
+
+			HttpSession session = request.getSession();
+			CompanionInfo companioninfo = new CompanionInfo();
+			
+			companioninfo.setC_id(c_id);
+			companioninfo.setM_id(String.valueOf(session.getAttribute("userID")));
+			
+			int cnt = mypService.jcg_dup_check(companioninfo);
+			mv.addObject("cnt", cnt);
 
 			mv.setViewName("companion_detail");
 		} catch (Exception e) {
@@ -413,28 +415,43 @@ public class CompanionController {
 	@RequestMapping(value = "companion_insertInfo_check.do")
 	@ResponseBody
 	public int companion_insertInfo_check(ModelAndView mv, @RequestParam(name = "m_id", required = true) String clwID) {
+		
 		return cService.companionlistwrite(clwID);
 	}
+	
 	@RequestMapping(value = "companion_insertInfo.do")
 	public ModelAndView companioninsertInfoService(CompanionInfo io, ModelAndView mv, HttpServletRequest request,
 			HttpServletResponse response, @RequestParam(name = "c_id") int c_id,
 			@RequestParam(name = "m_id2") String m_id2, @RequestParam(name = "m_id") String m_id,
 			@RequestParam(name = "c_name") String c_name) {
 		try {
-			int checkid = 0;
-			CompanionInfo vo = new CompanionInfo();
-			vo.setC_id(c_id);
-			vo.setM_id2(m_id2);
-			vo.setM_id(m_id);
-			vo.setC_name(c_name);
-			vo.setC_yn("N");
-			cService.insertCInfo(vo);
+			HttpSession session = request.getSession();
+			CompanionInfo companioninfo = new CompanionInfo();
+			
+			companioninfo.setC_id(c_id);
+			companioninfo.setM_id(String.valueOf(session.getAttribute("userID")));
+			
+			int cnt = mypService.jcg_dup_check(companioninfo);
+			if(cnt != 0) {
+				mv.addObject("msg", "이미 신청한 동행입니다.");
+				mv.addObject("url", "/companion_list.do");
+			}else {
+				int checkid = 0;
+				CompanionInfo vo = new CompanionInfo();
+				vo.setC_id(c_id);
+				vo.setM_id2(m_id2);
+				vo.setM_id(m_id);
+				vo.setC_name(c_name);
+				vo.setC_yn("N");
+				cService.insertCInfo(vo);
+				mv.addObject("msg", "동행 신청에 성공하였습니다. 20포인트가 감소되었습니다");
+				mv.addObject("url", "/companion_list.do");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			mv.setViewName("redirect:companion_list.do");
 		}
-		mv.addObject("msg", "동행 신청에 성공하였습니다. 20포인트가 감소되었습니다");
-		mv.addObject("url", "/companion_list.do");
+		
 		mv.setViewName("alertMsg");
 		return mv;
 	}

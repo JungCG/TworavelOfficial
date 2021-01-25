@@ -1,5 +1,6 @@
 package com.kh.tworavel.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -62,4 +63,5 @@ public interface MypageService {
 	//동행 마감
 	public int updateCompanionEnd(String c_id);
 	public int updateCompanionRe(String c_id);
+	int jcg_dup_check(CompanionInfo companioninfo);
 }

@@ -1,5 +1,6 @@
 package com.kh.tworavel.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -170,6 +171,11 @@ public class MypageServiceImpl implements MypageService{
 	@Override
 	public int MemberLikeUpdate(Mlike mlike) {
 		return mypDao.MemberLikeUpdate(mlike);
+	}
+
+	@Override
+	public int jcg_dup_check(CompanionInfo companioninfo) {
+		return mypDao.jcg_dup_check(companioninfo);
 	}
 	
 	

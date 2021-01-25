@@ -14,7 +14,6 @@ import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 
 import com.kh.tworavel.common.Gmail;
@@ -124,7 +123,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	@Async
 	public void joinEmailSend(String m_id, String Tto) throws InterruptedException {
-		String host = "http://54.180.223.230:8090/";
+		String host = "http://www.two-ravel.com/";
 		// 개인 이메일 작성
 		String from = "nothing1360@gmail.com";
 
@@ -171,7 +170,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	@Async
 	public void searchEmailSend(Member m) throws InterruptedException {
-		String host = "http://54.180.223.230:8090/";
+		String host = "http://www.two-ravel.com/";
 		// 개인 이메일 작성
 		Member m2 = m;
 
@@ -220,7 +219,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	@Async
 	public void outEmailSend(String Tto, Out vo) throws InterruptedException {
-		String host = "http://54.180.223.230:8090/";
+		String host = "http://www.two-ravel.com/";
 		// 개인 이메일 작성
 		String from = "nothing1360@gmail.com";
 
@@ -269,7 +268,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	@Async
 	public void deleteCompanionEmailSend(Companion comp, Member m) throws InterruptedException {
-		String host = "http://54.180.223.230:8090/";
+		String host = "http://www.two-ravel.com/";
 		// 개인 이메일 작성
 		String from = "nothing1360@gmail.com";
 

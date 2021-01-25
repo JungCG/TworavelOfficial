@@ -1,17 +1,5 @@
 package com.kh.tworavel.model.domain;
 
-//C_ID NUMBER NOT NULL PRIMARY KEY,
-//C_NAME VARCHAR2(500) NOT NULL,
-//C_LA NUMBER DEFAULT 0 NOT NULL,
-//C_MA NUMBER DEFAULT 0 NOT NULL,
-//
-//C_defCnt NUMBER DEFAULT 0 NOT NULL,
-//C_isolIngCnt NUMBER DEFAULT 0 NOT NULL,
-//C_isolClearCnt NUMBER DEFAULT 0 NOT NULL,
-//C_incDec NUMBER DEFAULT 0 NOT NULL,
-//C_deathcnt NUMBER DEFAULT 0 NOT NULL,
-//C_qurRate NUMBER DEFAULT 0 NOT NULL,
-//C_createDt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
 public class CoronaMap {
 	private int c_id;
 	private String c_name;

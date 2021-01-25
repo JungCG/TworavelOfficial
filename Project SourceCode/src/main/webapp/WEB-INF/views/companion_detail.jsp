@@ -1,3 +1,5 @@
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="com.kh.tworavel.model.domain.Companion"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -10,7 +12,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>동행 구하기</title>
 <style>
 * {
 	padding: 0;
@@ -152,6 +154,10 @@ td {
 	margin-top: 10px;
 }
 
+#kdy-companion-description *{
+	word-break: break-all;
+}
+
 #kdy-companion-description-p {
 	font-size: 16px;
 	font-weight: bold;
@@ -268,7 +274,7 @@ table>tr {
 		<jsp:include page="header.jsp" />
 		<div id="kdy-wrap">
 			<section>
-				<div style="width: 1000px; padding-left: 90px;">
+				<div style="width: 910px; padding-left: 90px;">
 					<div id="kdy-companion-wrap">
 						<div id="kdy-companion-title" style="padding-top: 20px;">${clist.c_name}</div>
 
@@ -290,18 +296,25 @@ table>tr {
 						<table id="kdy-companion-content">
 							<tr id="kdy-companion-content-tr">
 								<td>&nbsp;&nbsp;1인당 경비</td>
-								<td colspan="3">${clist.c_value}</td>
+								<%
+								Companion comp = (Companion) request.getAttribute("clist");
+								int cost = comp.getC_value();
+								DecimalFormat df =new DecimalFormat("#,### 원");
+								String Kcost = df.format(cost);
+								pageContext.setAttribute("KKcost", Kcost);
+								%>
+								<td colspan="3">${KKcost}&nbsp;</td>
 							</tr>
 							<tr id="kdy-companion-content-tr">
 								<td>&nbsp;&nbsp;총인원</td>
-								<td colspan="3">${clist.c_many}</td>
+								<td colspan="3">${clist.c_many}&nbsp;명</td>
 							</tr>
 							<tr id="kdy-companion-content-tr">
 								<td>&nbsp;&nbsp;여행 시작일</td>
 								<td colspan="3">${clist.c_startd}</td>
 							</tr>
 							<tr>
-								<td>&nbsp;&nbsp;여행 마감일</td>
+								<td>&nbsp;&nbsp;여행 종료일</td>
 								<td colspan="3">${clist.c_endd}</td>
 							</tr>
 							<tr>
@@ -309,7 +322,6 @@ table>tr {
 								<td>지역&nbsp;&nbsp;&nbsp;&nbsp;${tlist1}</td>
 								<td>인원&nbsp;&nbsp;&nbsp;&nbsp;${tlist2}</td>
 								<td>성향&nbsp;&nbsp;&nbsp;&nbsp;${tlist3}</td>
-
 							</tr>
 						</table>
 						<hr class="hrinout">
@@ -339,7 +351,7 @@ table>tr {
 							</div>
 						</div>
 						<c:choose>
-							<c:when test="${clist.m_id ne userID && not empty userID}">
+							<c:when test="${clist.m_id ne userID && not empty userID && clist.c_dealstatus eq 'N'}">
 								<div id="csub">
 									<form action="companion_insertInfo.do" method="post"
 										id="csub_form" name="csub_form">
@@ -368,7 +380,7 @@ table>tr {
 									aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 								</button>
-								<h4 class="modal-title">${blist.m_id }님의프로필</h4>
+								<h4 class="modal-title">${clist.m_id }님의프로필</h4>
 							</div>
 							<div class="modal-body">
 
@@ -596,9 +608,14 @@ $(document).on("click", "#ICR_ReportBtn2", function(event){
 $(function(){
 	$("#csub_btn").click(function(){
 		var user_id = "${userID}";
+		var cnt = "${cnt}";
 		if (user_id == "null" || user_id == "") {
 			alert("동행 신청 하시려면 로그인을 해야됩니다");
 		} else {
+			if(cnt != 0){
+				alert("이미 동행을 신청하셨습니다.");
+				return;
+			}
 			$.ajax({
 				url : "companion_insertInfo_check.do",
 				data : {
@@ -606,20 +623,7 @@ $(function(){
 				},
 				success : function(res) {
 					if (res >= 20) {
-						alert("동행신청에 성공하셨습니다.");
-							//$("#csub_form").submit(); 이거 한줄로 됨 그걸 이리 길게 쓴 나는 bbddg다.
-							$(document).ready(function()
-									{
-									    var f = $('#csub_form');
-									    var action = f.attr('action');
-									    var serializedForm = f.serialize();
-									    $.post
-									    (
-									        action,
-									        serializedForm,
-									        function(){}
-									    );
-									});
+							$("#csub_form").submit();
 					} else {
 						alert("동행신청에 실패 하셨습니다. 포인트가 부족합니다.");
 					}

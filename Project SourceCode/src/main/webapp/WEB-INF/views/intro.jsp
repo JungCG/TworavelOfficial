@@ -225,7 +225,7 @@ p {
 					</div>
 					<br>
 					<div
-						style="width: 1000px; height: 650px; margin: 0 auto; position: relative; padding-top: 10px;">
+						style="width: 1000px; height: 650px; margin: 60px auto; position: relative; padding-top: 10px;">
 						<div
 							style="z-index: 5; width: 1000px; height: 200px; position: absolute; top: 100px; text-align: center;">
 							<span
@@ -380,9 +380,8 @@ p {
 									<div class="part_dropdown">
 										View Details
 										<div class="part_dropdown_content">
-											<span class="dPart">#Gallery #Point</span>
-											<span class="dPart">#Intro #Bootstrap</span>
-											<span class="dPart">#File-Upload #Like</span>
+											<span class="dPart">#Gallery #Point #Bootstrap #Intro</span>
+											<span class="dPart"> #File-Upload #Like</span>
 										</div>
 									</div>
 								</div>

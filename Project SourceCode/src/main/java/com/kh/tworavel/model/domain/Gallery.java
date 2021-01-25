@@ -2,14 +2,6 @@ package com.kh.tworavel.model.domain;
 
 import org.springframework.stereotype.Component;
 
-//Name      Null?    Type          
-//--------- -------- ------------- 
-//G_ID      NOT NULL NUMBER        
-//M_ID      NOT NULL VARCHAR2(500) 
-//G_LIKE    NOT NULL NUMBER        
-//G_CONTENT          VARCHAR2(500) 
-//G_VIEW    NOT NULL NUMBER  
-
 @Component
 public class Gallery implements java.io.Serializable {
 	private static final long serialVersionUID = 20001L;

@@ -3,15 +3,7 @@ package com.kh.tworavel.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Properties;
 
-import javax.mail.Address;
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -27,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.tworavel.common.Gmail;
 import com.kh.tworavel.common.RandomPassword;
 import com.kh.tworavel.common.SHA256;
 import com.kh.tworavel.common.VillageWeatherParsing;

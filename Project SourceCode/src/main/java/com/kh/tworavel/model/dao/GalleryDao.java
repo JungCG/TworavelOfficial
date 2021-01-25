@@ -16,13 +16,6 @@ public class GalleryDao {
 	@Autowired
 	private SqlSession sqlSession;
 
-	// public List<Gallery> selectList(int startPage,int limit,String type){ // 특정
-	// 페이지 단위의 게시글 조회
-	// int startRow = (startPage-1)*limit;
-	// RowBounds row = new RowBounds(startRow, limit);
-	// return sqlSession.selectList("Gallery.selectList",type,row);
-	// }
-
 	public int listCount() { // 전체 글 수 조회
 		return sqlSession.selectOne("Gallery.listCount");
 	}

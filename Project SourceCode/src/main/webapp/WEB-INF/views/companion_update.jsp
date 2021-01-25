@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/jck_main.css">
@@ -10,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>동행 구하기</title>
 <style>
 * {
 	padding: 0;
@@ -204,18 +203,15 @@ input[type='radio']:checked:after {
 
 					<tr style="height: 30px">
 						<td>출발 날짜</td>
-						<td style="width: 85%;" colspan="3"><fmt:parseDate
-								var="Sdate" value="${clist.c_startd}" pattern="yyyy-MM-dd" /> <input
+						<td style="width: 85%;" colspan="3"><input
 							type="date" name="c_startd" id="kdy-startd-input"
-							value=<fmt:formatDate value="${Sdate}" pattern="yyyy-MM-dd" />></td>
+							value="${clist.c_startd}"></td>
 					</tr>
 					<tr style="height: 30px">
 						<td>도착 날짜</td>
-						<td style="width: 85%;" colspan="3"><fmt:parseDate
-								var="Edate" value="${clist.c_endd}"
-								pattern="yyyy-MM-dd HH:mm:ss" /> <input type="date"
+						<td style="width: 85%;" colspan="3"><input type="date"
 							name="c_endd" id="kdy-endd-input"
-							value=<fmt:formatDate value="${Edate}" pattern="yyyy-MM-dd" />
+							value="${clist.c_endd}"
 							required="required"></td>
 					</tr>
 <tr>
@@ -283,18 +279,7 @@ input[type='radio']:checked:after {
 		<jsp:include page="footer.jsp" />
 	</div>
 	<script type="text/javascript"> 
-/*    $(function(){
-         var a = <fmt:parseDate var="Sdate" value="${clist.c_startd}"
-            pattern="yyyy-MM-dd HH:mm:ss" />
-               <fmt:formatDate value="${Sdate}" pattern="yyyy-MM-dd" />;
-         var b = <fmt:parseDate var="Edate" value="${clist.c_endd}"
-            pattern="yyyy-MM-dd HH:mm:ss" />
-               <fmt:formatDate value="${Edate}" pattern="yyyy-MM-dd" />;
-         
-         $("#kdy-startd-input").val(a);
-         $("#kdy-endd-input").val(b);
-      
-   }) */
+
    
 var oEditors = [];
 nhn.husky.EZCreator.createInIFrame({
@@ -671,7 +656,12 @@ $("#meetdel").click(function(){
 		today = yyyy + '-' + mm + '-' + dd;
 		document.getElementById("kdy-startd-input").setAttribute("min", today);
 		document.getElementById("kdy-endd-input").setAttribute("min", today);
-
+		
+		$('#kdy-startd-input').change(function(){
+			document.getElementById("kdy-endd-input").value=document.getElementById("kdy-startd-input").value; 
+			document.getElementById("kdy-endd-input").setAttribute("min", document.getElementById("kdy-startd-input").value);
+		});
+		
 		//지정날짜로 인풋에 입력
 		//document.getElementById('kdy-startd-input').value = new Date().toISOString().substring(0, 10);
 	</script>

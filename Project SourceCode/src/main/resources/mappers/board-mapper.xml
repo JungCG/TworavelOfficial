@@ -181,7 +181,7 @@ delete board where b_ref = #{b_id} and b_re_step =#{b_re_step}
 	
 	<!-- 작성한 동행게시판 글 조회 -->
 	<select id="My_selectBoardlist" parameterType="string" resultMap="resultBoard" flushCache="true" statementType="PREPARED">
-	select * from board where m_id = #{m_id} order by b_timestamp desc
+	select * from board where m_id = #{m_id} and b_re_step = 0 and b_re_level=0 order by b_timestamp desc
 	</select>
 	
 	<!-- 좋아요한 글 갯수 조회 -->

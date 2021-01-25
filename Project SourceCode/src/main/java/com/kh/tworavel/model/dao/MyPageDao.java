@@ -60,6 +60,10 @@ public class MyPageDao {
 	public List<CompanionInfo> selectCompanioninfo2(String m_id) {
 		return sqlSession.selectList("Companioninfo.My_selectCompanioninfo2", m_id);
 	}
+	public int jcg_dup_check(CompanionInfo companioninfo) {
+		return sqlSession.selectOne("Companioninfo.jcg_dup_check", companioninfo);
+	}
+	
 	//회원탈퇴(Out table update)
 	public int outMember(String m_id) {
 		return sqlSession.update("Out.My_updateOutMember", m_id);

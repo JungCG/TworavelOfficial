@@ -22,7 +22,7 @@
 	    from companioninfo c left join chatjoin h
 	        on c.m_id = h.m_id and c.c_id = h.c_id
                 where c.m_id2 = #{m_id}
-                    order by c.c_id
+                    order by c.c_id, c.m_id
 	</select>
 	
 	<!-- 동행 수락 -->
@@ -30,6 +30,8 @@
 	update companioninfo set c_yn = 'Y' where c_id = #{c_id} and m_id = #{m_id}
 	</update>
 	
-
+	<select id = "jcg_dup_check" parameterType="Companioninfo" resultType="int" flushCache="true" statementType="PREPARED">
+		select count(*) cnt from companioninfo where c_id = #{c_id} and m_id = #{m_id}
+	</select>
 
 </mapper>

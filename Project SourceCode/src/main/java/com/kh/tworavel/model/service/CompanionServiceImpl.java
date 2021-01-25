@@ -12,19 +12,14 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.kh.tworavel.common.Gmail;
-import com.kh.tworavel.common.SHA256;
 import com.kh.tworavel.model.dao.CompanionDao;
-import com.kh.tworavel.model.domain.Board;
 import com.kh.tworavel.model.domain.Companion;
-import com.kh.tworavel.model.domain.CompanionAdd;
 import com.kh.tworavel.model.domain.CompanionInfo;
-import com.kh.tworavel.model.domain.CompanionLike;
 import com.kh.tworavel.model.domain.CompanionMap;
 import com.kh.tworavel.model.domain.CompanionTag;
 
@@ -239,7 +234,7 @@ public class CompanionServiceImpl implements CompanionService {
 	@Override
 	@Async
 	public void favorEmailSend(String m_id, String m_email, Companion comp) {
-		String host = "http://54.180.223.230:8090/";
+		String host = "http://www.two-ravel.com/";
 		// 개인 이메일 작성
 		String from = "nothing1360@gmail.com";
 

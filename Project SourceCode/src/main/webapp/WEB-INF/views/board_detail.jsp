@@ -81,9 +81,12 @@ section {
 #gjw-board-content {
 	border-top: 1px solid #00000017;
 	padding-top: 40px;
-	padding-left: 20px;
 	border-bottom: 1px solid #00000017;
 	padding-bottom: 40px;
+}
+
+#gjw-board-content *{
+	word-break: break-all;
 }
 
 #gjw-comment-div {
@@ -355,6 +358,17 @@ section {
 	}
 }
 						
+textarea * {
+	word-break: break-all;
+}
+
+#gjw-board-content img{
+	width : 800px;
+}
+
+#gjw-b_like-btn{
+	width : auto;
+}
 						
 </style>
 <script
@@ -417,7 +431,7 @@ section {
 									<div style="display: flex; justify-content: center;">
 										<img
 											src="${pageContext.request.contextPath }/resources/images/b_like.png"
-											style="height: 40px;" id="gjw-b_like-btn">
+											style="height: 40px; width : 40px;" id="gjw-b_like-btn">
 									</div>
 								</div>
 							</div>
@@ -449,7 +463,7 @@ section {
 												${cvo.m_id }</div>
 											<div class="gjw-comment-cl" id="gjw-comment-content">
 												<textarea rows="1" id="Ad" resize="none"
-													class="gjw-comment-textarea" readonly="readonly">${cvo.b_content }</textarea>
+													class="gjw-comment-textarea" readonly="readonly" style=" word-break: break-all;">${cvo.b_content }</textarea>
 											</div>
 											<div>
 												<div class="gjw-comment-cl" id="gjw-comment-date">

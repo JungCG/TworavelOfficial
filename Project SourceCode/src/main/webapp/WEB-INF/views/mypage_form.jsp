@@ -257,7 +257,7 @@ function showUnread2(result){
 				<br><p>좋아요한 글</p>
 			</div>
 			<div class="ICR_myicon">
-				<a href="${pageContext.request.contextPath}" title="메인페이지">
+				<a href="MainPage.do" title="메인페이지">
 				<img class="ICR_my_img" src="${pageContext.request.contextPath}/resources/images/home.png"></a>
 				<p>메인페이지</p>
 			</div>

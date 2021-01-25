@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>갤러리</title>
 <style>
 * {
 	padding: 0;
@@ -236,10 +236,6 @@ height : 500px;
 								alt=""/></li>
 
 						</ul>
-						<a class="slide-button button-prev" data-nav="prev"><img
-							src="https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-left-01-256.png" />
-						</a> <a class="slide-button button-next" data-nav="next"><img
-							src="https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-right-01-512.png" /></a>
 
 					</div>
 
@@ -277,7 +273,7 @@ height : 500px;
 									</div>
 
 
-									<div
+									<div class="delbbtjck"
 										style="margin-left: 10px; border-radius: 10px; border: 3px solid #6495ed6b;">
 										<button id="bbt2"
 											style="border: 0; border-radius: 10px; width: 100%; height: 100%; padding: 6px; color: #0ac5a8; background-color: #ffffff; cursor: pointer;">수정</button>
@@ -285,7 +281,7 @@ height : 500px;
 										<%-- <a class="yjh_btn_useronly"
 											href="gallery_renew.do?gallery_num=${gallery.g_id }">수정</a> --%>
 									</div>
-									<div
+									<div class="delbbtjck"
 										style="margin-left: 10px; border-radius: 10px; border: 3px solid #6495ed6b;">
 										<button id="bbt3"
 											style="border: 0; border-radius: 10px; width: 100%; height: 100%; padding: 6px; color: #0ac5a8; background-color: #ffffff; cursor: pointer;">삭제</button>
@@ -559,11 +555,9 @@ $(document).on("click", "#ICR_ReportBtn2", function(event){
 	/*<!-- 글쓰기 버튼 유무  -->/  */
 			if ("${sessionScope.userID}" != "") {
 				if ("${sessionScope.userID}" == "${gallery.m_id }") {
-					$('#yjh_writeBtn').css('display', 'block');
-					$('.yjh_btn_useronly').css('display', 'block');
+					$('.delbbtjck').css('display', 'block');
 				} else {
-					$('#yjh_writeBtn').css('display', 'none');
-					$('.yjh_btn_useronly').css('display', 'none');
+					$('.delbbtjck').css('display', 'none');
 				}
 
 				if ("${glikeCount}" != "0") {
@@ -574,8 +568,7 @@ $(document).on("click", "#ICR_ReportBtn2", function(event){
 					$('#YJH_Glike_N').css('display', 'none');
 				}
 			} else {
-				$('#yjh_writeBtn').css('display', 'none');
-				$('.yjh_btn_useronly').css('display', 'none');
+					$('.delbbtjck').css('display', 'none');
 				$('#YJH_Glike_Y').css('display', 'none');
 				$('#YJH_Glike_N').css('display', 'none');
 
