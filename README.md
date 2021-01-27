@@ -13,7 +13,7 @@
 
 ## Presentation and Testing Video
 - **Youtube**:
-    - [**시연 영상**].
+    - [**시연 영상**](https://youtu.be/PcQtvklFjXo) [![Youtube Badge](https://img.shields.io/badge/Youtube-ff0000?style=flat-square&logo=youtube&link=https://youtu.be/PcQtvklFjXo)](https://youtu.be/PcQtvklFjXo)
 
 -----------------
 
