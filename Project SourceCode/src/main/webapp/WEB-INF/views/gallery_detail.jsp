@@ -236,6 +236,10 @@ height : 500px;
 								alt=""/></li>
 
 						</ul>
+						<a style="display:none;" class="slide-button button-prev" data-nav="prev"><img
+						src="https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-left-01-256.png" />
+					</a> <a style="display:none;" class="slide-button button-next" data-nav="next"><img
+						src="https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-right-01-512.png" /></a>
 
 					</div>
 
@@ -255,10 +259,10 @@ height : 500px;
 									${gallery.g_like }
 								</div>
 								<div style="margin-left: 10px;">
-									<button style="border: 0; outline: 0; background: none;">
-										<a href="#" onclick="copy_trackback(); return false;"> <img
+									<button onclick="copy_trackback2(); return false;" style="border: 0; outline: 0; background: none;">
+										<img
 											style="width: 35px; height: 35px;"
-											src="${pageContext.request.contextPath }/resources/images/share.png"></a>
+											src="${pageContext.request.contextPath }/resources/images/share.png">
 									</button>
 								</div>
 							</div>
@@ -577,7 +581,7 @@ $(document).on("click", "#ICR_ReportBtn2", function(event){
 
 	<script>
 			//상품 페이지 공유 버튼 
-			function copy_trackback() {
+			function copy_trackback2() {
 				var address = window.document.location.href;
 				$('#clip_tmp').val(address);
 				$('#clip_tmp').select();

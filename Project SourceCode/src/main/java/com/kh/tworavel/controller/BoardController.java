@@ -191,7 +191,6 @@ public class BoardController {
 			 mv.addObject("url","/board_list.do");
 			 mv.setViewName("alertMsg");
 			return mv;
-			
 		}
 		 mv.addObject("msg","글작성에 성공하였습니다. 10포인트가 적립되었습니다");
 		 mv.addObject("url","/board_list.do");

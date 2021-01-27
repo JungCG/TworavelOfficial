@@ -151,7 +151,7 @@ select A.*, B.c from (select * from (select d.* from(select* from board where b_
 		update board set b_content
 		=#{b_content},b_title =#{b_title},B_SECRET
 		=#{b_secret},B_SECRETNUMBER
-		=#{b_secretnumber} where b_id =#{b_id}
+		=#{b_secretnumber}, b_type=#{b_type} where b_id =#{b_id}
 	</update>
 	<update id="addReadCount" parameterType="int" statementType="PREPARED" flushCache="true">
 	update board set b_view =b_view+1 where b_id =#{b_id}

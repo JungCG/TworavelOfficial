@@ -234,9 +234,9 @@ public class CompanionServiceImpl implements CompanionService {
 	@Override
 	@Async
 	public void favorEmailSend(String m_id, String m_email, Companion comp) {
-		String host = "http://www.two-ravel.com/";
+		String host = "http://IPv4주소또는도메인/";
 		// 개인 이메일 작성
-		String from = "nothing1360@gmail.com";
+		String from = "보내는사람이메일주소";
 
 		String to = m_email;
 		String subject = "[TwoRavel] 회원님의 여행 성향과 일치하는 동행 글이 올라왔습니다.";

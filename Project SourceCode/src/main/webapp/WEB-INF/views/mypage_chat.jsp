@@ -231,7 +231,7 @@ $(".person").on("click", function () {
 		            return;
 		        }
     			var c_id = ${c_id};
-    			ws = new WebSocket("ws://www.two-ravel.com/echo.do/" + c_id);
+    			ws = new WebSocket("ws://IPv4주소또는도메인/echo.do/" + c_id);
 		        ws.onopen = function(event){
 		            if(event.data === undefined){
 		          		return;

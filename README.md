@@ -13,7 +13,7 @@
 
 ## Presentation and Testing Video
 - **Youtube**:
-    - [**Presentation**] Not Yet.
+    - [**시연 영상**].
 
 -----------------
 

@@ -123,9 +123,9 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	@Async
 	public void joinEmailSend(String m_id, String Tto) throws InterruptedException {
-		String host = "http://www.two-ravel.com/";
+		String host = "http://IPv4주소또는도메인/";
 		// 개인 이메일 작성
-		String from = "nothing1360@gmail.com";
+		String from = "보내는사람이메일주소";
 
 		String to = Tto;
 		String subject = "[TwoRavel] 계정 활성화를 위한 이메일 확인 메일입니다.";
@@ -170,11 +170,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	@Async
 	public void searchEmailSend(Member m) throws InterruptedException {
-		String host = "http://www.two-ravel.com/";
+		String host = "http://IPv4주소또는도메인/";
 		// 개인 이메일 작성
 		Member m2 = m;
 
-		String from = "nothing1360@gmail.com";
+		String from = "보내는사람이메일주소";
 		String to = m2.getM_email();
 		String subject = "[TwoRavel] 임시 비밀번호가 담긴 메일입니다.";
 
@@ -219,9 +219,9 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	@Async
 	public void outEmailSend(String Tto, Out vo) throws InterruptedException {
-		String host = "http://www.two-ravel.com/";
+		String host = "http://IPv4주소또는도메인/";
 		// 개인 이메일 작성
-		String from = "nothing1360@gmail.com";
+		String from = "보내는사람이메일주소";
 
 		String to = Tto;
 		String subject = "[TwoRavel] 탈퇴 처리 안내입니다.";
@@ -268,9 +268,9 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	@Async
 	public void deleteCompanionEmailSend(Companion comp, Member m) throws InterruptedException {
-		String host = "http://www.two-ravel.com/";
+		String host = "http://IPv4주소또는도메인/";
 		// 개인 이메일 작성
-		String from = "nothing1360@gmail.com";
+		String from = "보내는사람이메일주소";
 
 		String to = m.getM_email();
 		String subject = "[TwoRavel] 회원님의 동행 게시글이 관리자에 의해 삭제되었습니다.";
