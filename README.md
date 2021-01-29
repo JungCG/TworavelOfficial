@@ -66,7 +66,7 @@
 
 
 ## Main Function
-- **Detailed** : can be found in <a href="http://potato-market.com" target="_blank">our Website</a>.
+- **Detailed** : can be found in <a href="http://two-ravel.com" target="_blank">our Website</a>.
 
 1. **카카오맵과 공공데이터를 이용한 여행 지도, 코로나 지도**
 <p align="center">
